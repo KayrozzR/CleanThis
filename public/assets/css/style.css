@@ -1,0 +1,31 @@
+.RGPD {
+    margin: 10px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+ 
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .btn-google {
+    color: white !important;
+    background-color: #ea4335;
+  }
+
+  .btn-facebook {
+    color: white !important;
+    background-color: #3b5998;
+  }
