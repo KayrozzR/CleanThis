@@ -5,13 +5,13 @@
 {% block body %}
   <section class="home">
     <div class="text">
-    
+     
     <h1>Create new User</h1>
 
-    {{ include('user/_form.html.twig') }}
+    {{ include('customer/_form.html.twig') }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-  </div>
-   </section>   
+    <a href="{{ path('app_customer_index') }}">back to list</a>
+    
+    </div>
+   </section>
 {% endblock %}

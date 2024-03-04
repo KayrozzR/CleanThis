@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/admin.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Dashboard Sidebar Menu | Dark-Light Mode</title> 
+</head>
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo">
+                </span>
+                <div class="text header-text">
+                    <span class="name">CleanThis</span>
+                    <span class="profession"></span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-home icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-user-circle icon'></i>
+                            <span class="text nav-text">Mon profil</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-folder-open icon'></i>
+                            <span class="text nav-text">Opérations</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{{ path('app_customer_index') }}">
+                            <i class='bx bxs-user-detail icon'></i>
+                            <span class="text nav-text">Nos clients</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-briefcase-alt icon'></i>
+                            <span class="text nav-text">Nos services</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{{ path('app_user_index') }}">
+                            <i class='bx bxl-microsoft-teams icon'></i>
+                            <span class="text nav-text">Mon équipe</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="{{ path('auth_oauth_logout') }} ">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Déconnexion</span>
+                    </a>
+                </li>
+
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark Mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    {# <section class="home">
+        <div class="text">Dashboard</div>
+    </section> #}
+    
+</body>
+</html>

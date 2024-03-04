@@ -18,14 +18,12 @@
 		<!-- Fichiers JS -->
 		<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
 		{% block javascripts %}<script src="{{ asset('js/script.js') }}" defer></script>{% endblock %}
-		<script src="{{ asset('js/script.js') }}" defer></script>
 		
 		
 	</head>
 	<body class = "dark">
-		{% include "_partials/_sidebar.html.twig" %}
+		{% include "_partials/_nav.html.twig" %}
 
-		
 		{# {% if app.user and app.user.isVerified == false %}
 			<div class="alert alert-warning alert-dismissible" role="alert">
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -39,7 +37,7 @@
 		{% include "_partials/_flash.html.twig" %}
 		{% block body %}{% endblock %}
 
-		{# {% include "_partials/_footer.html.twig" %} #}
+		{% include "_partials/_footer.html.twig" %}
 	</body>
 </html>
 

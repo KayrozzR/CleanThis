@@ -5,7 +5,7 @@
 {% block body %}
   <section class="home">
     <div class="text">
-   
+    
     <h1>User</h1>
 
     <table class="table">
@@ -47,10 +47,6 @@
                 <td>{{ user.tel }}</td>
             </tr>
             <tr>
-                <th>Created_at</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Operations_finalisee</th>
                 <td>{{ user.operationsFinalisee }}</td>
             </tr>
@@ -58,15 +54,19 @@
                 <th>Address</th>
                 <td>{{ user.address }}</td>
             </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+    <a href="{{ path('app_customer_index') }}">back to list</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('app_customer_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('user/_delete_form.html.twig') }}
-
-      </div>
-   </section>
+    {{ include('customer/_delete_form.html.twig') }}
+    
+    </div>
+   </section> 
 {% endblock %}
