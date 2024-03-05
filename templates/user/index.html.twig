@@ -61,7 +61,7 @@
                 </td>        
                 {# <td>{{ user.password }}</td> #}
                 {# <td>{{ user.googleId }}</td> #}
-                <td><img src="{{ user.avatar}}" style="5em"</td>
+                <td><img src="{{ user.avatar}}" style="height: 50px; border-radius:6px; margin-left: 6px;"</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.tel }}</td>
@@ -72,6 +72,9 @@
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <button class="btn btn-danger deleteBtn" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
+							Remove
+					</button>
                 </td>
             </tr>
         {% else %}
@@ -92,4 +95,39 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+$(document).ready(function() {
+    $('.table').off('click', '.deleteBtn').on('click', '.deleteBtn', function(e) {
+        e.preventDefault();
+        var userId = this.id.replace('delete', '');
+        var csrfToken = $(this).data('csrf-token');
+        
+        if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+            $.ajax({
+                url: '/admin/customer/' + userId,
+                type: 'POST',
+                data: {
+                    '_token': csrfToken,
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert("Utilisateur supprimé avec succès");
+                        $('#delete' + userId).closest('tr').remove();
+                        
+                    location.reload();
+                       
+                    } else {
+                        alert("La suppression a échoué");
+                    }
+                },
+                error: function() {
+                    alert("Une erreur s'est produite");
+                }
+            });
+        }
+    });
+});
+	</script>
+
 {% endblock %}
