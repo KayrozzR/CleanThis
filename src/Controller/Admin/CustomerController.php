@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
+#[Route('/admin/customer')]
 class CustomerController extends AbstractController
 {
-    #[Route('/admin/customer', name: 'app_customer_index', methods: ['GET'])]
+    #[Route('/', name: 'app_customer_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
          // Récupérer uniquement les utilisateurs ayant le rôle 'ROLE_CLIENT'

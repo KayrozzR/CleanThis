@@ -1,72 +1,126 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Hello HomeController!
+{% endblock %}
 
 {% block body %}
-  <section class="home">
-    <div class="text">
-   
-    <h1>User</h1>
+	<section>
+		<div class="container" style="padding-top: 100px; margin-left: 300px">
+			<div>
+				<div class="row gutters-sm">
+					<div class="col-md-4 mb-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex flex-column align-items-center text-center">
+									<h4>{{user.lastname}}
+										{{user.firstname}}</h4>
+									<img src="{{ user.avatar}}" style="height: 100px; border-radius: 6px; margin-left: 5px">
+                                    
+									<div class="mt-3">
+										<p class="text-secondary mb-1">Employé depuis le :</p>
+										<p class="text-muted font-size-sm">{{ app.user.createdAt ? app.user.createdAt|date('d-m-Y') : '' }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="card mb-3">
+							<div class="card-body">
+                                <div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">ID</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{user.id}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Nom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{user.lastname}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Prenom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{user.firstname}}
+									</div>
+								</div>
+								<hr>
+                                 <div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Téléphone</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{user.tel}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Email</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{user.email}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Address</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{user.address}}
+									</div>
+								</div>
+								<hr>
+                                 <div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Rôle</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+									{% for role in user.roles %}
+							            {% if role == "ROLE_ADMIN" %}
+								            {% set name = "Administrateur" %}
+								            {% set color = "danger" %}
+                                        {% elseif  role == "ROLE_SENIOR"%}
+                                            {% set name = "Senior" %}
+                                            {% set color = "warning" %}
+                                        {% elseif  role == "ROLE_APPRENTI"%}
+                                            {% set name = "Apprenti" %}
+                                            {% set color = "primary" %}    
+                                        {% elseif  role == "ROLE_CLIENT"%}
+                                            {% set name = "Client" %}
+                                            {% set color = "secondary" %}       
+							            {% else %}
+								            {% set name = "Membre" %}
+								            {% set color = "success" %}
+							            {% endif %}
+							        <span class="badge bg-{{ color }}">{{ name }}</span>
+						            {% endfor %}
+								   </div>
+								</div>
+								<hr>
+								<div class="row">
+									<div
+										class="col-sm-12">{# <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a> #}
+									</div>
+								</div>
+							</div>
+						</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Google_id</th>
-                <td>{{ user.googleId }}</td>
-            </tr>
-            <tr>
-                <th>Avatar</th>
-                <td>{{ user.avatar }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Tel</th>
-                <td>{{ user.tel }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Operations_finalisee</th>
-                <td>{{ user.operationsFinalisee }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ user.address }}</td>
-            </tr>
-        </tbody>
-    </table>
+					</div>
+				</div>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
-
-      </div>
-   </section>
-{% endblock %}
+			</div>
+        <a href="{{ path('app_user_index') }}" class= "retour">← back to list</a>
+		</div>
+	</div>
+</section>{% endblock %}

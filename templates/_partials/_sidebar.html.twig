@@ -12,7 +12,7 @@
     <title>Dashboard Sidebar Menu | Dark-Light Mode</title> 
 </head>
 <body>
-    <nav class="sidebar close">
+    <nav class="sidebar">
         <header>
             <div class="image-text">
                 <span class="image">
@@ -30,12 +30,14 @@
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-home icon'></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
+                 {% endif %}
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-user-circle icon'></i>
@@ -60,12 +62,14 @@
                             <span class="text nav-text">Nos services</span>
                         </a>
                     </li>
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-link">
                         <a href="{{ path('app_user_index') }}">
                             <i class='bx bxl-microsoft-teams icon'></i>
                             <span class="text nav-text">Mon équipe</span>
                         </a>
                     </li>
+                {% endif %}
                 </ul>
             </div>
 
@@ -76,7 +80,6 @@
                         <span class="text nav-text">Déconnexion</span>
                     </a>
                 </li>
-
                 <li class="mode">
                     <div class="moon-sun">
                         <i class='bx bx-moon icon moon'></i>

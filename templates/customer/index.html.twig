@@ -10,23 +10,18 @@
   <section class="home">
     <div class="text">
    
-    <h1>User index</h1>
+    <h1>Nos clients</h1>
 
+ {# <a class= "createClient" href="{{ path('app_customer_new') }}">Créer un client</a> #}
     <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
         <thead>
             <tr>
-                <th data-sortable="true" data-field="id">Id</th>
-                <th data-sortable="true" data-field="email">Email</th>
-                <th data-sortable="true" data-field="roles">Roles</th>
-                {# <th data-sortable="true">Password</th>
-                <th data-sortable="true">Google_id</th> #}
-                <th>Avatar</th>
-                <th data-sortable="true" data-field="lastname">Lastname</th>
-                <th data-sortable="true" data-field="firstname">Firstname</th>
-                <th>Tel</th>
-                <th data-sortable="true" data-field="created_at">Created_at</th>
-                <th data-sortable="true" data-field="address">Address</th>
-                <th data-sortable="true" data-field="operation_finalisee">Operations_finalisee</th>
+                <th data-sortable="true" data-field="id" class="light-weight">Id</th>
+                <th data-sortable="true" data-field="email" class="light-weight">Email</th>
+                <th data-sortable="true" data-field="lastname" class="light-weight">Lastname</th>
+                <th data-sortable="true" data-field="firstname" class="light-weight">Firstname</th>
+                <th class="light-weight">Tel</th>
+                <th data-sortable="true" data-field="address" class="light-weight">Address</th>
                 
                 <th>actions</th>
             </tr>
@@ -36,41 +31,13 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
-                <td>
-                {% for role in user.roles %}
-							{% if role == "ROLE_ADMIN" %}
-								{% set name = "Administrateur" %}
-								{% set color = "danger" %}
-                            {% elseif  role == "ROLE_SENIOR"%}
-                                {% set name = "Senior" %}
-                                {% set color = "warning" %}
-                            {% elseif  role == "ROLE_APPRENTI"%}
-                                {% set name = "Apprenti" %}
-                                {% set color = "primary" %} 
-                            {% elseif  role == "ROLE_CLIENT"%}
-                                {% set name = "Client" %}
-                                {% set color = "secondary" %}           
-							{% else %}
-								{% set name = "Membre" %}
-								{% set color = "success" %}
-							{% endif %}
-							<span class="badge bg-{{ color }}">{{ name }}</span>
-						{% endfor %}
-                </td>        
-                {# <td>{{ user.password }}</td> #}
-                {# <td>{{ user.googleId }}</td> #}
-                <td><img src="{{ user.avatar}}" style="5em"</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.tel }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.address }}</td>
-                <td>{{ user.operationsFinalisee }}</td>
-                
                 <td>
-                    <a href="{{ path('app_customer_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_customer_edit', {'id': user.id}) }}">edit</a>
+                   <a href="{{ path('app_user_show', {'id': user.id}) }}" class ="actionsButtons1">Voir détail</a>
+                   <a href="{{ path('app_user_edit', {'id': user.id}) }}" class ="actionsButtons2">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -81,8 +48,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_customer_new') }}">Create new</a>
-
        </div>
   </section>
 {% endblock %}
@@ -91,4 +56,20 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+    $('.search input').attr('placeholder', 'Rechercher');
+    $('.search input').addClass('form-control pr-5');
+    $('.search').addClass('position-relative');
+
+    $('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
+    $('.search input').keydown(function(event) {
+        if (event.keyCode === 13) { 
+            $('#searchIcon').hide();
+        }
+    });
+});
+
+    </script>
 {% endblock %}
