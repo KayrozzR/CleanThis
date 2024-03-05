@@ -98,14 +98,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
 $(document).ready(function() {
-    $('.deleteBtn').click(function(e) {
+    $('.table').off('click', '.deleteBtn').on('click', '.deleteBtn', function(e) {
         e.preventDefault();
         var userId = this.id.replace('delete', '');
         var csrfToken = $(this).data('csrf-token');
         
         if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
             $.ajax({
-                url: '/admin/employee/' + userId,
+                url: '/admin/customer/' + userId,
                 type: 'POST',
                 data: {
                     '_token': csrfToken,
@@ -114,6 +114,9 @@ $(document).ready(function() {
                     if (response.success) {
                         alert("Utilisateur supprimé avec succès");
                         $('#delete' + userId).closest('tr').remove();
+                        
+                    location.reload();
+                       
                     } else {
                         alert("La suppression a échoué");
                     }
