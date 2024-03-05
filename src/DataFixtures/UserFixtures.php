@@ -41,9 +41,41 @@ class UserFixtures extends Fixture
             $user->setPassword(
                 $this->passwordEncoder->hashPassword($user, 'test')
             );
+            $user->setRoles(['ROLE_CLIENT']);
 
             $manager->persist($user);
         }
+
+        for ($usr = 1; $usr <= 10; $usr++) {
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setLastname($faker->lastName);
+            $user->setFirstname($faker->firstName);
+            $user->setTel(str_replace(' ', '', $faker->mobileNumber));
+            $user->setAddress($faker->streetAddress);
+            $user->setPassword(
+                $this->passwordEncoder->hashPassword($user, 'test')
+            );
+            $user->setRoles(['ROLE_APPRENTI']);
+
+            $manager->persist($user);
+        }
+
+        for ($usr = 1; $usr <= 5; $usr++) {
+            $user = new User();
+            $user->setEmail($faker->email);
+            $user->setLastname($faker->lastName);
+            $user->setFirstname($faker->firstName);
+            $user->setTel(str_replace(' ', '', $faker->mobileNumber));
+            $user->setAddress($faker->streetAddress);
+            $user->setPassword(
+                $this->passwordEncoder->hashPassword($user, 'test')
+            );
+            $user->setRoles(['ROLE_SENIOR']);
+
+            $manager->persist($user);
+        }
+
 
         $manager->flush();
     }
