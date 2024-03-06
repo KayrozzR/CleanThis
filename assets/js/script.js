@@ -1,4 +1,3 @@
-console.log("salut");
 const body = document.querySelector("body"),
         sidebar = body.querySelector(".sidebar"),
         toggle = body.querySelector(".toggle"),
@@ -18,4 +17,5 @@ const body = document.querySelector("body"),
             }else{
                 modeText.innerText = "Dark Mode"
             }
+            
         });

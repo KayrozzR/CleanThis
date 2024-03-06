@@ -4,36 +4,78 @@
 {% endblock %}
 
 {% block body %}
-	<section class="vh-100" style="background-color: #ffff;">
-		<div class="container py-5 h-100">
-			<div class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col col-md-9 col-lg-7 col-xl-5">
-					<div class="card" style="border-radius: 15px;">
-						<div class="card-body p-4">
-							<div class="d-flex text-black">
-								<div class="flex-shrink-0">
-									<img src="{{app.user.avatar}}" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
-								</div>
-								<div class="flex-grow-1 ms-3">
-									<h5 class="mb-1">{{app.user.firstname}} {{app.user.lastname}}</h5>
-									<p class="mb-2 pb-1" style="color: #2b2a2a;">{{app.user.email}}</p>
-									<div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
-										<div>
-											<p class="small text-muted mb-1">Commandes</p>
-											<p class="mb-0">41</p>
-										</div>
-										<div class="px-3">
-											<p class="small text-muted mb-1">Devis</p>
-											<p class="mb-0">60</p>
-										</div>
-										<div>
-											<p class="small text-muted mb-1">Rating</p>
-											<p class="mb-0">9.6</p>
-										</div>
+	<section>
+		<div class="container" style="padding-top: 300px; padding-left: 50px">
+			<div>
+				<!-- /Breadcrumb -->
+
+				<div class="row gutters-sm">
+					<div class="col-md-4 mb-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex flex-column align-items-center text-center">
+									<h4>{{app.user.lastname}}
+										{{app.user.firstname}}</h4>
+									<img src="{{ app.user.avatar}}" alt="Admin" class="rounded-circle" width="150">
+									<div class="mt-3">
+										<p class="text-secondary mb-1">Employé depuis le :</p>
+										<p class="text-muted font-size-sm">{{ app.user.createdAt ? app.user.createdAt|date('d-m-Y') : '' }}</p>
 									</div>
-									<div class="d-flex pt-1">
-										<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">Chat</button>
-										<button type="button" class="btn btn-primary flex-grow-1">Modifier</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Nom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{app.user.lastname}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Prenom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{app.user.firstname}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Email</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{app.user.email}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Mobile</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{app.user.tel}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Address</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										{{app.user.address}}
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<a style="padding: 3px; text-decoration: none; background-color: #372772; color: #F3F2F2" href="{{ path('app_user_edit_profil', {'id': app.user.id}) }}">Mettre à jour les infos</a>
 									</div>
 								</div>
 							</div>
@@ -42,7 +84,5 @@
 				</div>
 			</div>
 		</div>
-	</section>
-
-{% endblock %}
-
+	</div>
+</section>{% endblock %}

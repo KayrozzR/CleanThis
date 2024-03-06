@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -20,14 +22,18 @@ class UserType extends AbstractType
             'attr' => [
                 'class' => 'form-control'
             ],
-            'label' => 'E-mail'
+            'label' => 'E-mail',
+            'constraints' => [
+                new NotBlank(),
+                new Email(),
+            ]
         ])
             ->add('roles', ChoiceType::class, [
                 'choices'  => [
                     'ROLE_ADMIN' => 'ROLE_ADMIN',
                     'ROLE_SENIOR' => 'ROLE_SENIOR',
                     'ROLE_APPRENTI' => 'ROLE_APPRENTI',
-                    'ROLE_CLIENT' => 'ROLE_CLIENT',
+                    // 'ROLE_CLIENT' => 'ROLE_CLIENT',
                     'ROLE_USER' => 'ROLE_USER',
                 ],
                 'expanded' => false,
@@ -39,7 +45,7 @@ class UserType extends AbstractType
             ])
             // ->add('password')
             // ->add('google_id')
-            ->add('avatar')
+            // ->add('avatar')
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'

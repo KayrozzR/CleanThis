@@ -38,7 +38,7 @@ class GoogleAuthenticator extends AbstractOAuthAuthenticator
         return $repositery->findOneBy([
             'google_id' => $resourceOwner->getId(),
             'email' => $resourceOwner->getEmail(),
-            'avatar' => $resourceOwner->getAvatar(),
+            // 'avatar' => $resourceOwner->getAvatar(),
             'firstname' => $resourceOwner->getFirstName(),
             'lastname' => $resourceOwner->getLastName()
         ]);
