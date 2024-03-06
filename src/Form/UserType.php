@@ -40,7 +40,7 @@ class UserType extends AbstractType
             ])
             // ->add('password')
             // ->add('google_id')
-            ->add('avatar',FileType::class, array('data_class' => null))
+            // ->add('avatar',FileType::class, array('data_class' => null))
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'

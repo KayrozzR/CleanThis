@@ -60,11 +60,12 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['avatar']->getData();
-            $someNewFilename = 'file_' . date('YmdHis') . '_' . uniqid() . '.jpg';
-            $directory= "../public/images";
-            $file->move($directory, $someNewFilename);
-            $user->setAvatar($someNewFilename);
+            // $file = $form['avatar']->getData();
+            // $someNewFilename = 'file_' . date('YmdHis') . '_' . uniqid() . '.url';
+            // $directory= "../public/images";
+            // $file->move($directory, $someNewFilename);
+            // $user->setAvatar($someNewFilename);
+            // $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
