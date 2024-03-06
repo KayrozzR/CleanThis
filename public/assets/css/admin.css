@@ -309,3 +309,91 @@ body.dark .switch::before{
     left: 100px;
     width: calc(100% - 100px);
 }
+
+table, th, td {
+    border: none;
+}
+
+/* .en-tête{
+    border-bottom: none;
+} */
+
+.th-inner{
+    background-color: #F3F2F2;
+}
+.light-weight {
+    font-weight: normal; 
+}
+.bold-weight{
+    font-weight: bold;
+}
+
+h1{
+    font-size:25px;
+}
+
+.create{
+    margin-left: 80%;
+    color: white;
+    font-size: 12px;
+    background-color: #372772;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 22px;
+}
+.createClient{
+    margin-left: 90%;
+    color: white;
+    font-size: 12px;
+    background-color: #372772;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 22px;
+}
+
+.form-control.search-input{
+    margin-bottom: 30px;
+    background-color: #FFFFFF ;
+    border:none;
+}
+
+.btn.btn-secondary.dropdown-toggle{
+    margin-right: 600px;
+    background-color:#F2C57C;
+    border:none
+}
+
+.actionsButtons1{
+    color: black;
+    margin-right: 8px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color:#372772af;
+    text-decoration: none;
+}
+.actionsButtons2{
+    color: black;
+    margin-right: 8px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color:#f13e02b7;
+    text-decoration: none;
+}
+.actionsButtons3{
+    color: black;
+    padding: 2px;
+    border-radius: 8px;
+    background-color:#F90000;
+    text-decoration: none;
+}
+.retour{
+    background-color:#F2C57C;
+    color:#18191A;
+    padding: 10px;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+.actionsButtons3:hover{
+    background-color:#F90000;
+}

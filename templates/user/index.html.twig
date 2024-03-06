@@ -5,40 +5,37 @@
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+    {# <link rel="stylesheet" href="public/assets/css/style.css"> #}
 {% endblock %}
 
 {% block body %}
    <section class="home">
     <div class="text">
   
-    <h1>User index</h1>
+    <h1>Liste des employés</h1>
+    <a href="{{ path('app_user_new') }}" class="create"> + Ajouter un employé</a>
+{# {{% app.user.avatar %} #}
 
     <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
-        <thead>
+        <thead class="en-tête">
             <tr>
-                <th data-sortable="true" data-field="id">Id</th>
-                <th data-sortable="true" data-field="email">Email</th>
-                <th data-sortable="true" data-field="roles">Roles</th>
-                {# <th data-sortable="true">Password</th>
-                <th data-sortable="true">Google_id</th> #}
-                <th>Avatar</th>
-                <th data-sortable="true" data-field="lastname">Lastname</th>
-                <th data-sortable="true" data-field="firstname">Firstname</th>
-                <th>Tel</th>
-                <th data-sortable="true" data-field="created_at">Created_at</th>
-                <th data-sortable="true" data-field="address">Address</th>
-                <th data-sortable="true" data-field="operation_finalisee">Operations_finalisee</th>
-                
-                <th>actions</th>
+                {# <th data-sortable="true" data-field="id">Id</th> #}
+                {# <th data-sortable="true" data-field="email">Email</th> #}
+                <th data-sortable="true" data-field="lastname" class="light-weight">Nom</th>
+                <th data-sortable="true" data-field="firstname" class="light-weight">Prénom</th>
+                <th data-sortable="true" data-field="roles" class="light-weight">Roles</th>
+                <th class="light-weight" >Avatar</th>
+                {# <th data-sortable="true" data-field="address">Address</th> #}
+                <th data-sortable="true" data-field="operation_finalisee" class="light-weight">Opérations finalisées</th>
+                <th  class="light-weight">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
-                <td>
+                <td  class="bold-weight">{{ user.lastname }}</td>
+                <td class="bold-weight">{{ user.firstname }}</td>
+                 <td>
                 {% for role in user.roles %}
 							{% if role == "ROLE_ADMIN" %}
 								{% set name = "Administrateur" %}
@@ -58,22 +55,16 @@
 							{% endif %}
 							<span class="badge bg-{{ color }}">{{ name }}</span>
 						{% endfor %}
-                </td>        
-                {# <td>{{ user.password }}</td> #}
-                {# <td>{{ user.googleId }}</td> #}
-                <td><img src="{{ user.avatar}}" style="height: 50px; border-radius:6px; margin-left: 6px;"</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.tel }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.address }}</td>
-                <td>{{ user.operationsFinalisee }}</td>
+                </td>  
+                <td><img src="{{user.avatar}}" style="height: 50px; border-radius: 6px; margin-left: 6px"></td>
+                <td class="bold-weight">{{ user.operationsFinalisee }}</td>
                 
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                    <button class="btn btn-danger deleteBtn" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
-							Remove
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class ="actionsButtons1">Voir détail</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class ="actionsButtons2">Modifier</a>
+                    {# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Supprimer</a> #}
+                    <button class="btn deleteBtn actionsButtons3" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
+							Supprimer
 					</button>
                 </td>
             </tr>
@@ -85,8 +76,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
-
       </div>
    </section> 
 {% endblock %}
@@ -95,8 +84,24 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script>
+        $(document).ready(function() {
+
+    $('.search input').attr('placeholder', 'Rechercher');
+    $('.search input').addClass('form-control pr-5');
+    $('.search').addClass('position-relative');
+    $('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
+    $('.search input').keydown(function(event) {
+        if (event.keyCode === 13) { 
+            $('#searchIcon').hide();
+        }
+    });
+});
+
+    </script>
+
+    <script>
 $(document).ready(function() {
     $('.table').off('click', '.deleteBtn').on('click', '.deleteBtn', function(e) {
         e.preventDefault();
@@ -129,5 +134,4 @@ $(document).ready(function() {
     });
 });
 	</script>
-
 {% endblock %}
