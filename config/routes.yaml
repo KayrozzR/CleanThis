@@ -6,3 +6,8 @@ controllers:
 
 auth_oauth_check:
   path: oauth/check/{service}
+
+auth_oauth_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: ['GET', 'POST']  
