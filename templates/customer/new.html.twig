@@ -11,7 +11,44 @@
     {{ include('customer/_form.html.twig') }}
 
     <a href="{{ path('app_customer_index') }}">back to list</a>
-    
+    <div id="addressSuggestions" class="address-suggestions"></div>
     </div>
    </section>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var addressInput = document.getElementById('user_address');
+    if (addressInput) {
+        addressInput.addEventListener('input', function() {
+            var input = this.value;
+           console.log(addressInput);
+            if (input.length > 2) {
+                fetch('/autocomplete?query=' + encodeURIComponent(input))
+                    .then(response => response.json())
+                    .then(data => {
+                        const suggestionsContainer = document.getElementById('addressSuggestions');
+                        suggestionsContainer.innerHTML = ''; // Effacer les anciennes suggestions
+                    console.log(data)
+                        data.features.forEach(feature => {
+                            const suggestionElement = document.createElement('div');
+                            suggestionElement.innerText = feature.properties.label;
+                            suggestionElement.onclick = function() {
+                                document.getElementById('user_address').value = feature.properties.name;
+                                suggestionsContainer.innerHTML = ''; // Effacer les suggestions après sélection
+                            };
+                            suggestionsContainer.appendChild(suggestionElement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des données :', error);
+                    });
+            }
+        });
+    }
+});
+</script>
+
 {% endblock %}
