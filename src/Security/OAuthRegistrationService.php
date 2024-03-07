@@ -27,7 +27,7 @@ final readonly class OAuthRegistrationService
         ->setAvatar($resourceOwner->getAvatar())
         ->setLastname($resourceOwner->getLastName())
         ->setFirstname($resourceOwner->getFirstName())
-        ->setRoles(["ROLE_ADMIN"])
+        // ->setRoles(["ROLE_ADMIN"])
         ->setCreatedAt(new \DateTimeImmutable());
             
 

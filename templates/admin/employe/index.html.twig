@@ -13,7 +13,7 @@
     <div class="text">
   
     <h1>Liste des employés</h1>
-    <a href="{{ path('app_user_new') }}" class="create"> + Ajouter un employé</a>
+    <a href="{{ path('app_employe_new') }}" class="create"> + Ajouter un employé</a>
 {# {{% app.user.avatar %} #}
 
     <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
@@ -60,8 +60,8 @@
                 <td class="bold-weight">{{ user.operationsFinalisee }}</td>
                 
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class ="actionsButtons1">Voir détail</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class ="actionsButtons2">Modifier</a>
+                    <a href="{{ path('app_employe_show', {'id': user.id}) }}" class ="actionsButtons1">Voir détail</a>
+                    <a href="{{ path('app_employe_edit', {'id': user.id}) }}" class ="actionsButtons2">Modifier</a>
                     {# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Supprimer</a> #}
                     <button class="btn deleteBtn actionsButtons3" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
 							Supprimer

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeOperation{% endblock %}
+
+{% block body %}
+<section class="home">
+    <div class="text">
+    <h1>TypeOperation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ type_operation.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ type_operation.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Tarif</th>
+                <td>{{ type_operation.tarif }}</td>
+            </tr>
+            <tr>
+                <th>Descriptif</th>
+                <td>{{ type_operation.descriptif }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_operation_index') }}">back to list</a>
+
+    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}">edit</a>
+
+    {{ include('admin/type_operation/_delete_form.html.twig') }}
+    </div>
+    </section>
+{% endblock %}

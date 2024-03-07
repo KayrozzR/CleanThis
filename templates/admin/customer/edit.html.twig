@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Edit User{% endblock %}
 
 {% block body %}
   <section class="home">
     <div class="text">
      
-    <h1>Create new User</h1>
+    <h1>Edit User</h1>
 
-    {{ include('customer/_form.html.twig') }}
+    {{ include('admin/customer/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_customer_index') }}">back to list</a>
+
+    {# {{ include('customer/_delete_form.html.twig') }} #}
     
     </div>
    </section>

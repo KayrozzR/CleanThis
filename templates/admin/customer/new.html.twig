@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Client{% endblock %}
+
+{% block body %}
+  <section class="home">
+    <div class="text">
+     
+    <h1>Créer un client</h1>
+
+    {{ include('admin/customer/_form.html.twig') }}
+
+    <a href="{{ path('app_customer_index') }}">Retour aux clients</a>
+    
+    </div>
+   </section>
+{% endblock %}

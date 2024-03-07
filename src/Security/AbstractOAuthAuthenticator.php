@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
@@ -33,7 +35,8 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         private readonly ClientRegistry $clientRegistry,
         private readonly RouterInterface $router,
         private readonly UserRepository $repository,
-        private readonly OAuthRegistrationService $registrationService
+        private readonly OAuthRegistrationService $registrationService,
+        private EntityManagerInterface $entityManager
     ) {
     }
 
@@ -50,7 +53,7 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->router->generate('app_profil'));
+        return new RedirectResponse($this->router->generate('app_admin_profil'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
@@ -68,17 +71,38 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         $resourceOwner = $this->getRessourceOwnerFromCredentials($credentials);
         $user = $this->getUserFromResourceOwner($resourceOwner, $this->repository);
 
-        if (null == $user) {
-            // cree son compte
-            $user = $this->registrationService->persist($resourceOwner);
-        }
+
+
+            $email = $resourceOwner->getEmail();
+            $existingUser = $this->repository->findOneBy(['email' => $email]);
+
+
+
+         if ($existingUser) {
+
+            // Associer les informations Google à l'utilisateur existant
+            $existingUser->setGoogleId($resourceOwner->getId());
+            $existingUser->setAvatar($resourceOwner->getAvatar());
+
+            // Enregistrer les modifications dans la base de données
+            $this->entityManager->persist($existingUser);
+            $this->entityManager->flush();
+
+
+            // Retourner le user existant
+            $user = $existingUser;
+
+
 
         return new SelfValidatingPassport(
             userBadge: new UserBadge($user->getUserIdentifier(), fn () => $user),
             badges: [
                 new RememberMeBadge()
             ]
-        );
+        ); }
+        else {
+            throw new CustomUserMessageAuthenticationException('Aucun utilisateur associé à cet e-mail Google.');
+        }
     }
 
     protected function getRessourceOwnerFromCredentials(AccessToken $credentials): ResourceOwnerInterface

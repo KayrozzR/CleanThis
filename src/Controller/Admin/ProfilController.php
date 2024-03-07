@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProfilController extends AbstractController
 {
-    #[Route('/profil', name: 'app_profil')]
+    #[Route('/admin/profil', name: 'app_admin_profil')]
     public function index(): Response
     {
-        return $this->render('profil/index.html.twig', [
+        return $this->render('admin/profil/index.html.twig', [
             'controller_name' => 'ProfilController',
         ]);
     }
@@ -29,10 +29,10 @@ class ProfilController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_profil', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_profil', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('profil/edit_profil.html.twig', [
+        return $this->render('admin/profil/edit_profil.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

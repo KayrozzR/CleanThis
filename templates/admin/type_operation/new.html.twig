@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeOperation{% endblock %}
+
+{% block body %}
+<section class="home">
+    <div class="text">
+    <h1>Create new TypeOperation</h1>
+
+    {{ include('admin/type_operation/_form.html.twig') }}
+
+    <a href="{{ path('app_type_operation_index') }}">back to list</a>
+    </div>
+    </section>
+{% endblock %}

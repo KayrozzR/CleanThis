@@ -3,15 +3,16 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\User1Type;
 use App\Form\UserType;
+use App\Form\User1Type;
+use App\Form\CustomerType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/customer')]
 class CustomerController extends AbstractController
@@ -23,7 +24,7 @@ class CustomerController extends AbstractController
         $roles = ['ROLE_CLIENT'];
         $customers = $userRepository->findByRoles($roles);
 
-        return $this->render('customer/index.html.twig', [
+        return $this->render('admin/customer/index.html.twig', [
             'users' => $customers,
     ]);
     }
@@ -32,7 +33,8 @@ class CustomerController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $user->setRoles(["ROLE_CLIENT"]);
+        $form = $this->createForm(CustomerType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,7 +44,7 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('customer/new.html.twig', [
+        return $this->render('admin/customer/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -51,7 +53,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}', name: 'app_customer_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('customer/show.html.twig', [
+        return $this->render('admin/customer/show.html.twig', [
             'user' => $user,
         ]);
     }
@@ -59,7 +61,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}/edit', name: 'app_customer_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(CustomerType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,7 +70,7 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('customer/edit.html.twig', [
+        return $this->render('admin/customer/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

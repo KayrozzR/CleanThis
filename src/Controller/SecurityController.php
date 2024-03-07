@@ -18,7 +18,7 @@ final class SecurityController extends AbstractController
         'google' => [],
     ];
 
-    #[Route(path: '/login', name: 'auth_oauth_login', methods: ['GET'])]
+    #[Route(path: '/login', name: 'auth_oauth_login', methods: ['GET' , 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // $user = new User();
@@ -29,7 +29,7 @@ final class SecurityController extends AbstractController
         // $em->flush();
 
         if ($this->getUser()) {
-            return $this->redirectToRoute('app_profil');
+            return $this->redirectToRoute('app_admin_profil');
         }
 
         // get the login error if there is one
@@ -60,4 +60,7 @@ final class SecurityController extends AbstractController
     {
         return new Response(status: 200);
     }
+
+
 }
+
