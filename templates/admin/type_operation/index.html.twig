@@ -7,9 +7,16 @@
 <section class="home">
     <div class="text">
         <h1 style="padding-top: 25px">Nos Services</h1>
-
+        {% if app.user %}
+            {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_type_operation_new') }}" class="create1"> + Ajouter un Services</a>
+            {% endif %}
+        {% endif %}
         <div class="row">
-                <div class="col-md-2" style = "padding-bottom:40px; padding-top: 50px; width: 55%;">
+                <div class="col-md-2" style = "margin-left: 150px;padding-bottom:40px; padding-top: 50px; width: 80%;">
+                <div style="float: left;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Image" style="width: 316px; height: 248px;border-radius: 6px">
+                </div>
                     <div class="card card-service">
                         <div class="card-body">
                         {% if type_operations|length > 0 %}
@@ -30,15 +37,18 @@
                         {% endif %}
                             {% if app.user %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a>
-                                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}" class="btn btn-secondary">Edit</a>
+                                    {# <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a> #}
+                                    <a class="edit-type" href="{{ path('app_type_operation_edit', {'id': type_operations[0].id}) }}"><i class='bx bx-edit edit-btn' style='font-size: 40px;'></i></a>
                                 {% endif %}
                             {% endif %}
                         </div>
                     </div> 
                 </div>
 
-                <div class="col-md-6" style = "padding-bottom:40px; padding-top: 50px; width: 55%;">
+                <div class="col-md-6" style = "margin-left: 150px; padding-bottom:40px; padding-top: 50px; width: 80%;">
+                <div style="float: left;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Image" style="width: 316px; height: 269px;border-radius: 6px">
+                </div>
                     <div class="card card-service1">
                         <div class="card-body">
                         {% if type_operations|length > 0 %}
@@ -59,15 +69,18 @@
                         {% endif %}
                             {% if app.user %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a>
-                                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}" class="btn btn-secondary">Edit</a>
+                                    {# <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a> #}
+                                    <a class="edit-type" href="{{ path('app_type_operation_edit', {'id': type_operations[1].id}) }}"><i class='bx bx-edit' style='font-size: 40px;'></i></a>
                                 {% endif %}
                             {% endif %}
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6" style = "padding-bottom:40px; padding-top: 50px; width: 55%;">
+                <div class="col-md-6" style = "margin-left: 150px;padding-bottom:40px; padding-top: 50px; width: 80%;">
+                <div style="float: left;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Image" style="width: 316px; height: 316px;border-radius: 6px">
+                </div>
                     <div class="card card-service2">
                         <div class="card-body">
                         {% if type_operations|length > 0 %}
@@ -88,20 +101,14 @@
                         {% endif %}
                             {% if app.user %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a>
-                                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}" class="btn btn-secondary">Edit</a>
+                                    {# <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a> #}
+                                    <a class="edit-type" href="{{ path('app_type_operation_edit', {'id': type_operations[2].id}) }}" ><i class='bx bx-edit' style='font-size: 40px;'></i></a>
                                 {% endif %}
                             {% endif %}
                         </div>
                     </div>
                 </div>
         </div>
-
-        {% if app.user %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_type_operation_new') }}" class="btn btn-success">Create new</a>
-            {% endif %}
-        {% endif %}
     </div>
 </section>
 

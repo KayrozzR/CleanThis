@@ -409,14 +409,17 @@ h1 {
 
 .card-service{
     background-color: #F2C57C;
+    border: none;
 }
 
 .card-service1{
     background-color: #7FB685;
+    border: none;
 }
 
 .card-service2{
     background-color: #DCD6F7;
+    border: none;
 }
 
 .titre{
@@ -440,4 +443,18 @@ h1 {
 
 .desc{
     color: #372772;
+}
+
+.edit-type{
+    color: #372772;
+}
+
+.create1{
+    margin-left: 80%;
+    color: white;
+    font-size: 12px;
+    background-color: #F2C57C;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 22px;
 }
