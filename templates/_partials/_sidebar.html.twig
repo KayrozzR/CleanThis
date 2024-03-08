@@ -30,12 +30,15 @@
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
+                {% if app.user %}
+			        {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-home icon'></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
+                    {% endif %}
                     <li class="nav-link">
                         <a href="/admin/profil">
                             <i class='bx bx-user-circle icon'></i>
@@ -90,6 +93,7 @@
                 </li>
             </div>
         </div>
+        {% endif %}
     </nav>
 
     {# <section class="home">

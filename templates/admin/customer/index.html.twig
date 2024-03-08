@@ -63,9 +63,13 @@
                     <a href="{{ path('app_customer_show', {'id': user.id}) }}" class ="actionsButtons1">Voir détail</a>
                     <a href="{{ path('app_customer_edit', {'id': user.id}) }}" class ="actionsButtons2">Modifier</a>
                     {# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Supprimer</a> #}
+                    {% if app.user %}
+			            {% if is_granted('ROLE_ADMIN') %}
                     <button class="btn deleteBtn actionsButtons3" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
 							Supprimer
 					</button>
+                    {% endif %}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

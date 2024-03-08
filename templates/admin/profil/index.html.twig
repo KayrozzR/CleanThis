@@ -16,7 +16,7 @@
 								<div class="d-flex flex-column align-items-center text-center">
 									<h4>{{app.user.lastname}}
 										{{app.user.firstname}}</h4>
-									<img src="{{ app.user.avatar}}" alt="Admin" class="rounded-circle" width="150">
+									<img src="{{ app.user.avatar}}" alt="" class="rounded-circle" width="150">
 									<div class="mt-3">
 										<p class="text-secondary mb-1">Employé depuis le :</p>
 										<p class="text-muted font-size-sm">{{ app.user.createdAt ? app.user.createdAt|date('d-m-Y') : '' }}</p>

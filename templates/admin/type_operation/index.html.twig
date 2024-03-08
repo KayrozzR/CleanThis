@@ -1,45 +1,108 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TypeOperation index{% endblock %}
+{% block title %}Nos Services{% endblock %}
 
 {% block body %}
 
 <section class="home">
     <div class="text">
-    <h1>TypeOperation index</h1>
+        <h1 style="padding-top: 25px">Nos Services</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>Tarif</th>
-                <th>Descriptif</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for type_operation in type_operations %}
-            <tr>
-                <td>{{ type_operation.id }}</td>
-                <td>{{ type_operation.libelle }}</td>
-                <td>{{ type_operation.tarif }}</td>
-                <td>{{ type_operation.descriptif }}</td>
-                <td>
-                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}">show</a>
-                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="row">
+                <div class="col-md-2" style = "padding-bottom:40px; padding-top: 50px; width: 55%;">
+                    <div class="card card-service">
+                        <div class="card-body">
+                        {% if type_operations|length > 0 %}
+                            <h5 class="card-title titre">{{ type_operations[0].libelle }}</h5>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                        {% if type_operations|length > 0 %}
+                            <p class="card-text tarif"> Tarif : {{ type_operations[0].tarif }} €</p><br>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                        <h5 class="card-title desc">Description : </h5>
+                        {% if type_operations|length > 0 %}
+                            <p class="card-text description">{{ type_operations[0].descriptif }}</p>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                            {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a>
+                                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}" class="btn btn-secondary">Edit</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div> 
+                </div>
 
-    <a href="{{ path('app_type_operation_new') }}">Create new</a>
+                <div class="col-md-6" style = "padding-bottom:40px; padding-top: 50px; width: 55%;">
+                    <div class="card card-service1">
+                        <div class="card-body">
+                        {% if type_operations|length > 0 %}
+                            <h5 class="card-title titre">{{ type_operations[1].libelle }}</h5>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                        {% if type_operations|length > 0 %}
+                            <p class="card-text tarif"> Tarif : {{ type_operations[1].tarif }} €</p><br>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                        <h5 class="card-title desc">Description : </h5>
+                        {% if type_operations|length > 0 %}
+                            <p class="card-text description">{{ type_operations[1].descriptif }}</p>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                            {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a>
+                                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}" class="btn btn-secondary">Edit</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-md-6" style = "padding-bottom:40px; padding-top: 50px; width: 55%;">
+                    <div class="card card-service2">
+                        <div class="card-body">
+                        {% if type_operations|length > 0 %}
+                            <h5 class="card-title titre">{{ type_operations[2].libelle }}</h5>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                        {% if type_operations|length > 0 %}
+                            <p class="card-text tarif"> Tarif : {{ type_operations[2].tarif }} €</p><br>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                        <h5 class="card-title titre1">Description : </h5>
+                        {% if type_operations|length > 0 %}
+                            <p class="card-text description">{{ type_operations[2].descriptif }}</p>
+                        {% else %}
+                            <p>Aucune opération trouvée</p>
+                        {% endif %}
+                            {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_type_operation_show', {'id': type_operation.id}) }}" class="btn btn-primary">Show</a>
+                                    <a href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}" class="btn btn-secondary">Edit</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        {% if app.user %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_type_operation_new') }}" class="btn btn-success">Create new</a>
+            {% endif %}
+        {% endif %}
     </div>
-    </section>
+</section>
+
 {% endblock %}

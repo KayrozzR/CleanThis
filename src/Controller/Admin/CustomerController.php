@@ -44,6 +44,8 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', 'ROLE_APPRENTI', 'ROLE_SENIOR');
+
         return $this->render('admin/customer/new.html.twig', [
             'user' => $user,
             'form' => $form,
@@ -82,9 +84,11 @@ class CustomerController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
             return new JsonResponse(['success' => true]);
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return new JsonResponse(['success' => false]);
     }

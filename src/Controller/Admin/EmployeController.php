@@ -65,6 +65,7 @@ class EmployeController extends AbstractController
 
             return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('admin/employe/edit.html.twig', [
             'user' => $user,
@@ -81,6 +82,7 @@ class EmployeController extends AbstractController
 
             return new JsonResponse(['success' => true]);
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return new JsonResponse(['success' => false]);
     }
