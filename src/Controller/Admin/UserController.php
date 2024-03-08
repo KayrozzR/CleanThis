@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Service\JWTService;
 use App\Repository\UserRepository;
+use App\Service\SendMailService;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +29,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -36,6 +39,26 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            //We generate the jwt of the user
+            //We cretae the header
+            $header =[
+                'typ'=>'JWT',
+                'alg'=>'HS256'
+            ];
+            //We create the payload
+            $payload =[
+                'user_id'=>$user->getId()
+            ];
+            //We generate the token
+            $token = $jwt->generate($header,$payload,
+            $this->getParameter('app.jwtsecret'));
+
+            $mail->send ('no-reply@cleanthis.fr',
+                $user->getEmail(),
+                'Activation de votre compte CleanThis',
+                'register',
+                compact('user','token')
+            );
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -86,4 +109,6 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

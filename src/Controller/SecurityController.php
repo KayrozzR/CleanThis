@@ -18,7 +18,7 @@ final class SecurityController extends AbstractController
         'google' => [],
     ];
 
-    #[Route(path: '/login', name: 'auth_oauth_login', methods: ['GET'])]
+    #[Route(path: '/login', name: 'auth_oauth_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // $user = new User();

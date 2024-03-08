@@ -30,14 +30,14 @@
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
-                {% if is_granted('ROLE_ADMIN') %}
+                {# {% if is_granted('ROLE_ADMIN') %} #}
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-home icon'></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
-                 {% endif %}
+                 {# {% endif %} #}
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-user-circle icon'></i>
@@ -62,14 +62,14 @@
                             <span class="text nav-text">Nos services</span>
                         </a>
                     </li>
-                {% if is_granted('ROLE_ADMIN') %}
+                {# {% if is_granted('ROLE_ADMIN') %} #}
                     <li class="nav-link">
                         <a href="{{ path('app_user_index') }}">
                             <i class='bx bxl-microsoft-teams icon'></i>
                             <span class="text nav-text">Mon équipe</span>
                         </a>
                     </li>
-                {% endif %}
+                {# {% endif %} #}
                 </ul>
             </div>
 

@@ -6,3 +6,7 @@ controllers:
 
 auth_oauth_check:
   path: oauth/check/{service}
+
+change_language:
+    path: '/change-language/{locale}'
+    controller: 'App\Controller\LanguageController::changeLanguage'
