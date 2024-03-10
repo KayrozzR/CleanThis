@@ -55,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $operations_finalisee = null;
 
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $resetToken;
+
     #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'User')]
     private Collection $devis;
 
@@ -63,6 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $is_verified = false;
+
 
     public function __construct()
     {
@@ -217,6 +221,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /** 
+     
+    *Get the value of resetToken
+    */ 
+    public function getResetToken(): ?string{
+      return $this->resetToken;}
+
+    /** 
+    *Set the value of resetToken*
+    *@return  self
+    */ 
+    public function setResetToken(?string $resetToken): self{$this->resetToken = $resetToken;
+
+        return $this;
+    }
+/*
 
     /**
      * @return Collection<int, Devis>
@@ -272,4 +292,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+  
 }

@@ -5,14 +5,18 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\JWTService;
-use App\Repository\UserRepository;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManager;
+use App\Service\SendMailService;
+use App\Repository\UserRepository;
+use App\Form\ResetPasswordFormType;
+use App\Form\CreatePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/admin/employee')]
 class UserController extends AbstractController
@@ -111,4 +115,42 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('/createPassword', name: 'create_password')]
+    public function createPassword(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    {
+        // Création du formulaire
+        $form = $this->createForm(CreatePasswordFormType::class);
+        $form->handleRequest($request);
+
+        // Vérification de la soumission du formulaire et de sa validation
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération de l'e-mail soumis dans le formulaire
+            $email = $form->get('email')->getData();
+
+            // Recherche de l'utilisateur par e-mail
+            $user = $userRepository->findOneByEmail($email);
+
+            // Si l'utilisateur est trouvé
+            if ($user) {
+                // Hachage du mot de passe
+                $hashedPassword = $userPasswordHasherInterface->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                );
+
+                // Mise à jour du mot de passe de l'utilisateur
+                $user->setPassword($hashedPassword);
+                $entityManager->flush();
+
+                // Redirection vers la page de connexion avec un message flash
+                $this->addFlash('success', 'Votre mot de passe a bien été créé');
+                return $this->redirectToRoute('auth_oauth_login');
+            }
+        }
+
+        // Affichage du formulaire pour créer le mot de passe
+        return $this->render('security/create_password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

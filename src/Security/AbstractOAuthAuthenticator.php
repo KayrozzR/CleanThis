@@ -87,6 +87,7 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
             // Associer les informations Google à l'utilisateur existant
             $existingUser->setGoogleId($resourceOwner->getId());
             $existingUser->setAvatar($resourceOwner->getAvatar());
+            $existingUser->setIsVerified(true);
     
             // Enregistrer les modifications dans la base de données
             $this->entityManager->persist($existingUser);

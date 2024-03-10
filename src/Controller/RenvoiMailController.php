@@ -5,21 +5,28 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\JWTService;
-use App\Repository\UserRepository;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManager;
+use App\Service\SendMailService;
+use App\Repository\UserRepository;
+use App\Form\ResetPasswordFormType;
+use App\Form\CreatePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\ResetPasswordRequestFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 class RenvoiMailController extends AbstractController
 {
 
     #[Route('/verif/{token}', name: 'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em):Response
+    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em, Request $request):Response
     {
+        $form = $this->createForm(CreatePasswordFormType::class);
+        $form->handleRequest($request);
         //we verify if the token is valid, if it's not expired and if it wasn't modified 
         if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))) {
             //we take the payload 
@@ -31,8 +38,8 @@ class RenvoiMailController extends AbstractController
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
                 $em->flush($user);
-                $this->addFlash('success', 'Votre compte est activé');
-                return $this->redirectToRoute('auth_oauth_login');
+                // $this->addFlash('success', 'Votre compte est activé');
+                return $this->render('security/create_password.html.twig');
             }
             if ($user && $user->getIsVerified()) {
                 $this->addFlash('success', 'Votre compte est déja activé');
@@ -40,17 +47,18 @@ class RenvoiMailController extends AbstractController
             }
         }
         //here we have a problem in the token
-        return $this->render('user/mail.html.twig');
+        return $this->render('security/mail.html.twig');
     }
 
 
+
     #[Route('/renvoiverif', name: 'resend_verif')]
-    public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $userRepository):Response{
+    public function resendVerif(Request $request,JWTService $jwt, SendMailService $mail, UserRepository $userRepository):Response{
 
-        $user = $this->getUser();
-
-        if(!$user){
-            $this->addFlash('danger', 'vous devez être connecté pour accéder à cette page' );
+        $email = $request->get('email');
+        $user = $userRepository->findOneByEmail($email);
+        if ($user==null) {
+            $this->addFlash('danger', 'Aucun utilisateur trouvé avec cet e-mail');
             return $this->redirectToRoute('auth_oauth_login');
         }
         if ($user->getIsVerified()) {
