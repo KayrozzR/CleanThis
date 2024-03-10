@@ -29,7 +29,7 @@ class CreatePasswordFormType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('passwordConfirmation', PasswordType::class, [
+            ->add('password2', PasswordType::class, [
                 'label' => 'Confirmez votre mot de passe',
                 'attr' => [
 

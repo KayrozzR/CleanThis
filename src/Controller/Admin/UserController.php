@@ -114,43 +114,4 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
-    #[Route('/createPassword', name: 'create_password')]
-    public function createPassword(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
-    {
-        // Création du formulaire
-        $form = $this->createForm(CreatePasswordFormType::class);
-        $form->handleRequest($request);
-
-        // Vérification de la soumission du formulaire et de sa validation
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Récupération de l'e-mail soumis dans le formulaire
-            $email = $form->get('email')->getData();
-
-            // Recherche de l'utilisateur par e-mail
-            $user = $userRepository->findOneByEmail($email);
-
-            // Si l'utilisateur est trouvé
-            if ($user) {
-                // Hachage du mot de passe
-                $hashedPassword = $userPasswordHasherInterface->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                );
-
-                // Mise à jour du mot de passe de l'utilisateur
-                $user->setPassword($hashedPassword);
-                $entityManager->flush();
-
-                // Redirection vers la page de connexion avec un message flash
-                $this->addFlash('success', 'Votre mot de passe a bien été créé');
-                return $this->redirectToRoute('auth_oauth_login');
-            }
-        }
-
-        // Affichage du formulaire pour créer le mot de passe
-        return $this->render('security/create_password.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
 }

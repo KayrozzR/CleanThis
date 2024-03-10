@@ -39,7 +39,7 @@ class RenvoiMailController extends AbstractController
                 $user->setIsVerified(true);
                 $em->flush($user);
                 // $this->addFlash('success', 'Votre compte est activé');
-                return $this->render('security/create_password.html.twig');
+                return $this->redirectToRoute('create_password');
             }
             if ($user && $user->getIsVerified()) {
                 $this->addFlash('success', 'Votre compte est déja activé');
