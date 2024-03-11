@@ -1,18 +1,24 @@
-{% block title %}ERREUR
+{# {% block title %}
+<h1>ERREUR</h1>
+{% endblock %} #}
+
+{% block stylesheets %} 
+   <link rel="stylesheet" href="{{asset('assets/css/client.css')}}">
 {% endblock %}
 
 {% block body %}
+{# {% include "_partials/_flash.html.twig" %} #}
     <section class="home">
         <div class="text">
             <form action="{{ path('resend_verif') }}" method="post">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Entrez votre adresse mail</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="alert alert-warning alert-dismissible" role="alert">
+            <div class="alert alert-warning alert-dismissible" role="alert">
                     <div class="alert-message">
-					 <strong>Le token est invalide ou a expiré</strong>
+					 <strong>Oops, le lien est invalide ou a expiré</strong>
                     </div>
+                </div>
+                <div class="mb-3">
+                    {# <label for="email" class="form-label">Entrez votre adresse mail</label> #}
+                    <input type="email" class="form-control " id="email" name="email" placeholder= "Entrez votre e-mail"required>
                 </div>
                 <button type="submit" class="btn btn-primary">Renvoyer le lien d'activation</button>
             </form>

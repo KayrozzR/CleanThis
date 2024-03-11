@@ -43,7 +43,7 @@ class RenvoiMailController extends AbstractController
             }
             if ($user && $user->getIsVerified()) {
                 $this->addFlash('success', 'Votre compte est déja activé');
-                return $this->redirectToRoute('auth_oauth_login');
+                return $this->render('security/redirect_login.html.twig');
             }
         }
         //here we have a problem in the token
@@ -59,7 +59,7 @@ class RenvoiMailController extends AbstractController
         $user = $userRepository->findOneByEmail($email);
         if ($user==null) {
             $this->addFlash('danger', 'Aucun utilisateur trouvé avec cet e-mail');
-            return $this->redirectToRoute('auth_oauth_login');
+            return $this->render('security/mail.html.twig');
         }
         if ($user->getIsVerified()) {
             $this->addFlash('warning', 'Cet utilisateur est déja activé');
