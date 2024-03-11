@@ -5,13 +5,7 @@
 {% block body %}
 <section class="home">
     <div class="text">
-    <h1>Edit TypeOperation</h1>
-
     {{ include('admin/type_operation/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_type_operation_index') }}">back to list</a>
-
-    {{ include('admin/type_operation/_delete_form.html.twig') }}
     </div>
     </section>
 {% endblock %}

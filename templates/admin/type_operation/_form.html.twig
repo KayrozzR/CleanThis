@@ -1,4 +1,24 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% block body %}
+<section class="home1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Formulaire</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button class="btn">{{ button_label|default('Save') }}</button>
+                        {{ form_end(form) }}
+                            <a href="{{ path('app_type_operation_index') }}">back to list</a>
+
+                             {# {{ include('admin/type_operation/_delete_form.html.twig') }} #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

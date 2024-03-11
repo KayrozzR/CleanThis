@@ -299,6 +299,15 @@ body.dark .switch::before {
     transition: var(--tran-05);
 }
 
+.home1 {
+    position: relative;
+    left: 130px;
+    height: 100vh;
+    width: calc(100% - 250px);
+    background: var(--body-color);
+    transition: var(--tran-05);
+}
+
 .home .text {
     font-size: 15px;
     font-weight: 500;
@@ -306,7 +315,19 @@ body.dark .switch::before {
     padding: 8px 40px;
 }
 
+.home1 .text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 8px 40px;
+}
+
 .sidebar.close~.home {
+    left: 100px;
+    width: calc(100% - 100px);
+}
+
+.sidebar.close~.home1 {
     left: 100px;
     width: calc(100% - 100px);
 }

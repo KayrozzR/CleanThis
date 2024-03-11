@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Edit User
+{% endblock %}
 
 {% block body %}
-  <section class="home">
-    <div class="text">
-    
-    <h1>Edit User</h1>
+	<section class="home">
+		<div class="text">
 
-    {{ include('admin/employe/_form.html.twig', {'button_label': 'Update'}) }}
+			<h1>Edit User</h1>
 
-    <a href="{{ path('app_admin_profil') }}">Retour au profil</a>
+			{{ include('admin/employe/_form.html.twig', {'button_label': 'Update'}) }}
 
-    </div>
-   </section> 
+			<a href="{{ path('app_admin_profil') }}">Retour au profil</a>
+
+		</div>
+	</section>
 {% endblock %}
+

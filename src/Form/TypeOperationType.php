@@ -14,15 +14,31 @@ class TypeOperationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
-            ->add('tarif')
-            ->add('descriptif');
-//             ->add('devis', EntityType::class, [
-//                 'class' => Devis::class,
-// 'choice_label' => 'id',
-// 'multiple' => true,
-//             ])
-//         ;
+            ->add('libelle', null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Libellé'
+            ])
+            ->add('tarif', null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Tarif'
+            ])
+            ->add('descriptif', null, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'style' => 'height: 140px;'
+                ],
+                'label' => 'Descriptif'
+            ]);
+            // ->add('devis', EntityType::class, [
+            //     'class' => Devis::class,
+            //     'choice_label' => 'id',
+            //     'multiple' => true,
+            // ])
+            // ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
