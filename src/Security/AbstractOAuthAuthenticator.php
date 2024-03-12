@@ -65,6 +65,10 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         return new RedirectResponse($this->router->generate('auth_oauth_login'));
     }
 
+    /** 
+     * @param GoogleUser $resourceOwner
+     */
+     
     public function authenticate(Request $request): SelfValidatingPassport
     {
         $credentials = $this->fetchAccessToken($this->getClient());
