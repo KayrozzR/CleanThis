@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devis{% endblock %}
+
+{% block body %}
+    <h1>Devis</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ devi.id }}</td>
+            </tr>
+            <tr>
+                <th>Url_devis</th>
+                <td>{{ devi.urlDevis }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ devi.createdAt ? devi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ devi.comment }}</td>
+            </tr>
+            <tr>
+                <th>Image_object</th>
+                <td>{{ devi.imageObject }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ devi.status ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_devis_index') }}">back to list</a>
+
+    <a href="{{ path('app_devis_edit', {'id': devi.id}) }}">edit</a>
+
+    {{ include('devis/_delete_form.html.twig') }}
+{% endblock %}
