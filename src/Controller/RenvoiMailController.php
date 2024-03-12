@@ -39,7 +39,7 @@ class RenvoiMailController extends AbstractController
                 $user->setIsVerified(true);
                 $em->flush($user);
                 // $this->addFlash('success', 'Votre compte est activé');
-                return $this->redirectToRoute('create_password');
+                return $this->redirectToRoute('create_password', ['token' => $token]);
             }
             if ($user && $user->getIsVerified()) {
                 $this->addFlash('success', 'Votre compte est déja activé');
@@ -50,8 +50,6 @@ class RenvoiMailController extends AbstractController
         return $this->render('security/mail.html.twig');
     }
 
-
-
     #[Route('/renvoiverif', name: 'resend_verif')]
     public function resendVerif(Request $request,JWTService $jwt, SendMailService $mail, UserRepository $userRepository):Response{
 
@@ -59,7 +57,7 @@ class RenvoiMailController extends AbstractController
         $user = $userRepository->findOneByEmail($email);
         if ($user==null) {
             $this->addFlash('danger', 'Aucun utilisateur trouvé avec cet e-mail');
-            return $this->render('security/mail.html.twig');
+            return $this->render('auth_oauth_login');
         }
         if ($user->getIsVerified()) {
             $this->addFlash('warning', 'Cet utilisateur est déja activé');

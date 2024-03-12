@@ -1,5 +1,5 @@
 /* mail.html.twig */
-body {
+.body-mail  {
     background: #f4dab1b1;
     font-family: 'Open-sans', sans-serif;
   }
@@ -53,14 +53,13 @@ input{
 }
 
 
-
 /* create_password.html.twig */
 
 .container {
     margin-top: 50px;
 }
 
-h1 {
+.h1CreatePassword {
     text-align: center;
     margin-bottom: 30px;
 }
@@ -69,12 +68,15 @@ h1 {
     margin-bottom: 20px;
 }
 
-.btn-primary {
+.submitbtn {
     background-color: #007bff;
-    border-color: #007bff;
+    margin-top:25px;
+    padding:10px;
+    border-radius: 12px;
+    border: none;
 }
 
-.btn-primary:hover {
+.submitbtn:hover {
     background-color: #0056b3;
     border-color: #0056b3;
 }

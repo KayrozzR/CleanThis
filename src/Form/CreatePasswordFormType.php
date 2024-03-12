@@ -19,7 +19,6 @@ class CreatePasswordFormType extends AbstractType
                     'placeholder' => 'exemple@email.fr',
                     'class' => 'form-control'
                 ]
-                
             ])
             
             ->add('password', PasswordType::class, [

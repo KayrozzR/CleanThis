@@ -57,6 +57,10 @@ class UserController extends AbstractController
             $token = $jwt->generate($header,$payload,
             $this->getParameter('app.jwtsecret'));
 
+            $user->setMailToken($token);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
             $mail->send ('no-reply@cleanthis.fr',
                 $user->getEmail(),
                 'Activation de votre compte CleanThis',

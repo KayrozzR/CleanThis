@@ -20,25 +20,27 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ClientController extends AbstractController
 {
-#[Route('/createPassword', name: 'create_password')]
+#[Route('/createPassword/{token}', name: 'create_password')]
 public function createPassword(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
 {
+
     // Création du formulaire
     $form = $this->createForm(CreatePasswordFormType::class);
     $form->handleRequest($request);
 
     // Vérification de la soumission du formulaire et de sa validation
     if ($form->isSubmitted() && $form->isValid()) {
-        // Récupération des données du formulaire
-        $email = $form->get('email')->getData();
+       
         $password = $form->get('password')->getData();
         $password2 = $form->get('password2')->getData();
+        $email = $form->get('email')->getData();
 
         // Recherche de l'utilisateur par e-mail
         $user = $userRepository->findOneByEmail($email);
-
+        var_dump($request->query->get('token')) ;
+        var_dump($user);
         // Si l'utilisateur est trouvé et les mots de passe correspondent
-        if ($user && $password === $password2) {
+        if ($user && $user->getMailToken() == $request->query->get('token') && $password === $password2) {
             // Hachage du mot de passe
             $hashedPassword = $userPasswordHasherInterface->hashPassword(
                 $user,
