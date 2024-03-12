@@ -37,8 +37,8 @@ public function createPassword(Request $request, UserRepository $userRepository,
 
         // Recherche de l'utilisateur par e-mail
         $user = $userRepository->findOneByEmail($email);
-        var_dump($request->query->get('token')) ;
-        var_dump($user);
+        // var_dump($request->query->get('token')) ;
+        // var_dump($user);
         // Si l'utilisateur est trouvé et les mots de passe correspondent
         if ($user && $user->getMailToken() == $request->query->get('token') && $password === $password2) {
             // Hachage du mot de passe
