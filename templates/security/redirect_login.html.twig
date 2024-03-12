@@ -2,60 +2,56 @@
 
 {% block title %}Log in!
 {% endblock %}
-
+{% block stylesheets %} 
+    {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> #}
+{% endblock %}
 {% block body %}
 <!-- Dans votre template Twig (par exemple, base.html.twig ou un autre template de mise en page) -->
 
 	<div class="container">
-		<div class="row">
+		<div class="row conexion">
 			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 				<div class="card border-0 shadow rounded-3 my-5">
 					<div class="card-body p-4 p-sm-5">
-						<h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+						<h5 class="card-title text-center mb-5 fw-light fs-5">Connectez vous</h5>
             	{% if app.user %}
 		            <div class="mb-3">
-			            You are logged in as
-			            {{ app.user.userIdentifier }},
-			            <a href="{{ path('app_logout') }}">Logout</a>
+			            {# <a href="{{ path('app_logout') }}">Me déconnecter</a> #}
 		                </div>
 	            {% endif %}
-              {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-              {% endif %}
               <form method="post">
                 <div class="form-floating mb-3">
-                	<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                  <label for="inputEmail">Email address</label>
+                {% include "_partials/_flash.html.twig" %}
+                	<input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                  <label for="inputEmail">Adresse e-mail</label>
                 </div>
                 <div class="form-floating mb-3">
                 	<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                  <label for="inputPassword">Password</label>
+                  <label for="inputPassword">Mot de passe</label>
                 </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_csrf_token">
 
                 <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
                   <label class="form-check-label" for="rememberPasswordCheck">
-                    Remember password
+                    Se souvenir de moi
                   </label>
                 </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_csrf_token">
                 <div class="d-grid">
                   <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
-                  Sign in</button>
+                  Connexion</button>
 							</div>
 							<hr class="my-4">
 							<div class="d-grid mb-2">
 								<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
 									<i class="fab fa-google me-2"></i>
-									Sign in with Google
+								 Connexion avec Google
 								</a>
-                <a href="{{ path('forgotten_password')}}" class="forgot-password-link"> mot de passe oublié </a>
+                                <a href="{{ path('forgotten_password')}}" class="forgot-password-link"> mot de passe oublié </a>
 							</div>
 							<div
-								class="d-grid">{# <a class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
-									                  <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
-									                </a> #}
+								class="d-grid">
 							</div>
 						</form>
 					</div>
@@ -64,6 +60,3 @@
 		</div>
 	</div>
 </body>{% endblock %}
-
-
-

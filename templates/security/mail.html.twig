@@ -1,0 +1,35 @@
+{# {% block title %}
+<h1>ERREUR</h1>
+{% endblock %} #}
+
+{% block stylesheets %} 
+   <link rel="stylesheet" href="{{asset('assets/css/client.css')}}">
+{% endblock %}
+
+{% block body %}
+<body class="body-mail">
+{# {% include "_partials/_flash.html.twig" %} #}
+    <section class="home">
+        <div class="text">
+            <form action="{{ path('resend_verif') }}" method="post">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                    <div class="alert-message">
+					 <strong>Oops, le lien est invalide ou a expiré</strong>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {# <label for="email" class="form-label">Entrez votre adresse mail</label> #}
+                    <input type="email" class="form-control " id="email" name="email" placeholder= "Entrez votre e-mail"required>
+                </div>
+                <button type="submit" class="btn btn-primary">Renvoyer le lien d'activation</button>
+            </form>
+        </div>
+    </section>  
+</body>
+{% endblock %}
+
+
+
+
+
+

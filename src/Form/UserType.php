@@ -3,13 +3,15 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -62,7 +64,14 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Téléphone'
+                'label' => 'Téléphone',
+                'constraints' => [
+                    new Length([
+                        'min' => 10,
+                        'max' => 10,
+                        'exactMessage' => 'Veuillez entrer un numéro de téléphone valide.'
+                    ])
+                ]
             ])
             // ->add('created_at')
             // ->add('operations_finalisee')

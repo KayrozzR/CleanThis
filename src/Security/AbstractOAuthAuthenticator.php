@@ -36,7 +36,7 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         private readonly RouterInterface $router,
         private readonly UserRepository $repository,
         private readonly OAuthRegistrationService $registrationService,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
     ) {
     }
 

@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="{{ path('app_operation_index') }}">
                             <i class='bx bx-folder-open icon'></i>
                             <span class="text nav-text">Opérations</span>
                         </a>
@@ -63,6 +63,7 @@
                             <span class="text nav-text">Nos services</span>
                         </a>
                     </li>
+                {# {% if is_granted('ROLE_ADMIN') %} #}
                     <li class="nav-link">
                         <a href="{{ path('app_employe_index') }}">
                             <i class='bx bxl-microsoft-teams icon'></i>

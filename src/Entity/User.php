@@ -65,6 +65,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_verified = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mail_token = null;
+
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -282,6 +289,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
 
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
 
+        return $this;
+    }
+
+    public function getMailToken(): ?string
+    {
+        return $this->mail_token;
+    }
+
+    public function setMailToken(?string $mail_token): static
+    {
+        $this->mail_token = $mail_token;
+
+        return $this;
+    }
+
+  
 }
