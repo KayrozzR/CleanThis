@@ -1,0 +1,296 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="container" style="padding-top: 300px; padding-left: 50px">
+			<div>
+				<!-- /Breadcrumb -->
+
+				<div class="row gutters-sm">
+					<div class="col-md-4 mb-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex flex-column align-items-center text-center">
+									<h4 id="user-fullname">{{app.user.lastname}}
+										{{app.user.firstname}}</h4>
+									<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="rounded-circle" width="150">
+									<form id="upload-form" action="{{ path('upload_avatar') }}" method="post" enctype="multipart/form-data">
+										<label for="avatar-upload" class="upload-icon">
+											<i class="bx bx-cloud-upload" style='font-size: 30px;'></i><br>
+											Changer d'avatar
+										</label>
+										<input type="file" name="avatar" id="avatar-upload" accept="image/*" style="display: none;">
+										<button id="avatar-submit" class="btn btn-primary" style="display: none;">Télécharger</button>
+									</form>
+									<div class="mt-3">
+										<p class="text-secondary mb-1">Employé depuis le :</p>
+										<p class="text-muted font-size-sm">{{ app.user.createdAt ? app.user.createdAt|date('d-m-Y') : '' }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Nom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<span id="lastname">{{ app.user.lastname }}</span>
+										<input class="editable-input" type="text" id="edit-lastname" style="display: none;">
+										<button onclick="editField('lastname')">
+											<i class='bx bx-edit'></i>
+										</button>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Prenom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<span id="firstname">{{ app.user.firstname }}</span>
+										<input class="editable-input" type="text" id="edit-firstname" style="display: none;">
+										<button onclick="editField('firstname')">
+											<i class='bx bx-edit'></i>
+										</button>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Email</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<span id="email">{{ app.user.email }}</span>
+										<input type="text" id="edit-email" style="display: none;">
+										<button onclick="editField('email')">
+											<i class='bx bx-edit'></i>
+										</button>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Mobile</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<span id="tel">{{ app.user.tel }}</span>
+										<input type="text" id="edit-tel" style="display: none;">
+										<button onclick="editField('tel')">
+											<i class='bx bx-edit'></i>
+										</button>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Address</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<span id="address">{{ app.user.address }}</span>
+										<input type="text" id="edit-address" style="display: none;">
+										<button onclick="editField('address')">
+											<i class='bx bx-edit'></i>
+										</button>
+									</div>
+								</div>
+								<hr>
+								<div class="row" id="edit-password-row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Mot de passe</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<input type="text" id="edit-password" style="display: none;">
+										<button onclick="editPasswordField()">
+											<i class='bx bx-edit'></i>
+										</button>
+									</div>
+								</div>
+								<div id="password-fields" style="display: none;">
+									<div class="row">
+										<div class="col-sm-3">
+											<h6 class="mb-0">Ancien mot de passe</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="password" id="current-password">
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<h6 class="mb-0">Nouveau mot de passe</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="password" id="new-password">
+										</div>
+									</div>
+									<hr>
+								</div>
+								<div id="save-button" style="display: none;">
+									<button onclick="savePassword()">Enregistrer le mot de passe</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		function editField(fieldName) {
+var fieldValue = document.getElementById(fieldName).innerText;
+var editField = document.getElementById('edit-' + fieldName);
+var originalField = document.getElementById(fieldName);
+
+// Afficher le champ d'édition et cacher le texte statique
+editField.value = fieldValue;
+editField.style.display = 'inline';
+originalField.style.display = 'none';
+
+// Focus sur le champ d'édition
+editField.focus();
+
+// Écouter l'événement de perte de focus pour sauvegarder les modifications
+editField.addEventListener('blur', function () {
+saveField(fieldName);
+});
+}
+
+function saveField(fieldName) {
+var editField = document.getElementById('edit-' + fieldName);
+var originalField = document.getElementById(fieldName);
+var newValue = editField.value;
+
+// Préparer les données à envoyer au serveur
+var data = {};
+data[fieldName] = newValue;
+// Utilisez le nom de champ dynamique correspondant
+
+// Envoyer la nouvelle valeur au serveur pour sauvegarde en base de données
+fetch("{{ path('app_user_edit_profil', {'id': app.user.id}) }}", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+}).then(response => response.json()).then(data => { // Traiter les données renvoyées si nécessaire
+alert("Données bien envoyées");
+}).catch(error => {
+console.error('Erreur lors de l\'envoi des données:', error);
+});
+
+// Afficher la nouvelle valeur dans le champ original et cacher le champ d'édition
+originalField.innerText = newValue;
+editField.style.display = 'none';
+originalField.style.display = 'inline';
+}
+
+function editPasswordField() {
+var editField = document.getElementById('edit-password');
+var passwordFields = document.getElementById('password-fields');
+var editPasswordRow = document.getElementById('edit-password-row');
+
+// Afficher les champs de saisie de mot de passe et cacher le bouton "Modifier"
+editField.style.display = 'none';
+passwordFields.style.display = 'block';
+editPasswordRow.style.display = 'none';
+}
+
+function editPasswordField() {
+var editField = document.getElementById('edit-password');
+var passwordFields = document.getElementById('password-fields');
+var editPasswordRow = document.getElementById('edit-password-row');
+var saveButton = document.getElementById('save-button');
+
+// Afficher les champs de saisie de mot de passe et cacher le bouton "Modifier"
+editField.style.display = 'none';
+passwordFields.style.display = 'block';
+editPasswordRow.style.display = 'none';
+
+// Afficher le bouton "Enregistrer"
+saveButton.style.display = 'block';
+}
+function savePassword() {
+var currentPasswordField = document.getElementById('current-password');
+var newPasswordField = document.getElementById('new-password');
+var editField = document.getElementById('edit-password');
+var passwordFields = document.getElementById('password-fields');
+var editPasswordRow = document.getElementById('edit-password-row');
+
+var currentPassword = currentPasswordField.value;
+var newPassword = newPasswordField.value;
+
+// Vérification des champs du formulaire
+if (currentPassword.trim() === '' || newPassword.trim() === '') {
+alert('Veuillez remplir tous les champs.');
+return;
+}
+
+// Préparer les données à envoyer au serveur
+var data = {
+currentPassword: currentPassword,
+newPassword: newPassword
+};
+
+// Envoyer les données au serveur pour sauvegarde en base de données
+fetch("{{ path('app_save_password') }}", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+}).then(response => {
+if (!response.ok) {
+throw new Error('Erreur lors de la requête.');
+}
+return response.json();
+}).then(data => { // Traiter la réponse du serveur si nécessaire
+alert("Mot de passe mis à jour avec succès !");
+// Actualiser la page pour restaurer l'état initial
+window.location.reload();
+}).catch(error => {
+console.error('Erreur lors de la mise à jour du mot de passe:', error);
+alert('Une erreur est survenue lors de la mise à jour du mot de passe.');
+});
+}
+
+document.getElementById('avatar-upload').addEventListener('change', function () {
+document.getElementById('avatar-submit').click();
+});
+
+// Stocker les valeurs initiales du prénom et du nom
+    var initialLastname = "{{ app.user.lastname }}";
+    var initialFirstname = "{{ app.user.firstname }}";
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mettre à jour le titre au chargement de la page
+        updateTitle();
+
+        // Ajouter un écouteur d'événements sur les champs de saisie
+        var inputFields = document.querySelectorAll('.editable-input');
+        inputFields.forEach(function(inputField) {
+            inputField.addEventListener('input', function() {
+                updateTitle();
+            });
+        });
+    });
+
+    function updateTitle() {
+        // Récupérer les valeurs des champs prénom et nom
+        var lastname = document.getElementById('edit-lastname').value.trim();
+        var firstname = document.getElementById('edit-firstname').value.trim();
+
+        // Mettre à jour le titre avec les nouvelles valeurs ou les valeurs initiales si les champs sont vides
+        var updatedLastname = lastname !== '' ? lastname : initialLastname;
+        var updatedFirstname = firstname !== '' ? firstname : initialFirstname;
+        document.getElementById('user-fullname').innerText = updatedLastname + ' ' + updatedFirstname;
+    }
+	</script>
+{% endblock %}

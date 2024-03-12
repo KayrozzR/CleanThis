@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="vMC8yRQ" resname="Sign In">
+        <source>Sign In</source>
+        <target>Connectez-vous</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>Vous êtes connecté en tant que</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Déconnexion</target>
+      </trans-unit>
+      <trans-unit id="8kiP1O9" resname="Email address">
+        <source>Email address</source>
+        <target>Adresse email</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="U8RhXeQ" resname="Remember password">
+        <source>Remember password</source>
+        <target>Se souvenir du MDP</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="HbzuaCR" resname="Sign in with Google">
+        <source>Sign in with Google</source>
+        <target>Se connecter avec google</target>
+      </trans-unit>
+      <trans-unit id="ZOiBHqP" resname="On a crisp autumn morning, the leaves rustled softly as a gentle breeze swept through the trees. The sun peeked through the branches, casting dappled shadows on the forest floor. Birds chirped merrily, their songs echoing in the tranquil air. A small stream gurgled nearby, its waters crystal clear and inviting. It was a perfect day for a leisurely stroll in the woods, soaking in the sights and sounds of nature.">
+        <source>On a crisp autumn morning, the leaves rustled softly as a gentle breeze swept through the trees. The sun peeked through the branches, casting dappled shadows on the forest floor. Birds chirped merrily, their songs echoing in the tranquil air. A small stream gurgled nearby, its waters crystal clear and inviting. It was a perfect day for a leisurely stroll in the woods, soaking in the sights and sounds of nature.</source>
+        <target>Par une journée d'été brûlante, alors que le soleil brillait intensément dans un ciel sans nuages, une petite brise caressait doucement les feuilles des arbres. Les enfants riaient et jouaient dans le parc, tandis que les oiseaux chantaient gaiement. Au loin, on entendait le doux murmure d'une rivière qui coulait paisiblement. C'était une journée parfaite pour se détendre et profiter de la beauté de la nature.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

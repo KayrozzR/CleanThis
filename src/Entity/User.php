@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -55,11 +56,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $operations_finalisee = null;
 
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $resetToken;
+
     #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'User')]
     private Collection $devis;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $is_verified = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mail_token = null;
+
 
     public function __construct()
     {
@@ -215,6 +226,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    
+    /**
+     * Get the value of resetToken
+     */ 
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set the value of resetToken
+     *
+     * @return  self
+     */ 
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+
     /**
      * @return Collection<int, Devis>
      */
@@ -256,5 +289,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
 
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
+
+        return $this;
+    }
+
+    public function getMailToken(): ?string
+    {
+        return $this->mail_token;
+    }
+
+    public function setMailToken(?string $mail_token): static
+    {
+        $this->mail_token = $mail_token;
+
+        return $this;
+    }
+
+  
 }

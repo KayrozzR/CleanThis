@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TypeOperationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeOperationRepository::class)]
@@ -21,7 +22,7 @@ class TypeOperation
     #[ORM\Column]
     private ?float $tarif = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $descriptif = null;
 
     #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'Type_Operation')]

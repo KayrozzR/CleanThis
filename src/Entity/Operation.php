@@ -46,9 +46,6 @@ class Operation
     #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'Operation')]
     private Collection $devis;
 
-    #[ORM\Column(length: 255)]
-    private ?string $address_intervention = null;
-
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -194,15 +191,5 @@ class Operation
         return $this;
     }
 
-    public function getAddressIntervention(): ?string
-    {
-        return $this->address_intervention;
-    }
-
-    public function setAddressIntervention(string $address_intervention): static
-    {
-        $this->address_intervention = $address_intervention;
-
-        return $this;
-    }
+   
 }
