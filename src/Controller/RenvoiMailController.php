@@ -15,7 +15,9 @@ use App\Form\ResetPasswordRequestFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 
 
@@ -23,7 +25,7 @@ class RenvoiMailController extends AbstractController
 {
 
     #[Route('/verif/{token}', name: 'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em, Request $request):Response
+    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator):Response
     {
         $form = $this->createForm(CreatePasswordFormType::class);
         $form->handleRequest($request);
@@ -37,9 +39,29 @@ class RenvoiMailController extends AbstractController
             //we verify if the user exists and if he didn't activate his account
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
-                $em->flush($user);
-                // $this->addFlash('success', 'Votre compte est activé');
-                return $this->redirectToRoute('create_password', ['token' => $token]);
+                // $em->flush($user);
+                // Générer un token de réinitialisation 
+                $token = $tokenGenerator->generateToken();
+                $user->setResetToken($token);
+                $em->persist($user);
+                $em->flush();
+
+                // Générer un lien de réinitialisation du mot de passe
+                $url = $this->generateUrl('reset_pass', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+
+                // Créer les données de mail
+                $context = compact('url', 'user');
+
+                // Envoyer le mail
+                $mail->send(
+                    'user@example.com', // Mettez votre email ici
+                    $user->getEmail(),
+                    'Création de votre mot de passe CleanThis',
+                    'password_reset', // Chemin vers votre template de mail
+                    $context
+                );
+                $this->addFlash('success', 'Votre compte est activé! Un e-mail vous a été envoyé pour la création de votre mot de passe');
+                return $this->redirectToRoute('app_home');
             }
             if ($user && $user->getIsVerified()) {
                 $this->addFlash('success', 'Votre compte est déja activé');
