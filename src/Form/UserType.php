@@ -46,12 +46,12 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Entrez votre mot de passe',
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+            // ->add('password', PasswordType::class, [
+            //     'label' => 'Entrez votre mot de passe',
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ]
+            // ])
         
             // ->add('google_id')
             // ->add('avatar')
