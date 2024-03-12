@@ -265,21 +265,32 @@ document.getElementById('avatar-upload').addEventListener('change', function () 
 document.getElementById('avatar-submit').click();
 });
 
-document.addEventListener('DOMContentLoaded', function () { // Ajouter un écouteur d'événements sur les champs de saisie
-var inputFields = document.querySelectorAll('.editable-input');
-inputFields.forEach(function (inputField) {
-inputField.addEventListener('input', function () {
-updateTitle();
-});
-});
-});
+// Stocker les valeurs initiales du prénom et du nom
+    var initialLastname = "{{ app.user.lastname }}";
+    var initialFirstname = "{{ app.user.firstname }}";
 
-function updateTitle() { // Récupérer les valeurs des champs prénom et nom
-var lastname = document.getElementById('edit-lastname').value;
-var firstname = document.getElementById('edit-firstname').value;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mettre à jour le titre au chargement de la page
+        updateTitle();
 
-// Mettre à jour le titre avec les nouvelles valeurs
-document.getElementById('user-fullname').innerText = lastname + ' ' + firstname;
-}
+        // Ajouter un écouteur d'événements sur les champs de saisie
+        var inputFields = document.querySelectorAll('.editable-input');
+        inputFields.forEach(function(inputField) {
+            inputField.addEventListener('input', function() {
+                updateTitle();
+            });
+        });
+    });
+
+    function updateTitle() {
+        // Récupérer les valeurs des champs prénom et nom
+        var lastname = document.getElementById('edit-lastname').value.trim();
+        var firstname = document.getElementById('edit-firstname').value.trim();
+
+        // Mettre à jour le titre avec les nouvelles valeurs ou les valeurs initiales si les champs sont vides
+        var updatedLastname = lastname !== '' ? lastname : initialLastname;
+        var updatedFirstname = firstname !== '' ? firstname : initialFirstname;
+        document.getElementById('user-fullname').innerText = updatedLastname + ' ' + updatedFirstname;
+    }
 	</script>
 {% endblock %}
