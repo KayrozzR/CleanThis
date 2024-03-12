@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -54,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?int $operations_finalisee = null;
+
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $resetToken;
 
     #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'User')]
     private Collection $devis;
@@ -215,6 +219,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    
+    /**
+     * Get the value of resetToken
+     */ 
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set the value of resetToken
+     *
+     * @return  self
+     */ 
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+
     /**
      * @return Collection<int, Devis>
      */
@@ -256,5 +282,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 
 }

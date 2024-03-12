@@ -4,6 +4,8 @@
 {% endblock %}
 
 {% block body %}
+<!-- Dans votre template Twig (par exemple, base.html.twig ou un autre template de mise en page) -->
+
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -48,6 +50,7 @@
 									<i class="fab fa-google me-2"></i>
 									Sign in with Google
 								</a>
+                <a href="{{ path('forgotten_password')}}" class="forgot-password-link"> mot de passe oublié </a>
 							</div>
 							<div
 								class="d-grid">{# <a class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
@@ -61,3 +64,6 @@
 		</div>
 	</div>
 </body>{% endblock %}
+
+
+
