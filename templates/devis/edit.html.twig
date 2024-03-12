@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block stylesheets %} 
+    {{ parent() }} {# Inclut les feuilles de style du fichier parent #}
+    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+  <section class="home">
+    <div class="text">
+    
+    <h1>Edit devis</h1>
+
+    {{ include('devis/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_devis_index') }}">back to list</a>
+
+    {{ include('devis/_delete_form.html.twig') }}
+    </div>
+   </section> 
+{% endblock %}
+
+

@@ -11,6 +11,8 @@
 {% block body %}
    <section class="home">
     <div class="text">
+    
+
   
     <h1>Liste des clients</h1>
     {# <a href="{{ path('app_user_new') }}" class="create"> + Ajouter un client</a> #}
@@ -84,7 +86,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <script>
         $(document).ready(function() {
 
@@ -102,36 +103,37 @@
     </script>
 
     <script>
-$(document).ready(function() {
-    $('.table').off('click', '.deleteBtn').on('click', '.deleteBtn', function(e) {
-        e.preventDefault();
-        var userId = this.id.replace('delete', '');
-        var csrfToken = $(this).data('csrf-token');
-        
-        if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-            $.ajax({
-                url: '/admin/customer/' + userId,
-                type: 'POST',
-                data: {
-                    '_token': csrfToken,
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert("Utilisateur supprimé avec succès");
-                        $('#delete' + userId).closest('tr').remove();
+    $(document).ready(function() {
+        $('.table').off('click', '.deleteBtn').on('click', '.deleteBtn', function(e) {
+            e.preventDefault();
+            var userId = this.id.replace('delete', '');
+            var csrfToken = $(this).data('csrf-token');
+            
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+                $.ajax({
+                    url: '/admin/customer/' + userId,
+                    type: 'POST',
+                    data: {
+                        '_token': csrfToken,
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert("Utilisateur supprimé avec succès");
+                            $('#delete' + userId).closest('tr').remove();
+                            
+                        location.reload();
                         
-                    location.reload();
-                       
-                    } else {
-                        alert("La suppression a échoué");
+                        } else {
+                            alert("La suppression a échoué");
+                        }
+                    },
+                    error: function() {
+                        alert("Une erreur s'est produite");
                     }
-                },
-                error: function() {
-                    alert("Une erreur s'est produite");
-                }
-            });
-        }
+                });
+            }
+        });
     });
-});
 	</script>
+    
 {% endblock %}

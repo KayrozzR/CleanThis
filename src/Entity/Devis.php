@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\DevisRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DevisRepository;
+use App\Entity\Trait\CreatedAtTrait;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: DevisRepository::class)]
 class Devis
 {
+    use CreatedAtTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -19,16 +22,13 @@ class Devis
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $url_devis = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $image_object = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => false])]
     private ?bool $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'devis')]
@@ -40,10 +40,26 @@ class Devis
     #[ORM\ManyToMany(targetEntity: Operation::class, inversedBy: 'devis')]
     private Collection $Operation;
 
+    #[ORM\Column(length: 255)]
+    private ?string $adresse_intervention = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $mail = null;
+
+    #[ORM\Column(length: 12)]
+    private ?string $tel = null;
+
     public function __construct()
     {
         $this->Type_Operation = new ArrayCollection();
         $this->Operation = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -59,18 +75,6 @@ class Devis
     public function setUrlDevis(?string $url_devis): static
     {
         $this->url_devis = $url_devis;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
 
         return $this;
     }
@@ -167,6 +171,66 @@ class Devis
     public function removeOperation(Operation $operation): static
     {
         $this->Operation->removeElement($operation);
+
+        return $this;
+    }
+
+    public function getAdresseIntervention(): ?string
+    {
+        return $this->adresse_intervention;
+    }
+
+    public function setAdresseIntervention(string $adresse_intervention): static
+    {
+        $this->adresse_intervention = $adresse_intervention;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): static
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }
