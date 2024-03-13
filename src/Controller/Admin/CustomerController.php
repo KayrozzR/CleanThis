@@ -44,7 +44,7 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        $this->denyAccessUnlessGranted('ROLE_APPRENTI');
+        // $this->denyAccessUnlessGranted('ROLE_APPRENTI');
 
         return $this->render('admin/customer/new.html.twig', [
             'user' => $user,

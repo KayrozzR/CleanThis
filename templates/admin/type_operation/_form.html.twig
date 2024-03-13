@@ -9,12 +9,11 @@
                     </div>
                     <div class="card-body">
                         {{ form_start(form) }}
-                            {{ form_widget(form) }}
-                            <button class="btn">{{ button_label|default('Save') }}</button>
+                            {{ form_widget(form) }}<br>
+                            <button class="btn modifier m-3">{{ button_label|default('Save') }}</button>
+                            <a style="float: right; color: white;" class= "retour m-3" href="{{ path('app_type_operation_index') }}">back to list</a>
                         {{ form_end(form) }}
-                            <a href="{{ path('app_type_operation_index') }}">back to list</a>
-
-                             {# {{ include('admin/type_operation/_delete_form.html.twig') }} #}
+                            {# {{ include('admin/type_operation/_delete_form.html.twig') }} #}
                     </div>
                 </div>
             </div>
