@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\JWTService;
+use App\Service\RandomPassword;
 use Doctrine\ORM\EntityManager;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
@@ -17,18 +18,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
-
-
-class RenvoiMailController extends AbstractController
+class VerifsController extends AbstractController
 {
 
     #[Route('/verif/{token}', name: 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator):Response
     {
-        $form = $this->createForm(CreatePasswordFormType::class);
-        $form->handleRequest($request);
         //we verify if the token is valid, if it's not expired and if it wasn't modified 
         if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))) {
             //we take the payload 
@@ -39,25 +37,24 @@ class RenvoiMailController extends AbstractController
             //we verify if the user exists and if he didn't activate his account
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
-                // $em->flush($user);
-                // Générer un token de réinitialisation 
+                // Generate a reainitialisation token
                 $token = $tokenGenerator->generateToken();
                 $user->setResetToken($token);
                 $em->persist($user);
                 $em->flush();
 
-                // Générer un lien de réinitialisation du mot de passe
+                // Generate a mail reinitialisation link
                 $url = $this->generateUrl('reset_pass', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                // Créer les données de mail
+                // Create the mail datas
                 $context = compact('url', 'user');
 
-                // Envoyer le mail
+                // send the e-mail
                 $mail->send(
-                    'user@example.com', // Mettez votre email ici
+                    'user@example.com', 
                     $user->getEmail(),
                     'Création de votre mot de passe CleanThis',
-                    'password_reset', // Chemin vers votre template de mail
+                    'password_create', 
                     $context
                 );
                 $this->addFlash('success', 'Votre compte est activé! Un e-mail vous a été envoyé pour la création de votre mot de passe');
@@ -71,6 +68,61 @@ class RenvoiMailController extends AbstractController
         //here we have a problem in the token
         return $this->render('security/mail.html.twig');
     }
+
+
+    #[Route('/verifEmployee/{token}', name: 'verify_employee')]
+    public function verifyEmployee($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator, RandomPassword $randomPassword,UserPasswordHasherInterface $userPasswordHasherInterface):Response
+    {
+        //we verify if the token is valid, if it's not expired and if it wasn't modified 
+        if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))) {
+            //we take the payload 
+            $payload =$jwt->getPayload($token);
+            //we take the user of the token
+            $user = $userRepository->find($payload['user_id']);
+
+            //we verify if the user exists and if he didn't activate his account
+            if ($user && !$user->getIsVerified()) {
+                $user->setIsVerified(true);
+                // Generate a reainitialisation token
+                $token = $tokenGenerator->generateToken();
+                //create the random password
+                $password = $randomPassword->genererMotDePasse(6);
+                $user->setPassword(
+                    $userPasswordHasherInterface->hashPassword(
+                        $user,
+                        $password
+                    )
+                );
+                $user->setResetToken($token);
+                $em->persist($user);
+                $em->flush();
+
+                // Generate a mail reinitialisation link
+                $url = $this->generateUrl('reset_pass_employee', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+
+                // Create the mail datas
+                $context = compact('url', 'user','password');
+
+                // send the e-mail
+                $mail->send(
+                    'user@example.com', 
+                    $user->getEmail(),
+                    'Création de votre mot de passe CleanThis',
+                    'password_create_employee', 
+                    $context
+                );
+                $this->addFlash('success', 'Votre compte CleanThis est activé! Un e-mail vous a été envoyé pour la création de votre mot de passe');
+                return $this->redirectToRoute('app_home');
+            }
+            if ($user && $user->getIsVerified()) {
+                $this->addFlash('success', 'Votre compte est déja activé');
+                return $this->render('security/redirect_login.html.twig');
+            }
+        }
+        //here we have a problem in the token
+        return $this->render('security/mail.html.twig');
+    }
+
 
     #[Route('/renvoiverif', name: 'resend_verif')]
     public function resendVerif(Request $request,JWTService $jwt, SendMailService $mail, UserRepository $userRepository):Response{
