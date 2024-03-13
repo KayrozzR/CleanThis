@@ -1,7 +1,5 @@
 <?php
 
-// Controller modifié
-
 namespace App\Controller\Admin;
 
 use App\Entity\User;
@@ -12,6 +10,7 @@ use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Form\ResetPasswordFormType;
 use App\Form\CreatePasswordFormType;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +47,7 @@ class EmployeController extends AbstractController
             try {
                 $entityManager->persist($user);
                 $entityManager->flush();
-    
+
                 //We generate the jwt of the user
                 //We cretae the header
                 $header =[
@@ -77,6 +76,7 @@ class EmployeController extends AbstractController
                     // Définir le message d'erreur approprié
                     $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
                 }
+              
                 // Autres exceptions de violation de contrainte d'unicité peuvent être gérées ici si nécessaire
                 // Vous pouvez ajouter d'autres blocs if-else pour d'autres contraintes d'unicité si nécessaire
             }
@@ -104,20 +104,28 @@ class EmployeController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        $error = null;
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file = $form['avatar']->getData();
-            // $someNewFilename = 'file_' . date('YmdHis') . '_' . uniqid() . '.url';
-            // $directory= "../public/images";
-            // $file->move($directory, $someNewFilename);
-            // $user->setAvatar($someNewFilename);
-            // $entityManager->persist($user);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
+            try {
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
+            } catch (UniqueConstraintViolationException $e) {
+                // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
+                if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
+                    // Définir le message d'erreur approprié
+                    $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
+                }
+
+            }
+            
         }
 
         return $this->render('admin/employe/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'error' => $error
         ]);
     }
 

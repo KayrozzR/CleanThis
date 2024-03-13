@@ -1,18 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Edit Employee{% endblock %}
 
 {% block body %}
   <section class="home">
     <div class="text">
     
-    <h1>Edit User</h1>
+    <h1>Edit Employee</h1>
 
     {{ include('admin/employe/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_employe_index') }}">back to list</a>
 
     {# {{ include('user/_delete_form.html.twig') }} #}
     </div>
    </section> 
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('assets/js/autocomplete.js') }}" defer></script>
+
 {% endblock %}
