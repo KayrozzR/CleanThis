@@ -390,28 +390,31 @@ h1 {
 }
 
 .actionsButtons1 {
-    color: black;
+    color: white;
+    font-size: 25px;
     margin-right: 8px;
     padding: 5px;
     border-radius: 8px;
-    background-color: #372772af;
+    background-color: #F2C57C;
     text-decoration: none;
 }
 
 .actionsButtons2 {
-    color: black;
+    color: white;
+    font-size: 25px;
     margin-right: 8px;
     padding: 5px;
     border-radius: 8px;
-    background-color: #f13e02b7;
+    background-color: #F2C57C;
     text-decoration: none;
 }
 
 .actionsButtons3 {
-    color: black;
-    padding: 2px;
+    color: white;
+    font-size: 25px;
+    padding: 5px;
     border-radius: 8px;
-    background-color: #F90000;
+    background-color: #F2C57C;
     text-decoration: none;
 }
 
@@ -424,7 +427,8 @@ h1 {
 }
 
 .actionsButtons3:hover{
-    background-color:#F90000;
+    background-color:red;
+    color: white;
 }
 
 .forgot-password-link {
