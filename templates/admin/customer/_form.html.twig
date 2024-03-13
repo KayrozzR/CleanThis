@@ -8,6 +8,11 @@
                         <h2 class="text-center">Formulaire</h2>
                     </div>
                     <div class="card-body">
+                      {% if error %}
+                        <div class="alert alert-danger">
+                          {{ error }}
+                        </div>
+                      {% endif %}
                         {{ form_start(form) }}
                             {{ form_widget(form) }}<br>
                             <button class="btn modifier m-3">{{ button_label|default('Save') }}</button>
@@ -20,4 +25,4 @@
         </div>
     </div>
 </section>
-    {% endblock %}
+{% endblock %}

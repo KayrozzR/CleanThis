@@ -18,48 +18,6 @@
 
 {% block javascripts %}
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var addressInput = document.getElementById('user_address');
-    var suggestionsContainer = document.createElement('div');
-    suggestionsContainer.classList.add('form-control');
-    suggestionsContainer.style.display = 'none'; // Masquer la div par défaut
-
-    if (addressInput) {
-        addressInput.addEventListener('input', function() {
-            var input = this.value;
-            if (input.length > 2) {
-                fetch('/autocomplete?query=' + encodeURIComponent(input))
-                    .then(response => response.json())
-                    .then(data => {
-                        suggestionsContainer.innerHTML = ''; // Effacer les anciennes suggestions
-                        if (data.features.length > 0) {
-                            data.features.forEach(feature => {
-                                var suggestionElement = document.createElement('div');
-                                suggestionElement.innerText = feature.properties.label;
-                                suggestionElement.onclick = function() {
-                                    document.getElementById('user_address').value = feature.properties.name;
-                                    suggestionsContainer.style.display = 'none'; // Masquer la div après sélection
-                                };
-                                suggestionsContainer.appendChild(suggestionElement);
-                            });
-                            suggestionsContainer.style.display = 'block'; // Afficher la div s'il y a des suggestions
-                        } else {
-                            suggestionsContainer.style.display = 'none'; // Masquer la div s'il n'y a pas de suggestions
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors de la récupération des données :', error);
-                        suggestionsContainer.style.display = 'none'; // Masquer la div en cas d'erreur
-                    });
-
-                addressInput.parentNode.insertBefore(suggestionsContainer, addressInput.nextSibling);
-            } else {
-                suggestionsContainer.style.display = 'none'; // Masquer la div si la longueur de l'entrée est inférieure à 3
-            }
-        });
-    }
-});
-</script>
+<script src="{{ asset('assets/js/autocomplete.js') }}" defer></script>
 
 {% endblock %}
