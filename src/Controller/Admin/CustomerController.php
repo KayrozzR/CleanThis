@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/customer')]
@@ -20,13 +21,13 @@ class CustomerController extends AbstractController
     #[Route('/', name: 'app_customer_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-         // Récupérer uniquement les utilisateurs ayant le rôle 'ROLE_CLIENT'
+        // Récupérer uniquement les utilisateurs ayant le rôle 'ROLE_CLIENT'
         $roles = ['ROLE_CLIENT'];
         $customers = $userRepository->findByRoles($roles);
 
         return $this->render('admin/customer/index.html.twig', [
             'users' => $customers,
-    ]);
+        ]);
     }
 
     #[Route('/new', name: 'app_customer_new', methods: ['GET', 'POST'])]
@@ -36,19 +37,31 @@ class CustomerController extends AbstractController
         $user->setRoles(["ROLE_CLIENT"]);
         $form = $this->createForm(CustomerType::class, $user);
         $form->handleRequest($request);
-
+    
+        $error = null; // Initialisez la variable d'erreur à null
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
+            try {
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
+            } catch (UniqueConstraintViolationException $e) {
+                // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
+                if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
+                    // Définir le message d'erreur approprié
+                    $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
+                }
+                // Autres exceptions de violation de contrainte d'unicité peuvent être gérées ici si nécessaire
+                // Vous pouvez ajouter d'autres blocs if-else pour d'autres contraintes d'unicité si nécessaire
+            }
         }
-
+    
         $this->denyAccessUnlessGranted('ROLE_APPRENTI');
-
+    
         return $this->render('admin/customer/new.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
+            'error' => $error, 
         ]);
     }
 
@@ -81,7 +94,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}', name: 'app_customer_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
 

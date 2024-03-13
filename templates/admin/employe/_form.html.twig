@@ -1,19 +1,24 @@
 {% block body %}
-<section class="home">
-    <div class="text">
-    <table class="table">
-        <section class="container">
-            <div class="row">
-                <div class="col">
-                    <fieldset class="mb-3">
-                        {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <button class="btn btn-success btn-sm mb-3">{{ button_label|default('Ajouter') }}</button>
-                    </fieldset>
-                    {{ form_end(form) }}
-                </div>
-            </div>
-        </section>
-    </div>
-</section>    
-    {% endblock %}
+	<section class="home">
+		<div class="text">
+			<table class="table">
+				<section class="container">
+					<div class="row">
+						<div class="col">
+							<fieldset class="mb-3">
+								{% if error %}
+									<div class="alert alert-danger">
+										{{ error }}
+									</div>
+								{% endif %}
+								{{ form_start(form) }}
+								{{ form_widget(form) }}
+								<button class="btn btn-success btn-sm mb-3">{{ button_label|default('Ajouter') }}</button>
+							</fieldset>
+							{{ form_end(form) }}
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	{% endblock %}
