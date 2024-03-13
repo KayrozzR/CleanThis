@@ -2,22 +2,23 @@
 
 namespace App\Controller;
 
-use App\Form\ResetPasswordFormType;
-use App\Form\ResetPasswordRequestFormType;
-use App\Repository\UserRepository;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManager;
+use App\Service\SendMailService;
+use App\Repository\UserRepository;
+use App\Form\ResetPasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
+use App\Form\ResetPasswordRequestFormType;
+use App\Form\ResetPasswordFormTypeEmployee;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -128,7 +129,7 @@ class SecurityController extends AbstractController
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $userPasswordHasherInterface
-     ): Response
+    ): Response
     {
         $user = $userRepository->findOneByResetToken($token);
         if($user){
@@ -137,30 +138,85 @@ class SecurityController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                //On efface le token
-                $user->setResetToken('');
-                $user->setPassword(
-                    $userPasswordHasherInterface->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
+                $password = $form->get('password')->getData();
+                $password2 = $form->get('password2')->getData();
 
-                );
-                $entityManager->persist($user);
-                $entityManager->flush();
+                if ($password === $password2) {
+                    //On efface le token
+                    $user->setResetToken('');
+                    $user->setPassword(
+                        $userPasswordHasherInterface->hashPassword(
+                            $user,
+                            $password
+                        )
+                    );
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-                $this->addFlash('success', 'mot de passe changé avec succès');
-                return $this->redirectToRoute('auth_oauth_login');
-
+                    $this->addFlash('success', 'Mot de passe changé avec succès');
+                    return $this->redirectToRoute('auth_oauth_login');
+                } else {
+                    // Les mots de passe ne correspondent pas
+                    $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
+                }
             }
-            return $this->render('security/reset_password.html.twig',[
+            
+            return $this->render('security/reset_password.html.twig', [
                 'passForm' => $form->createView()
             ]);
-
-
         }
-        // $this->addFlash('danger', 'mo');
+        $this->addFlash('error', 'Lien de réinitialisation invalide.');
+        return $this->redirectToRoute('auth_oauth_login');
+    }
+
+
+    #[Route('/oubli-pass_employee/{token}', name: 'reset_pass_employee')]
+    public function resetPassEmployee(
+        string $token,
+        Request $request,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $userPasswordHasherInterface
+    ): Response
+    {
+        $user = $userRepository->findOneByResetToken($token);
+
+        if($user){
+            $form = $this->createForm(ResetPasswordFormTypeEmployee::class);
+            $form->handleRequest($request);
+            $correspondance = $user->getPassword();
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $passwordOld = $form->get('passwordReset')->getData();
+                $password = $form->get('password')->getData();
+                $password2 = $form->get('password2')->getData();
+                $verif= password_verify($passwordOld,$correspondance);
+
+                if ($verif &&($password === $password2)) {
+                    //On efface le token
+                    $user->setResetToken('');
+                    $user->setPassword(
+                        $userPasswordHasherInterface->hashPassword(
+                            $user,
+                            $password
+                        )
+                    );
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Mot de passe changé avec succès');
+                    return $this->redirectToRoute('auth_oauth_login');
+                } else {
+                    // Les mots de passe ne correspondent pas
+                    $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
+                }
+            }
+            
+            return $this->render('security/reset_password_employee.html.twig', [
+                'passForm' => $form->createView()
+            ]);
+        }
+        $this->addFlash('error', 'Lien de réinitialisation invalide.');
         return $this->redirectToRoute('auth_oauth_login');
     }
 }
-
