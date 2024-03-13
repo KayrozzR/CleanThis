@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var addressInput = document.getElementById('user_address');
+    var addressInput = document.getElementById('user_address') || document.getElementById('customer_address');
     var suggestionsContainer = document.createElement('div');
     suggestionsContainer.classList.add('form-control');
     suggestionsContainer.style.display = 'none'; // Masquer la div par défaut
     var typingTimer; // Timer identifier
-    var doneTypingInterval = 100; // Temps d'attente en millisecondes (2 secondes)
+    var doneTypingInterval = 100; // Temps d'attente en millisecondes (0.1 secondes)
 
     if (addressInput) {
         addressInput.addEventListener('input', function() {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     var suggestionElement = document.createElement('div');
                                     suggestionElement.innerText = feature.properties.label;
                                     suggestionElement.onclick = function() {
-                                        document.getElementById('user_address').value = feature.properties.label;
+                                        addressInput.value = feature.properties.label;
                                         suggestionsContainer.style.display = 'none'; // Masquer la div après sélection
                                     };
                                     suggestionsContainer.appendChild(suggestionElement);
