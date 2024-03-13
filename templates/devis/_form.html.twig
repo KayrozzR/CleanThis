@@ -1,19 +1,51 @@
 {% block body %}
-<section class="home">
-    <div class="text">
-    <table class="table">
-        <section class="container">
-            <div class="row">
-                <div class="col">
-                    <fieldset class="mb-3">
-                        {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <button class="btn btn-success btn-sm mb-3">{{ button_label|default('Ajouter') }}</button>
-                    </fieldset>
-                    {{ form_end(form) }}
-                </div>
-            </div>
-        </section>
-    </div>
-</section>    
-    {% endblock %}
+	<section class="home1">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h2 class="text-center">Demander un devis</h2>
+							<p>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</p>
+						</div>
+						<div class="card-body">
+							{{ form_start(form) }}
+							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.lastname) }}
+								</div>
+								<div class="col-md-6">
+									{{ form_row(form.firstname) }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.mail) }}
+								</div>
+								<div class="col-md-6">
+									{{ form_row(form.tel) }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.adresse_intervention) }}
+								</div>
+								<div class="col-md-6">
+									{{ form_row(form.Type_Operation) }}
+								</div>
+							</div>
+							{{ form_row(form.image_object) }}
+							
+							{{ form_row(form.comment) }}
+							{{ form_row(form.status) }}
+
+							<button class="btn">Envoi devis</button>
+							{{ form_end(form) }}
+							<a href="{{ path('app_devis_index') }}">Retour à la liste</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
