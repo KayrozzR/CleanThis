@@ -1,24 +1,28 @@
 {% block body %}
-	<section class="home">
-		<div class="text">
-			<table class="table">
-				<section class="container">
-					<div class="row">
-						<div class="col">
-							<fieldset class="mb-3">
-								{% if error %}
-									<div class="alert alert-danger">
-										{{ error }}
-									</div>
-								{% endif %}
-								{{ form_start(form) }}
-								{{ form_widget(form) }}
-								<button class="btn btn-success btn-sm mb-3">{{ button_label|default('Ajouter') }}</button>
-							</fieldset>
-							{{ form_end(form) }}
-						</div>
-					</div>
-				</section>
-			</div>
-		</section>
-	{% endblock %}
+<section class="home1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Formulaire</h2>
+                    </div>
+                    <div class="card-body">
+                      {% if error %}
+                        <div class="alert alert-danger">
+                          {{ error }}
+                        </div>
+                      {% endif %}
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}<br>
+                            <button style="color: white;" class="btn modifier m-3">{{ button_label|default('Save') }}</button>
+                            <a style="float: right; color: white;" class= "retour m-3" href="{{ path('app_employe_index') }}">back to list</a>
+                        {{ form_end(form) }}
+                            {# {{ include('admin/type_operation/_delete_form.html.twig') }} #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

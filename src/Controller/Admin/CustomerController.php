@@ -55,9 +55,9 @@ class CustomerController extends AbstractController
                 // Vous pouvez ajouter d'autres blocs if-else pour d'autres contraintes d'unicité si nécessaire
             }
         }
-    
-        $this->denyAccessUnlessGranted('ROLE_APPRENTI');
-    
+      
+        // $this->denyAccessUnlessGranted('ROLE_APPRENTI');
+
         return $this->render('admin/customer/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),

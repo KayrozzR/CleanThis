@@ -81,6 +81,7 @@ class EmployeController extends AbstractController
             }
             
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('admin/employe/new.html.twig', [
             'user' => $user,
@@ -113,6 +114,7 @@ class EmployeController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('admin/employe/edit.html.twig', [
             'user' => $user,
@@ -127,6 +129,7 @@ class EmployeController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
     }
