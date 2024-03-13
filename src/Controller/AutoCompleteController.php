@@ -19,7 +19,7 @@ class AutoCompleteController extends AbstractController
         $response = $httpClient->request(
             'GET',
             'https://api-adresse.data.gouv.fr/search/',
-            ['query' => ['q' => $query, 'limit' => 5]]
+            ['query' => ['q' => $query]]
         );
 
         return new JsonResponse($response->toArray(false));
