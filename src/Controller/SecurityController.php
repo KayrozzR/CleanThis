@@ -122,45 +122,49 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/oubli-pass/{token}', name: 'reset_pass')]
-    public function resetPass(
-        string $token,
-        Request $request,
-        UserRepository $userRepository,
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $userPasswordHasherInterface
-     ): Response
-    {
-        $user = $userRepository->findOneByResetToken($token);
-        if($user){
-            $form = $this->createForm(ResetPasswordFormType::class);
+public function resetPass(
+    string $token,
+    Request $request,
+    UserRepository $userRepository,
+    EntityManagerInterface $entityManager,
+    UserPasswordHasherInterface $userPasswordHasherInterface
+ ): Response
+{
+    $user = $userRepository->findOneByResetToken($token);
+    if($user){
+        $form = $this->createForm(ResetPasswordFormType::class);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('password')->getData();
+            $password2 = $form->get('password2')->getData();
+
+            if ($password === $password2) {
                 //On efface le token
                 $user->setResetToken('');
                 $user->setPassword(
                     $userPasswordHasherInterface->hashPassword(
                         $user,
-                        $form->get('password')->getData()
+                        $password
                     )
-
                 );
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash('success', 'mot de passe changé avec succès');
+                $this->addFlash('success', 'Mot de passe changé avec succès');
                 return $this->redirectToRoute('auth_oauth_login');
-
+            } else {
+                // Les mots de passe ne correspondent pas
+                $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
             }
-            return $this->render('security/reset_password.html.twig',[
-                'passForm' => $form->createView()
-            ]);
-
-
         }
-        // $this->addFlash('danger', 'mo');
-        return $this->redirectToRoute('auth_oauth_login');
+        
+        return $this->render('security/reset_password.html.twig', [
+            'passForm' => $form->createView()
+        ]);
     }
+    $this->addFlash('error', 'Lien de réinitialisation invalide.');
+    return $this->redirectToRoute('auth_oauth_login');
 }
-
+}
