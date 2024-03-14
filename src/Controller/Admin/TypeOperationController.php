@@ -35,6 +35,7 @@ class TypeOperationController extends AbstractController
 
             return $this->redirectToRoute('app_type_operation_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('admin/type_operation/new.html.twig', [
             'type_operation' => $typeOperation,
@@ -61,6 +62,7 @@ class TypeOperationController extends AbstractController
 
             return $this->redirectToRoute('app_type_operation_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('admin/type_operation/edit.html.twig', [
             'type_operation' => $typeOperation,
@@ -75,6 +77,7 @@ class TypeOperationController extends AbstractController
             $entityManager->remove($typeOperation);
             $entityManager->flush();
         }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->redirectToRoute('app_type_operation_index', [], Response::HTTP_SEE_OTHER);
     }

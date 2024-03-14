@@ -17,25 +17,25 @@ class ResetPasswordFormType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => 'Entrez votre mot de passe',
                 'attr' => [
-                    
+
                     'class' => 'form-control'
 
                 ],
                 'constraints' => [
-                    
+
                 ]
             ])
             ->add('password2', PasswordType::class, [
                 'label' => 'confirmer votre mot de passe',
                 'attr' => [
-                    
+
                     'class' => 'form-control'
                 ],
                 'constraints' =>[
-                    
+
                 ]
             ])
-            
+
         ;
     }
 

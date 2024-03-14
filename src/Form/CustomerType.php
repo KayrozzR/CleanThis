@@ -18,16 +18,17 @@ class CustomerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('email', EmailType::class, [
-            'attr' => [
-                'class' => 'form-control'
-            ],
-            'label' => 'E-mail',
-            'constraints' => [
-                new NotBlank(),
-                new Email(),
-            ]
-        ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'E-mail',
+                'constraints' => [
+                    new NotBlank(),
+                    new Email(),
+                ],
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;'] // Ajouter une marge de 3px en bas pour le label
+            ])
             ->add('roles', ChoiceType::class, [
                 'choices'  => [
                     'ROLE_CLIENT' => 'ROLE_CLIENT',
@@ -38,44 +39,42 @@ class CustomerType extends AbstractType
                 'label' => 'Roles',
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']
             ])
-            // ->add('password')
-            // ->add('google_id')
-            // ->add('avatar')
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;'] // Ajouter une marge de 3px en bas pour le label
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;'] // Ajouter une marge de 3px en bas pour le label
             ])
             ->add('tel', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Téléphone'
+                'label' => 'Téléphone',
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;'] // Ajouter une marge de 3px en bas pour le label
             ])
-            // ->add('created_at')
-            // ->add('operations_finalisee')
             ->add('address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Adresse'
+                'label' => 'Adresse',
+                'label_attr' => ['style' => 'margin-bottom: 3px; margin-top 3pxmargin-top: 5px;'] // Ajouter une marge de 3px en bas pour le label
             ])
             ->get('roles')
-
             ->addModelTransformer(new CallbackTransformer(
-                fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0]: null,
+                fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0] : null,
                 fn ($rolesAsString) => [$rolesAsString]
-        ));
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

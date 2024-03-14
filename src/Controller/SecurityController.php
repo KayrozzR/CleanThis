@@ -2,22 +2,23 @@
 
 namespace App\Controller;
 
-use App\Form\ResetPasswordFormType;
-use App\Form\ResetPasswordRequestFormType;
-use App\Repository\UserRepository;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManager;
+use App\Service\SendMailService;
+use App\Repository\UserRepository;
+use App\Form\ResetPasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
+use App\Form\ResetPasswordRequestFormType;
+use App\Form\ResetPasswordFormTypeEmployee;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -122,49 +123,45 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/oubli-pass/{token}', name: 'reset_pass')]
-public function resetPass(
-    string $token,
-    Request $request,
-    UserRepository $userRepository,
-    EntityManagerInterface $entityManager,
-    UserPasswordHasherInterface $userPasswordHasherInterface
- ): Response
-{
-    $user = $userRepository->findOneByResetToken($token);
-    if($user){
-        $form = $this->createForm(ResetPasswordFormType::class);
+    public function resetPass(
+        string $token,
+        Request $request,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $userPasswordHasherInterface
+     ): Response
+    {
+        $user = $userRepository->findOneByResetToken($token);
+        if($user){
+            $form = $this->createForm(ResetPasswordFormType::class);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $password = $form->get('password')->getData();
-            $password2 = $form->get('password2')->getData();
-
-            if ($password === $password2) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 //On efface le token
                 $user->setResetToken('');
                 $user->setPassword(
                     $userPasswordHasherInterface->hashPassword(
                         $user,
-                        $password
+                        $form->get('password')->getData()
                     )
+
                 );
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Mot de passe changé avec succès');
+                $this->addFlash('success', 'mot de passe changé avec succès');
                 return $this->redirectToRoute('auth_oauth_login');
-            } else {
-                // Les mots de passe ne correspondent pas
-                $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
+
             }
+            return $this->render('security/reset_password.html.twig',[
+                'passForm' => $form->createView()
+            ]);
+
+
         }
-        
-        return $this->render('security/reset_password.html.twig', [
-            'passForm' => $form->createView()
-        ]);
+        // $this->addFlash('danger', 'mo');
+        return $this->redirectToRoute('auth_oauth_login');
     }
-    $this->addFlash('error', 'Lien de réinitialisation invalide.');
-    return $this->redirectToRoute('auth_oauth_login');
 }
-}
+
