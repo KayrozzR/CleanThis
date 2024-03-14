@@ -103,20 +103,28 @@ class EmployeController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        $error = null;
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file = $form['avatar']->getData();
-            // $someNewFilename = 'file_' . date('YmdHis') . '_' . uniqid() . '.url';
-            // $directory= "../public/images";
-            // $file->move($directory, $someNewFilename);
-            // $user->setAvatar($someNewFilename);
-            // $entityManager->persist($user);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
+            try {
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
+            } catch (UniqueConstraintViolationException $e) {
+                // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
+                if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
+                    // Définir le message d'erreur approprié
+                    $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
+                }
+
+            }
+            
         }
 
         return $this->render('admin/employe/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'error' => $error
         ]);
     }
 
