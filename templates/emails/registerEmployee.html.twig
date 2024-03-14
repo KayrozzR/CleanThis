@@ -1,0 +1,5 @@
+<h1> Activez votre compte CleanThis</h1>
+<p>Bonjour {{user.firstname}},</p>
+<p>Activez votre compte cleanThis en cliquant sur le  lien ci-dessous:</p>
+<p> <a href="{{ absolute_url(path('verify_employee', {token: token})) }}">{{ absolute_url(path('verify_employee', {token: token})) }}</a></p>
+<p>Ce lien expirera dans 3 heures</p>

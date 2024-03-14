@@ -29,7 +29,8 @@ class UserType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                     new Email(),
-                ]
+                ],
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']
             ])
             ->add('roles', ChoiceType::class, [
                 'choices'  => [
@@ -44,7 +45,8 @@ class UserType extends AbstractType
                 'label' => 'Roles',
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']               
             ])
             // ->add('password', PasswordType::class, [
             //     'label' => 'Entrez votre mot de passe',
@@ -59,13 +61,15 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']
             ])
             ->add('tel', TextType::class, [
                 'attr' => [
@@ -78,7 +82,8 @@ class UserType extends AbstractType
                         'max' => 10,
                         'exactMessage' => 'Veuillez entrer un numéro de téléphone valide.'
                     ])
-                ]
+                ],
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']
             ])
             // ->add('created_at')
             // ->add('operations_finalisee')
@@ -86,7 +91,8 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Adresse'
+                'label' => 'Adresse',
+                'label_attr' => ['style' => 'margin-bottom: 3px;margin-top: 5px;']
             ])
             ->get('roles')
 

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -60,26 +61,26 @@ class EmployeController extends AbstractController
                 //We generate the token
                 $token = $jwt->generate($header,$payload,
                 $this->getParameter('app.jwtsecret'));
-
-                $user->setMailToken($token);
-                $entityManager->persist($user);
-                $entityManager->flush();
-
+    
                 $mail->send ('no-reply@cleanthis.fr',
                     $user->getEmail(),
                     'Activation de votre compte CleanThis',
-                    'register',
+                    'registerEmployee',
                     compact('user','token')
                 );
                 return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
+
             } catch (UniqueConstraintViolationException $e) {
                 // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
                 if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
                     // Définir le message d'erreur approprié
                     $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
                 }
+              
+                // Autres exceptions de violation de contrainte d'unicité peuvent être gérées ici si nécessaire
+                // Vous pouvez ajouter d'autres blocs if-else pour d'autres contraintes d'unicité si nécessaire
             }
-            
+           
         }
 
         return $this->render('admin/employe/new.html.twig', [

@@ -29,39 +29,3 @@ footer {
     color: white !important;
     background-color: #3b5998;
   }
-
-  /* public/assets/css/style.css */
-
-/* Styles pour la section "home" */
-.home {
-  padding: 20px;
-  margin: 20px;
-}
-
-/* Styles pour le texte à l'intérieur de la section "home" */
-.home .text {
-  font-size: 16px;
-  color: #333;
-}
-
-/* Styles pour les boutons */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  text-decoration: none;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Styles pour le lien "back to list" */
-.back-link {
-  display: inline-block;
-  color: #007bff;
-  text-decoration: none;
-  margin-top: 20px;
-}
-
-/* Autres styles personnalisés selon vos besoins */

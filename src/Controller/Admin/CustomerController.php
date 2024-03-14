@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\User1Type;
 use App\Form\CustomerType;
+use App\Service\JWTService;
+use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,20 +33,42 @@ class CustomerController extends AbstractController
     }
 
     #[Route('/new', name: 'app_customer_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,SendMailService $mail, JWTService $jwt): Response
     {
         $user = new User();
         $user->setRoles(["ROLE_CLIENT"]);
         $form = $this->createForm(CustomerType::class, $user);
         $form->handleRequest($request);
-    
-        $error = null; // Initialisez la variable d'erreur à null
-    
+
+        $error = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $entityManager->persist($user);
+            try {$entityManager->persist($user);
                 $entityManager->flush();
+    
+                  //We generate the jwt of the user
+                //We cretae the header
+                $header =[
+                    'typ'=>'JWT',
+                    'alg'=>'HS256'
+                ];
+                //We create the payload
+                $payload =[
+                    'user_id'=>$user->getId()
+                ];
+                //We generate the token
+                $token = $jwt->generate($header,$payload,
+                $this->getParameter('app.jwtsecret'));
+    
+                $mail->send ('no-reply@cleanthis.fr',
+                    $user->getEmail(),
+                    'Activation de votre compte CleanThis',
+                    'register',
+                    compact('user','token')
+                );
+    
                 return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
+                
             } catch (UniqueConstraintViolationException $e) {
                 // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
                 if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
@@ -64,6 +88,9 @@ class CustomerController extends AbstractController
             'error' => $error, 
         ]);
     }
+
+
+
 
     #[Route('/{id}', name: 'app_customer_show', methods: ['GET'])]
     public function show(User $user): Response

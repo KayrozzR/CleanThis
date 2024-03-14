@@ -25,7 +25,7 @@
                 {# <th data-sortable="true" data-field="email">Email</th> #}
                 <th data-sortable="true" data-field="lastname" class="light-weight">Nom</th>
                 <th data-sortable="true" data-field="firstname" class="light-weight">Prénom</th>
-                <th data-sortable="true" data-field="roles" class="light-weight">Roles</th>
+                <th data-sortable="true" data-field="roles" class="light-weight">Role</th>
                 <th class="light-weight" >Avatar</th>
                 {# <th data-sortable="true" data-field="address">Address</th> #}
                 <th data-sortable="true" data-field="operation_finalisee" class="light-weight">Opérations finalisées</th>
@@ -62,14 +62,14 @@
                 <td class="bold-weight">{{ user.operationsFinalisee }}</td>
                 
                 <td>
-                    <a href="{{ path('app_customer_show', {'id': user.id}) }}" class ="actionsButtons1">Voir détail</a>
-                    <a href="{{ path('app_customer_edit', {'id': user.id}) }}" class ="actionsButtons2">Modifier</a>
+                    <a href="{{ path('app_customer_show', {'id': user.id}) }}" class ="actionsButtons1"><i class='bx bx-show' ></i></a>
+                    <a href="{{ path('app_customer_edit', {'id': user.id}) }}" class ="actionsButtons2"><i class='bx bx-edit'></i></a>
                     {# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Supprimer</a> #}
                     {% if app.user %}
 			            {% if is_granted('ROLE_ADMIN') %}
-                    <button class="btn deleteBtn actionsButtons3" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
-							Supprimer
-					</button>
+                    <a class="deleteBtn actionsButtons3" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
+							<i class='bx bx-trash'></i>
+					</a>
                     {% endif %}
                     {% endif %}
                 </td>
