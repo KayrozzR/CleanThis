@@ -29,3 +29,11 @@ footer {
     color: white !important;
     background-color: #3b5998;
   }
+
+  .delete-operation {
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    margin-left: 5px;
+	font-size: 12px;
+}
