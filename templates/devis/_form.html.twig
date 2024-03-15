@@ -5,7 +5,7 @@
 				<div class="col-md-6">
 					<div class="card">
 						<div class="card-header">
-							<h2 class="text-center">Demander un devis</h2>
+							<h2 class="text-center">Demande de devis</h2>
 							<p>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</p>
 						</div>
 						<div class="card-body">
@@ -32,6 +32,7 @@
 								</div>
 								<div class="col-md-6">
 									{{ form_row(form.Type_Operation) }}
+									<button type="button" class="btn btn-primary add-operation">Ajouter</button>
 								</div>
 							</div>
 							{{ form_row(form.image_object) }}
@@ -48,4 +49,30 @@
 			</div>
 		</div>
 	</section>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addButton = document.querySelector('.add-operation');
+            const typeOperationField = document.querySelector('#{{ form.Type_Operation.vars.id }}');
+            
+            addButton.addEventListener('click', function () {
+                const newField = document.createElement('input');
+                newField.setAttribute('type', 'text');
+                newField.setAttribute('name', '{{ form.Type_Operation.vars.full_name }}');
+                newField.setAttribute('value', typeOperationField.value);
+				newField.setAttribute('readonly', 'readonly');
+                newField.classList.add('form-control');
+                
+                const row = document.createElement('div');
+                row.classList.add('row');
+                const col = document.createElement('div');
+                col.classList.add('col-md-6');
+                col.appendChild(newField);
+                
+                row.appendChild(col);
+                typeOperationField.parentNode.parentNode.parentNode.insertBefore(row, typeOperationField.parentNode.parentNode.nextSibling);
+            });
+        });
+    </script>
+
 {% endblock %}
