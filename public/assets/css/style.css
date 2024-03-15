@@ -29,3 +29,17 @@ footer {
     color: white !important;
     background-color: #3b5998;
   }
+
+  .flag-link {
+    padding: 0; 
+}
+
+.flag-img {
+    width: 30px; 
+    height: auto; 
+}
+
+.navbar-nav .dropdown-menu {
+    min-width: 30px; 
+    width: auto; 
+}
