@@ -35,17 +35,24 @@
 					</li>
 				{% endif %}
 
-
 			</ul>
 			<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-				{% for locale in locales %}
-					{% if locale != app.request.locale %}
-						<li class="nav-item">
-							<a class="nav-link" href="{{ path('change_locale', {'locale': locale})}}"><img src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" width="30"></a>
-						</li>
-					{% endif %}
-				{% endfor %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="{{ asset('images/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}" width="30">
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						{% for locale in locales %}
+							{% if locale != app.request.locale %}
+								<li class="nav-item">
+									<a class="nav-link flag-link" href="{{ path('change_locale', {'locale': locale}) }}"><img class="flag-img" src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" width="30"></a>
+								</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
 			</ul>
+
 		</div>
 	</div>
 </nav>

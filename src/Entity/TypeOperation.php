@@ -28,6 +28,9 @@ class TypeOperation
     #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'Type_Operation')]
     private Collection $devis;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -97,6 +100,18 @@ class TypeOperation
         if ($this->devis->removeElement($devi)) {
             $devi->removeTypeOperation($this);
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
