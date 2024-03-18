@@ -5,8 +5,11 @@
 {% block body %}
 <section class="home">
     <div class="text">
-    <h1> Edit TypeOperation </h1>
-    {{ include('admin/type_operation/_form.html.twig', {'button_label': 'Update'}) }}
+        <h1> Edit TypeOperation </h1>
+        {{ include('admin/type_operation/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="delete-button-container">
+             {{ include('admin/type_operation/_delete_form.html.twig') }}
+        </div>    
     </div>
     </section>
 {% endblock %}

@@ -13,15 +13,16 @@
             {% endif %}
         {% endif %}
         <div class="row">
-            {% set colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'] %}
+            {% set colors = ['#F2C57C', '#6AA370', '#a289be', '#ffff00', '#ff00ff', '#00ffff'] %}
             {% for index, type_operation in type_operations %}
                 {% set color = colors[index % colors|length] %}
                 <div class="col-md-6" style="margin-left: 150px; padding-bottom: 40px; padding-top: 50px; width: 80%;">
-                    <div style="float: left;">
-                        <img src="{{ asset('images/logo.png') }}" alt="Image" style="width: 316px; height: 248px; border-radius: 6px">
-                    </div>
+                    
                     <div class="card card-service" style="background-color: {{ color }};">
                         <div class="card-body">
+                        <div style="float: left;">
+                        <img src="{{ asset('uploads/services/' ~ type_operation.image) }}" alt="Image" style="width: 316px; height: 248px; border-radius: 6px; margin-right: 10px">
+                    </div>
                             <h5 class="card-title titre">{{ type_operation.libelle }}</h5>
                             <p class="card-text tarif"> Tarif : {{ type_operation.tarif }} €</p><br>
                             <h5 class="card-title desc">Description : </h5>

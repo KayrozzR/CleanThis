@@ -6,6 +6,7 @@
 parameters:
     app.locales: [en, fr]
     app.jwtsecret: '%env(JWT_SECRET)%'
+    photo_dir: "%kernel.project_dir%/public/uploads/services"
 
 services:
     # default configuration for services in *this* file
