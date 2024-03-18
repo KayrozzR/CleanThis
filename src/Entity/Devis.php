@@ -29,7 +29,7 @@ class Devis
     private ?string $image_object = null;
 
     #[ORM\Column(options: ['default' => false])]
-    private ?bool $status = null;
+    private ?bool $status = false;
 
     #[ORM\ManyToOne(inversedBy: 'devis')]
     private ?User $User = null;
