@@ -42,12 +42,14 @@
                                 <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
                                 {% if not devi.status %}
                                     <button class="btn toggleStatusBtn actionsButtons3" data-devi-id="{{ devi.id }}">
-                                        Passer le statut à vrai
+                                        Valider le devis
                                     </button>
                                 {% endif %}
-                                <button class="btn deleteBtn actionsButtons3" id="delete{{ devi.id }}" data-csrf-token="{{ csrf_token('delete' ~ devi.id) }}">
-                                    Supprimer
-                                </button>
+                                {% if devi.id not in devisWithTrueStatus %}
+                                    <button class="btn deleteBtn actionsButtons3" id="delete{{ devi.id }}" data-csrf-token="{{ csrf_token('delete' ~ devi.id) }}">
+                                        Supprimer
+                                    </button>
+                                {% endif %}
                             </td>
                         </tr>
                     {% else %}
@@ -65,7 +67,6 @@
     <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
     <script>
         $(document).ready(function() {
-
             $('.search input').attr('placeholder', 'Rechercher');
             $('.search input').addClass('form-control pr-5');
             $('.search').addClass('position-relative');
@@ -81,8 +82,9 @@
             e.preventDefault();
             var deviId = $(this).data('devi-id');
             var csrfToken = '{{ csrf_token('toggle_status') }}';
+            var $button = $(this);
             
-            if (confirm('Êtes-vous sûr de vouloir passer le statut de ce devis à vrai ?')) {
+            if (confirm('Êtes-vous sûr de vouloir valider le devis ?')) {
                 $.ajax({
                     url: '/devis/' + deviId + '/toggle-status',
                     type: 'POST',
@@ -92,7 +94,10 @@
                     },
                     success: function(response) {
                         alert("Statut mis à vrai avec succès");
-                        location.reload();
+                        // Mise à jour du statut dans le tableau sans recharger la page
+                        $button.closest('tr').find('.bold-weight').eq(6).text('Yes');
+                        $button.closest('tr').find('.deleteBtn').hide();
+                        location.reload(); // Rafraîchissement de la page
                     },
                     error: function() {
                         alert("Une erreur s'est produite");
@@ -117,7 +122,6 @@
                         if (response.success) {
                             alert("Utilisateur supprimé avec succès");
                             $('#delete' + deviId).closest('tr').remove();
-                            location.reload();
                         } else {
                             alert("La suppression a échoué");
                         }

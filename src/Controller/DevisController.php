@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Devis;
+use App\Entity\Operation;
 use App\Entity\User;
 use App\Form\DevisType;
 use App\Repository\DevisRepository;
+use App\Service\JWTService;
+use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,8 +22,22 @@ class DevisController extends AbstractController
     #[Route('/', name: 'app_devis_index', methods: ['GET'])]
     public function index(DevisRepository $devisRepository): Response
     {
+        $devis = $devisRepository->findAll();
+
+        // Création d'un tableau pour stocker les IDs des devis avec le statut vrai
+        $devisWithTrueStatus = [];
+
+        // Parcourir tous les devis pour vérifier le statut
+        foreach ($devis as $devi) {
+            if ($devi->isStatus() === true) {
+                // Ajouter l'ID du devis avec le statut vrai au tableau
+                $devisWithTrueStatus[] = $devi->getId();
+            }
+        }
+
         return $this->render('devis/index.html.twig', [
-            'devis' => $devisRepository->findAll(),
+            'devis' => $devis,
+            'devisWithTrueStatus' => $devisWithTrueStatus, // Envoyer les IDs des devis avec le statut vrai au modèle
         ]);
     }
 
@@ -48,7 +65,7 @@ class DevisController extends AbstractController
     }
 
     #[Route('/{id}/toggle-status', name: 'app_devis_toggle_status', methods: ['POST'])]
-    public function toggleStatus(Request $request, Devis $devi, EntityManagerInterface $entityManager): Response
+    public function toggleStatus(Request $request, Devis $devi, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
         // Vérifier si le formulaire a été soumis avec le champ 'status' en tant que paramètre POST
         if ($request->request->has('status')) {
@@ -66,6 +83,29 @@ class DevisController extends AbstractController
                 // Persist et flush de l'utilisateur
                 $entityManager->persist($user);
                 $entityManager->flush();
+
+                $header =[
+                    'typ'=>'JWT',
+                    'alg'=>'HS256'
+                ];
+                //We create the payload
+                $payload =[
+                    'user_id'=>$user->getId()
+                ];
+                //We generate the token
+                $token = $jwt->generate($header,$payload,
+                $this->getParameter('app.jwtsecret'));
+    
+                $mail->send ('no-reply@cleanthis.fr',
+                    $user->getEmail(),
+                    'Activation de votre compte CleanThis',
+                    'register',
+                    compact('user','token')
+                );
+
+                $operation = new Operation();
+                
+                $devi->addOperation($operation);
                 
                 // Assigner l'utilisateur au devis
                 $devi->setUser($user);
@@ -74,6 +114,7 @@ class DevisController extends AbstractController
                 $devi->setStatus(true);
                 
                 // Persist et flush du devis mis à jour
+                $entityManager->persist($operation);
                 $entityManager->persist($devi);
                 $entityManager->flush();
             }

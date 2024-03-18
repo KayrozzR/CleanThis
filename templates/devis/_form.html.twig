@@ -78,7 +78,7 @@
             deleteButton.classList.add('delete-operation');
             deleteButton.addEventListener('click', function () {
                 newField.parentNode.removeChild(newField);
-                if (operationValue === '10') {
+                if (operationValue === '14') {
                     customServiceSelected = false;
                     imageObjectField.closest('div').style.display = 'none';
                 }
@@ -96,7 +96,7 @@
             typeOperationField.parentNode.parentNode.parentNode.insertBefore(row, typeOperationField.parentNode.parentNode.nextSibling);
 
             // Vérifier si la valeur est égale à '10' (ou 'Service Custom') et afficher le champ image_object en conséquence
-            if (operationValue === '10' || customServiceSelected) {
+            if (operationValue === '14' || customServiceSelected) {
                 imageObjectField.closest('div').style.display = 'block';
                 customServiceSelected = true;
             } else {
