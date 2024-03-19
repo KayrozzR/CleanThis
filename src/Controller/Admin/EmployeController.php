@@ -10,7 +10,6 @@ use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Form\ResetPasswordFormType;
 use App\Form\CreatePasswordFormType;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

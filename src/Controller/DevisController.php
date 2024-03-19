@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Devis;
 use App\Form\DevisType;
 use App\Repository\DevisRepository;
+use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,4 +82,13 @@ class DevisController extends AbstractController
 
         return new JsonResponse(['success' => false]);
     }
+
+
+    #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
+    public function generatePdfDevis(PdfService $pdf, Devis $devis = null){
+        $html = $this->renderView('Pdf/devis.html.twig', ['devis' => $devis]);
+        $pdf ->showPdfFile($html);
+
+    }
+
 }

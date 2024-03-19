@@ -1,0 +1,10 @@
+{% block body %}
+<body>
+    <p>Bonjour</p>
+<p>Voici votre devis: </p>
+<li>Numéro du devis: {{ devis.id }}</li>
+<li>Nom du client: {{ devis.lastname }}</li>
+<li>Prénom du client : {{ devis.firstname }}</li>
+<li>Adresse email: {{ devis.mail }}</li>
+<p>Merci</p>
+{% endblock  %}
