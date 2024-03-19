@@ -49,6 +49,14 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $serv = $form->getData();
+            if($photo = $form['image_object']->getData()){
+                $fileName = uniqid().'.'.$photo->guessExtension();
+                $photo->move($this->getParameter('photo_dir'), $fileName);
+                $serv->setImageObject($fileName);
+            }
+
             // Persist et flush du devis
             $entityManager->persist($devi);
             $entityManager->flush();
@@ -106,7 +114,7 @@ class DevisController extends AbstractController
                 $operation = new Operation();
                 
                 $devi->addOperation($operation);
-                
+
                 // Assigner l'utilisateur au devis
                 $devi->setUser($user);
                 
