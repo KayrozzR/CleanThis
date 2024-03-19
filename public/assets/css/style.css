@@ -21,8 +21,15 @@ footer {
   }
 
   .btn-google {
-    color: white !important;
-    background-color: #ea4335 !important;
+    color: black !important;
+    background-color: white !important;
+    border:  solid 1px;
+  }
+
+  .btn-google:hover {
+    color: black !important;
+    background-color: white !important;
+    border:  solid 1px;
   }
 
   .btn-facebook {
@@ -42,6 +49,7 @@ footer {
 .navbar-nav .dropdown-menu {
     min-width: 30px; 
     width: auto; 
+}
 
   .delete-operation {
     cursor: pointer;

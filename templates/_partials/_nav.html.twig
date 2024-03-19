@@ -9,6 +9,12 @@
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="">A Propos</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="">Nous contacter</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="">Nos services</a>
+				</li>
 			</ul>
 
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -28,10 +34,7 @@
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="">M'inscrire</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="">Me connecter</a>
+						<a class="nav-link" href="{{ path('auth_oauth_login' ) }} ">Me connecter</a>
 					</li>
 				{% endif %}
 
