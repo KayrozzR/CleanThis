@@ -35,31 +35,7 @@
                             <td class="bold-weight">{{ devi.urlDevis }}</td>
                             <td class="bold-weight">{{ devi.createdAt ? devi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td class="bold-weight">{{ devi.comment }}</td>
-                            <td class="bold-weight image-container" data-image="{{ asset('uploads/services/' ~ devi.imageObject) }}">Cliquez pour agrandir l'image</td>
-                                    <script>
-                                        document.getElementById("imageContainer").addEventListener("click", function() {
-                                            var imageUrl = "{{ asset('uploads/services/' ~ devi.imageObject) }}";
-                                            var enlargedImage = document.createElement("img");
-                                            enlargedImage.src = imageUrl;
-                                            enlargedImage.alt = "Image agrandie";
-                                            enlargedImage.style.maxWidth = "100%";
-                                            var overlay = document.createElement("div");
-                                            overlay.style.position = "fixed";
-                                            overlay.style.top = "0";
-                                            overlay.style.left = "0";
-                                            overlay.style.width = "100%";
-                                            overlay.style.height = "100%";
-                                            overlay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-                                            overlay.style.display = "flex";
-                                            overlay.style.justifyContent = "center";
-                                            overlay.style.alignItems = "center";
-                                            overlay.appendChild(enlargedImage);
-                                            document.body.appendChild(overlay);
-                                            overlay.addEventListener("click", function() {
-                                                document.body.removeChild(overlay);
-                                            });
-                                        });
-                                    </script>
+                            <td class="bold-weight" data-image="{{ asset('uploads/services/' ~ devi.imageObject) }}"></td>
                             <td class="bold-weight">{{ devi.status ? 'Yes' : 'No' }}</td>
                             <td>
                                 <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="actionsButtons1">Voir détail</a>
@@ -123,12 +99,18 @@
                         $button.closest('tr').find('.deleteBtn').hide();
                         location.reload(); // Rafraîchissement de la page
                     },
-                    error: function() {
-                        alert("Une erreur s'est produite");
+                    error: function(xhr) {
+                        if (xhr.status === 403) {
+                            alert(xhr.responseText); // Afficher le message d'erreur personnalisé
+                        } else {
+                            alert("Une erreur s'est produite");
+                        }
                     }
                 });
             }
         });
+
+
 
         $('.table').on('click', '.deleteBtn', function(e) {
             e.preventDefault();

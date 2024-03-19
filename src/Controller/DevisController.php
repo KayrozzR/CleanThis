@@ -51,6 +51,7 @@ class DevisController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $serv = $form->getData();
+            
             if($photo = $form['image_object']->getData()){
                 $fileName = uniqid().'.'.$photo->guessExtension();
                 $photo->move($this->getParameter('photo_dir'), $fileName);
@@ -75,6 +76,29 @@ class DevisController extends AbstractController
     #[Route('/{id}/toggle-status', name: 'app_devis_toggle_status', methods: ['POST'])]
     public function toggleStatus(Request $request, Devis $devi, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
+
+        $currentUser = $this->getUser();
+
+        if (in_array('ROLE_ADMIN', $currentUser->getRoles(), true)) {
+            // Si l'utilisateur est un administrateur, vérifier s'il a déjà 5 opérations en cours
+            if ($currentUser->getOperationEnCours() >= 5) {
+                // Redirection avec un message d'erreur ou une réponse appropriée
+                return new Response('Vous avez déjà atteint le nombre maximum d\'opérations en cours.', Response::HTTP_FORBIDDEN);
+            }
+        } elseif (in_array('ROLE_SENIOR', $currentUser->getRoles(), true)) {
+
+            if ($currentUser->getOperationEnCours() >= 3) {
+                
+                return new Response('Vous avez déjà atteint le nombre maximum d\'opérations en cours.', Response::HTTP_FORBIDDEN);
+            }
+        } elseif (in_array('ROLE_APPRENTI', $currentUser->getRoles(), true)) {
+
+            if ($currentUser->getOperationEnCours() >= 1) {
+                
+                return new Response('Vous avez déjà atteint le nombre maximum d\'opérations en cours.', Response::HTTP_FORBIDDEN);
+            }
+        }
+
         // Vérifier si le formulaire a été soumis avec le champ 'status' en tant que paramètre POST
         if ($request->request->has('status')) {
             // Récupérer la valeur du statut du formulaire
@@ -82,6 +106,9 @@ class DevisController extends AbstractController
             
             // Vérifier si le statut est true
             if ($status === 'true') {
+
+                $currentUser->setOperationEnCours(($currentUser->getOperationEnCours() ?? 0) + 1);
+                $entityManager->persist($currentUser);
                 // Création d'un nouvel utilisateur
                 $user = new User();
                 // Assigner les données de l'utilisateur depuis le devis
@@ -111,13 +138,14 @@ class DevisController extends AbstractController
                     compact('user','token')
                 );
 
+
                 $operation = new Operation();
                 
                 $devi->addOperation($operation);
 
                 // Assigner l'utilisateur au devis
                 $devi->setUser($user);
-                
+
                 // Mettre à jour le statut du devis
                 $devi->setStatus(true);
                 
