@@ -43,7 +43,7 @@
 							<td>
 								<a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="actionsButtons1">Voir détail</a>
 								<a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
-								{# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Supprimer</a> #}
+								<a href="{{ path('devis_pdf', {'id': devi.id})}}" class ="actionsButtons3">Voir le pdf </a>
 								<button class="btn deleteBtn actionsButtons3" id="delete{{ devi.id }}" data-csrf-token="{{ csrf_token('delete' ~ devi.id) }}">
 									Supprimer
 								</button>
