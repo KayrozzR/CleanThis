@@ -1,0 +1,158 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+}
+
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Hero Section Styles */
+.hero {
+  background-color: white;
+  color: black;
+  /* padding: 100px 0; */
+  text-align: center;
+
+}
+
+.hero img {
+    display: block;
+    margin: 0 auto; /* Centre l'image horizontalement */
+    max-width: 100%; /* Assure que l'image ne dépasse pas la largeur du container */
+    height: auto; /* Garde le ratio hauteur-largeur */
+  }
+
+.banner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}  
+
+.banner-text {
+    position: absolute;
+    
+}
+
+.hero h2 {
+  margin-bottom: 20px;
+}
+
+/* Services Section Styles */
+.services {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.service-item {
+  margin-bottom: 40px;
+}
+
+.service-item img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* About Section Styles */
+.about {
+  background-color: #fff;
+  padding: 100px 0;
+  text-align: center;
+}
+
+/* Contact Section Styles */
+.contact {
+  background-color: #f7f7f7;
+  padding: 100px 0;
+}
+
+.contact form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group textarea {
+  height: 150px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
