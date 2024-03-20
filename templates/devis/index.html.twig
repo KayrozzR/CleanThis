@@ -40,6 +40,7 @@
                             <td>
                                 <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="actionsButtons1">Voir détail</a>
                                 <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+                                <a href="{{ path('devis_pdf', {'id': devi.id})}}" class ="actionsButtons3">Voir le pdf </a>
                                 {% if not devi.status %}
                                     <button class="btn toggleStatusBtn actionsButtons3" data-devi-id="{{ devi.id }}">
                                         Valider le devis

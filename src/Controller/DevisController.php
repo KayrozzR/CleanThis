@@ -6,6 +6,9 @@ use App\Entity\Devis;
 use App\Entity\Operation;
 use App\Entity\User;
 use App\Form\DevisType;
+use App\Service\PdfService;
+use App\Service\SendMailService;
+use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Service\JWTService;
 use App\Service\SendMailService;
@@ -14,7 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 #[Route('/devis')]
 class DevisController extends AbstractController
@@ -205,5 +210,42 @@ class DevisController extends AbstractController
 
         return new JsonResponse(['success' => false]);
     }
-    
+
+    #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
+    public function generatePdfDevis(PdfService $pdf, Devis $devis = null):response{
+        $html = $this->renderView('Pdf/devis.html.twig', ['devis' => $devis]);
+        $pdf ->showPdfFile($html);
+
+        return new Response();
+    }
+
+    // #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
+    // public function SendPdf(PdfService $pdf, Devis $devis, $token, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator):response{
+
+    //     $devis = $this->devis->getElementBy
+    //     $pdf ->generateBinaryPDF($html);
+
+    //     $token = $tokenGenerator->generateToken();
+    //             // $user->setResetToken($token);
+    //             // $em->persist($user);
+    //             // $em->flush();
+
+    //             // Generate a pdf generator link
+    //             $url = $this->generateUrl('devis_pdf', ['pdf' => $pdf], UrlGeneratorInterface::ABSOLUTE_URL);
+
+    //             // Create the mail datas
+    //             $context = compact('url', 'user');
+
+    //             // send the e-mail
+    //             $mail->send(
+    //                 'user@example.com', 
+    //                 $user->getEmail(),
+    //                 'Création de votre mot de passe CleanThis',
+    //                 'password_create', 
+    //                 $context
+    //             );
+
+    //     return new Response();
+    // }
+
 }
