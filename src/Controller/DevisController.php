@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Devis;
 use App\Entity\Operation;
+use App\Entity\TypeOperation;
 use App\Entity\User;
 use App\Form\DevisType;
 use App\Service\PdfService;
@@ -11,7 +12,6 @@ use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Service\JWTService;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +53,8 @@ class DevisController extends AbstractController
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
 
+        $type_operations = $entityManager->getRepository(TypeOperation::class)->findAll();
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $serv = $form->getData();
@@ -75,6 +77,7 @@ class DevisController extends AbstractController
         return $this->render('devis/new.html.twig', [
             'devi' => $devi,
             'form' => $form,
+            'type_operations' => $type_operations,
         ]);
     }
 

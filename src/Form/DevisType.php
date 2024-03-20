@@ -41,9 +41,10 @@ class DevisType extends AbstractType
             ])
             ->add('image_object', FileType::class, [
                 'label' => 'Image Object',
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'form-control', 'id' => 'imageObject'], // Ajoutez un identifiant unique à ce champ
                 'required' => false,
             ])
+            
             // ->add('status', CheckboxType::class, [
             //     'label' => 'Status',
             //     'required' => false,
@@ -57,8 +58,7 @@ class DevisType extends AbstractType
                 'class' => TypeOperation::class,
                 'label' => 'Type Operation',
                 'choice_label' => 'libelle',
-                'attr' => ['class' => 'form-control'],
-                'multiple' => true,
+                'attr' => ['class' => 'form-control', 'id' => 'typeOperation'],
             ]);
     }
 

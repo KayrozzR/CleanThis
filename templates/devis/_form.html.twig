@@ -32,7 +32,6 @@
 								</div>
 								<div class="col-md-6">
 									{{ form_row(form.Type_Operation) }}
-									<button type="button" class="btn btn-primary add-operation">Ajouter</button>
 								</div>
 							</div>
 							<div>
@@ -54,58 +53,34 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const addButton = document.querySelector('.add-operation');
-        const typeOperationField = document.getElementById('{{ form.Type_Operation.vars.id }}');
-        const imageObjectField = document.getElementById('{{ form.image_object.vars.id }}');
+    const typeOperationField = document.getElementById('typeOperation');
+    const imageObjectField = document.getElementById('imageObject');
 
-        // Cacher le champ image_object par défaut
-        imageObjectField.closest('div').style.display = 'none';
-        let customServiceSelected = false;
+imageObjectField.closest('.form-group').style.display = 'none';
 
-        addButton.addEventListener('click', function () {
-            const operationLabel = typeOperationField.options[typeOperationField.selectedIndex].text; // Récupération du libellé du champ Type_Operation
-            const operationValue = typeOperationField.value; // Récupération de la valeur sélectionnée du champ Type_Operation
+// Ajouter un écouteur d'événement de changement pour détecter lorsque la valeur du champ "Type_Operation" change
+typeOperationField.addEventListener('change', function () {
+    // Récupérer le libellé sélectionné dans le champ "Type_Operation"
+    const selectedLabel = typeOperationField.options[typeOperationField.selectedIndex].text;
 
-            console.log("Selected option label:", operationLabel);
-            console.log("Selected option value:", operationValue);
+    // Vérifier si le libellé est égal à "Service Custom"
+    if (selectedLabel === 'Service Custom') {
+        // Afficher l'imageObject
+        imageObjectField.closest('.form-group').style.display = 'block';
+    } else {
+        // Sinon, masquer l'imageObject
+        imageObjectField.closest('.form-group').style.display = 'none';
+    }
+});
 
-            const newField = document.createElement('div');
-            newField.classList.add('operation-field');
-            newField.textContent = operationLabel; // Utilisation du libellé au lieu de l'identifiant
+// Vérifier la valeur initiale du champ Type_Operation au chargement de la page
+const initialLabel = typeOperationField.options[typeOperationField.selectedIndex].text;
+if (initialLabel === 'Service Custom') {
+    imageObjectField.closest('.form-group').style.display = 'block';
+}
 
-            const deleteButton = document.createElement('span');
-            deleteButton.textContent = '❌';
-            deleteButton.classList.add('delete-operation');
-            deleteButton.addEventListener('click', function () {
-                newField.parentNode.removeChild(newField);
-                if (operationValue === '10') {
-                    customServiceSelected = false;
-                    imageObjectField.closest('div').style.display = 'none';
-                }
-            });
+});
 
-            newField.appendChild(deleteButton);
-
-            const row = document.createElement('div');
-            row.classList.add('row');
-            const col = document.createElement('div');
-            col.classList.add('col-md-6');
-            col.appendChild(newField);
-
-            row.appendChild(col);
-            typeOperationField.parentNode.parentNode.parentNode.insertBefore(row, typeOperationField.parentNode.parentNode.nextSibling);
-
-            // Vérifier si la valeur est égale à '10' (ou 'Service Custom') et afficher le champ image_object en conséquence
-            if (operationValue === '10' || customServiceSelected) {
-                imageObjectField.closest('div').style.display = 'block';
-                customServiceSelected = true;
-            } else {
-                // Si la valeur n'est pas égale à 10, masquer le champ image_object
-                imageObjectField.closest('div').style.display = 'none';
-            }
-        });
-    });
 </script>
-
 
 {% endblock %}

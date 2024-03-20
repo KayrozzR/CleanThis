@@ -34,8 +34,8 @@ class Devis
     #[ORM\ManyToOne(inversedBy: 'devis')]
     private ?User $User = null;
 
-    #[ORM\ManyToMany(targetEntity: TypeOperation::class, inversedBy: 'devis')]
-    private Collection $Type_Operation;
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?TypeOperation $typeOperation = null;
 
     #[ORM\ManyToMany(targetEntity: Operation::class, inversedBy: 'devis')]
     private Collection $Operation;
@@ -57,7 +57,6 @@ class Devis
 
     public function __construct()
     {
-        $this->Type_Operation = new ArrayCollection();
         $this->Operation = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
     }
@@ -127,26 +126,14 @@ class Devis
         return $this;
     }
 
-    /**
-     * @return Collection<int, TypeOperation>
-     */
-    public function getTypeOperation(): Collection
+    public function getTypeOperation(): ?TypeOperation
     {
-        return $this->Type_Operation;
+        return $this->typeOperation;
     }
 
-    public function addTypeOperation(TypeOperation $typeOperation): static
+    public function setTypeOperation(?TypeOperation $typeOperation): static
     {
-        if (!$this->Type_Operation->contains($typeOperation)) {
-            $this->Type_Operation->add($typeOperation);
-        }
-
-        return $this;
-    }
-
-    public function removeTypeOperation(TypeOperation $typeOperation): static
-    {
-        $this->Type_Operation->removeElement($typeOperation);
+        $this->typeOperation = $typeOperation;
 
         return $this;
     }
