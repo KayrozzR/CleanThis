@@ -1,10 +1,60 @@
-{% block body %}
-<body>
-    <p>Bonjour</p>
-<p>Voici votre devis: </p>
-<li>Numéro du devis: {{ devis.id }}</li>
-<li>Nom du client: {{ devis.lastname }}</li>
-<li>Prénom du client : {{ devis.firstname }}</li>
-<li>Adresse email: {{ devis.mail }}</li>
-<p>Merci</p>
-{% endblock  %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Devis</title>
+        <link rel="stylesheet" href="{{asset('assets/css/DevisPdf.css')}}">
+    </head>
+    <body>
+
+        {% block body %}
+
+        <img src="{{ asset('images/logo.png') }}" alt="logo">
+
+
+        <div class="infosDevis">
+            <div class="infosEntreprise">
+                <strong>Entreprise Clean This</strong>
+                <p>20 rue du Luxembourg</p>
+                <p>03 50 41 25 30</p>
+                <p>cleanthiscontact@entreprise.fr</p>
+            </div>
+
+            <div class="numDevisEtDate">
+                    <strong>Devis numéro: {{ devi.id }}</strong>
+                    <p> Emis le: {{ devi.createdAt ? devi.createdAt|date('d-m-Y') : '' }}</li>
+            </div>
+        </div>
+
+        <div class="infosClients">
+                <p> <strong>Nom: </strong>{{ devi.lastname }}</p>
+                <p><strong>Prénom: </strong>{{ devi.firstname }}</p>
+                <p><strong>Adresse email: </strong>{{ devi.mail }}</p>
+                <p><strong>Numéro de téléphone: </strong>{{ devi.tel }}</p>
+                <p><strong>Adresse d'intervention:</strong> {{ devi.AdresseIntervention }}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Descriptif</th>
+                    <th scope="col">Type d'opération</th>
+                    <th scope="col">Tarif</th>
+                </tr>
+            </thead>
+            {# <tbody>
+                {% for devis in devi %}
+                <tr>
+                    <td>{{ devi.descriptif }}</td>
+                    <td>{{ devi.type_operation }}</td> 
+                    <td>{{ devi.tarif }}</td>
+                </tr>
+                {% endfor %}
+            </tbody> #}
+        </table>
+
+        {% endblock %}
+
+    </body>
+</html>

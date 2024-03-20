@@ -7,7 +7,6 @@ use App\Entity\Operation;
 use App\Entity\User;
 use App\Form\DevisType;
 use App\Service\PdfService;
-use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Service\JWTService;
@@ -212,11 +211,13 @@ class DevisController extends AbstractController
     }
 
     #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
-    public function generatePdfDevis(PdfService $pdf, Devis $devis = null):response{
-        $html = $this->renderView('Pdf/devis.html.twig', ['devis' => $devis]);
-        $pdf ->showPdfFile($html);
+    public function generatePdfDevis(PdfService $pdf, Devis $devi = null):response{
+        // $html = $this->renderView('Pdf/devis.html.twig', ['devi' => $devi]);
+        // $pdf ->showPdfFile($html);
 
-        return new Response();
+        // return new Response();
+
+        return $this->render('Pdf/devis.html.twig', ['devi' => $devi]);
     }
 
     // #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
