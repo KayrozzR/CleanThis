@@ -4,19 +4,25 @@ namespace App\Service;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Entity\Operation;
+use App\Entity\Devis;
+use Twig\Environment;
 
 class PdfService
 {
     private $domPdf;
+    private Environment $twig;
+    private string $projectDir;
 
-    public function __construct(){
+    public function __construct( ){
         $this->domPdf = new Dompdf();
-
         $pdfOptions = new Options();
         $pdfOptions ->set('defaultFont', 'Inter');
-        $this->domPdf->setPaper("a4", "portrait");
+        // $pdfOptions ->set("chroot", realpath(''));
+        $this->domPdf->setPaper("a4", "landscape");
         $this->domPdf->setOptions($pdfOptions);
     }
+
 
     public function showPdfFile($html) {
         $filename = "details.pdf";
@@ -32,4 +38,5 @@ class PdfService
         $this->domPdf->render();
         $this->domPdf->output();
     }
+
 }

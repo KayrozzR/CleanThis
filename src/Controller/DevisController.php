@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Devis;
-use App\Entity\Operation;
-use App\Entity\TypeOperation;
 use App\Entity\User;
+use App\Entity\Devis;
+use Twig\Environment;
 use App\Form\DevisType;
+use App\Entity\Operation;
+use App\Service\JWTService;
 use App\Service\PdfService;
+use App\Entity\TypeOperation;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
-use App\Service\JWTService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -212,16 +213,30 @@ class DevisController extends AbstractController
 
         return new JsonResponse(['success' => false]);
     }
-
+   
     #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
-    public function generatePdfDevis(PdfService $pdf, Devis $devi = null):response{
-        // $html = $this->renderView('Pdf/devis.html.twig', ['devi' => $devi]);
-        // $pdf ->showPdfFile($html);
+    public function generatePdfDevis(PdfService $pdf, Devis $devi = null,EntityManagerInterface $entityManager):response{
+        $id_operation = $devi->getTypeOperation();
+        $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
+        
+        // $logoPath = '/public/images/logo.png';
+        // if (!file_exists($logoPath)) {
+        //     throw new \Exception('Le fichier logo n\'existe pas.');
+        // }
+        // $logoData = base64_encode(file_get_contents($logoPath));
+        // $logoBase64 = 'data:image/png;base64,' . $logoData;
 
-        // return new Response();
+        $html = $this->renderView('Pdf/devis.html.twig', [
+            'devi' => $devi,
+            'type_operation' => $type_operations,
+            // 'logo_base64' => $logoBase64,
+        ]);
 
-        return $this->render('Pdf/devis.html.twig', ['devi' => $devi]);
+        $pdf ->showPdfFile($html);
+        return new Response();
     }
+
+
 
     // #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
     // public function SendPdf(PdfService $pdf, Devis $devis, $token, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator):response{
