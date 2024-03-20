@@ -68,6 +68,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $is_verified = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $operation_en_cours = null;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -294,6 +297,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $is_verified): self
     {
         $this->is_verified = $is_verified;
+
+        return $this;
+    }
+
+    public function getOperationEnCours(): ?int
+    {
+        return $this->operation_en_cours;
+    }
+
+    public function setOperationEnCours(?int $operation_en_cours): static
+    {
+        $this->operation_en_cours = $operation_en_cours;
 
         return $this;
     }

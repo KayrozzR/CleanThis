@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\DateDebutTrait;
 use App\Repository\OperationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OperationRepository::class)]
 class Operation
 {
+
+    use DateDebutTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -25,8 +30,8 @@ class Operation
     #[ORM\Column(nullable: true)]
     private ?float $note = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $date_debut = null;
+    // #[ORM\Column]
+    // private ?\DateTimeImmutable $date_debut = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $date_fin = null;
@@ -37,11 +42,12 @@ class Operation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $reclamation = null;
 
-    #[ORM\Column]
-    private ?bool $status_paiement = null;
+    #[ORM\Column (options: ['default' => false])]
+    private ?bool $status_paiement = false;
 
-    #[ORM\Column]
-    private ?bool $status_operation = null;
+    #[ORM\Column (options: ['default' => false])]
+    private ?bool $status_operation = false;
+
 
     #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'Operation')]
     private Collection $devis;
@@ -49,6 +55,8 @@ class Operation
     public function __construct()
     {
         $this->devis = new ArrayCollection();
+        $this->date_debut = new \DateTimeImmutable();
+
     }
 
     public function getId(): ?int
@@ -92,17 +100,17 @@ class Operation
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeImmutable
-    {
-        return $this->date_debut;
-    }
+    // public function getDateDebut(): ?\DateTimeImmutable
+    // {
+    //     return $this->date_debut;
+    // }
 
-    public function setDateDebut(\DateTimeImmutable $date_debut): static
-    {
-        $this->date_debut = $date_debut;
+    // public function setDateDebut(\DateTimeImmutable $date_debut): static
+    // {
+    //     $this->date_debut = $date_debut;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getDateFin(): ?\DateTimeImmutable
     {

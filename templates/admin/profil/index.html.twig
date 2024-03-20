@@ -263,6 +263,28 @@ editPasswordRow.style.display = 'none';
 // Afficher le bouton "Enregistrer"
 saveButton.style.display = 'block';
 }
+
+function validatePassword(password) {
+    // Vérifier si le mot de passe a une longueur d'au moins 6 caractères
+    if (password.length < 6) {
+        return false;
+    }
+    
+    // Vérifier s'il y a au moins une majuscule
+    var uppercaseRegex = /[A-Z]/;
+    if (!uppercaseRegex.test(password)) {
+        return false;
+    }
+    
+    // Vérifier s'il y a au moins un chiffre
+    var digitRegex = /[0-9]/;
+    if (!digitRegex.test(password)) {
+        return false;
+    }
+    
+    return true;
+}
+
 function savePassword() {
 var currentPasswordField = document.getElementById('current-password');
 var newPasswordField = document.getElementById('new-password');
@@ -278,6 +300,16 @@ if (currentPassword.trim() === '' || newPassword.trim() === '') {
 alert('Veuillez remplir tous les champs.');
 return;
 }
+
+if (currentPassword === newPassword) {
+        alert('Le nouveau mot de passe ne peut pas être identique à l\'ancien.');
+        return;
+    }
+
+if (!validatePassword(newPassword)) {
+        alert('Le nouveau mot de passe doit contenir au moins 6 caractères, une majuscule et un chiffre.');
+        return;
+    }
 
 // Préparer les données à envoyer au serveur
 var data = {

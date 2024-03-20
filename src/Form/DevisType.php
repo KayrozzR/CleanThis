@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,15 +39,16 @@ class DevisType extends AbstractType
                 'label' => 'Comment',
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('image_object', TextType::class, [
+            ->add('image_object', FileType::class, [
                 'label' => 'Image Object',
                 'attr' => ['class' => 'form-control'],
-            ])
-            ->add('status', CheckboxType::class, [
-                'label' => 'Status',
                 'required' => false,
-                'attr' => ['class' => 'form-check-input'],
             ])
+            // ->add('status', CheckboxType::class, [
+            //     'label' => 'Status',
+            //     'required' => false,
+            //     'attr' => ['class' => 'form-check-input'],
+            // ])
             ->add('adresse_intervention', TextareaType::class, [
                 'label' => 'Adresse Intervention',
                 'attr' => ['class' => 'form-control'],
@@ -55,8 +57,8 @@ class DevisType extends AbstractType
                 'class' => TypeOperation::class,
                 'label' => 'Type Operation',
                 'choice_label' => 'libelle',
-                'multiple' => true,
                 'attr' => ['class' => 'form-control'],
+                'multiple' => true,
             ]);
     }
 
