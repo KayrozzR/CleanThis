@@ -11,6 +11,7 @@ use App\Service\PdfService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Service\JWTService;
+use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,14 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 #[Route('/devis')]
 class DevisController extends AbstractController
 {
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/', name: 'app_devis_index', methods: ['GET'])]
     public function index(DevisRepository $devisRepository): Response
     {
@@ -52,7 +61,7 @@ class DevisController extends AbstractController
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
 
-        $type_operations = $entityManager->getRepository(TypeOperation::class)->findAll();
+        // $type_operations = $entityManager->getRepository(TypeOperation::class)->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -76,7 +85,7 @@ class DevisController extends AbstractController
         return $this->render('devis/new.html.twig', [
             'devi' => $devi,
             'form' => $form,
-            'type_operations' => $type_operations,
+            // 'type_operations' => $type_operations,
         ]);
     }
 

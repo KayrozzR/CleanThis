@@ -23,23 +23,33 @@
 									{{ form_row(form.mail) }}
 								</div>
 								<div class="col-md-6">
-									{{ form_row(form.tel) }}
+									{{ form_row(form.mailConfirmation) }}
 								</div>
 							</div>
+
 							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.tel) }}
+								</div>
 								<div class="col-md-6">
 									{{ form_row(form.adresse_intervention) }}
 								</div>
-								<div class="col-md-6">
-									{{ form_row(form.Type_Operation) }}
+							</div>
+							<div style="margin-left: 25%" class="col-md-6">
+								<div class="d-flex align-items-center">
+								{{ form_row(form.Type_Operation) }}
+								<a href="/type/operation">
+									<span class="type-description" style="cursor: pointer;">
+										<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
+									</span>
+								</a>
 								</div>
 							</div>
-							<div>
-							{{ form_row(form.image_object, {'attr': {'class': 'hidden'}}) }}
+							<div id="image-object-field" style="display: none;">
+								{{ form_row(form.image_object) }}
 							</div>
 
 							{{ form_row(form.comment) }}
-							{# {{ form_row(form.status) }} #}
 
 							<button class="btn">Envoi devis</button>
 							{{ form_end(form) }}
@@ -51,36 +61,46 @@
 		</div>
 	</section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const typeOperationField = document.getElementById('typeOperation');
-    const imageObjectField = document.getElementById('imageObject');
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () { // Hide the image object field initially
+$('#image-object-field').hide();
 
-imageObjectField.closest('.form-group').style.display = 'none';
-
-// Ajouter un écouteur d'événement de changement pour détecter lorsque la valeur du champ "Type_Operation" change
-typeOperationField.addEventListener('change', function () {
-    // Récupérer le libellé sélectionné dans le champ "Type_Operation"
-    const selectedLabel = typeOperationField.options[typeOperationField.selectedIndex].text;
-
-    // Vérifier si le libellé est égal à "Service Custom"
-    if (selectedLabel === 'Service Custom') {
-        // Afficher l'imageObject
-        imageObjectField.closest('.form-group').style.display = 'block';
-    } else {
-        // Sinon, masquer l'imageObject
-        imageObjectField.closest('.form-group').style.display = 'none';
-    }
-});
-
-// Vérifier la valeur initiale du champ Type_Operation au chargement de la page
-const initialLabel = typeOperationField.options[typeOperationField.selectedIndex].text;
-if (initialLabel === 'Service Custom') {
-    imageObjectField.closest('.form-group').style.display = 'block';
+// Show/hide the image object field based on the selected option
+$('.type-operation-select').change(function () {
+console.log('Nouvelle valeur sélectionnée :', $(this).val());
+if ($(this).val() === '14') {
+console.log('Service Custom sélectionné');
+$('#image-object-field').show();
+} else {
+console.log('Autre option sélectionnée');
+$('#image-object-field').hide();
 }
-
 });
+});
+	</script>
 
-</script>
+	<script>
+		$(document).ready(function () {
+var descriptions = {
+'7': 'Description pour le type d\'opération 1.',
+'8': 'Ce service offre une gamme plus étendue de nettoyage, adaptée aux besoins plus spécifiques des clients. En plus des tâches de nettoyage de base, il comprend le nettoyage des vitres, le nettoyage des tapis et des moquettes, le dépoussiérage en profondeur des meubles, ainsi que le nettoyage des appareils électroménagers. Il convient aux résidences plus grandes, aux bureaux de taille moyenne et aux espaces commerciaux haut de gamme.',
+'14': 'Description pour le service Custom.'
+};
 
+$('.type-description').click(function () {
+var selectedType = $('.type-operation-select').val();
+var description = descriptions[selectedType];
+var container = $(this).siblings('.description-container');
+
+if (description) {
+container.text(description);
+container.slideToggle();
+} else {
+container.text('Aucune description disponible.');
+container.slideToggle();
+}
+});
+});
+	</script>
 {% endblock %}
