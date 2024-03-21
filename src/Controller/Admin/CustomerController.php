@@ -46,7 +46,7 @@ class CustomerController extends AbstractController
             try {$entityManager->persist($user);
                 $entityManager->flush();
     
-                  //We generate the jwt of the user
+                //We generate the jwt of the user
                 //We cretae the header
                 $header =[
                     'typ'=>'JWT',

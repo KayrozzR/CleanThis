@@ -24,4 +24,26 @@ class SendMailService
         //we send the e-mail
         $this->mailer->send($email);
     }
+
+
+    // public function sendPdf($from, $to, $subject, $template, $data = [], $attachments = [])
+    // {
+    //     // Créer le message
+    //     $message = (new \Swift_Message($subject))
+    //         ->setFrom($from)
+    //         ->setTo($to)
+    //         ->setBody(
+    //             $this->templating->render($template.'.html.twig', $data),
+    //             'text/html'
+    //         );
+
+    //     // Ajouter des pièces jointes
+    //     foreach ($attachments as $attachment) {
+    //         $message->attach(
+    //             \Swift_Attachment::fromPath($attachment['path'])->setFilename($attachment['filename'])
+    //         );
+    //     }
+
+    //     $this->mailer->send($message);
+    // }
 }

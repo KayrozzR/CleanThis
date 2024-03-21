@@ -10,8 +10,10 @@ use App\Entity\Operation;
 use App\Service\JWTService;
 use App\Service\PdfService;
 use App\Entity\TypeOperation;
+use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
+use Symfony\Component\Mime\Message;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -238,33 +240,43 @@ class DevisController extends AbstractController
 
 
 
-    // #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
-    // public function SendPdf(PdfService $pdf, Devis $devis, $token, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator):response{
+    #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
+    public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository,EntityManagerInterface $entityManager, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator,JWTService $jwt):response{
 
-    //     $devis = $this->devis->getElementBy
-    //     $pdf ->generateBinaryPDF($html);
+        $user = $devi->getUser();
+        $id_operation = $devi->getTypeOperation();
+        $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
+        $html = $this->renderView('Pdf/devis.html.twig', [
+            'devi' => $devi,
+            'type_operation' => $type_operations,
+            // 'logo_base64' => $logoBase64,
+        ]);
+        $pdfContent = $pdf->generateBinaryPDF($html);
 
-    //     $token = $tokenGenerator->generateToken();
-    //             // $user->setResetToken($token);
-    //             // $em->persist($user);
-    //             // $em->flush();
+         //We generate the jwt of the user
+                //We cretae the header
+                $header =[
+                    'typ'=>'JWT',
+                    'alg'=>'HS256'
+                ];
+                //We create the payload
+                $payload =[
+                    'user_id'=>$user->getId()
+                ];
+                //We generate the token
+                $token = $jwt->generate($header,$payload,
+                $this->getParameter('app.jwtsecret'));
+    
+                $mail->send('no-reply@cleanthis.fr',
+                    $user->getEmail(),
+                    'Votre devis CleanThis',
+                    'devis_pdf',
+                    compact('user','token','pdfContent')
+                );
 
-    //             // Generate a pdf generator link
-    //             $url = $this->generateUrl('devis_pdf', ['pdf' => $pdf], UrlGeneratorInterface::ABSOLUTE_URL);
+      
 
-    //             // Create the mail datas
-    //             $context = compact('url', 'user');
-
-    //             // send the e-mail
-    //             $mail->send(
-    //                 'user@example.com', 
-    //                 $user->getEmail(),
-    //                 'Création de votre mot de passe CleanThis',
-    //                 'password_create', 
-    //                 $context
-    //             );
-
-    //     return new Response();
-    // }
+        return new Response();
+    }
 
 }
