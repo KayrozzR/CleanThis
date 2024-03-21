@@ -52,6 +52,9 @@ class Operation
     #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'Operation')]
     private Collection $devis;
 
+    #[ORM\ManyToOne(inversedBy: 'operations')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -195,6 +198,18 @@ class Operation
         if ($this->devis->removeElement($devi)) {
             $devi->removeOperation($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

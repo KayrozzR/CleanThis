@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DevisType extends AbstractType
 {
@@ -35,11 +36,10 @@ class DevisType extends AbstractType
                 ->add('mailConfirmation', EmailType::class, [
                     'label' => 'Confirmez votre adresse e-mail',
                     'mapped' => false,
-                    'constraints' => [
-                        new EqualTo([
-                            'propertyPath' => 'mail',
-                            'message' => 'Les adresses e-mail ne correspondent pas.'
-                        ])
+                    'constraints' =>[
+                        new NotBlank([
+                            'message' => 'Please enter a email',
+                        ]),
                     ],
                     'attr' => ['class' => 'form-control', 'style' => 'margin-top: 5px; margin-bottom: 5px;'],
                 ])

@@ -13,6 +13,7 @@ use App\Repository\DevisRepository;
 use App\Service\JWTService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -66,17 +67,25 @@ class DevisController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $serv = $form->getData();
+            $mail = $form->get('mail')->getData();
+            $mailConfirmation = $form->get('mailConfirmation')->getData();
+
+            if ($mail === $mailConfirmation) {
+
+                if($photo = $form['image_object']->getData()){
+                    $fileName = uniqid().'.'.$photo->guessExtension();
+                    $photo->move($this->getParameter('photo_dir'), $fileName);
+                    $serv->setImageObject($fileName);
+                }
+
+                // Persist et flush du devis
+                    $entityManager->persist($devi);
+                    $entityManager->flush();
+            }else { 
+                $this->addFlash('error', 'Les mails ne correspondent pas');
+                return $this->redirectToRoute('app_devis_new', [], Response::HTTP_SEE_OTHER);
+            };
             
-            if($photo = $form['image_object']->getData()){
-                $fileName = uniqid().'.'.$photo->guessExtension();
-                $photo->move($this->getParameter('photo_dir'), $fileName);
-                $serv->setImageObject($fileName);
-            }
-
-            // Persist et flush du devis
-            $entityManager->persist($devi);
-            $entityManager->flush();
-
             // Redirection vers une page où vous pouvez éventuellement changer le statut
 
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
@@ -85,7 +94,6 @@ class DevisController extends AbstractController
         return $this->render('devis/new.html.twig', [
             'devi' => $devi,
             'form' => $form,
-            // 'type_operations' => $type_operations,
         ]);
     }
 
@@ -156,6 +164,8 @@ class DevisController extends AbstractController
 
 
                 $operation = new Operation();
+
+                $operation->setUser($currentUser);
                 
                 $devi->addOperation($operation);
 
@@ -170,6 +180,7 @@ class DevisController extends AbstractController
                 $entityManager->persist($devi);
                 $entityManager->flush();
             }
+            
         }
 
         // Redirection vers une page appropriée
