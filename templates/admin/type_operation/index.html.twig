@@ -4,6 +4,7 @@
 
 {% block body %}
 
+
 <section class="home">
     <div class="text">
         <h1 style="padding-top: 25px">Nos Services</h1>
@@ -14,29 +15,26 @@
         {% endif %}
         <div class="row">
             {% set colors = ['#F2C57C', '#6AA370', '#a289be', '#ffff00', '#ff00ff', '#00ffff'] %}
-            {% for index, type_operation in type_operations %}
-                {% set color = colors[index % colors|length] %}
-                <div class="col-md-6" style="margin-left: 150px; padding-bottom: 40px; padding-top: 50px; width: 80%;">
-                    
-                    <div class="card card-service" style="background-color: {{ color }};">
-                        <div class="card-body">
-                        <div style="float: left;">
-                        <img src="{{ asset('uploads/services/' ~ type_operation.image) }}" alt="Image" style="width: 316px; height: 248px; border-radius: 6px; margin-right: 10px">
-                    </div>
-                            <h5 class="card-title titre">{{ type_operation.libelle }}</h5>
-                            <p class="card-text tarif"> Tarif : {{ type_operation.tarif }} €</p><br>
-                            <h5 class="card-title desc">Description : </h5>
-                            <p class="card-text description">{{ type_operation.descriptif }}</p>
-                            {% if app.user %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a class="edit-type" href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}"><i class='bx bx-edit' style='font-size: 40px;'></i></a>
-                                {% endif %}
-                            {% endif %}
-                        </div>
+           {% for index, type_operation in type_operations %}
+            {% set color = colors[index % colors|length] %}
+            <div class="col-md-6" style="padding: 40px 0; width: 80%; margin-left: auto; margin-right: auto;">
+                <div class="card card-service" style="background-color: {{ color }};">
+                    <img src="{{ asset('uploads/services/' ~ type_operation.image) }}" alt="Service image">
+                    <div class="card-body">
+                        <h5 class="card-title titre">{{ type_operation.libelle }}</h5>
+                        <p class="card-text tarif">Tarif: {{ type_operation.tarif }} €</p>
+                        <h5 class="card-title desc">Description:</h5>
+                        <p class="card-text description">{{ type_operation.descriptif }}</p>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <a class="edit-type" href="{{ path('app_type_operation_edit', {'id': type_operation.id}) }}">
+                                <i class='bx bx-edit' style='font-size: 40px;'></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
     </div>
 </section>
 

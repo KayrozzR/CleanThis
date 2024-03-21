@@ -8,23 +8,12 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Nettoyage Services</title>
-		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
-		{# <!-- Navbar -->
-												    <nav class="navbar">
-												        <div class="container">
-												            <h1 class="logo">Nettoyage Services</h1>
-												            <ul class="nav-links">
-												                <li><a href="#services">Services</a></li>
-												                <li><a href="#about">À propos</a></li>
-												                <li><a href="#contact">Contact</a></li>
-												            </ul>
-												        </div>
-												    </nav> #}
 
 		<!-- Hero Section -->
-			<section class="hero"> <div class="banner">
+		<section class="hero">
+			<div class="banner">
 				<img src="{{ asset('images/index5.png') }}" style="width: 1955px; height: 750px;">
 				<div class="banner-text">
 					<h2>Bienvenue chez Clean This</h2>
@@ -32,38 +21,156 @@
 					<a href="#contact" class="btn">Demandez un Devis</a>
 				</div>
 			</div>
-
 		</section>
+     <style>   
+.section-title {
+    text-align: center;
+    font-size: 24px;
+    margin: 40px 0 50px; /* Adjust top margin as needed */
+  }
 
-		<!-- Services Section -->
-		<section id="services" class="services">
-			<div class="container">
-				<h2>Nos Services</h2>
-				<div class="service-item">
-					<img src="https://via.placeholder.com/400" alt="Nettoyage Résidentiel">
-					<h3>Nettoyage Résidentiel</h3>
-					<p>Nettoyage complet pour votre maison.</p>
-				</div>
-				<div class="service-item">
-					<img src="https://via.placeholder.com/400" alt="Nettoyage Commercial">
-					<h3>Nettoyage Commercial</h3>
-					<p>Nettoyage professionnel pour les entreprises.</p>
-				</div>
-				<div class="service-item">
-					<img src="https://via.placeholder.com/400" alt="Entretien des Espaces Verts">
-					<h3>Entretien des Espaces Verts</h3>
-					<p>Nettoyage et entretien des espaces verts.</p>
-				</div>
+  .categories-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .category {
+    flex: 1; /* Give each category equal space */
+    text-align: center;
+    margin: 0 20px; /* Space between categories */
+  }
+
+  .category img {
+    border-radius: 50%;
+    width: 300px; /* Set as needed */
+    height: 250px; /* Set as needed */
+    margin-bottom: 20px; /* Space below the image */
+  }
+
+  .category h3 {
+    margin: 10px 0; /* Space above and below the title */
+    font-size: 18px;
+  }
+
+  .category p {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* Button styles */
+  .button-container {
+    text-align: center;
+    margin-top: 30px; /* Space above the button */
+  }
+
+  .cta-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .cta-button:hover {
+    background-color: #555;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="section-header">
+<h2 class="section-title">Pour qui et pour quoi?</h2>
+</div>
+
+<div class="categories-container">
+  <!-- Category 1 -->
+  <div class="category">
+    <img src="{{ asset('images/image11.png') }}" alt="Des épanouis">
+    <h3>Nous sommes à votre écoute</h3>
+    <p>Notre équipe d'experts en nettoyage est formée pour utiliser les techniques les plus efficaces et les produits les plus écologiques afin de garantir des résultats exceptionnels tout en respectant l'environnement et la santé de vos occupants.
+
+
+De plus, nous sommes à l'écoute de nos clients et nous nous efforçons continuellement d'améliorer nos services pour mieux répondre à leurs besoins changeants. Notre engagement envers la satisfaction client est notre priorité absolue, et nous travaillons sans relâche pour dépasser les attentes de nos clients à chaque intervention</p>
+  </div>
+
+
+   <div class="category">
+    <img src="{{ asset('images/image5.png') }}" alt="Des épanouis">
+    <h3>Une équipe dévoué à votre service</h3>
+    <p>Le travail d'équipe est au cœur de tout ce que nous faisons. Nos équipes sont composées de membres dévoués et compétents qui comprennent l'importance de travailler ensemble pour garantir des résultats exceptionnels.Chaque membre de notre équipe apporte ses compétences uniques et sa passion pour l'excellence, créant ainsi une synergie qui nous permet d'aller au-delà des attentes de nos clients.</p>
+  </div>
+
+  
+  <!-- Add more categories as needed -->
+
+</div>
+
+<div class="button-container">
+  <a href="#" class="cta-button">Je demande un devis</a>
+</div>
+
+
+        <!-- Employee Section -->
+		<section class="employees-section">
+			<h2 style="margin-bottom: 50px">Qui sont les employés de maison Shiva ?</h2>
+
+			<div class="employee-card">
+				<img class="employee-image" src="{{ asset('images/image5.png') }}" alt="Tho, employé de maison">
+				<div class="employee-name">Tho, employé de maison chez Shiva depuis 7 ans.</div>
+				<p class="employee-quote">"Ce que j'adore avec Shiva ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
+			</div>
+
+			<div class="employee-card">
+				<img class="employee-image" src="{{ asset('images/image11.png') }}" alt="Tho, employé de maison">
+				<div class="employee-name">Tho, employé de maison chez Shiva depuis 7 ans.</div>
+				<p class="employee-quote">"Ce que j'adore avec Shiva ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
 			</div>
 		</section>
 
-		<!-- About Section -->
-		<section id="about" class="about">
-			<div class="container">
-				<h2>À Propos de Nous</h2>
-				<p>Nous sommes une équipe de professionnels du nettoyage dédiés à fournir des services exceptionnels à nos clients.</p>
+
+		<!-- Why CleanThis Section -->
+		<section style="background-color: #F2C57C;">
+			<div class="container2">
+				<div class="heading">
+					<h1>Pourquoi choisir CleanThis ?</h1>
+				</div>
+				<div class="benefits">
+					<div class="benefit">
+						<div class="icon">💰</div>
+						<h3>Économie</h3>
+						<p>Crédit d'impôt de 50% des sommes versées.</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">🔒</div>
+						<h3>Sérénité</h3>
+						<p>Sans engagement, aucun frais d'annulation.</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">🔍</div>
+						<h3>Transparence</h3>
+						<p>Le prix ? Le temps passé à vous satisfaire est notre mesure et rien d'autre !</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">📍</div>
+						<h3>Proximité</h3>
+						<p>Une agence proche de chez vous</p>
+					</div>
+				</div>
+				<div class="button-container">
+					<a href="#" class="button">Je demande un devis</a>
+				</div>
 			</div>
 		</section>
+		{# <!-- About Section -->
+						<section id="about" class="about">
+							<div class="container">
+								<h2>À Propos de Nous</h2>
+								<p>Nous sommes une équipe de professionnels du nettoyage dédiés à fournir des services exceptionnels à nos clients.</p>
+							</div>
+						</section> #}
 
 		<!-- Contact Section -->
 		<section id="contact" class="contact">
@@ -87,12 +194,6 @@
 				</form>
 			</div>
 		</section>
-
-		<!-- Footer -->
-		{# <footer class="footer">
-												        <div class="container">
-												            <p>&copy; 2024 Nettoyage Services. Tous droits réservés.</p>
-												        </div>
-												    </footer> #}
 	</body>
-</html>{% endblock %}
+</html>
+{% endblock %}

@@ -156,3 +156,91 @@ body {
   padding: 20px 0;
   text-align: center;
 }
+
+
+.employees-section {
+  background-color: #ffff; /* La couleur beige de l'arrière-plan spécifique à la section */
+  padding: 50px 0; /* Espacement autour de la section */
+  text-align: center;
+}
+
+.employee-card {
+  background-color: #F2C57C; /* Fond blanc pour la carte de l'employé */
+  border-radius: 16px; /* Coins arrondis de la carte */
+  display: inline-block;
+  margin: 15px;
+  max-width: 300px; /* Largeur maximale de la carte */
+  padding: 40px 20px; /* Espacement à l'intérieur de la carte */
+  position: relative; /* Pour positionner absolument la photo de l'employé */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Ombre portée pour donner de la profondeur */
+}
+
+.employee-image {
+  width: 80px; /* Taille de l'image de l'employé */
+  height: 80px; /* Taille de l'image de l'employé */
+  border-radius: 50%; /* Pour rendre l'image circulaire */
+  position: absolute; /* Position absolue pour dépasser de la carte */
+  top: -40px; /* Décalage vers le haut pour chevaucher le haut de la carte */
+  left: 50%; /* Départ à gauche à 50% de la largeur de la carte */
+  transform: translateX(-50%); /* Centrer l'image par rapport à sa propre largeur */
+  border: 3px solid #ffffff; /* Bordure blanche autour de l'image */
+}
+
+.employee-name {
+  margin-top: 50px; /* Espace pour la photo de l'employé */
+  font-weight: bold;
+}
+
+.employee-quote {
+  font-style: italic;
+  color: #333333;
+  margin-top: 15px;
+}
+
+
+
+
+
+
+.container2 {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+.heading {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+.benefits {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.benefit {
+  flex-basis: calc(33.333% - 40px);
+  margin: 20px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.benefit h3 {
+  margin-top: 0;
+}
+.icon {
+  font-size: 50px;
+  margin: 20px 0;
+}
+.button-container {
+  text-align: center; /* Centre le bouton dans le conteneur */
+  margin-top: 20px; /* Espace au-dessus du bouton */
+}
+.button {
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
