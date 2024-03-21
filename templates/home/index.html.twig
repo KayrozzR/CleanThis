@@ -1,12 +1,143 @@
 {% extends 'basebis.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{# {% block title %}Accueil{% endblock %} #}
 
-	{% block body %}
+{% block body %}
 	{% include "_partials/_flash.html.twig" %}
-	<H1>{% trans %}On a crisp autumn morning, the leaves rustled softly as a gentle breeze swept through the trees. The sun peeked through the branches, casting dappled shadows on the forest floor. Birds chirped merrily, their songs echoing in the tranquil air. A small stream gurgled nearby, its waters crystal clear and inviting. It was a perfect day for a leisurely stroll in the woods, soaking in the sights and sounds of nature.{% endtrans %}<H1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{asset('assets/css/indexClient.css')}}">
+		<title>Nettoyage Services</title>
+	</head>
+	<body>
 
+		<!-- Hero Section -->
+		<section class="hero">
+			<div class="banner">
+				<img src="{{ asset('images/index5.png') }}" style="width: 1955px; height: 750px;">
+				<div class="banner-text">
+					<h2>Bienvenue chez Clean This</h2>
+					<p>Nous offrons des services de nettoyage professionnels pour votre maison ou votre entreprise.</p>
+					<a href="#contact" class="btn">Demandez un Devis</a>
+				</div>
+			</div>
+		</section>
+
+<div class="section-header">
+<h2 class="section-title">Pour qui et pour quoi?</h2>
+</div>
+
+
+<!-- Pour qui pour quoi Section -->
+
+<div class="categories-container">
+  <!-- Category 1 -->
+  <div class="category">
+    <img src="{{ asset('images/image11.png') }}" alt="Des épanouis">
+    <h3>Nous sommes à votre écoute</h3>
+    <p>Notre équipe d'experts en nettoyage est formée pour utiliser les techniques les plus efficaces et les produits les plus écologiques afin de garantir des résultats exceptionnels tout en respectant l'environnement et la santé de vos occupants.
+	De plus, nous sommes à l'écoute de nos clients et nous nous efforçons continuellement d'améliorer nos services pour mieux répondre à leurs besoins changeants. Notre engagement envers la satisfaction client est notre priorité absolue, et nous travaillons sans relâche pour dépasser les attentes de nos clients à chaque intervention</p>
+  </div>
+
+
+   <div class="category">
+    <img src="{{ asset('images/image5.png') }}" alt="Des épanouis">
+    <h3>Une équipe dévoué à votre service</h3>
+    <p>Le travail d'équipe est au cœur de tout ce que nous faisons. Nos équipes sont composées de membres dévoués et compétents qui comprennent l'importance de travailler ensemble pour garantir des résultats exceptionnels.Chaque membre de notre équipe apporte ses compétences uniques et sa passion pour l'excellence, créant ainsi une synergie qui nous permet d'aller au-delà des attentes de nos clients.</p>
+  </div>
+
+  
+ 
+
+</div>
+
+<div class="button-container">
+  <a href="#" class="cta-button">Je demande un devis</a>
+</div>
+
+
+        <!-- Employee Section -->
+		<section class="employees-section">
+			<h2 style="margin-bottom: 50px">Qui sont les employés de CleanThis ?</h2>
+
+			<div class="employee-card">
+				<img class="employee-image" src="{{ asset('images/image5.png') }}" alt="Tho, employé de maison">
+				<div class="employee-name">Tho, employé de maison chez Shiva depuis 7 ans.</div>
+				<p class="employee-quote">"Ce que j'adore avec Shiva ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
+			</div>
+
+			<div class="employee-card">
+				<img class="employee-image" src="{{ asset('images/image11.png') }}" alt="Tho, employé de maison">
+				<div class="employee-name">Tho, employé de maison chez Shiva depuis 7 ans.</div>
+				<p class="employee-quote">"Ce que j'adore avec Shiva ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
+			</div>
+		</section>
+
+
+		<!-- Why CleanThis Section -->
+		<section style="background-color: #F2C57C;">
+			<div class="container2">
+				<div class="heading">
+					<h1>Pourquoi choisir CleanThis ?</h1>
+				</div>
+				<div class="benefits">
+					<div class="benefit">
+						<div class="icon">💰</div>
+						<h3>Économie</h3>
+						<p>Crédit d'impôt de 50% des sommes versées.</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">🔒</div>
+						<h3>Sérénité</h3>
+						<p>Sans engagement, aucun frais d'annulation.</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">🔍</div>
+						<h3>Transparence</h3>
+						<p>Le prix ? Le temps passé à vous satisfaire est notre mesure et rien d'autre !</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">📍</div>
+						<h3>Proximité</h3>
+						<p>Une agence proche de chez vous</p>
+					</div>
+				</div>
+				<div class="button-container">
+					<a href="#" class="button">Je demande un devis</a>
+				</div>
+			</div>
+		</section>
+		{# <!-- About Section -->
+						<section id="about" class="about">
+							<div class="container">
+								<h2>À Propos de Nous</h2>
+								<p>Nous sommes une équipe de professionnels du nettoyage dédiés à fournir des services exceptionnels à nos clients.</p>
+							</div>
+						</section> #}
+
+		<!-- Contact Section -->
+		<section id="contact" class="contact">
+			<div class="container">
+				<h2>Contactez-nous</h2>
+				<p>Pour obtenir un devis gratuit, veuillez remplir le formulaire ci-dessous.</p>
+				<form action="#" method="POST">
+					<div class="form-group">
+						<label for="name">Nom:</label>
+						<input type="text" id="name" name="name" required>
+					</div>
+					<div class="form-group">
+						<label for="email">Email:</label>
+						<input type="email" id="email" name="email" required>
+					</div>
+					<div class="form-group">
+						<label for="message">Message:</label>
+						<textarea id="message" name="message" required></textarea>
+					</div>
+					<button type="submit" class="btn">Envoyer</button>
+				</form>
+			</div>
+		</section>
+	</body>
+</html>
 {% endblock %}
-
-
-

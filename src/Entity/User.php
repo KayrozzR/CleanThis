@@ -71,7 +71,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $operation_en_cours = null;
 
-    #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'id_user')]
+    #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'user')]
+
     private Collection $operations;
 
     public function __construct()
@@ -305,6 +306,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     public function getOperationEnCours(): ?int
     {
         return $this->operation_en_cours;
@@ -329,7 +331,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->operations->contains($operation)) {
             $this->operations->add($operation);
-            $operation->setIdUser($this);
+            $operation->setUser($this);
+
         }
 
         return $this;
@@ -339,8 +342,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->operations->removeElement($operation)) {
             // set the owning side to null (unless already changed)
-            if ($operation->getIdUser() === $this) {
-                $operation->setIdUser(null);
+            if ($operation->getUser() === $this) {
+                $operation->setUser(null);
+
             }
         }
 

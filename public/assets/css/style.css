@@ -7,13 +7,6 @@ html {
     min-height: 100%;
 }
  
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-}
-
   .btn-login {
     font-size: 0.9rem;
     letter-spacing: 0.05rem;
@@ -21,8 +14,15 @@ footer {
   }
 
   .btn-google {
-    color: white !important;
-    background-color: #ea4335 !important;
+    color: black !important;
+    background-color: white !important;
+    border:  solid 1px;
+  }
+
+  .btn-google:hover {
+    color: black !important;
+    background-color: white !important;
+    border:  solid 1px;
   }
 
   .btn-facebook {
