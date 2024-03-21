@@ -1,0 +1,118 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Banner Hero Section Styles */
+.hero {
+  background-color: white;
+  color: white;
+  /* padding: 100px 0; */
+  text-align: center;
+}
+
+.hero img {
+  display: block;
+  margin: 0 auto; /* Centre l'image horizontalement */
+  max-width: 100%; /* Assure que l'image ne dépasse pas la largeur du container */
+  height: auto; /* Garde le ratio hauteur-largeur */
+}
+
+.banner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-text {
+  position: absolute;
+}
+
+.hero h2 {
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+.cleaning-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 100px; /* Espacement entre les sections */
+  margin-top: 50px;
+}
+
+.cleaning-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Espace entre l'image et le texte */
+}
+
+.cleaning-image {
+  width: 50%; /* Adaptez à la taille souhaitée */
+  height: auto;
+}
+
+.cleaning-description {
+  width: 50%;
+}
+
+.cleaning-description h2 {
+  color: #003366; /* Une couleur sombre pour le titre */
+  margin-bottom: 15px;
+}
+
+.cleaning-description p {
+  color: #666; /* Une couleur grise pour le texte */
+  margin-bottom: 20px;
+}
+
+.btn-info {
+  padding: 10px 20px;
+  background-color: #0055a4; /* Une couleur bleue pour le bouton */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; /* Des bords arrondis pour le bouton */
+  text-transform: uppercase; /* Texte en majuscules */
+}
+
+/* Pour inverser l'ordre de l'image et du texte dans la deuxième section */
+.reverse {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+  .cleaning-info,
+  .reverse {
+    flex-direction: column;
+  }
+
+  .cleaning-image,
+  .cleaning-description {
+    width: 100%;
+  }
+}
