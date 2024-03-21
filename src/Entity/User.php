@@ -68,7 +68,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $is_verified = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $operation_en_cours = null;
+
     #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'user')]
+
     private Collection $operations;
 
     public function __construct()
@@ -302,6 +306,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+    public function getOperationEnCours(): ?int
+    {
+        return $this->operation_en_cours;
+    }
+
+    public function setOperationEnCours(?int $operation_en_cours): static
+    {
+        $this->operation_en_cours = $operation_en_cours;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Operation>
      */
@@ -315,6 +332,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->operations->contains($operation)) {
             $this->operations->add($operation);
             $operation->setUser($this);
+
         }
 
         return $this;
@@ -326,6 +344,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($operation->getUser() === $this) {
                 $operation->setUser(null);
+
             }
         }
 

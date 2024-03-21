@@ -35,11 +35,12 @@
                             <td class="bold-weight">{{ devi.urlDevis }}</td>
                             <td class="bold-weight">{{ devi.createdAt ? devi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td class="bold-weight">{{ devi.comment }}</td>
-                            <td class="bold-weight">{{ devi.imageObject }}</td>
+                            <td class="bold-weight" data-image="{{ asset('uploads/services/' ~ devi.imageObject) }}"></td>
                             <td class="bold-weight">{{ devi.status ? 'Yes' : 'No' }}</td>
                             <td>
                                 <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="actionsButtons1">Voir détail</a>
                                 <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+                                <a href="{{ path('devis_pdf', {'id': devi.id})}}" class ="actionsButtons3">Voir le pdf </a>
                                 {% if not devi.status %}
                                     <button class="btn toggleStatusBtn actionsButtons3" data-devi-id="{{ devi.id }}">
                                         Valider le devis
@@ -99,12 +100,18 @@
                         $button.closest('tr').find('.deleteBtn').hide();
                         location.reload(); // Rafraîchissement de la page
                     },
-                    error: function() {
-                        alert("Une erreur s'est produite");
+                    error: function(xhr) {
+                        if (xhr.status === 403) {
+                            alert(xhr.responseText); // Afficher le message d'erreur personnalisé
+                        } else {
+                            alert("Une erreur s'est produite");
+                        }
                     }
                 });
             }
         });
+
+
 
         $('.table').on('click', '.deleteBtn', function(e) {
             e.preventDefault();

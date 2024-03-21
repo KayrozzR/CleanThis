@@ -25,7 +25,7 @@ class TypeOperation
     #[ORM\Column(type: Types::TEXT)]
     private ?string $descriptif = null;
 
-    #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'Type_Operation')]
+    #[ORM\OneToMany(targetEntity: Devis::class, mappedBy: 'Type_Operation')]
     private Collection $devis;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -89,7 +89,7 @@ class TypeOperation
     {
         if (!$this->devis->contains($devi)) {
             $this->devis->add($devi);
-            $devi->addTypeOperation($this);
+            $devi->setTypeOperation($this);
         }
 
         return $this;
@@ -98,7 +98,10 @@ class TypeOperation
     public function removeDevi(Devis $devi): static
     {
         if ($this->devis->removeElement($devi)) {
-            $devi->removeTypeOperation($this);
+            // set the owning side to null (unless already changed)
+            if ($devi->getTypeOperation() === $this) {
+                $devi->setTypeOperation(null);
+            }
         }
 
         return $this;

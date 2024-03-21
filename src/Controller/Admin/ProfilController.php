@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\DevisRepository;
+use App\Repository\OperationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -37,22 +39,22 @@ class ProfilController extends AbstractController
         // Récupérer le nom du champ à mettre à jour depuis la requête AJAX
         $requestData = json_decode($request->getContent(), true);
         $fieldName = key($requestData);
-    
+
         // Récupérer la nouvelle valeur du champ depuis la requête AJAX
         $newFieldValue = $requestData[$fieldName];
-    
+
         // Vérifier si le champ à mettre à jour existe dans l'entité User
         if (!property_exists(User::class, $fieldName)) {
             return new JsonResponse(['error' => 'Champ invalide'], 400);
         }
-    
+
         // Mettre à jour le champ approprié de l'utilisateur
         $setterMethod = 'set' . ucfirst($fieldName);
         $user->$setterMethod($newFieldValue);
-    
+
         // Sauvegarder les modifications en base de données
         $entityManager->flush();
-    
+
         // Renvoyer une réponse JSON pour indiquer que les modifications ont été enregistrées avec succès
         return new JsonResponse(['success' => true]);
     }
@@ -63,28 +65,28 @@ class ProfilController extends AbstractController
         $requestData = json_decode($request->getContent(), true);
         $currentPassword = $requestData['currentPassword'];
         $newPassword = $requestData['newPassword'];
-    
+
         // Récupérer l'utilisateur actuellement connecté
         $user = $this->getUser();
-    
+
         // Vérifier que le mot de passe actuel est correct
         if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
             return new JsonResponse(['error' => 'Le mot de passe actuel est incorrect'], 400);
         }
-    
+
         // Mettre à jour le mot de passe de l'utilisateur avec le nouveau mot de passe
         $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
         $user->setPassword($hashedPassword);
-    
+
         // Sauvegarder les modifications en base de données
         $this->entityManager->flush();
-    
+
         // Renvoyer une réponse JSON pour indiquer que les modifications ont été enregistrées avec succès
         return new JsonResponse(['success' => true]);
     }
 
-    #[Route("/upload-avatar", name:"upload_avatar", methods:['POST'])]
-    
+    #[Route("/upload-avatar", name: "upload_avatar", methods: ['POST'])]
+
     public function uploadAvatar(Request $request): Response
     {
         // Récupérer le fichier envoyé
@@ -112,12 +114,24 @@ class ProfilController extends AbstractController
             // Redirection vers la page où vous affichez l'utilisateur
             return $this->redirectToRoute('app_admin_profil');
         }
-
-        // Si aucun fichier n'a été envoyé, afficher un message d'erreur ou gérer selon vos besoins
-        // ...
-
-        // Si vous avez besoin de retourner une réponse différente
-        // return new Response('Erreur lors du téléchargement de l\'avatar', 400);
     }
+    #[Route('admin/profil/operation_profil', name: 'app_profil_operation_profil', methods: ['GET'])]
+    public function index_profil(OperationRepository $operationRepository): Response
+    {
+        $currentUser = $this->getUser();
+
+
+        // Vérifier si un utilisateur est connecté
+        if ($currentUser) {
+            // Récupérer les opérations de l'utilisateur connecté
+            $operations = $operationRepository->findBy(['user' => $currentUser]);
+        } else {
+            // Si aucun utilisateur n'est connecté, renvoyer un tableau vide
+            $operations = [];
+        }
+
+        return $this->render('admin/profil/operation_profil.html.twig', [
+            'operations' => $operations,
+        ]);
     }
-    
+}

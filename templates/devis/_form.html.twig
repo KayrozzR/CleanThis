@@ -23,24 +23,33 @@
 									{{ form_row(form.mail) }}
 								</div>
 								<div class="col-md-6">
-									{{ form_row(form.tel) }}
+									{{ form_row(form.mailConfirmation) }}
 								</div>
 							</div>
+
 							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.tel) }}
+								</div>
 								<div class="col-md-6">
 									{{ form_row(form.adresse_intervention) }}
 								</div>
-								<div class="col-md-6">
-									{{ form_row(form.Type_Operation) }}
-									<button type="button" class="btn btn-primary add-operation">Ajouter</button>
+							</div>
+							<div style="margin-left: 25%" class="col-md-6">
+								<div class="d-flex align-items-center">
+								{{ form_row(form.Type_Operation) }}
+								<a href="/type/operation">
+									<span class="type-description" style="cursor: pointer;">
+										<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
+									</span>
+								</a>
 								</div>
 							</div>
-							<div>
-							{{ form_row(form.image_object, {'attr': {'class': 'hidden'}}) }}
+							<div id="image-object-field" style="display: none;">
+								{{ form_row(form.image_object) }}
 							</div>
 
 							{{ form_row(form.comment) }}
-							{# {{ form_row(form.status) }} #}
 
 							<button class="btn">Envoi devis</button>
 							{{ form_end(form) }}
@@ -52,60 +61,46 @@
 		</div>
 	</section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const addButton = document.querySelector('.add-operation');
-        const typeOperationField = document.getElementById('{{ form.Type_Operation.vars.id }}');
-        const imageObjectField = document.getElementById('{{ form.image_object.vars.id }}');
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () { // Hide the image object field initially
+$('#image-object-field').hide();
 
-        // Cacher le champ image_object par défaut
-        imageObjectField.closest('div').style.display = 'none';
-        let customServiceSelected = false;
+// Show/hide the image object field based on the selected option
+$('.type-operation-select').change(function () {
+console.log('Nouvelle valeur sélectionnée :', $(this).val());
+if ($(this).val() === '14') {
+console.log('Service Custom sélectionné');
+$('#image-object-field').show();
+} else {
+console.log('Autre option sélectionnée');
+$('#image-object-field').hide();
+}
+});
+});
+	</script>
 
-        addButton.addEventListener('click', function () {
-            const operationLabel = typeOperationField.options[typeOperationField.selectedIndex].text; // Récupération du libellé du champ Type_Operation
-            const operationValue = typeOperationField.value; // Récupération de la valeur sélectionnée du champ Type_Operation
+	<script>
+		$(document).ready(function () {
+var descriptions = {
+'7': 'Description pour le type d\'opération 1.',
+'8': 'Ce service offre une gamme plus étendue de nettoyage, adaptée aux besoins plus spécifiques des clients. En plus des tâches de nettoyage de base, il comprend le nettoyage des vitres, le nettoyage des tapis et des moquettes, le dépoussiérage en profondeur des meubles, ainsi que le nettoyage des appareils électroménagers. Il convient aux résidences plus grandes, aux bureaux de taille moyenne et aux espaces commerciaux haut de gamme.',
+'14': 'Description pour le service Custom.'
+};
 
-            console.log("Selected option label:", operationLabel);
-            console.log("Selected option value:", operationValue);
+$('.type-description').click(function () {
+var selectedType = $('.type-operation-select').val();
+var description = descriptions[selectedType];
+var container = $(this).siblings('.description-container');
 
-            const newField = document.createElement('div');
-            newField.classList.add('operation-field');
-            newField.textContent = operationLabel; // Utilisation du libellé au lieu de l'identifiant
-
-            const deleteButton = document.createElement('span');
-            deleteButton.textContent = '❌';
-            deleteButton.classList.add('delete-operation');
-            deleteButton.addEventListener('click', function () {
-                newField.parentNode.removeChild(newField);
-                if (operationValue === '14') {
-                    customServiceSelected = false;
-                    imageObjectField.closest('div').style.display = 'none';
-                }
-            });
-
-            newField.appendChild(deleteButton);
-
-            const row = document.createElement('div');
-            row.classList.add('row');
-            const col = document.createElement('div');
-            col.classList.add('col-md-6');
-            col.appendChild(newField);
-
-            row.appendChild(col);
-            typeOperationField.parentNode.parentNode.parentNode.insertBefore(row, typeOperationField.parentNode.parentNode.nextSibling);
-
-            // Vérifier si la valeur est égale à '10' (ou 'Service Custom') et afficher le champ image_object en conséquence
-            if (operationValue === '14' || customServiceSelected) {
-                imageObjectField.closest('div').style.display = 'block';
-                customServiceSelected = true;
-            } else {
-                // Si la valeur n'est pas égale à 10, masquer le champ image_object
-                imageObjectField.closest('div').style.display = 'none';
-            }
-        });
-    });
-</script>
-
-
+if (description) {
+container.text(description);
+container.slideToggle();
+} else {
+container.text('Aucune description disponible.');
+container.slideToggle();
+}
+});
+});
+	</script>
 {% endblock %}

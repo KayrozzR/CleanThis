@@ -4,5 +4,10 @@ controllers:
     namespace: App\Controller
   type: attribute
 
+devis_pdf:
+  path: /devis/pdf/{id}
+  controller: 'App\Controller\DevisController::generatePdfDevis'
+  methods: ['GET']
+
 auth_oauth_check:
   path: oauth/check/{service}
