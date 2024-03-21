@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use SplFileObject;
 use App\Entity\User;
 use App\Entity\Devis;
 use Twig\Environment;
@@ -13,8 +14,8 @@ use App\Entity\TypeOperation;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
-use Symfony\Component\Mime\Message;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -239,11 +240,11 @@ class DevisController extends AbstractController
     }
 
 
-
     #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
-    public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository,EntityManagerInterface $entityManager, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator,JWTService $jwt):response{
-
-        $user = $devi->getUser();
+    public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, SendMailService $mail, Filesystem $filesystem): Response
+    {
+        $user = $devi->getMail();
+        $client = $userRepository->findOneBy(['email' =>  $user]);
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
         $html = $this->renderView('Pdf/devis.html.twig', [
@@ -251,32 +252,36 @@ class DevisController extends AbstractController
             'type_operation' => $type_operations,
             // 'logo_base64' => $logoBase64,
         ]);
+
         $pdfContent = $pdf->generateBinaryPDF($html);
+        $fileName = md5(uniqid()) . '.pdf';
+        $filePath = $this->getParameter('kernel.project_dir') . '/public/pdf/' . $fileName;
+        // file_put_contents($filePath, $pdfContent);
+        // $filesystem->dumpFile($filePath, $pdfContent);
+        // $pdfContentBase64 = base64_encode($pdfContent);
+        $file = new SplFileObject($filePath, 'w');
+        $file->fwrite($pdfContent);
 
-         //We generate the jwt of the user
-                //We cretae the header
-                $header =[
-                    'typ'=>'JWT',
-                    'alg'=>'HS256'
-                ];
-                //We create the payload
-                $payload =[
-                    'user_id'=>$user->getId()
-                ];
-                //We generate the token
-                $token = $jwt->generate($header,$payload,
-                $this->getParameter('app.jwtsecret'));
-    
-                $mail->send('no-reply@cleanthis.fr',
-                    $user->getEmail(),
-                    'Votre devis CleanThis',
-                    'devis_pdf',
-                    compact('user','token','pdfContent')
-                );
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $url = $baseUrl . '/pdf/' . $fileName;
 
-      
+
+        // Assigner l'utilisateur au devis
+        $devi->setUrlDevis($url);
+        
+        // Persist et flush du devis mis à jour
+        $entityManager->persist($devi);
+        $entityManager->flush();
+
+
+        $mail->send('no-reply@cleanthis.fr',
+            $devi->getMail(),
+            'Votre devis CleanThis',
+            'devis_pdf',
+            compact('client',  'url')
+        );
 
         return new Response();
-    }
+    }   
 
 }

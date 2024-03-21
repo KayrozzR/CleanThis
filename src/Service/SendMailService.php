@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use Twig\Environment;
+use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
@@ -26,24 +28,54 @@ class SendMailService
     }
 
 
-    // public function sendPdf($from, $to, $subject, $template, $data = [], $attachments = [])
-    // {
-    //     // Créer le message
-    //     $message = (new \Swift_Message($subject))
-    //         ->setFrom($from)
-    //         ->setTo($to)
-    //         ->setBody(
-    //             $this->templating->render($template.'.html.twig', $data),
-    //             'text/html'
-    //         );
+    // public function sendPdf($from, $to, $subject, $template, $data = [], $attachments, MailerInterface $mailer, array $context)
+    //     {
+    //         // 2. We create a e-mail with an attached file
+    //         $email = (new TemplatedEmail())
+    //             ->from($from)
+    //             ->to($to)
+    //             ->subject($subject)
+    //             ->htmlTemplate("emailS/$template.html.twig")
+    //             ->context($context)
+    //             ->attach($attachments);
 
-    //     // Ajouter des pièces jointes
-    //     foreach ($attachments as $attachment) {
-    //         $message->attach(
-    //             \Swift_Attachment::fromPath($attachment['path'])->setFilename($attachment['filename'])
-    //         );
+    //         // Send the message
+    //         $mailer->send($email);
     //     }
 
-    //     $this->mailer->send($message);
+    // public function sendPdf($from, $to, $subject, $template,array $context): void
+    // {
+    //     $email = (new TemplatedEmail())
+    //         ->from($from)
+    //         ->to($to)
+    //         ->subject($subject)
+    //         ->context($context)
+    //         ->htmlTemplate("emailS/$template.html.twig");
+
+    //     // Ajouter la pièce jointe PDF
+    //     if (isset($data['pdfContent'])) {
+    //         $pdfAttachment = new DataPart($data['pdfContent'], 'VotreDevis.pdf', 'application/pdf');
+    //         $email->attach($pdfAttachment);
+    //     }
+
+    //     // Envoyer l'e-mail
+    //     $this->mailer->send($email);
     // }
+    public function sendPdf($from, $to, $subject, $template, $data = [], array $context): void
+{
+    $email = (new TemplatedEmail())
+        ->from($from)
+        ->to($to)
+        ->subject($subject)
+        ->htmlTemplate("emailS/$template.html.twig");
+
+    // Ajouter la pièce jointe PDF
+    if (isset($data['pdfContent'])) {
+        $pdfAttachment = new DataPart($data['pdfContent'], 'VotreDevis.pdf', 'application/pdf');
+        $email->attach($pdfAttachment);
+    }
+
+    // Envoyer l'e-mail
+    $this->mailer->send($email);
+}
 }
