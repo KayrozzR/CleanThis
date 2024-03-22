@@ -4,16 +4,17 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Repository\OperationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Routing\Attribute\Route;
 
 class ProfilController extends AbstractController
 {
@@ -133,5 +134,32 @@ class ProfilController extends AbstractController
         return $this->render('admin/profil/operation_profil.html.twig', [
             'operations' => $operations,
         ]);
+    }
+
+    #[Route('/admin/profil/operation_termine/{userId}', name: 'app_operation_termine', methods: ['GET'])]
+    public function operationTermine($userId, UserRepository $userRepository, OperationRepository $operationRepository): Response
+    {
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé');
+        }
+
+        $user->setOperationsFinalisee($user->getOperationsFinalisee() + 1);
+
+        $user->setOperationEnCours($user->getOperationEnCours() - 1);
+
+        $operation = $operationRepository->findOneBy(['user' => $user, 'status_operation' => false]);
+
+        if (!$operation) {
+            throw $this->createNotFoundException("Aucune opération en cours pour cet utilisateur");
+        }
+
+        $operation->setStatusOperation(true);
+        $operation->setDateFin(new \DateTimeImmutable());
+
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_profil_operation_profil');
     }
 }
