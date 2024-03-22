@@ -7,7 +7,6 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Repository\OperationRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
