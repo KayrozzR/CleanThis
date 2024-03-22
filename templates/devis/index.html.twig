@@ -39,7 +39,9 @@
                             <td class="bold-weight">{{ devi.status ? 'Yes' : 'No' }}</td>
                             <td>
                                 <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="actionsButtons1">Voir détail</a>
-                                <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+                                {% if devi.typeOperation and devi.typeOperation.getLibelle() == 'Service Custom' %}
+                                    <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+                                {% endif %}
                                 <a href="{{ path('devis_pdf', {'id': devi.id})}}" class ="actionsButtons3">Voir le pdf </a>
                                 {% if not devi.status %}
                                     <button class="btn toggleStatusBtn actionsButtons3" data-devi-id="{{ devi.id }}">
@@ -95,14 +97,13 @@
                     },
                     success: function(response) {
                         alert("Statut mis à vrai avec succès");
-                        // Mise à jour du statut dans le tableau sans recharger la page
                         $button.closest('tr').find('.bold-weight').eq(6).text('Yes');
                         $button.closest('tr').find('.deleteBtn').hide();
-                        location.reload(); // Rafraîchissement de la page
+                        location.reload(); 
                     },
                     error: function(xhr) {
                         if (xhr.status === 403) {
-                            alert(xhr.responseText); // Afficher le message d'erreur personnalisé
+                            alert(xhr.responseText);
                         } else {
                             alert("Une erreur s'est produite");
                         }

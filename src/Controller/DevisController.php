@@ -38,20 +38,17 @@ class DevisController extends AbstractController
     {
         $devis = $devisRepository->findAll();
 
-        // Création d'un tableau pour stocker les IDs des devis avec le statut vrai
         $devisWithTrueStatus = [];
 
-        // Parcourir tous les devis pour vérifier le statut
         foreach ($devis as $devi) {
             if ($devi->isStatus() === true) {
-                // Ajouter l'ID du devis avec le statut vrai au tableau
                 $devisWithTrueStatus[] = $devi->getId();
             }
         }
 
         return $this->render('devis/index.html.twig', [
             'devis' => $devis,
-            'devisWithTrueStatus' => $devisWithTrueStatus, // Envoyer les IDs des devis avec le statut vrai au modèle
+            'devisWithTrueStatus' => $devisWithTrueStatus,
         ]);
     }
 
@@ -78,15 +75,12 @@ class DevisController extends AbstractController
                     $serv->setImageObject($fileName);
                 }
 
-                // Persist et flush du devis
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 
                 $this->addFlash('error', 'Les mails ne correspondent pas');
                 return $this->redirectToRoute('app_devis_new', [], Response::HTTP_SEE_OTHER);
             };
-            
-            // Redirection vers une page où vous pouvez éventuellement changer le statut
 
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -104,9 +98,9 @@ class DevisController extends AbstractController
         $currentUser = $this->getUser();
 
         if (in_array('ROLE_ADMIN', $currentUser->getRoles(), true)) {
-            // Si l'utilisateur est un administrateur, vérifier s'il a déjà 5 opérations en cours
+
             if ($currentUser->getOperationEnCours() >= 5) {
-                // Redirection avec un message d'erreur ou une réponse appropriée
+
                 return new Response('Vous avez déjà atteint le nombre maximum d\'opérations en cours.', Response::HTTP_FORBIDDEN);
             }
         } elseif (in_array('ROLE_SENIOR', $currentUser->getRoles(), true)) {
@@ -123,23 +117,21 @@ class DevisController extends AbstractController
             }
         }
 
-        // Vérifier si le formulaire a été soumis avec le champ 'status' en tant que paramètre POST
         if ($request->request->has('status')) {
-            // Récupérer la valeur du statut du formulaire
+
             $status = $request->request->get('status');
             
-            // Vérifier si le statut est true
             if ($status === 'true') {
 
                 $currentUser->setOperationEnCours(($currentUser->getOperationEnCours() ?? 0) + 1);
                 $entityManager->persist($currentUser);
-                // Création d'un nouvel utilisateur
+
                 $user = new User();
-                // Assigner les données de l'utilisateur depuis le devis
+
                 $user->setFirstname($devi->getFirstname());
                 $user->setLastname($devi->getLastname());
                 $user->setEmail($devi->getMail());
-                // Persist et flush de l'utilisateur
+
                 $entityManager->persist($user);
                 $entityManager->flush();
 
@@ -147,11 +139,11 @@ class DevisController extends AbstractController
                     'typ'=>'JWT',
                     'alg'=>'HS256'
                 ];
-                //We create the payload
+
                 $payload =[
                     'user_id'=>$user->getId()
                 ];
-                //We generate the token
+
                 $token = $jwt->generate($header,$payload,
                 $this->getParameter('app.jwtsecret'));
     
@@ -169,13 +161,10 @@ class DevisController extends AbstractController
                 
                 $devi->addOperation($operation);
 
-                // Assigner l'utilisateur au devis
                 $devi->setUser($user);
 
-                // Mettre à jour le statut du devis
                 $devi->setStatus(true);
                 
-                // Persist et flush du devis mis à jour
                 $entityManager->persist($operation);
                 $entityManager->persist($devi);
                 $entityManager->flush();
@@ -183,7 +172,6 @@ class DevisController extends AbstractController
             
         }
 
-        // Redirection vers une page appropriée
         return $this->redirectToRoute('app_devis_index');
     }
 
@@ -200,9 +188,16 @@ class DevisController extends AbstractController
     {
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
+        $serv = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+
+            if($photo = $form['image_object']->getData()){
+                $fileName = uniqid().'.'.$photo->guessExtension();
+                $photo->move($this->getParameter('photo_dir'), $fileName);
+                $serv->setImageObject($fileName);
+            }
 
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -217,7 +212,6 @@ class DevisController extends AbstractController
     public function delete(Request $request, Devis $devi, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$devi->getId(), $request->request->get('_token'))) {
-            // Supprimer l'utilisateur lié au devis s'il existe
             $user = $devi->getUser();
             if ($user !== null) {
                 $entityManager->remove($user);
