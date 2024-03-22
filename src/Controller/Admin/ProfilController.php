@@ -101,7 +101,7 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('app_admin_profil');
         }
     }
-    #[Route('admin/profil/operation_profil', name: 'app_profil_operation_profil', methods: ['GET'])]
+    #[Route('admin/profil/operation_profil', name: 'app_admin_operation_profil', methods: ['GET'])]
     public function index_profil(OperationRepository $operationRepository): Response
     {
         $currentUser = $this->getUser();
