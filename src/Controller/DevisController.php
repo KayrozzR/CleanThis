@@ -139,6 +139,7 @@ class DevisController extends AbstractController
                 $user->setFirstname($devi->getFirstname());
                 $user->setLastname($devi->getLastname());
                 $user->setEmail($devi->getMail());
+                $user->setRoles(["ROLE_CLIENT"]);
                 // Persist et flush de l'utilisateur
                 $entityManager->persist($user);
                 $entityManager->flush();
