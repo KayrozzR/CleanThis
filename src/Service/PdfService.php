@@ -57,7 +57,6 @@ class PdfService
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->render();
-        // $dompdf->output();
         return $dompdf->output();
     }
 

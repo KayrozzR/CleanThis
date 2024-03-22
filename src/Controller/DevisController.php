@@ -256,20 +256,13 @@ class DevisController extends AbstractController
         $pdfContent = $pdf->generateBinaryPDF($html);
         $fileName = md5(uniqid()) . '.pdf';
         $filePath = $this->getParameter('kernel.project_dir') . '/public/pdf/' . $fileName;
-        // file_put_contents($filePath, $pdfContent);
-        // $filesystem->dumpFile($filePath, $pdfContent);
-        // $pdfContentBase64 = base64_encode($pdfContent);
         $file = new SplFileObject($filePath, 'w');
         $file->fwrite($pdfContent);
 
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $url = $baseUrl . '/pdf/' . $fileName;
 
-
-        // Assigner l'utilisateur au devis
         $devi->setUrlDevis($url);
-        
-        // Persist et flush du devis mis à jour
         $entityManager->persist($devi);
         $entityManager->flush();
 

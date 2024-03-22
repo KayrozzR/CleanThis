@@ -27,40 +27,6 @@ class SendMailService
         $this->mailer->send($email);
     }
 
-
-    // public function sendPdf($from, $to, $subject, $template, $data = [], $attachments, MailerInterface $mailer, array $context)
-    //     {
-    //         // 2. We create a e-mail with an attached file
-    //         $email = (new TemplatedEmail())
-    //             ->from($from)
-    //             ->to($to)
-    //             ->subject($subject)
-    //             ->htmlTemplate("emailS/$template.html.twig")
-    //             ->context($context)
-    //             ->attach($attachments);
-
-    //         // Send the message
-    //         $mailer->send($email);
-    //     }
-
-    // public function sendPdf($from, $to, $subject, $template,array $context): void
-    // {
-    //     $email = (new TemplatedEmail())
-    //         ->from($from)
-    //         ->to($to)
-    //         ->subject($subject)
-    //         ->context($context)
-    //         ->htmlTemplate("emailS/$template.html.twig");
-
-    //     // Ajouter la pièce jointe PDF
-    //     if (isset($data['pdfContent'])) {
-    //         $pdfAttachment = new DataPart($data['pdfContent'], 'VotreDevis.pdf', 'application/pdf');
-    //         $email->attach($pdfAttachment);
-    //     }
-
-    //     // Envoyer l'e-mail
-    //     $this->mailer->send($email);
-    // }
     public function sendPdf($from, $to, $subject, $template, $data = [], array $context): void
 {
     $email = (new TemplatedEmail())
@@ -74,8 +40,6 @@ class SendMailService
         $pdfAttachment = new DataPart($data['pdfContent'], 'VotreDevis.pdf', 'application/pdf');
         $email->attach($pdfAttachment);
     }
-
-    // Envoyer l'e-mail
     $this->mailer->send($email);
 }
 }
