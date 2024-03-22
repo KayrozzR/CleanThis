@@ -55,11 +55,11 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
 
         $roles = $token->getRoleNames();
 
-    if (in_array('ROLE_SENIOR', $roles) || in_array('ROLE_APPRENTI', $roles) || in_array('ROLE_EXPERT', $roles) || in_array('ROLE_ADMIN', $roles)) {
-        return new RedirectResponse($this->router->generate('app_admin_profil'));
-    } else {
-        return new RedirectResponse($this->router->generate('app_user_profil'));
-    }
+        if (in_array('ROLE_SENIOR', $roles) || in_array('ROLE_APPRENTI', $roles) || in_array('ROLE_EXPERT', $roles) || in_array('ROLE_ADMIN', $roles)) {
+            return new RedirectResponse($this->router->generate('app_admin_operation_profil'));
+        } else {
+            return new RedirectResponse($this->router->generate('app_user_profil'));
+        }
 
     }
 

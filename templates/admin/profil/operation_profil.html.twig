@@ -48,9 +48,9 @@
 								<td class="bold-weight">{{ devis.user.lastname }} {{ devis.user.firstname }}</td>
 							{% endfor %}
                             <td>
-                              {# {% for devis in operation.devis %}
+                            {% for devis in operation.devis %}
                                 {{ devis.typeOperation.libelle }}
-                            {% endfor %} #}
+                            {% endfor %}
                             </td>
 							{# <td class="bold-weight">{{ operation.facture }}</td> #}
 							{# <td class="bold-weight">{{ operation.comment }}</td> #}
