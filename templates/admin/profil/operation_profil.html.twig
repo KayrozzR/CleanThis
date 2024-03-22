@@ -62,6 +62,13 @@
 							<td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
 							{# <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td> #}
 							<td>
+                                {% if operation.statusOperation %}
+                                    <span style="color: green;" class="badge-success">Opération terminée <i style = "color: green;"  class='bx bx-check'></i></span>
+                                {% else %}
+                                    <a href="{{ path('app_operation_termine', {'userId': app.user.id}) }}" class="btn btn-success" onclick="confirmTerminerOperation()">Terminer l'opération</a>
+                                {% endif %}
+                            </td>
+							<td>
 								<a href="{{ path('app_operation_show', {'id': operation.id}) }}">show</a>
 								<a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a>
 							</td>

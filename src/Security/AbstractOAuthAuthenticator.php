@@ -48,12 +48,19 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        $targetPath = $this->getTargetPath($request->getSession(), $firewallName);
+        $targetPath = $this->getTargetPath($request->getSession(), $firewallName); 
         if ($targetPath) {
-            return new RedirectResponse($targetPath);
+            return new RedirectResponse($targetPath); 
         }
 
+        $roles = $token->getRoleNames();
+
+    if (in_array('ROLE_SENIOR', $roles) || in_array('ROLE_APPRENTI', $roles) || in_array('ROLE_EXPERT', $roles) || in_array('ROLE_ADMIN', $roles)) {
         return new RedirectResponse($this->router->generate('app_admin_profil'));
+    } else {
+        return new RedirectResponse($this->router->generate('app_user_profil'));
+    }
+
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
