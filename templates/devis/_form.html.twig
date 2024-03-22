@@ -63,42 +63,18 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		$(document).ready(function () { // Hide the image object field initially
+		$(document).ready(function () { 
 $('#image-object-field').hide();
 
-// Show/hide the image object field based on the selected option
+
 $('.type-operation-select').change(function () {
 console.log('Nouvelle valeur sélectionnée :', $(this).val());
-if ($(this).val() === '14') {
+if ($(this).val() === '10') {
 console.log('Service Custom sélectionné');
 $('#image-object-field').show();
 } else {
 console.log('Autre option sélectionnée');
 $('#image-object-field').hide();
-}
-});
-});
-	</script>
-
-	<script>
-		$(document).ready(function () {
-var descriptions = {
-'7': 'Description pour le type d\'opération 1.',
-'8': 'Ce service offre une gamme plus étendue de nettoyage, adaptée aux besoins plus spécifiques des clients. En plus des tâches de nettoyage de base, il comprend le nettoyage des vitres, le nettoyage des tapis et des moquettes, le dépoussiérage en profondeur des meubles, ainsi que le nettoyage des appareils électroménagers. Il convient aux résidences plus grandes, aux bureaux de taille moyenne et aux espaces commerciaux haut de gamme.',
-'14': 'Description pour le service Custom.'
-};
-
-$('.type-description').click(function () {
-var selectedType = $('.type-operation-select').val();
-var description = descriptions[selectedType];
-var container = $(this).siblings('.description-container');
-
-if (description) {
-container.text(description);
-container.slideToggle();
-} else {
-container.text('Aucune description disponible.');
-container.slideToggle();
 }
 });
 });
