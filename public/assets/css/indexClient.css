@@ -67,7 +67,7 @@ body {
 .category {
   flex: 1; /* Give each category equal space */
   text-align: center;
-  margin: 0 200px; /* Space between categories */
+  margin: 0 150px; /* Space between categories */
 }
 
 .category img {
@@ -95,16 +95,15 @@ body {
 }
 
 .cta-button {
-  background-color: #000;
-  color: #fff;
-  text-decoration: none;
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
   padding: 10px 20px;
+  border: none;
   border-radius: 5px;
-  background-color: #000;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
 }
 
 .cta-button:hover {
@@ -139,7 +138,8 @@ body {
   transform: translateX(
     -50%
   ); /* Centrer l'image par rapport à sa propre largeur */
-  border: 3px solid #ffffff; /* Bordure blanche autour de l'image */
+  border: 3px solid #ffffff;
+  object-fit: cover; /* Bordure blanche autour de l'image */
 }
 
 .employee-name {
@@ -161,7 +161,7 @@ body {
 }
 .heading {
   text-align: center;
-  font-size: 2em;
+  font-size: 32px;
   margin-bottom: 30px;
 }
 .benefits {
@@ -190,11 +190,15 @@ body {
   margin-top: 20px; /* Espace au-dessus du bouton */
 }
 .button {
-  background-color: #000;
-  color: #fff;
-  text-decoration: none;
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
   padding: 10px 20px;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
 }
 
 /* Contact Section Styles */
@@ -230,15 +234,84 @@ body {
 }
 
 .btn {
-  display: inline-block;
-  background-color: #333;
-  color: #fff;
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
   padding: 10px 20px;
-  text-decoration: none;
+  border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
 }
 
 .btn:hover {
   background-color: #555;
 }
+
+.testimonials {
+  background: #f0f0f0; /* Couleur de fond de la section */
+  padding: 50px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.testimonials h2 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.testimonial-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 300px; /* Ou toute autre largeur selon votre mise en page */
+}
+
+.rating {
+  /* Style pour le système d'évaluation par étoiles */
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: #666;
+  margin: 15px 0;
+}
+
+.testimonial-author {
+  color: #333;
+  font-weight: bold;
+}
+
+.btn-request-quote {
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .testimonial-cards {
+    flex-direction: column;
+  }
+}
+

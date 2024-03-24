@@ -2,29 +2,22 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
+  background-color: #e7e5e5;
   color: #333;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
 
 /* Banner Hero Section Styles */
 .hero {
   background-color: white;
-  color: white;
+  color: rgb(255, 255, 255);
   /* padding: 100px 0; */
   text-align: center;
 }
 
 .hero img {
   display: block;
-  margin: 0 auto; /* Centre l'image horizontalement */
-  max-width: 100%; /* Assure que l'image ne dépasse pas la largeur du container */
-  height: auto; /* Garde le ratio hauteur-largeur */
+  margin: 0 auto; 
+  max-width: 100%; 
 }
 
 .banner {
@@ -60,7 +53,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 100px; /* Espacement entre les sections */
+  margin-bottom: 100px; 
   margin-top: 50px;
 }
 
@@ -68,41 +61,123 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px; /* Espace entre l'image et le texte */
+  gap: 20px; 
 }
 
 .cleaning-image {
-  width: 50%; /* Adaptez à la taille souhaitée */
+  width: 30%; 
   height: auto;
 }
 
 .cleaning-description {
+  position: relative;
+  top: 150px;
+  right: 70px;
   width: 50%;
+  background-color: #F2C57C;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.cleaning-description2 {
+  position: relative;
+  top: 150px;
+  right: -70px;
+  width: 50%;
+  background-color: #6AA370;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.cleaning-description3 {
+  position: relative;
+  top: 150px;
+  right: 70px;
+  width: 50%;
+  background-color: #a289be;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.cleaning-description .reverse {
+  position: relative;
+  top: 100px;
+  right: 50px;
+  width: 50%;
+  background-color: #F2C57C;
+  border-radius: 10px;
 }
 
 .cleaning-description h2 {
-  color: #003366; /* Une couleur sombre pour le titre */
+  color: #003366; 
   margin-bottom: 15px;
+  margin-left: 80px;
 }
 
 .cleaning-description p {
-  color: #666; /* Une couleur grise pour le texte */
+  color: #666; 
   margin-bottom: 20px;
+  margin-left: 40px;
+}
+
+.cleaning-description2 h2 {
+  color: #003366; 
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+.cleaning-description2 p {
+  color: #2e2a2ab2; 
+  margin-bottom: 10px;
+  margin-right: 40px;
+}
+
+.cleaning-description3 h2 {
+  color: #003366; 
+  margin-bottom: 15px;
+  margin-left: 80px;
+}
+
+.cleaning-description3 p {
+  color: #2e2a2ab2; 
+  margin-bottom: 20px;
+  margin-left: 40px;
 }
 
 .btn-info {
   padding: 10px 20px;
-  background-color: #0055a4; /* Une couleur bleue pour le bouton */
-  color: white;
+  background-color: #0055a4;
   border: none;
   cursor: pointer;
-  border-radius: 5px; /* Des bords arrondis pour le bouton */
-  text-transform: uppercase; /* Texte en majuscules */
+  border-radius: 5px; 
+  text-transform: uppercase;
+  margin-left: 720px;
+  margin-bottom: 10px;
 }
 
-/* Pour inverser l'ordre de l'image et du texte dans la deuxième section */
+
 .reverse {
   flex-direction: row-reverse;
+}
+
+.container {
+  max-width: 1920px;
+  height: 250px;
+  background-color: #372772;
+}
+
+.prefooter {
+  position: relative;
+  margin-left: 100px;
+  top: 50px;
+}
+
+.prefooter h2{
+  color: white;
+}
+
+.prefooter p{
+  color: white;
 }
 
 @media (max-width: 768px) {

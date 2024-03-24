@@ -143,6 +143,6 @@ class ProfilController extends AbstractController
 
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_profil_operation_profil');
+        return $this->redirectToRoute('app_admin_operation_profil');
     }
 }

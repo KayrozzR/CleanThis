@@ -53,7 +53,7 @@
 </div>
 
 <div class="button-container">
-  <a href="#" class="cta-button">Je demande un devis</a>
+  <a href="#" class="cta-button">Demander un devis</a>
 </div>
 
 
@@ -63,14 +63,14 @@
 
 			<div class="employee-card">
 				<img class="employee-image" src="{{ asset('images/image5.png') }}" alt="Tho, employé de maison">
-				<div class="employee-name">Tho, employé de maison chez Shiva depuis 7 ans.</div>
-				<p class="employee-quote">"Ce que j'adore avec Shiva ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
+				<div class="employee-name">Tho, employé de maison chez CleanThis depuis 7 ans.</div>
+				<p class="employee-quote">"Ce que j'adore avec CleanThis ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
 			</div>
 
 			<div class="employee-card">
 				<img class="employee-image" src="{{ asset('images/image11.png') }}" alt="Tho, employé de maison">
-				<div class="employee-name">Tho, employé de maison chez Shiva depuis 7 ans.</div>
-				<p class="employee-quote">"Ce que j'adore avec Shiva ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
+				<div class="employee-name">Tho, employé de maison chez CleanThis depuis 7 ans.</div>
+				<p class="employee-quote">"Ce que j'adore avec CleanThis ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</p>
 			</div>
 		</section>
 
@@ -104,7 +104,7 @@
 					</div>
 				</div>
 				<div class="button-container">
-					<a href="#" class="button">Je demande un devis</a>
+					<a href="#" class="button">Demander un devis</a>
 				</div>
 			</div>
 		</section>
@@ -116,7 +116,7 @@
 							</div>
 						</section> #}
 
-		<!-- Contact Section -->
+		{# <!-- Contact Section -->
 		<section id="contact" class="contact">
 			<div class="container">
 				<h2>Contactez-nous</h2>
@@ -137,7 +137,42 @@
 					<button type="submit" class="btn">Envoyer</button>
 				</form>
 			</div>
-		</section>
+		</section> #}
+
+	<!-- Section "Ils nous font confiance" -->
+<section class="testimonials">
+  <div class="container">
+    <h2>Ils nous font confiance !</h2>
+    <div class="testimonial-cards">
+      <!-- Card 1 -->
+      <div class="testimonial-card">
+        <div class="rating">
+          <!-- Ajoutez ici votre système d'évaluation par étoiles -->
+        </div>
+        <p class="testimonial-text">"Un service exceptionnel et une attention aux détails..."</p>
+        <p class="testimonial-author">- Margot Krax, Juillet 2023</p>
+      </div>
+      <!-- Card 2 -->
+	   <div class="testimonial-card">
+        <div class="rating">
+          <!-- Ajoutez ici votre système d'évaluation par étoiles -->
+        </div>
+        <p class="testimonial-text">"Je suis extrêmement satisfait du service de nettoyage fourni par cette entreprise..."</p>
+        <p class="testimonial-author">- Jean Dupont, Aout 2023</p>
+      </div>
+	  <!-- Card 3 -->	
+	   <div class="testimonial-card">
+        <div class="rating">
+          <!-- Ajoutez ici votre système d'évaluation par étoiles -->
+        </div>
+        <p class="testimonial-text">" Leur équipe est professionnelle, ponctuelle et compétente..."</p>
+        <p class="testimonial-author">- Rachid Badouri, Octobre 2023</p>
+      </div>
+      <!-- Répétez la structure ci-dessus pour plus de témoignages -->
+    </div>
+    <button class="btn-request-quote">Demander un devis</button>
+  </div>
+</section>
 	</body>
 </html>
 {% endblock %}
