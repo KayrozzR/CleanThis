@@ -1,0 +1,19 @@
+{% block stylesheets %} 
+    <link rel="stylesheet" href="{{asset('assets/css/reclamation.css')}}">
+{% endblock %}
+{% block body %}
+<body style="background: linear-gradient(to bottom right, #372772 50%, white 50%);">
+<p>Veuillez nous préciser l'objet de votre réclamation ainsi que la manière dont vous souhaitez être contacté afin de donner suite à votre réclamation. Afin de nous permettre de vous apporterle retour le plus clair pssible, n'hesitez pas à laisser un maximum de détails quand à l'objet de votre réclamation </p>
+  <div class="container">
+    <div class="row">
+        <div class="formulaireReclamation">
+            <h1>Réclamation</h1>
+            {{ form_start(form) }}
+            {{ form_row(form.reclamation, {'attr': {'class': 'large-textarea'}}) }}
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+  </div>
+</body>
+{% endblock %}
