@@ -4,27 +4,87 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Devis</title>
-        <link rel="stylesheet" href="{{asset('assets/css/DevisPdf.css')}}">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+        img {
+            width: 5%;
+        }
+
+        .infosEntreprise {
+            margin-left: 5%;
+        }
+
+        .numDevisEtDate {
+            margin-left: 60%;
+            margin-top: -12%
+        }
+
+        .infosClients {
+            margin-left: 60%;
+            padding-left: 1%;
+            border: 1px solid;
+            width: 40%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin-top: 10%;
+            margin-left: 5%
+        }
+
+        th {
+            background-color: #f2f2f2;
+            padding: 8px;
+        }
+
+        td, th {
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            border: 1px solid black; 
+        }
+
+        th:first-child, th:last-child {
+            border: none; 
+        }
+       .nom{
+        font-size: 150%
+       }
+
+    </style>
     </head>
     <body>
 
         {% block body %}
 
-        <img src="{{ asset('images/logo.png') }}" alt="logo">
+        {# <img src="{{ asset('images/logo.png') }}" alt="logo"> #}
 
+        {# {{ logo_base64 }} #}
 
-        <div class="infosDevis">
-            <div class="infosEntreprise">
-                <strong>Entreprise Clean This</strong>
-                <p>20 rue du Luxembourg</p>
-                <p>03 50 41 25 30</p>
-                <p>cleanthiscontact@entreprise.fr</p>
-            </div>
+        <div class="container">
+                <div class="row">
+                    <div class="col-6 col-spacing">
+                        <div class="infosEntreprise">
+                            <strong class= "nom">Entreprise Clean This</strong>
+                            <p>20 rue du Luxembourg</p>
+                            <p>03 50 41 25 30</p>
+                            <p>cleanthiscontact@entreprise.fr</p>
+                        </div>
+                    </div>
 
-            <div class="numDevisEtDate">
-                    <strong>Devis numéro: {{ devi.id }}</strong>
-                    <p> Emis le: {{ devi.createdAt ? devi.createdAt|date('d-m-Y') : '' }}</li>
-            </div>
+                    <div class="col-6">
+                        <div class="numDevisEtDate">
+                        <strong>Devis numéro: {{ devi.id }}</strong>
+                        <p> Emis le: {{ devi.createdAt ? devi.createdAt|date('d-m-Y') : '' }}</li>
+                        </div>
+                    </div>
+                </div>
         </div>
 
         <div class="infosClients">
@@ -43,15 +103,13 @@
                     <th scope="col">Tarif</th>
                 </tr>
             </thead>
-            {# <tbody>
-                {% for devis in devi %}
+            <tbody>
                 <tr>
-                    <td>{{ devi.descriptif }}</td>
-                    <td>{{ devi.type_operation }}</td> 
-                    <td>{{ devi.tarif }}</td>
+                    <td>{{ type_operation.descriptif }}</td>
+                    <td>{{ type_operation.libelle}}</td> 
+                    <td>{{ type_operation.tarif }} €</td>
                 </tr>
-                {% endfor %}
-            </tbody> #}
+            </tbody>
         </table>
 
         {% endblock %}

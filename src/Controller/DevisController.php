@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Devis;
-use App\Entity\Operation;
-use App\Entity\TypeOperation;
+use SplFileObject;
 use App\Entity\User;
+use App\Entity\Devis;
+use Twig\Environment;
 use App\Form\DevisType;
+use App\Entity\Operation;
+use App\Service\JWTService;
 use App\Service\PdfService;
+use App\Entity\TypeOperation;
+use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
-use App\Service\JWTService;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -132,7 +135,7 @@ class DevisController extends AbstractController
                 $user->setLastname($devi->getLastname());
                 $user->setEmail($devi->getMail());
                 $user->setRoles(["ROLE_CLIENT"]);
-                // Persist et flush de l'utilisateur
+              
                 $entityManager->persist($user);
                 $entityManager->flush();
 
@@ -227,44 +230,65 @@ class DevisController extends AbstractController
 
         return new JsonResponse(['success' => false]);
     }
-
+   
     #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
-    public function generatePdfDevis(PdfService $pdf, Devis $devi = null):response{
-        // $html = $this->renderView('Pdf/devis.html.twig', ['devi' => $devi]);
-        // $pdf ->showPdfFile($html);
+    public function generatePdfDevis(PdfService $pdf, Devis $devi = null,EntityManagerInterface $entityManager):response{
+        $id_operation = $devi->getTypeOperation();
+        $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
+        
+        // $logoPath = '/public/images/logo.png';
+        // if (!file_exists($logoPath)) {
+        //     throw new \Exception('Le fichier logo n\'existe pas.');
+        // }
+        // $logoData = base64_encode(file_get_contents($logoPath));
+        // $logoBase64 = 'data:image/png;base64,' . $logoData;
 
-        // return new Response();
+        $html = $this->renderView('Pdf/devis.html.twig', [
+            'devi' => $devi,
+            'type_operation' => $type_operations,
+            // 'logo_base64' => $logoBase64,
+        ]);
 
-        return $this->render('Pdf/devis.html.twig', ['devi' => $devi]);
+        $pdf ->showPdfFile($html);
+        return new Response();
     }
 
-    // #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['GET'])]
-    // public function SendPdf(PdfService $pdf, Devis $devis, $token, UserRepository $userRepository, EntityManagerInterface $em, Request $request,SendMailService $mail,TokenGeneratorInterface $tokenGenerator):response{
 
-    //     $devis = $this->devis->getElementBy
-    //     $pdf ->generateBinaryPDF($html);
+    #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST'])]
+    public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, SendMailService $mail, Filesystem $filesystem): Response
+    {
+        $user = $devi->getMail();
+        $client = $userRepository->findOneBy(['email' =>  $user]);
+        $id_operation = $devi->getTypeOperation();
+        $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
+        $html = $this->renderView('Pdf/devis.html.twig', [
+            'devi' => $devi,
+            'type_operation' => $type_operations,
+            // 'logo_base64' => $logoBase64,
+        ]);
 
-    //     $token = $tokenGenerator->generateToken();
-    //             // $user->setResetToken($token);
-    //             // $em->persist($user);
-    //             // $em->flush();
+        $pdfContent = $pdf->generateBinaryPDF($html);
+        $fileName = md5(uniqid()) . '.pdf';
+        $filePath = $this->getParameter('kernel.project_dir') . '/public/pdf/' . $fileName;
+        $file = new SplFileObject($filePath, 'w');
+        $file->fwrite($pdfContent);
 
-    //             // Generate a pdf generator link
-    //             $url = $this->generateUrl('devis_pdf', ['pdf' => $pdf], UrlGeneratorInterface::ABSOLUTE_URL);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $url = $baseUrl . '/pdf/' . $fileName;
 
-    //             // Create the mail datas
-    //             $context = compact('url', 'user');
+        $devi->setUrlDevis($url);
+        $entityManager->persist($devi);
+        $entityManager->flush();
 
-    //             // send the e-mail
-    //             $mail->send(
-    //                 'user@example.com', 
-    //                 $user->getEmail(),
-    //                 'Création de votre mot de passe CleanThis',
-    //                 'password_create', 
-    //                 $context
-    //             );
 
-    //     return new Response();
-    // }
+        $mail->send('no-reply@cleanthis.fr',
+            $devi->getMail(),
+            'Votre devis CleanThis',
+            'devis_pdf',
+            compact('client',  'url')
+        );
+
+        return new Response();
+    }   
 
 }

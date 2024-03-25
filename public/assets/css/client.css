@@ -1,60 +1,23 @@
-mail.html.twig */
-/* .body-mail  {
-    background: #f4dab1b1;
-    font-family: 'Open-sans', sans-serif;
-  }
-.home {
-    padding: 20px;
-    text-align: center;
+body{
+    background: white;
 }
 
-.text {
-    margin-top: -10%;
-    margin-left: 23%;
-    max-width: 50%;
-    padding: 20px;
+.homeProfil{
+    position: relative;
+    margin-top: 2%;
+    margin-bottom: 20%;
+    left: 150px;
+    width: calc(100% - 250px);
+    background: var(--body-color);
+    transition: var(--tran-05);
 }
-
-form {
-    padding: 20px;
-    margin-top: 40%;
+.h1profil{
+    margin-top: -30px;
+    font-size: 20px;
 }
-
-.alert-message {
-    color: #f7b03d;
-    font-size: 40px !important;
-    padding-bottom: 30px;
+.demanderDevis{
+    margin-bottom: -100px;
 }
-
-.form-label {
-    font-weight: bold;
-}
-.form-control{
-    width: 50%;
-    padding: 1%;
-    padding-left: 2%;
-    
-}
-
-.btn-primary {
-    margin-top:25px;
-    padding:10px;
-    background-color: #F2C57C;
-    border-radius: 12px;
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #f1b657;
-}
-input{
-    border:none;
-    border-radius: 5px;
-}
-
-
-/* create_password.html.twig */
-
 .container {
     margin-top: 50px;
 }
@@ -84,4 +47,55 @@ input{
 .error-message {
     color: red;
     font-size: 14px;
+}
+
+
+.ModifierInfos{
+  position: relative;
+  border: 1px solid  #f2c57c;
+  margin-left: 38%;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 10px;
+  background-color:  #f2c57c;
+  text-decoration: none;
+  border-radius: 22px;
+}
+
+.demanderDevis{
+    position: relative;
+    margin-left: 5%;
+    margin-top: 0%;
+    padding: 10%;
+    /* padding-left: 20%; */
+    color: white;
+    font-size: 12px;
+    background-color: #372772;
+    box-shadow: 0px 0px 5px rgb(31, 31, 31);
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 22px;
+}
+.personalInformations{
+    background-color: rgb(111, 110, 110);
+    margin-bottom: 10%;
+}
+
+.personal{
+    margin-left: 40%;
+    padding: 5%;
+}
+.avatar {
+    position: absolute;
+    top: 15%; /* Réglage de la position verticale */
+    right: 57%; /* Réglage de la position horizontale */
+}
+.scrollDownButton{
+    margin-bottom: 20%;
+    margin-left: 33%;
+    text-decoration: none;
+    color: #372772;
+    font-weight: 300;
+    font-size: 300%;
 }

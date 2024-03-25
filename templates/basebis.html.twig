@@ -18,11 +18,12 @@
 
 		<!-- Fichiers JS -->
 		<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
-		{% block javascripts %}<script src="{{ asset('js/script.js') }}" defer></script>{% endblock %}
-		
-		
+		{% block javascripts %}
+		{% endblock %}		
+		{# <script src="{{ asset('js/script.js') }}" defer></script> #}
+
 	</head>
-	<body>
+	<body >
 		{% include "_partials/_nav.html.twig" %}
 
 		{# {% if app.user and app.user.isVerified == false %}
@@ -35,9 +36,9 @@
 		{% endif %} #}
 
 		{% include "_partials/_flash2.html.twig" %}
+
 		{% block body %}{% endblock %}
 
-		{% include "_partials/_footer.html.twig" %}
+		{# {% include "_partials/_footer.html.twig" %} #}
 	</body>
 </html>
-

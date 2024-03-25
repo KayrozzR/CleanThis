@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Operation{% endblock %}
+
+{% block body %}
+<section class="home">
+    <div class="text">
+    <h1>Operation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ operation.id }}</td>
+            </tr>
+            <tr>
+                <th>Facture</th>
+                <td>{{ operation.facture }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ operation.comment }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ operation.note }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image_resultat</th>
+                <td>{{ operation.imageResultat }}</td>
+            </tr>
+            <tr>
+                <th>Reclamation</th>
+                <td>{{ operation.reclamation }}</td>
+            </tr>
+            <tr>
+                <th>Status_paiement</th>
+                <td>{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Status_operation</th>
+                <td>{{ operation.statusOperation ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                {# <th>Address_intervention</th> #}
+                {# <td>{{ operation.addressIntervention }}</td> #}
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_operation_profil') }}">back to list</a>
+
+    {# <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a> #}
+
+    {# {{ include('operation/_delete_form.html.twig') }} #}
+    </section>
+    </div>
+{% endblock %}
