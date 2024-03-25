@@ -573,6 +573,22 @@
         <source>Please enter a valid week.</source>
         <target>Veuillez entrer une semaine valide.</target>
       </trans-unit>
+      <trans-unit id="YXZ26gK" resname="Please enter a password">
+        <source>Please enter a password</source>
+        <target>__Please enter a password</target>
+      </trans-unit>
+      <trans-unit id=".esazsm" resname="Your password should be at least {{ limit }} characters">
+        <source>Your password should be at least {{ limit }} characters</source>
+        <target>__Your password should be at least {{ limit }} characters</target>
+      </trans-unit>
+      <trans-unit id="7MuY2ui" resname="Votre Mot de Passe doit contenir au moins 1 majuscule et 1 chiffre">
+        <source>Votre Mot de Passe doit contenir au moins 1 majuscule et 1 chiffre</source>
+        <target>__Votre Mot de Passe doit contenir au moins 1 majuscule et 1 chiffre</target>
+      </trans-unit>
+      <trans-unit id="YWbe7Yy" resname="Veuillez entrer un numéro de téléphone valide.">
+        <source>Veuillez entrer un numéro de téléphone valide.</source>
+        <target>__Veuillez entrer un numéro de téléphone valide.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

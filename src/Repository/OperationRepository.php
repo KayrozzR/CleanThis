@@ -24,17 +24,16 @@ class OperationRepository extends ServiceEntityRepository
     //    /**
     //     * @return Operation[] Returns an array of Operation objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByWithDevis(array $criteria): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o', 'd') // Sélectionnez à la fois l'opération et le devis associé
+            ->join('o.devis', 'd') // Jointure sur l'entité Devis
+            ->andWhere('o.user = :user')
+            ->setParameter('user', $criteria['user'])
+            ->getQuery()
+            ->getResult();
+    }
 
     //    public function findOneBySomeField($value): ?Operation
     //    {

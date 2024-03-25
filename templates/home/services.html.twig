@@ -1,0 +1,53 @@
+{% extends 'basebis.html.twig' %}
+
+{% block body %}
+
+	<link rel="stylesheet" href="{{asset('assets/css/servicesClient.css')}}">
+
+	<section class="hero">
+		<div class="banner">
+			<img src="{{ asset('images/bannerService3.png') }}" style="width: 1955px; height: 750px;">
+			<div class="banner-text">
+				<h2>Bienvenue chez Clean This</h2>
+				<p>Nous offrons des services de nettoyage professionnels pour votre maison ou votre entreprise.</p>
+				<a href="#contact" class="btn">Demandez un Devis</a>
+			</div>
+		</div>
+	</section>
+
+    <!-- Section Nettoyage appartement et maison -->
+<section class="cleaning-section">
+  <div class="cleaning-info">
+    <img src="{{ asset('images/service2.png') }}" alt="Nettoyage appartement" class="cleaning-image">
+    <div class="cleaning-description">
+      <h2>Nettoyage appartement et maison</h2>
+      <p>Ce service comprend le nettoyage de base des espaces résidentiels ou commerciaux. Il inclut le balayage, le lavage des sols, le dépoussiérage des surfaces, le nettoyage des salles de bains et des cuisines, ainsi que la vidange des poubelles. Il est idéal pour les petites maisons, les appartements ou les bureaux de petite taille.</p>
+      <button type="button" class="btn-info">Demander nos devis</button>
+    </div>
+  </div>
+</section>
+
+<!-- Section Nettoyage de vos locaux administratif -->
+<section class="cleaning-section">
+  <div class="cleaning-info reverse">
+    <img src="{{ asset('images/service1.png') }}" alt="Nettoyage locaux administratif" class="cleaning-image">
+    <div class="cleaning-description">
+      <h2>Nettoyage de vos locaux administratif</h2>
+      <p>Ce service offre une gamme plus étendue de nettoyage, adaptée aux besoins plus spécifiques des clients. En plus des tâches de nettoyage de base, il comprend le nettoyage des vitres, le nettoyage des tapis et des moquettes, le dépoussiérage en profondeur des meubles, ainsi que le nettoyage des appareils électroménagers. Il convient aux résidences plus grandes, aux bureaux de taille moyenne et aux espaces commerciaux haut de gamme.</p>
+      <button type="button" class="btn-info">Demander nos devis</button>
+    </div>
+  </div>
+</section>
+
+<section class="cleaning-section">
+  <div class="cleaning-info">
+    <img src="{{ asset('images/service2.png') }}" alt="Nettoyage appartement" class="cleaning-image">
+    <div class="cleaning-description">
+      <h2>Nettoyage appartement et maison</h2>
+      <p>Ce service comprend le nettoyage de base des espaces résidentiels ou commerciaux. Il inclut le balayage, le lavage des sols, le dépoussiérage des surfaces, le nettoyage des salles de bains et des cuisines, ainsi que la vidange des poubelles. Il est idéal pour les petites maisons, les appartements ou les bureaux de petite taille.</p>
+      <button type="button" class="btn-info">Demander nos devis</button>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
