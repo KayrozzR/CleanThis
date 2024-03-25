@@ -41,6 +41,162 @@
         <source>On a crisp autumn morning, the leaves rustled softly as a gentle breeze swept through the trees. The sun peeked through the branches, casting dappled shadows on the forest floor. Birds chirped merrily, their songs echoing in the tranquil air. A small stream gurgled nearby, its waters crystal clear and inviting. It was a perfect day for a leisurely stroll in the woods, soaking in the sights and sounds of nature.</source>
         <target>Par une journée d'été brûlante, alors que le soleil brillait intensément dans un ciel sans nuages, une petite brise caressait doucement les feuilles des arbres. Les enfants riaient et jouaient dans le parc, tandis que les oiseaux chantaient gaiement. Au loin, on entendait le doux murmure d'une rivière qui coulait paisiblement. C'était une journée parfaite pour se détendre et profiter de la beauté de la nature.</target>
       </trans-unit>
+      <trans-unit id="Ct.B.RJ" resname="Forgotten Password ?">
+        <source>Forgotten Password ?</source>
+        <target>Mot de Passe oublié ?</target>
+      </trans-unit>
+      <trans-unit id="J0I9pPO" resname="Discover our services">
+        <source>Discover our services</source>
+        <target>Découvrez nos services</target>
+      </trans-unit>
+      <trans-unit id="j7mt_8d" resname="We offer professional cleaning services for your home or business.">
+        <source>We offer professional cleaning services for your home or business.</source>
+        <target>Nous offrons des services de nettoyage professionnels pour votre maison ou votre entreprise.</target>
+      </trans-unit>
+      <trans-unit id="ck8jNr9" resname="Request a quote">
+        <source>Request a quote</source>
+        <target>Demandez un Devis</target>
+      </trans-unit>
+      <trans-unit id="db1kdJG" resname="Apartment and house cleaning">
+        <source>Apartment and house cleaning</source>
+        <target>Nettoyage appartement et maison</target>
+      </trans-unit>
+      <trans-unit id="h_gknW0" resname="This service includes basic cleaning of residential or commercial spaces. It includes sweeping, mopping floors, dusting surfaces, cleaning bathrooms and kitchens, and emptying garbage cans. It's ideal for small houses, apartments or offices.">
+        <source>This service includes basic cleaning of residential or commercial spaces. It includes sweeping, mopping floors, dusting surfaces, cleaning bathrooms and kitchens, and emptying garbage cans. It's ideal for small houses, apartments or offices.</source>
+        <target>Ce service comprend le nettoyage de base des espaces résidentiels ou commerciaux. Il inclut le balayage, le lavage des sols, le dépoussiérage des surfaces, le nettoyage des salles de bains et des cuisines, ainsi que la vidange des poubelles. Il est idéal pour les petites maisons, les appartements ou les bureaux de petite taille.</target>
+      </trans-unit>
+      <trans-unit id="MHl41wr" resname="Cleaning your administrative premises">
+        <source>Cleaning your administrative premises</source>
+        <target>Nettoyage de vos locaux administratif</target>
+      </trans-unit>
+      <trans-unit id=".MpMkbo" resname="This service offers a wider range of cleaning services, tailored to customers' more specific needs. In addition to basic cleaning tasks, it includes window cleaning, carpet and rug cleaning, deep dusting of furniture, as well as appliance cleaning. It is suitable for larger residences, medium-sized offices and high-end commercial spaces.">
+        <source>This service offers a wider range of cleaning services, tailored to customers' more specific needs. In addition to basic cleaning tasks, it includes window cleaning, carpet and rug cleaning, deep dusting of furniture, as well as appliance cleaning. It is suitable for larger residences, medium-sized offices and high-end commercial spaces.</source>
+        <target>Ce service offre une gamme plus étendue de nettoyage, adaptée aux besoins plus spécifiques des clients. En plus des tâches de nettoyage de base, il comprend le nettoyage des vitres, le nettoyage des tapis et des moquettes, le dépoussiérage en profondeur des meubles, ainsi que le nettoyage des appareils électroménagers. Il convient aux résidences plus grandes, aux bureaux de taille moyenne et aux espaces commerciaux haut de gamme.</target>
+      </trans-unit>
+      <trans-unit id="wvbVQj." resname="Cleaning up after work">
+        <source>Cleaning up after work</source>
+        <target>Nettoyage après travaux</target>
+      </trans-unit>
+      <trans-unit id="ueIoVVZ" resname="After construction or renovation work, it's common to be left with debris, dust, paint residue and other debris that can make the space uninhabitable. Our specialized cleaning team is trained to handle these situations and leave your space clean, fresh and ready to use. Our specialized cleaning team is trained to handle these situations and leave your space clean, fresh and ready to use.Whether it's a small renovation or a larger construction project, our team is equipped to handle any situation and leave your space as clean as new.">
+        <source>After construction or renovation work, it's common to be left with debris, dust, paint residue and other debris that can make the space uninhabitable. Our specialized cleaning team is trained to handle these situations and leave your space clean, fresh and ready to use. Our specialized cleaning team is trained to handle these situations and leave your space clean, fresh and ready to use.Whether it's a small renovation or a larger construction project, our team is equipped to handle any situation and leave your space as clean as new.</source>
+        <target>Après des travaux de construction ou de rénovation, il est courant de se retrouver avec des débris, de la poussière, des résidus de peinture et d'autres débris qui peuvent rendre l'espace inhabitable. Notre équipe de nettoyage spécialisée est formée pour traiter ces situations et laisser votre espace propre, frais et prêt à être utilisé.Que ce soit pour une petite rénovation ou un projet de construction plus important, notre équipe est équipée pour gérer toutes les situations et laisser votre espace aussi propre que neuf.</target>
+      </trans-unit>
+      <trans-unit id="B9DetWG" resname="Why call on us?">
+        <source>Why call on us?</source>
+        <target>Pourquoi faire appel à nous ?</target>
+      </trans-unit>
+      <trans-unit id="y_FkoJY" resname="Calling on our cleaning company is much more than a simple choice, it's a strategic decision to ensure a clean, healthy and welcoming environment for your home or business.">
+        <source>Calling on our cleaning company is much more than a simple choice, it's a strategic decision to ensure a clean, healthy and welcoming environment for your home or business.</source>
+        <target>Faire appel à notre entreprise de nettoyage est bien plus qu'un simple choix, c'est une décision stratégique pour garantir un environnement propre, sain et accueillant pour votre domicile ou votre entreprise.</target>
+      </trans-unit>
+      <trans-unit id="GLg4pEd" resname="When you choose Clean This, you choose excellence, reliability and peace of mind. Make the right choice for your home or business, and let us help you maintain a clean, healthy environment for you and your loved ones.">
+        <source>When you choose Clean This, you choose excellence, reliability and peace of mind. Make the right choice for your home or business, and let us help you maintain a clean, healthy environment for you and your loved ones.</source>
+        <target>En choisissant Clean This, vous choisissez l'excellence, la fiabilité et la tranquillité d'esprit. Faites le bon choix pour votre domicile ou votre entreprise, et laissez-nous vous aider à maintenir un environnement propre et sain pour vous et vos proches.</target>
+      </trans-unit>
+      <trans-unit id="xgdwaik" resname="Welcome to Clean This">
+        <source>Welcome to Clean This</source>
+        <target>Bienvenue chez Clean This</target>
+      </trans-unit>
+      <trans-unit id="f3fM2w0" resname="For whom and what ?">
+        <source>For whom and what ?</source>
+        <target>Pour qui et pour quoi ?</target>
+      </trans-unit>
+      <trans-unit id="AWfIQpp" resname="We're here to help">
+        <source>We're here to help</source>
+        <target>Nous sommes à votre écoute</target>
+      </trans-unit>
+      <trans-unit id="dItJJLz" resname="Our team of cleaning experts is trained to use the most effective techniques and environmentally-friendly products to guarantee exceptional results while respecting the environment and the health of your occupants. What's more, we listen to our customers and continually strive to improve our services to better meet their changing needs. Our commitment to customer satisfaction is our top priority, and we work tirelessly to exceed our customers' expectations with every intervention.">
+        <source>Our team of cleaning experts is trained to use the most effective techniques and environmentally-friendly products to guarantee exceptional results while respecting the environment and the health of your occupants. What's more, we listen to our customers and continually strive to improve our services to better meet their changing needs. Our commitment to customer satisfaction is our top priority, and we work tirelessly to exceed our customers' expectations with every intervention.</source>
+        <target>Notre équipe d'experts en nettoyage est formée pour utiliser les techniques les plus efficaces et les produits les plus écologiques afin de garantir des résultats exceptionnels tout en respectant l'environnement et la santé de vos occupants. De plus, nous sommes à l'écoute de nos clients et nous nous efforçons continuellement d'améliorer nos services pour mieux répondre à leurs besoins changeants. Notre engagement envers la satisfaction client est notre priorité absolue, et nous travaillons sans relâche pour dépasser les attentes de nos clients à chaque intervention.</target>
+      </trans-unit>
+      <trans-unit id="yFX.8f3" resname="A dedicated team at your service">
+        <source>A dedicated team at your service</source>
+        <target>Une équipe dévoué à votre service</target>
+      </trans-unit>
+      <trans-unit id="Vq1hF_o" resname="Teamwork is at the heart of everything we do. Our teams are made up of dedicated and skilled members who understand the importance of working together to ensure exceptional results. Each member of our team brings his or her own unique skills and passion for excellence, creating a synergy that enables us to exceed our customers' expectations.">
+        <source>Teamwork is at the heart of everything we do. Our teams are made up of dedicated and skilled members who understand the importance of working together to ensure exceptional results. Each member of our team brings his or her own unique skills and passion for excellence, creating a synergy that enables us to exceed our customers' expectations.</source>
+        <target>Le travail d'équipe est au cœur de tout ce que nous faisons. Nos équipes sont composées de membres dévoués et compétents qui comprennent l'importance de travailler ensemble pour garantir des résultats exceptionnels.Chaque membre de notre équipe apporte ses compétences uniques et sa passion pour l'excellence, créant ainsi une synergie qui nous permet d'aller au-delà des attentes de nos clients.</target>
+      </trans-unit>
+      <trans-unit id="w.mz25U" resname="Who are the CleanThis employees ?">
+        <source>Who are the CleanThis employees ?</source>
+        <target>Qui sont les employés de CleanThis ?</target>
+      </trans-unit>
+      <trans-unit id="AaXqgUN" resname="Théo, a CleanThis employee for 7 years.">
+        <source>Théo, a CleanThis employee for 7 years.</source>
+        <target>Théo, employé chez CleanThis depuis 7 ans.</target>
+      </trans-unit>
+      <trans-unit id="lFmlk.i" resname="&quot;What I love about CleanThis? It's that I'm lucky enough to have very kind and caring customers. I feel like I'm part of their family, they trust me and are so grateful for my work. Everyone is happy and it gives me such pleasure to please!&quot;">
+        <source>"What I love about CleanThis? It's that I'm lucky enough to have very kind and caring customers. I feel like I'm part of their family, they trust me and are so grateful for my work. Everyone is happy and it gives me such pleasure to please!"</source>
+        <target>"Ce que j'adore avec CleanThis ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</target>
+      </trans-unit>
+      <trans-unit id="ehSkih8" resname="Théo, a CleanThis employee for 3 years.">
+        <source>Max, a CleanThis employee for 3 years.</source>
+        <target>Max, employé chez CleanThis depuis 3 ans.</target>
+      </trans-unit>
+      <trans-unit id="o8i.p7." resname="Why choose CleanThis?">
+        <source>Why choose CleanThis ?</source>
+        <target>Pourquoi choisir CleanThis ?</target>
+      </trans-unit>
+      <trans-unit id="wdB41Rb" resname="Economy">
+        <source>Economy</source>
+        <target>Économie</target>
+      </trans-unit>
+      <trans-unit id="mRpenAY" resname="Tax credit of 50% of amounts paid.">
+        <source>Tax credit of 50% of amounts paid.</source>
+        <target>Crédit d'impôt de 50% des sommes versées.</target>
+      </trans-unit>
+      <trans-unit id="HxFBIm0" resname="Serenity">
+        <source>Serenity</source>
+        <target>Sérénité</target>
+      </trans-unit>
+      <trans-unit id="OpjXRUu" resname="No obligation, no cancellation fees.">
+        <source>No obligation, no cancellation fees.</source>
+        <target>Sans engagement, aucun frais d'annulation.</target>
+      </trans-unit>
+      <trans-unit id="i3c4A_Z" resname="Transparency">
+        <source>Transparency</source>
+        <target>Transparence</target>
+      </trans-unit>
+      <trans-unit id="EoKPN9n" resname="What's the price? The time spent satisfying you is our measure and nothing else!">
+        <source>What's the price? The time spent satisfying you is our measure and nothing else!</source>
+        <target>Le prix ? Le temps passé à vous satisfaire est notre mesure et rien d'autre !</target>
+      </trans-unit>
+      <trans-unit id="EBGU8_M" resname="Proximity">
+        <source>Proximity</source>
+        <target>Proximité</target>
+      </trans-unit>
+      <trans-unit id="cHoQ.0h" resname="A branch near you">
+        <source>A branch near you</source>
+        <target>Une agence proche de chez vous</target>
+      </trans-unit>
+      <trans-unit id="hNv63F1" resname="They trust us!">
+        <source>They trust us!</source>
+        <target>Ils nous font confiance !</target>
+      </trans-unit>
+      <trans-unit id="TWBPPsM" resname="&quot;Exceptional service and attention to detail...&quot;">
+        <source>"Exceptional service and attention to detail..."</source>
+        <target>"Un service exceptionnel et une attention aux détails..."</target>
+      </trans-unit>
+      <trans-unit id="hDBNJ0u" resname="- Margot Krax, July 2023">
+        <source>- Margot Krax, July 2023</source>
+        <target>__- Margot Krax, Juillet 2023</target>
+      </trans-unit>
+      <trans-unit id="wF43M_8" resname="&quot;I am extremely satisfied with the cleaning service provided by this company...&quot;">
+        <source>"I am extremely satisfied with the cleaning service provided by this company..."</source>
+        <target>"Je suis extrêmement satisfait du service de nettoyage fourni par cette entreprise..."</target>
+      </trans-unit>
+      <trans-unit id="KX58yhN" resname="- Jean Dupont, August 2023">
+        <source>- Jean Dupont, August 2023</source>
+        <target>__- Jean Dupont, Aout 2023</target>
+      </trans-unit>
+      <trans-unit id="BQkVDaN" resname="&quot;Their team is professional, punctual and competent...&quot;">
+        <source>"Their team is professional, punctual and competent..."</source>
+        <target>"Leur équipe est professionnelle, ponctuelle et compétente..."</target>
+      </trans-unit>
+      <trans-unit id="Uyyd.Gb" resname="- Rachid Badouri, October 2023">
+        <source>- Rachid Badouri, October 2023</source>
+        <target>__- Rachid Badouri, Octobre 2023</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

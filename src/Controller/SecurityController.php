@@ -32,8 +32,12 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'auth_oauth_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_admin_profil');
+        if ($user = $this->getUser()) {
+            if (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SENIOR', $user->getRoles()) || in_array('ROLE_APPRENTI', $user->getRoles())) {
+                return $this->redirectToRoute('app_admin_profil');
+            } elseif (in_array('ROLE_CLIENT', $user->getRoles()))  {  
+                return $this->redirectToRoute('app_user_profil'); 
+            }
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();

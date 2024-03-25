@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Operation index
+{% endblock %}
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+{# <link rel="stylesheet" href="public/assets/css/style.css"> #}
+{% endblock %}
+
+{% block body %}
+	<section class="home">
+		<div class="text">
+			<div style="position: relative; display: inline-block; margin-top: 30px;">
+				<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" width="100" height="100" style="border-radius: 50%; object-fit: cover;">
+				<a href="/admin/profil" style="position: absolute; bottom: 0; right: -20px;">
+					<i style="font-size: 30px; color: black" class='bx bx-cog'></i>
+				</a>
+			</div>
+			<h1 style="margin-top: 50px; color: #f2c57c;">Mes Opérations</h1>
+
+			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+				<thead class="en-tête">
+					<tr>
+						<th data-sortable="true" data-field="Id" class="light-weight">ID</th>
+						<th data-sortable="true" data-field="firstname" class="light-weight">Client</th>
+                        <th data-sortable="true" data-field="libelle" class="light-weight">Service</th>
+						{# <th data-sortable="true" data-field="lastname" class="light-weight">Facture</th> #}
+						{# <th data-sortable="true" data-field="Url_devis" class="light-weight">Comment</th> #}
+						{# <th data-sortable="true" data-field="Creayed_at" class="light-weight">Note</th> #}
+						{# <th data-sortable="true" data-field="Comment" class="light-weight">Début de l'opération</th> #}
+						<th data-sortable="true" data-field="date_fin" class="light-weight">Fin de l'opération</th>
+						{# <th data-sortable="true" data-field="status" class="light-weight">Résultat de l'opération</th> #}
+						<th data-sortable="true" data-field="reclamation" class="light-weight">Réclamation</th>
+						<th data-sortable="true" data-field="status_paiement" class="light-weight">Status de paiement</th>
+						{# <th data-sortable="true" data-field="status_operation" class="light-weight">Status de l'opération</th> #}
+						{# <th data-sortable="true" data-field="status" class="light-weight">Adresse d'intervention</th> #}
+						<th class="light-weight">Actions</th>
+						<th data-sortable="true"  class="light-weight">Status de l'opération</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for operation in operations %}
+						<tr>
+							<td class="bold-weight">{{ operation.id }}</td>
+							{% for devis in operation.devis %}
+								<td class="bold-weight">{{ devis.user.lastname }} {{ devis.user.firstname }}</td>
+							{% endfor %}
+                            <td>
+                            {% for devis in operation.devis %}
+                                {{ devis.typeOperation.libelle }}
+                            {% endfor %}
+                            </td>
+							{# <td class="bold-weight">{{ operation.facture }}</td> #}
+							{# <td class="bold-weight">{{ operation.comment }}</td> #}
+							{# <td class="bold-weight">{{ operation.note }}</td> #}
+							{# <td class="bold-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td> #}
+							<td class="bold-weight">{{ operation.dateFin ? operation.dateFin|date('d-m-Y') : '' }}</td>
+							{# <td class="bold-weight">{{ operation.imageResultat }}</td> #}
+							<td class="bold-weight">{{ operation.reclamation }}</td>
+							<td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
+							{# <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td> #}
+							<td>
+
+								<a href="{{ path('app_profil_show', {'id': operation.id}) }}">show</a>
+								{# <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a> #}
+                
+							</td>
+							<td>
+								{% if operation.statusOperation %}
+									<span style="color: green;" class="badge-success">Opération terminée <i style = "color: green;"  class='bx bx-check'></i></span>
+								{% else %}
+									<a href="{{ path('app_operation_termine', {'userId': app.user.id}) }}" class="btn btn-success" onclick="confirmTerminerOperation()">Terminer l'opération</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="12">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$('.search input').attr('placeholder', 'Rechercher');
+$('.search input').addClass('form-control pr-5');
+$('.search').addClass('position-relative');
+$('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
+$('.search input').keydown(function (event) {
+if (event.keyCode === 13) {
+$('#searchIcon').hide();
+}
+});
+});
+	</script>
+
+	<script>
+function confirmTerminerOperation() {
+    if (confirm("Êtes-vous sûr de vouloir terminer l'opération?")) {
+        document.getElementById('terminer-operation-btn').disabled = true;
+    }
+}
+</script>
+{% endblock %}

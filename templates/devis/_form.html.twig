@@ -5,7 +5,7 @@
 				<div class="col-md-6">
 					<div class="card">
 						<div class="card-header">
-							<h2 class="text-center">Demander un devis</h2>
+							<h2 class="text-center">Demande de devis</h2>
 							<p>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</p>
 						</div>
 						<div class="card-body">
@@ -23,21 +23,33 @@
 									{{ form_row(form.mail) }}
 								</div>
 								<div class="col-md-6">
-									{{ form_row(form.tel) }}
+									{{ form_row(form.mailConfirmation) }}
 								</div>
 							</div>
+
 							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.tel) }}
+								</div>
 								<div class="col-md-6">
 									{{ form_row(form.adresse_intervention) }}
 								</div>
-								<div class="col-md-6">
-									{{ form_row(form.Type_Operation) }}
+							</div>
+							<div style="margin-left: 25%" class="col-md-6">
+								<div class="d-flex align-items-center">
+								{{ form_row(form.Type_Operation) }}
+								<a href="/type/operation">
+									<span class="type-description" style="cursor: pointer;">
+										<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
+									</span>
+								</a>
 								</div>
 							</div>
-							{{ form_row(form.image_object) }}
-							
+							<div id="image-object-field" style="display: none;">
+								{{ form_row(form.image_object) }}
+							</div>
+
 							{{ form_row(form.comment) }}
-							{{ form_row(form.status) }}
 
 							<button class="btn">Envoi devis</button>
 							{{ form_end(form) }}
@@ -48,4 +60,23 @@
 			</div>
 		</div>
 	</section>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () { 
+$('#image-object-field').hide();
+
+
+$('.type-operation-select').change(function () {
+console.log('Nouvelle valeur sélectionnée :', $(this).val());
+if ($(this).val() === '15') {
+console.log('Service Custom sélectionné');
+$('#image-object-field').show();
+} else {
+console.log('Autre option sélectionnée');
+$('#image-object-field').hide();
+}
+});
+});
+	</script>
 {% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'basebis.html.twig' %}
+
+{% block body %}
+
+	<link rel="stylesheet" href="{{asset('assets/css/servicesClient.css')}}">
+
+	<section class="hero">
+		<div class="banner">
+			<img src="{{ asset('images/bannerService3.png') }}" style="width: 1955px; height: 750px;">
+			<div class="banner-text">
+				<h2>{% trans %}Discover our services
+					{% endtrans %}</h2>
+				<p>{% trans %}We offer professional cleaning services for your home or business.{% endtrans %}</p>
+				<a href="/devis" class="btn">{% trans %}Request a quote
+					{% endtrans %}</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section Nettoyage appartement et maison -->
+	<section class="cleaning-section">
+		<div class="cleaning-info">
+			<img src="{{ asset('images/service2.png') }}" alt="Nettoyage appartement" class="cleaning-image">
+			<div class="cleaning-description">
+				<h2>{% trans %}Apartment and house cleaning
+					{% endtrans %}</h2>
+				<p>{% trans %}This service includes basic cleaning of residential or commercial spaces. It includes sweeping, mopping floors, dusting surfaces, cleaning bathrooms and kitchens, and emptying garbage cans. It's ideal for small houses, apartments or offices.
+					{% endtrans %}</p>
+				<button type="button" class="btn-info">{% trans %}Request a quote
+					{% endtrans %}</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section Nettoyage de vos locaux administratif -->
+	<section class="cleaning-section">
+		<div class="cleaning-info reverse">
+			<img src="{{ asset('images/service1.png') }}" alt="Nettoyage locaux administratif" class="cleaning-image">
+			<div class="cleaning-description2">
+				<h2>{% trans %}Cleaning your administrative premises
+					{% endtrans %}</h2>
+				<p>{% trans %}This service offers a wider range of cleaning services, tailored to customers' more specific needs. In addition to basic cleaning tasks, it includes window cleaning, carpet and rug cleaning, deep dusting of furniture, as well as appliance cleaning. It is suitable for larger residences, medium-sized offices and high-end commercial spaces.{% endtrans %}</p>
+				<button type="button" class="btn-info">{% trans %}Request a quote
+					{% endtrans %}</button>
+			</div>
+		</div>
+	</section>
+
+	<section class="cleaning-section">
+		<div class="cleaning-info">
+			<img src="{{ asset('images/service3.png') }}" alt="Nettoyage appartement" class="cleaning-image">
+			<div class="cleaning-description3">
+				<h2>{% trans %}Cleaning up after work
+					{% endtrans %}</h2>
+				<p>{% trans %}After construction or renovation work, it's common to be left with debris, dust, paint residue and other debris that can make the space uninhabitable. Our specialized cleaning team is trained to handle these situations and leave your space clean, fresh and ready to use. Our specialized cleaning team is trained to handle these situations and leave your space clean, fresh and ready to use.Whether it's a small renovation or a larger construction project, our team is equipped to handle any situation and leave your space as clean as new.
+					{% endtrans %}</p>
+				<button type="button" class="btn-info">{% trans %}Request a quote
+					{% endtrans %}</button>
+			</div>
+		</div>
+	</section>
+
+	<section class="container">
+		<div class="prefooter">
+			<h2>{% trans %}Why call on us?
+				{% endtrans %}</h2>
+			<p>{% trans %}Calling on our cleaning company is much more than a simple choice, it's a strategic decision to ensure a clean, healthy and welcoming environment for your home or business.{% endtrans %}</p>
+			<p>{% trans %}When you choose Clean This, you choose excellence, reliability and peace of mind. Make the right choice for your home or business, and let us help you maintain a clean, healthy environment for you and your loved ones.{% endtrans %}</p>
+		</div>
+
+	</section>
+{% endblock %}

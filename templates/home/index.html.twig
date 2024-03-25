@@ -1,12 +1,177 @@
 {% extends 'basebis.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{# {% block title %}Accueil{% endblock %} #}
 
-	{% block body %}
+{% block body %}
 	{% include "_partials/_flash.html.twig" %}
-	<H1>{% trans %}On a crisp autumn morning, the leaves rustled softly as a gentle breeze swept through the trees. The sun peeked through the branches, casting dappled shadows on the forest floor. Birds chirped merrily, their songs echoing in the tranquil air. A small stream gurgled nearby, its waters crystal clear and inviting. It was a perfect day for a leisurely stroll in the woods, soaking in the sights and sounds of nature.{% endtrans %}<H1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{asset('assets/css/indexClient.css')}}">
+		<title>Nettoyage Services</title>
+	</head>
+	<body>
 
+		<!-- Hero Section -->
+		<section class="hero">
+			<div class="banner">
+				<img src="{{ asset('images/index5.png') }}" style="width: 1955px; height: 750px;">
+				<div class="banner-text">
+					<h2>{% trans %}Welcome to Clean This {% endtrans %}</h2>
+					<p>{% trans %}We offer professional cleaning services for your home or business.{% endtrans %}</p>
+					<a href="/devis" class="btn">{% trans %}Request a quote {% endtrans %}</a>
+				</div>
+			</div>
+		</section>
+
+<div class="section-header">
+<h2 class="section-title">{% trans %}For whom and what ? {% endtrans %}</h2>
+</div>
+
+
+<!-- Pour qui pour quoi Section -->
+
+<div class="categories-container">
+  <!-- Category 1 -->
+  <div class="category">
+    <img src="{{ asset('images/image11.png') }}" alt="Des épanouis">
+    <h3>{% trans %}We're here to help {% endtrans %}</h3>
+    <p>{% trans %}Our team of cleaning experts is trained to use the most effective techniques and environmentally-friendly products to guarantee exceptional results while respecting the environment and the health of your occupants. What's more, we listen to our customers and continually strive to improve our services to better meet their changing needs. Our commitment to customer satisfaction is our top priority, and we work tirelessly to exceed our customers' expectations with every intervention. {% endtrans %}</p>
+  </div>
+
+
+   <div class="category">
+    <img src="{{ asset('images/image5.png') }}" alt="Des épanouis">
+    <h3>{% trans %}A dedicated team at your service {% endtrans %}</h3>
+    <p>{% trans %} Teamwork is at the heart of everything we do. Our teams are made up of dedicated and skilled members who understand the importance of working together to ensure exceptional results. Each member of our team brings his or her own unique skills and passion for excellence, creating a synergy that enables us to exceed our customers' expectations. {% endtrans %}</p>
+  </div>
+
+  
+ 
+
+</div>
+
+<div class="button-container">
+  <a href="/devis" class="cta-button">{% trans %}Request a quote {% endtrans %}</a>
+</div>
+
+
+        <!-- Employee Section -->
+		<section class="employees-section">
+			<h2 style="margin-bottom: 50px">{% trans %}Who are the CleanThis employees ? {% endtrans %}</h2>
+
+			<div class="employee-card">
+				<img class="employee-image" src="{{ asset('images/image5.png') }}" alt="Tho, employé de maison">
+				<div class="employee-name">{% trans %}Théo, a CleanThis employee for 7 years. {% endtrans %}</div>
+				<p class="employee-quote">{% trans %}"What I love about CleanThis? It's that I'm lucky enough to have very kind and caring customers. I feel like I'm part of their family, they trust me and are so grateful for my work. Everyone is happy and it gives me such pleasure to please!" {% endtrans %}</p>
+			</div>
+
+			<div class="employee-card">
+				<img class="employee-image" src="{{ asset('images/image11.png') }}" alt="Tho, employé de maison">
+				<div class="employee-name">{% trans %}Max, a CleanThis employee for 3 years. {% endtrans %}</div>
+				<p class="employee-quote">{% trans %}"What I love about CleanThis? It's that I'm lucky enough to have very kind and caring customers. I feel like I'm part of their family, they trust me and are so grateful for my work. Everyone is happy and it gives me such pleasure to please!" {% endtrans %}</p>
+			</div>
+		</section>
+
+
+		<!-- Why CleanThis Section -->
+		<section style="background-color: #F2C57C;">
+			<div class="container2">
+				<div class="heading">
+					<h1>{% trans %}Why choose CleanThis ? {% endtrans %}</h1>
+				</div>
+				<div class="benefits">
+					<div class="benefit">
+						<div class="icon">💰</div>
+						<h3>{% trans %}Economy {% endtrans %}</h3>
+						<p>{% trans %}Tax credit of 50% of amounts paid. {% endtrans %}</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">🔒</div>
+						<h3>{% trans %}Serenity {% endtrans %}</h3>
+						<p>{% trans %}No obligation, no cancellation fees. {% endtrans %}</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">🔍</div>
+						<h3>{% trans %}Transparency {% endtrans %}</h3>
+						<p>{% trans %}What's the price? The time spent satisfying you is our measure and nothing else! {% endtrans %}</p>
+					</div>
+					<div class="benefit">
+						<div class="icon">📍</div>
+						<h3>{% trans %}Proximity {% endtrans %}</h3>
+						<p>{% trans %}A branch near you {% endtrans %}</p>
+					</div>
+				</div>
+				<div class="button-container">
+					<a href="/devis" class="button">{% trans %}Request a quote {% endtrans %}</a>
+				</div>
+			</div>
+		</section>
+		{# <!-- About Section -->
+						<section id="about" class="about">
+							<div class="container">
+								<h2>À Propos de Nous</h2>
+								<p>Nous sommes une équipe de professionnels du nettoyage dédiés à fournir des services exceptionnels à nos clients.</p>
+							</div>
+						</section> #}
+
+		{# <!-- Contact Section -->
+		<section id="contact" class="contact">
+			<div class="container">
+				<h2>Contactez-nous</h2>
+				<p>Pour obtenir un devis gratuit, veuillez remplir le formulaire ci-dessous.</p>
+				<form action="#" method="POST">
+					<div class="form-group">
+						<label for="name">Nom:</label>
+						<input type="text" id="name" name="name" required>
+					</div>
+					<div class="form-group">
+						<label for="email">Email:</label>
+						<input type="email" id="email" name="email" required>
+					</div>
+					<div class="form-group">
+						<label for="message">Message:</label>
+						<textarea id="message" name="message" required></textarea>
+					</div>
+					<button type="submit" class="btn">Envoyer</button>
+				</form>
+			</div>
+		</section> #}
+
+	<!-- Section "Ils nous font confiance" -->
+<section class="testimonials">
+  <div class="container">
+    <h2>{% trans %}They trust us! {% endtrans %}</h2>
+    <div class="testimonial-cards">
+      <!-- Card 1 -->
+      <div class="testimonial-card">
+        <div class="rating">
+       
+        </div>
+        <p class="testimonial-text">{% trans %}"Exceptional service and attention to detail..." {% endtrans %}</p>
+        <p class="testimonial-author">{% trans %}- Margot Krax, July 2023 {% endtrans %}</p>
+      </div>
+      <!-- Card 2 -->
+	   <div class="testimonial-card">
+        <div class="rating">
+         
+        </div>
+        <p class="testimonial-text">{% trans %}"I am extremely satisfied with the cleaning service provided by this company..." {% endtrans %}</p>
+        <p class="testimonial-author">{% trans %}- Jean Dupont, August 2023 {% endtrans %}</p>
+      </div>
+	  <!-- Card 3 -->	
+	   <div class="testimonial-card">
+        <div class="rating">
+          <!-- système d'évaluation par étoiles coming soon -->
+        </div>
+        <p class="testimonial-text">{% trans %}"Their team is professional, punctual and competent..." {% endtrans %}</p>
+        <p class="testimonial-author">{% trans %}- Rachid Badouri, October 2023 {% endtrans %}</p>
+      </div>
+      
+    </div>
+    <a href="/devis" class="btn-request-quote">{% trans %}Request a quote {% endtrans %}</a>
+  </div>
+</section>
+	</body>
+</html>
 {% endblock %}
-
-
-

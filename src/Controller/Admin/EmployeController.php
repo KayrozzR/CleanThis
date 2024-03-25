@@ -70,14 +70,10 @@ class EmployeController extends AbstractController
                 return $this->redirectToRoute('app_employe_index', [], Response::HTTP_SEE_OTHER);
 
             } catch (UniqueConstraintViolationException $e) {
-                // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
                 if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
-                    // Définir le message d'erreur approprié
                     $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
                 }
               
-                // Autres exceptions de violation de contrainte d'unicité peuvent être gérées ici si nécessaire
-                // Vous pouvez ajouter d'autres blocs if-else pour d'autres contraintes d'unicité si nécessaire
             }
            
         }

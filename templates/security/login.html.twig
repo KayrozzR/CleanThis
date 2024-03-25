@@ -31,24 +31,24 @@
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <div class="form-check mb-3">
+                {# <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
                   <label class="form-check-label" for="rememberPasswordCheck">
                     {% trans %}Remember password{% endtrans %}
                   </label>
-                </div>
+                </div> #}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <div class="d-grid">
                   <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
                   {% trans %}Sign in{% endtrans %}</button>
+				  <a href="{{ path('forgotten_password')}}" style="text-decoration:none; text-align: center; margin-top: 10px">{% trans %} Forgotten Password ? {% endtrans %}</a>
 							</div>
 							<hr class="my-4">
 							<div class="d-grid mb-2">
 								<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
 									<i class="fab fa-google me-2"></i>
-									{% trans %}Sign in with Google{% endtrans %}
+									<img src="{{ asset('images/logoGoogle.png') }}" style="width: 40px;">{% trans %}Sign in with Google{% endtrans %}
 								</a>
-								<a href="{{ path('forgotten_password')}}" class="forgot-password-link"> mot de passe oublié </a>
 							</div>
 							<div
 								class="d-grid">{# <a class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">

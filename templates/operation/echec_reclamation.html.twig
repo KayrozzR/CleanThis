@@ -1,0 +1,12 @@
+{% block stylesheets %} 
+    <link rel="stylesheet" href="{{asset('assets/css/error_reclamation.css')}}">
+{% endblock %}
+
+<div id="main">
+    	<div class="fof">
+        		<h1>Une erreur est survenue</h1>
+                <p>Nous nous excusons pour le désagrément.</p>
+                <p>Veuillez réessayer ultérieurement</p>
+                <a class="custom-btn btn-3" href="{{ path('app_user_profil') }}"  class="profil"> <span>Mon profil</span> </a>
+    	</div>
+</div>
