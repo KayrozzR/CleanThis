@@ -33,14 +33,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($user = $this->getUser()) {
-
-            // Vérifier les rôles de l'utilisateur
             if (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SENIOR', $user->getRoles()) || in_array('ROLE_APPRENTI', $user->getRoles())) {
-                // Rediriger vers le profil admin si l'utilisateur a l'un de ces rôles
-                return $this->redirectToRoute('app_admin_operation_profil');
-            } else {
-                // Rediriger vers le profil client pour les autres utilisateurs
-                return $this->redirectToRoute('app_user_profil'); // Assurez-vous que cette route existe
+                return $this->redirectToRoute('app_admin_profil');
+            } elseif (in_array('ROLE_CLIENT', $user->getRoles()))  {  
+                return $this->redirectToRoute('app_user_profil'); 
             }
         }
 
@@ -117,12 +113,12 @@ class SecurityController extends AbstractController
                 
 
                 $this->addFlash('success', 'Email envoyé avec succès');
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('auth_oauth_login');
             }
 
             // Utilisateur non trouvé
             $this->addFlash('danger', 'Aucun utilisateur trouvé avec cet email.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('auth_oauth_login');
         }
 
         return $this->render('security/reset_password_request.html.twig', [
@@ -162,7 +158,7 @@ class SecurityController extends AbstractController
                     $entityManager->flush();
 
                     $this->addFlash('success', 'Mot de passe changé avec succès');
-                    return $this->redirectToRoute('app_home');
+                    return $this->redirectToRoute('auth_oauth_login');
                 } else {
                     // Les mots de passe ne correspondent pas
                     $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
@@ -174,7 +170,7 @@ class SecurityController extends AbstractController
             ]);
         }
         $this->addFlash('error', 'Lien de réinitialisation invalide.');
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('auth_oauth_login');
     }
 
 
@@ -213,7 +209,7 @@ class SecurityController extends AbstractController
                     $entityManager->flush();
 
                     $this->addFlash('success', 'Mot de passe changé avec succès');
-                    return $this->redirectToRoute('app_home');
+                    return $this->redirectToRoute('auth_oauth_login');
                 } else {
                     // Les mots de passe ne correspondent pas
                     $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
@@ -225,6 +221,6 @@ class SecurityController extends AbstractController
             ]);
         }
         $this->addFlash('error', 'Lien de réinitialisation invalide.');
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('auth_oauth_login');
     }
 }

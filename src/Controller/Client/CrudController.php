@@ -35,9 +35,10 @@ class CrudController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/profil', name: 'app_user_profil')]
+    #[Route('/profile', name: 'app_user_profil')]
     public function index(): Response
-    {  
+    {
+        
         $user = $this->getUser();
 
         // Vérifie if the user is connected
@@ -76,7 +77,6 @@ class CrudController extends AbstractController
         $form = $this->createForm(ClientType::class, $user);
         $form->handleRequest($request);
         $user = $this->getUser();
-
         $error = null;
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -98,11 +98,11 @@ class CrudController extends AbstractController
             'form' => $form,
         ]);
 
-        return $this->route('client/profil.html.twig', [
-            'user' => $user,
-            'form' => $form,
-            'error' => $error
-        ]);
+        // return $this->route('client/profil.html.twig', [
+        //     'user' => $user,
+        //     'form' => $form,
+        //     'error' => $error
+        // ]);
     }
 
     #[Route('/{id}/reclamation', name: 'app_operation_reclamation', methods: ['GET', 'POST'])]
@@ -154,6 +154,17 @@ class CrudController extends AbstractController
                 'id' => $id,
             ]);
         }
+    }
+
+    #[Route('/{id}/profile', name: 'app_profile_show', methods: ['GET'])]
+    public function show(Operation $operation): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('client/show.html.twig', [
+            'operation' => $operation,
+            'user' => $user,
+        ]);
     }
 
 
