@@ -116,12 +116,12 @@ class SecurityController extends AbstractController
                 
 
                 $this->addFlash('success', 'Email envoyé avec succès');
-                return $this->redirectToRoute('auth_oauth_login');
+                return $this->redirectToRoute('app_home');
             }
 
             // Utilisateur non trouvé
             $this->addFlash('danger', 'Aucun utilisateur trouvé avec cet email.');
-            return $this->redirectToRoute('auth_oauth_login');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('security/reset_password_request.html.twig', [
@@ -161,7 +161,7 @@ class SecurityController extends AbstractController
                     $entityManager->flush();
 
                     $this->addFlash('success', 'Mot de passe changé avec succès');
-                    return $this->redirectToRoute('auth_oauth_login');
+                    return $this->redirectToRoute('app_home');
                 } else {
                     // Les mots de passe ne correspondent pas
                     $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
@@ -173,7 +173,7 @@ class SecurityController extends AbstractController
             ]);
         }
         $this->addFlash('error', 'Lien de réinitialisation invalide.');
-        return $this->redirectToRoute('auth_oauth_login');
+        return $this->redirectToRoute('app_home');
     }
 
 
@@ -212,7 +212,7 @@ class SecurityController extends AbstractController
                     $entityManager->flush();
 
                     $this->addFlash('success', 'Mot de passe changé avec succès');
-                    return $this->redirectToRoute('auth_oauth_login');
+                    return $this->redirectToRoute('app_home');
                 } else {
                     // Les mots de passe ne correspondent pas
                     $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
@@ -224,6 +224,6 @@ class SecurityController extends AbstractController
             ]);
         }
         $this->addFlash('error', 'Lien de réinitialisation invalide.');
-        return $this->redirectToRoute('auth_oauth_login');
+        return $this->redirectToRoute('app_home');
     }
 }
