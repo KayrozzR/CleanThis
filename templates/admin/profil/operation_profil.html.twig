@@ -62,8 +62,8 @@
 							<td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
 							{# <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td> #}
 							<td>
-								<a href="{{ path('app_operation_show', {'id': operation.id}) }}">show</a>
-								<a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a>
+								<a href="{{ path('app_profil_show', {'id': operation.id}) }}">show</a>
+								{# <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a> #}
 							</td>
 							<td>
 								{% if operation.statusOperation %}

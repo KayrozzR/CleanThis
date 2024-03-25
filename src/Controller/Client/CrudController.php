@@ -98,11 +98,11 @@ class CrudController extends AbstractController
             'form' => $form,
         ]);
 
-        // return $this->route('client/profil.html.twig', [
-        //     'user' => $user,
-        //     'form' => $form,
-        //     'error' => $error
-        // ]);
+        return $this->route('client/profil.html.twig', [
+            'user' => $user,
+            'form' => $form,
+            'error' => $error
+        ]);
     }
 
     #[Route('/{id}/reclamation', name: 'app_operation_reclamation', methods: ['GET', 'POST'])]
@@ -124,6 +124,36 @@ class CrudController extends AbstractController
             'operation' => $operation,
             'form' => $form,
         ]);
+    }
+
+    #[Route("/uploads-avatar", name: "uploads_avatar", methods: ['POST'])]
+
+    public function uploadAvatar(Request $request): Response
+    {
+
+        $file = $request->files->get('avatar');
+
+        if ($file) {
+
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            $directory = $this->getParameter('kernel.project_dir') . '/public/uploads/avatars';
+
+            $file->move($directory, $fileName);
+
+            $user = $this->getUser();
+            $id = $this->getUser()->getId();
+
+            $user->setAvatar('uploads/avatars/' . $fileName);
+
+            $entityManager = $this->entityManager;
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_edit', [
+                'id' => $id,
+            ]);
+        }
     }
 
 

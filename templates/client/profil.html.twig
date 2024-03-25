@@ -28,7 +28,7 @@
 </section>
 
 <a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
-   <img  class= "avatar" src="{{ asset('images/avatar-placeholder.png') }}" style="height: 20%; border-radius: 6px; margin-left: 6px">
+   <img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
  <section class="homeProfil hidden">
     <div class="text">
     <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
