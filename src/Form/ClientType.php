@@ -75,6 +75,7 @@ class ClientType extends AbstractType
             //     fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0] : null,
             //     fn ($rolesAsString) => [$rolesAsString]
             // ));
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -84,3 +85,4 @@ class ClientType extends AbstractType
         ]);
     }
 }
+

@@ -64,6 +64,12 @@ class TypeOperationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $service = $form->getData();
+            if($photo = $form['image']->getData()){
+                $fileName = uniqid().'.'.$photo->guessExtension();
+                $photo->move($this->getParameter('photo_dir'), $fileName);
+            }
+            $service->setImage($fileName);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_type_operation_index', [], Response::HTTP_SEE_OTHER);

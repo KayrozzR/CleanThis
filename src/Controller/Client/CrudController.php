@@ -37,8 +37,7 @@ class CrudController extends AbstractController
 
     #[Route('/profil', name: 'app_user_profil')]
     public function index(): Response
-    {
-        
+    {  
         $user = $this->getUser();
 
         // Vérifie if the user is connected
@@ -77,6 +76,7 @@ class CrudController extends AbstractController
         $form = $this->createForm(ClientType::class, $user);
         $form->handleRequest($request);
         $user = $this->getUser();
+
         $error = null;
         
         if ($form->isSubmitted() && $form->isValid()) {

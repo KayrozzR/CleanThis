@@ -23,23 +23,33 @@
 									{{ form_row(form.mail) }}
 								</div>
 								<div class="col-md-6">
-									{{ form_row(form.tel) }}
+									{{ form_row(form.mailConfirmation) }}
 								</div>
 							</div>
+
 							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.tel) }}
+								</div>
 								<div class="col-md-6">
 									{{ form_row(form.adresse_intervention) }}
 								</div>
-								<div class="col-md-6">
-									{{ form_row(form.Type_Operation) }}
+							</div>
+							<div style="margin-left: 25%" class="col-md-6">
+								<div class="d-flex align-items-center">
+								{{ form_row(form.Type_Operation) }}
+								<a href="/type/operation">
+									<span class="type-description" style="cursor: pointer;">
+										<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
+									</span>
+								</a>
 								</div>
 							</div>
-							<div>
-							{{ form_row(form.image_object, {'attr': {'class': 'hidden'}}) }}
+							<div id="image-object-field" style="display: none;">
+								{{ form_row(form.image_object) }}
 							</div>
 
 							{{ form_row(form.comment) }}
-							{# {{ form_row(form.status) }} #}
 
 							<button class="btn">Envoi devis</button>
 							{{ form_end(form) }}
@@ -51,36 +61,22 @@
 		</div>
 	</section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const typeOperationField = document.getElementById('typeOperation');
-    const imageObjectField = document.getElementById('imageObject');
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () { 
+$('#image-object-field').hide();
 
-imageObjectField.closest('.form-group').style.display = 'none';
 
-// Ajouter un écouteur d'événement de changement pour détecter lorsque la valeur du champ "Type_Operation" change
-typeOperationField.addEventListener('change', function () {
-    // Récupérer le libellé sélectionné dans le champ "Type_Operation"
-    const selectedLabel = typeOperationField.options[typeOperationField.selectedIndex].text;
-
-    // Vérifier si le libellé est égal à "Service Custom"
-    if (selectedLabel === 'Service Custom') {
-        // Afficher l'imageObject
-        imageObjectField.closest('.form-group').style.display = 'block';
-    } else {
-        // Sinon, masquer l'imageObject
-        imageObjectField.closest('.form-group').style.display = 'none';
-    }
-});
-
-// Vérifier la valeur initiale du champ Type_Operation au chargement de la page
-const initialLabel = typeOperationField.options[typeOperationField.selectedIndex].text;
-if (initialLabel === 'Service Custom') {
-    imageObjectField.closest('.form-group').style.display = 'block';
+$('.type-operation-select').change(function () {
+console.log('Nouvelle valeur sélectionnée :', $(this).val());
+if ($(this).val() === '10') {
+console.log('Service Custom sélectionné');
+$('#image-object-field').show();
+} else {
+console.log('Autre option sélectionnée');
+$('#image-object-field').hide();
 }
-
 });
-
-</script>
-
+});
+	</script>
 {% endblock %}
