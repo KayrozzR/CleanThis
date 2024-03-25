@@ -88,8 +88,8 @@ body{
 }
 .avatar {
     position: absolute;
-    top: 20%; /* Réglage de la position verticale */
-    right: 60%; /* Réglage de la position horizontale */
+    top: 15%; /* Réglage de la position verticale */
+    right: 57%; /* Réglage de la position horizontale */
 }
 .scrollDownButton{
     margin-bottom: 20%;

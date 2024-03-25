@@ -35,9 +35,10 @@ class CrudController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/profil', name: 'app_user_profil')]
+    #[Route('/profile', name: 'app_user_profil')]
     public function index(): Response
-    {  
+    {
+        
         $user = $this->getUser();
 
         // Vérifie if the user is connected
@@ -76,7 +77,6 @@ class CrudController extends AbstractController
         $form = $this->createForm(ClientType::class, $user);
         $form->handleRequest($request);
         $user = $this->getUser();
-
         $error = null;
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,6 +123,47 @@ class CrudController extends AbstractController
         return $this->render('operation/reclamation.html.twig', [
             'operation' => $operation,
             'form' => $form,
+        ]);
+    }
+
+    #[Route("/uploads-avatar", name: "uploads_avatar", methods: ['POST'])]
+
+    public function uploadAvatar(Request $request): Response
+    {
+
+        $file = $request->files->get('avatar');
+
+        if ($file) {
+
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            $directory = $this->getParameter('kernel.project_dir') . '/public/uploads/avatars';
+
+            $file->move($directory, $fileName);
+
+            $user = $this->getUser();
+            $id = $this->getUser()->getId();
+
+            $user->setAvatar('uploads/avatars/' . $fileName);
+
+            $entityManager = $this->entityManager;
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_edit', [
+                'id' => $id,
+            ]);
+        }
+    }
+
+    #[Route('/{id}/profile', name: 'app_profile_show', methods: ['GET'])]
+    public function show(Operation $operation): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('client/show.html.twig', [
+            'operation' => $operation,
+            'user' => $user,
         ]);
     }
 

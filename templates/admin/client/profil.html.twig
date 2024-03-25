@@ -28,7 +28,7 @@
 </section>
 
 <a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
-   <img  class= "avatar" src="{{ asset('images/avatar-placeholder.png') }}" style="height: 20%; border-radius: 6px; margin-left: 6px">
+  <img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
  <section class="homeProfil hidden">
     <div class="text">
     <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
@@ -48,7 +48,7 @@
                 <td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="light-weight">{{ operation.statusPaiement ? 'réglé' : 'Non réglé' }}</td>
                    <td>
-                    <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons" ><i class='bx bx-show' ></i>
+                    <a href="{{ path('app_profile_show', {'id': operation.id}) }}" class="actionsButtons" ><i class='bx bx-show' ></i>
                         <img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
                     </a>
                 </td>
@@ -110,4 +110,5 @@
         });
     });
 </script>
+    
 {% endblock %}

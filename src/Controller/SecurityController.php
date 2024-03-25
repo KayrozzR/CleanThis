@@ -33,14 +33,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($user = $this->getUser()) {
-
-            // Vérifier les rôles de l'utilisateur
             if (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SENIOR', $user->getRoles()) || in_array('ROLE_APPRENTI', $user->getRoles())) {
-                // Rediriger vers le profil admin si l'utilisateur a l'un de ces rôles
-                return $this->redirectToRoute('app_admin_operation_profil');
-            } else {
-                // Rediriger vers le profil client pour les autres utilisateurs
-                return $this->redirectToRoute('app_user_profil'); // Assurez-vous que cette route existe
+                return $this->redirectToRoute('app_admin_profil');
+            } elseif (in_array('ROLE_CLIENT', $user->getRoles()))  {  
+                return $this->redirectToRoute('app_user_profil'); 
             }
         }
 

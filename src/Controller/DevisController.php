@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
-#[Route('/devis')]
+#[Route('/admin/devis')]
 class DevisController extends AbstractController
 {
 
@@ -135,7 +135,9 @@ class DevisController extends AbstractController
                 $user->setLastname($devi->getLastname());
                 $user->setEmail($devi->getMail());
                 $user->setRoles(["ROLE_CLIENT"]);
-
+                $user->setAddress($devi->getAdresseIntervention());
+                $user->setTel($devi->getTel());
+              
                 $entityManager->persist($user);
                 $entityManager->flush();
 

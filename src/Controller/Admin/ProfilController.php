@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Operation;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -105,6 +106,7 @@ class ProfilController extends AbstractController
     public function index_profil(OperationRepository $operationRepository): Response
     {
         $currentUser = $this->getUser();
+        $devis = $this->getUser()->getDevis();
 
         if ($currentUser) {
 
@@ -116,6 +118,7 @@ class ProfilController extends AbstractController
 
         return $this->render('admin/profil/operation_profil.html.twig', [
             'operations' => $operations,
+            'devis' => $devis,
         ]);
     }
 
@@ -144,5 +147,16 @@ class ProfilController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_admin_operation_profil');
+    }
+
+    #[Route('/{id}/profil', name: 'app_profil_show', methods: ['GET'])]
+    public function show(Operation $operation): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('admin/profil/show.html.twig', [
+            'operation' => $operation,
+            'user' => $user,
+        ]);
     }
 }
