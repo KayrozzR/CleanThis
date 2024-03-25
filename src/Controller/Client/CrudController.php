@@ -3,13 +3,18 @@
 namespace App\Controller\Client;
 
 use App\Entity\User;
+use App\Entity\Devis;
 use App\Form\UserType;
 use App\Form\User1Type;
 use App\Form\ClientType;
 use App\Form\CustomerType;
 use App\Service\JWTService;
+use App\Entity\Operation;
+use App\Form\ReclamationType;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
+use App\Repository\DevisRepository;
+use App\Repository\OperationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,10 +37,37 @@ class CrudController extends AbstractController
 
     #[Route('/profil', name: 'app_user_profil')]
     public function index(): Response
-    {
-        return $this->render('client/profil.html.twig', [
-            'controller_name' => 'ClientController',
-        ]);
+    {  
+        $user = $this->getUser();
+
+        // Vérifie if the user is connected
+        if ($user !== null) {
+            //get the devis associate to the user
+            $devis = $user->getDevis();
+
+            // array to stock all the operations 
+            $operations = [];
+
+            // we get into each devis
+            foreach ($devis as $devi) {
+                // take all tghe operations associate to the devis
+                $deviOperations = $devi->getOperation();
+
+                // stock the operations in ana array
+                foreach ($deviOperations as $operation) {
+                    $operations[] = $operation;
+                }
+            }
+
+            // we send the operations to the view
+            return $this->render('client/profil.html.twig', [
+                'controller_name' => 'ClientController',
+                'operations' => $operations, 
+                'devi' => $devis,
+            ]);
+        } else {
+            // We are going to redirect to an error page
+        }
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
@@ -43,6 +75,7 @@ class CrudController extends AbstractController
     {
         $form = $this->createForm(ClientType::class, $user);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         $error = null;
         
@@ -61,11 +94,35 @@ class CrudController extends AbstractController
             }
             
         }
-
-        return $this->render('client/profil.html.twig', [
-            'user' => $user,
+        return $this->render('client/edit_profil.html.twig', [
             'form' => $form,
-            'error' => $error
+        ]);
+
+        // return $this->route('client/profil.html.twig', [
+        //     'user' => $user,
+        //     'form' => $form,
+        //     'error' => $error
+        // ]);
+    }
+
+    #[Route('/{id}/reclamation', name: 'app_operation_reclamation', methods: ['GET', 'POST'])]
+    public function reclamation(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ReclamationType::class, $operation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation = $form->get('reclamation')->getData();
+            $operation->setReclamation($reclamation);
+            $entityManager->persist($operation);
+            $entityManager->flush();
+
+            return $this->render('operation/success_reclamation.html.twig');
+        }
+
+        return $this->render('operation/reclamation.html.twig', [
+            'operation' => $operation,
+            'form' => $form,
         ]);
     }
 

@@ -24,4 +24,5 @@ class HomeController extends AbstractController
             'type_operations' => $typeOperationRepository->findAll(),
         ]);
     }
+
 }

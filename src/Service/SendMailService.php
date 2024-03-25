@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use Twig\Environment;
+use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
@@ -24,4 +26,20 @@ class SendMailService
         //we send the e-mail
         $this->mailer->send($email);
     }
+
+    public function sendPdf($from, $to, $subject, $template, $data = [], array $context): void
+{
+    $email = (new TemplatedEmail())
+        ->from($from)
+        ->to($to)
+        ->subject($subject)
+        ->htmlTemplate("emailS/$template.html.twig");
+
+    // Ajouter la pièce jointe PDF
+    if (isset($data['pdfContent'])) {
+        $pdfAttachment = new DataPart($data['pdfContent'], 'VotreDevis.pdf', 'application/pdf');
+        $email->attach($pdfAttachment);
+    }
+    $this->mailer->send($email);
+}
 }

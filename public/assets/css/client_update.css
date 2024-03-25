@@ -1,0 +1,50 @@
+/* Style pour le conteneur principal */
+.container {
+    padding-top: 100px;
+    padding-left: 50px;
+}
+
+/* Style pour la carte */
+.card {
+    border: none; 
+}
+
+/* Style pour l'image d'avatar */
+.card-body img {
+    border-radius: 50%; /* Arrondir les coins de l'image */
+    width: 200px; /* Taille de l'image */
+}
+
+/* Style pour le formulaire d'upload d'avatar */
+.upload-icon {
+    text-align: center; 
+    display: block;
+    margin-top: 10px;
+    color: black;
+}
+
+/* Style pour les boutons d'édition */
+/* .edit-button1 {
+    font-size: 20px; /
+    float: right; 
+    margin-left: 10px; 
+    color: #372772; 
+} */
+
+/* Style pour les boutons de sauvegarde */
+.save-button {
+    float: right;
+    margin-left: 10px;
+    color: #372772; 
+}
+
+/* Style pour les champs éditables */
+.editable-input {
+    display: none; 
+}
+
+/* Style pour les lignes de séparation */
+hr {
+    border-top: 1px solid #ccc;
+    margin: 20px 0; /
+}

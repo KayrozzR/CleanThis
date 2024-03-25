@@ -69,12 +69,13 @@ class ClientType extends AbstractType
                 ],
                 'label' => 'Adresse',
                 'label_attr' => ['style' => 'margin-bottom: 3px; margin-top 3pxmargin-top: 5px;'] // Ajouter une marge de 3px en bas pour le label
-            ])
-            ->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0] : null,
-                fn ($rolesAsString) => [$rolesAsString]
-            ));
+            ]);
+            // ->get('roles')
+            // ->addModelTransformer(new CallbackTransformer(
+            //     fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0] : null,
+            //     fn ($rolesAsString) => [$rolesAsString]
+            // ));
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -84,3 +85,4 @@ class ClientType extends AbstractType
         ]);
     }
 }
+
