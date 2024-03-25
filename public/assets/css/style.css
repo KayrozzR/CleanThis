@@ -52,3 +52,70 @@ html {
 	font-size: 12px;
 
 }
+
+.home1 {
+  background-image: url('/images/image.png'); 
+  background-size: cover; 
+  background-position: center; 
+  padding: 50px 0; 
+  background-color: #372772; 
+}
+
+
+
+.card {
+background-color: rgba(255, 255, 255, 0.8); 
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+padding: 20px; 
+}
+
+.card-header h2 {
+margin-bottom: 20px;
+text-align: center;
+}
+
+
+.card-body p {
+text-align: center;
+}
+
+
+.form-control {
+width: 100%;
+padding: 10px;
+margin-bottom: 15px;
+border: 1px solid #ced4da;
+border-radius: 5px;
+box-sizing: border-box;
+}
+
+
+.btn {
+display: block;
+margin: 0 0 0 auto; 
+padding: 10px;
+text-align: center;
+background-color: #372772; 
+color: aliceblue;
+border: none;
+border-radius: 25px;
+cursor: pointer;
+}
+.btn:hover {
+background-color: #372772; 
+}
+
+
+.card-body a {
+display: block;
+text-align: center;
+margin-top: 20px;
+color: #007bff;
+text-decoration: none;
+color: black;
+}
+
+.card-body a:hover {
+text-decoration: underline; 
+}

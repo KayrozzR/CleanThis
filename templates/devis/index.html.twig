@@ -107,7 +107,7 @@
             
             if (confirm('Êtes-vous sûr de vouloir valider le devis ?')) {
                 $.ajax({
-                    url: '/devis/' + deviId + '/toggle-status',
+                    url: '/admin/devis/' + deviId + '/toggle-status',
                     type: 'POST',
                     data: {
                         '_token': csrfToken,
@@ -139,7 +139,7 @@
             
             if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
                 $.ajax({
-                    url: '/devis/' + deviId,
+                    url: '/admin/devis/' + deviId,
                     type: 'POST',
                     data: {
                         '_token': csrfToken,

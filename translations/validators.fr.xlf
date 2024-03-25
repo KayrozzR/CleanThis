@@ -589,6 +589,10 @@
         <source>Veuillez entrer un numéro de téléphone valide.</source>
         <target>__Veuillez entrer un numéro de téléphone valide.</target>
       </trans-unit>
+      <trans-unit id="9tVKqjg" resname="Please enter a email">
+        <source>Please enter a email</source>
+        <target>__Please enter a email</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
