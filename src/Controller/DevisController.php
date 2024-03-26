@@ -238,17 +238,18 @@ class DevisController extends AbstractController
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
         
-        // $logoPath = '/public/images/logo.png';
-        // if (!file_exists($logoPath)) {
-        //     throw new \Exception('Le fichier logo n\'existe pas.');
-        // }
-        // $logoData = base64_encode(file_get_contents($logoPath));
-        // $logoBase64 = 'data:image/png;base64,' . $logoData;
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+        $logoPath = $publicDirectory . '/images/logo.png';
+        if (!file_exists($logoPath)) {
+            throw new \Exception('Le fichier logo n\'existe pas.');
+        }
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoBase64 = 'data:image/png;base64,' . $logoData;
 
         $html = $this->renderView('Pdf/devis.html.twig', [
             'devi' => $devi,
             'type_operation' => $type_operations,
-            // 'logo_base64' => $logoBase64,
+            'logo_base64' => $logoBase64,
         ]);
 
         $pdf ->showPdfFile($html);
@@ -263,10 +264,20 @@ class DevisController extends AbstractController
         $client = $userRepository->findOneBy(['email' =>  $user]);
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
+
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+        $logoPath = $publicDirectory . '/images/logo.png';
+        if (!file_exists($logoPath)) {
+            throw new \Exception('Le fichier logo n\'existe pas.');
+        }
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoBase64 = 'data:image/png;base64,' . $logoData;
+
+
         $html = $this->renderView('Pdf/devis.html.twig', [
             'devi' => $devi,
             'type_operation' => $type_operations,
-            // 'logo_base64' => $logoBase64,
+            'logo_base64' => $logoBase64,
         ]);
 
         $pdfContent = $pdf->generateBinaryPDF($html);
