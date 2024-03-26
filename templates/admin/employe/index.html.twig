@@ -57,7 +57,8 @@
 							<span class="badge bg-{{ color }}">{{ name }}</span>
 						{% endfor %}
                 </td>  
-                <td><img src="{{user.avatar}}" style="height: 50px; border-radius: 6px; margin-left: 6px"></td>
+                <td><img src="{{ user.avatar ? asset(user.avatar) : 'placeholder.jpg' }}" style="height: 70px; width:70px; border-radius: 6px; margin-left: 6px; object-fit: cover;"></td>
+                
                 <td class="bold-weight">{{ user.operationsFinalisee }}</td>
                 
                 <td>
@@ -139,4 +140,9 @@ $(document).ready(function() {
     });
 });
 	</script>
+<script>
+document.getElementById('avatar-upload').addEventListener('change', function () {
+document.getElementById('avatar-submit').click();
+});
+</script>
 {% endblock %}
