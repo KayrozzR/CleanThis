@@ -98,9 +98,9 @@
 
                     <div class="col-6">
                         <div class="numDevisEtDate">
-                        <strong class= "titre"> Devis</strong>
-                        <p>Devis numéro: {{ devi.id }}</p>
-                        <p> Emis le: {{ devi.createdAt ? devi.createdAt|date('d-m-Y') : '' }}</li>
+                        <strong class= "titre"> Facture</strong>
+                         <p>Facture numéro: {{ devi.id }}</p>
+                        <p> Emis le: {{ operation.dateFin  ? operation.dateFin |date('d-m-Y') : '' }}</li>
                         </div>
                     </div>
                 </div>
