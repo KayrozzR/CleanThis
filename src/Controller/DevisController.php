@@ -270,27 +270,16 @@ class DevisController extends AbstractController
         ]);
 
         $pdfContent = $pdf->generateBinaryPDF($html);
-        $fileName = md5(uniqid()) . '.pdf';
-        $filePath = $this->getParameter('kernel.project_dir') . '/public/pdf/' . $fileName;
-        $file = new SplFileObject($filePath, 'w');
-        $file->fwrite($pdfContent);
 
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-        $url = $baseUrl . '/pdf/' . $fileName;
-
-        $devi->setUrlDevis($url);
-        $entityManager->persist($devi);
-        $entityManager->flush();
-
-
-        $mail->send('no-reply@cleanthis.fr',
+        $mail->sendDevis('no-reply@cleanthis.fr',
             $devi->getMail(),
             'Votre devis CleanThis',
             'devis_pdf',
-            compact('client',  'url')
+            $client, 
+            $pdfContent, 
         );
-
+        
         return new Response();
-    }   
+    } 
 
 }
