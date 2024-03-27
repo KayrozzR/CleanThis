@@ -23,6 +23,7 @@
 			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
 				<thead class="en-tête">
 					<tr>
+						<th class="light-weight">Voir détail</th>
 						<th data-sortable="true" data-field="Id" class="light-weight">ID</th>
 						<th data-sortable="true" data-field="firstname" class="light-weight">Client</th>
                         <th data-sortable="true" data-field="libelle" class="light-weight">Service</th>
@@ -36,13 +37,17 @@
 						<th data-sortable="true" data-field="status_paiement" class="light-weight">Status de paiement</th>
 						{# <th data-sortable="true" data-field="status_operation" class="light-weight">Status de l'opération</th> #}
 						{# <th data-sortable="true" data-field="status" class="light-weight">Adresse d'intervention</th> #}
-						<th class="light-weight">Actions</th>
 						<th data-sortable="true"  class="light-weight">Status de l'opération</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for operation in operations %}
 						<tr>
+							<td>
+				    			<a href="{{ path('app_profil_show', {'id': operation.id}) }}" class="actionsButtons">
+									<img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
+								</a>
+							</td>
 							<td class="bold-weight">{{ operation.id }}</td>
 							{% for devis in operation.devis %}
 								<td class="bold-weight">{{ devis.user.lastname }} {{ devis.user.firstname }}</td>
@@ -61,12 +66,6 @@
 							<td class="bold-weight">{{ operation.reclamation }}</td>
 							<td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
 							{# <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td> #}
-							<td>
-
-								<a href="{{ path('app_profil_show', {'id': operation.id}) }}">show</a>
-								{# <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a> #}
-                
-							</td>
 							<td>
 								{% if operation.statusOperation %}
 									<span style="color: green;" class="badge-success">Opération terminée <i style = "color: green;"  class='bx bx-check'></i></span>

@@ -63,20 +63,21 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		$(document).ready(function () { 
-$('#image-object-field').hide();
+$(document).ready(function () { 
+    $('#image-object-field').hide();
 
-
-$('.type-operation-select').change(function () {
-console.log('Nouvelle valeur sélectionnée :', $(this).val());
-if ($(this).val() === '15') {
-console.log('Service Custom sélectionné');
-$('#image-object-field').show();
-} else {
-console.log('Autre option sélectionnée');
-$('#image-object-field').hide();
-}
+    $('.type-operation-select').change(function () {
+        console.log('Nouvelle valeur sélectionnée :', $(this).val());
+        var selectedOptionLabel = $(this).find('option:selected').text().toLowerCase();
+        var keyword = 'custom';
+        if (selectedOptionLabel.indexOf(keyword.toLowerCase()) !== -1) {
+            console.log('Option contenant "Custom" sélectionnée');
+            $('#image-object-field').show();
+        } else {
+            console.log('Autre option sélectionnée');
+            $('#image-object-field').hide();
+        }
+    });
 });
-});
-	</script>
+</script>
 {% endblock %}

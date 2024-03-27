@@ -27,21 +27,21 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/contact_form', name: 'contact_form')]
-    public function contactForm(Request $request): Response
-    {
-        $form = $this->createForm(ContactFormType::class);
+    // #[Route('/contact_form', name: 'contact_form')]
+    // public function contactForm(Request $request): Response
+    // {
+    //     $form = $this->createForm(ContactFormType::class);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('app_home');
-        }
+    //         return $this->redirectToRoute('app_home');
+    //     }
 
-        return $this->render('home/contact_form.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('home/contact_form.html.twig', [
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
     // #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
     // public function contact(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response

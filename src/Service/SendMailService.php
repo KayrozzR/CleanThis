@@ -26,7 +26,6 @@ class SendMailService
         //we send the e-mail
         $this->mailer->send($email);
     }
-
     
     public function sendDevis($from, $to, $subject, $template, $client, $pdfContent): void
     {
