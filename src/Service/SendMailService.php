@@ -26,20 +26,22 @@ class SendMailService
         //we send the e-mail
         $this->mailer->send($email);
     }
-
-    public function sendPdf($from, $to, $subject, $template, array $context ,$data = []): void
-{
-    $email = (new TemplatedEmail())
-        ->from($from)
-        ->to($to)
-        ->subject($subject)
-        ->htmlTemplate("emailS/$template.html.twig");
-
-    // Ajouter la pièce jointe PDF
-    if (isset($data['pdfContent'])) {
-        $pdfAttachment = new DataPart($data['pdfContent'], 'VotreDevis.pdf', 'application/pdf');
-        $email->attach($pdfAttachment);
+    
+    public function sendDevis($from, $to, $subject, $template, $client, $pdfContent): void
+    {
+        $email = (new TemplatedEmail())
+            ->from($from)
+            ->to($to)
+            ->subject($subject)
+            ->htmlTemplate("emailS/$template.html.twig")
+            ->context([
+                'client' => $client,
+            ]);
+    
+        // we attach the pdf 
+        $email->attach($pdfContent, 'VotreDevis.pdf', 'application/pdf');
+    
+        $this->mailer->send($email);
     }
-    $this->mailer->send($email);
-}
+
 }

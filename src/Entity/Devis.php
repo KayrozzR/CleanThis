@@ -20,9 +20,6 @@ class Devis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $url_devis = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
 
@@ -65,18 +62,6 @@ class Devis
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUrlDevis(): ?string
-    {
-        return $this->url_devis;
-    }
-
-    public function setUrlDevis(?string $url_devis): static
-    {
-        $this->url_devis = $url_devis;
-
-        return $this;
     }
 
     public function getComment(): ?string

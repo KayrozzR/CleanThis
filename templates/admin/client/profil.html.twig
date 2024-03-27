@@ -53,12 +53,9 @@
                     </a>
                 </td>
                  <td>
-                    {% if operation.statusOperation %}
-                        <a href="{{ path('app_operation_facture', {'id': operation.id}) }}" class="actionsButtons" >
-                            <i class='bx bx-show'></i>
-                            <img src="{{ asset('images/facture.png') }}" alt="Télécharger ma facture">
-                        </a>
-                    {% endif %}
+                    <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons" ><i class='bx bx-show' ></i>
+                        <img src="{{ asset('images/facture.png') }}" alt="">
+                    </a>
                 </td>
             </tr>
         {% else %}
