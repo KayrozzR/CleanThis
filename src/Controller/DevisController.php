@@ -257,25 +257,37 @@ class DevisController extends AbstractController
     }
    
     #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
-    public function generatePdfDevis(PdfService $pdf, Devis $devi = null,EntityManagerInterface $entityManager):response{
+    public function generatePdfDevis(PdfService $pdf, Devis $devi = null, EntityManagerInterface $entityManager): Response
+    {
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
-        
-        // $logoPath = '/public/images/logo.png';
-        // if (!file_exists($logoPath)) {
-        //     throw new \Exception('Le fichier logo n\'existe pas.');
-        // }
-        // $logoData = base64_encode(file_get_contents($logoPath));
-        // $logoBase64 = 'data:image/png;base64,' . $logoData;
-
+    
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+        $logoPath = $publicDirectory . '/images/logo.png';
+        if (!file_exists($logoPath)) {
+            throw new \Exception('Le fichier logo n\'existe pas.');
+        }
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoBase64 = 'data:image/png;base64,' . $logoData;
+    
         $html = $this->renderView('Pdf/devis.html.twig', [
             'devi' => $devi,
             'type_operation' => $type_operations,
-            // 'logo_base64' => $logoBase64,
+            'logo_base64' => $logoBase64,
         ]);
-
-        $pdf ->showPdfFile($html);
-        return new Response();
+    
+        // Générer le PDF
+        $pdfContent = $pdf->generateBinaryPDF($html);
+    
+        // Renvoyer le PDF comme réponse HTTP
+        return new Response(
+            $pdfContent,
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="devis.pdf"',
+            ]
+        );
     }
 
 
