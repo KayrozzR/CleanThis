@@ -58,41 +58,6 @@ class OperationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/facture', name: 'app_operation_facture', methods: ['GET', 'POST'])]
-    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, Devis $devi, EntityManagerInterface $entityManager, Request $request): Response
-    {  
-       if ($operation->isStatusOperation() == true) {
-        
-        // $devi = $operation->getDevis();
-        $id_operation = $devi->getTypeOperation();
-        $email = $devi->getMail();
-        $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
-        
-        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
-        $logoPath = $publicDirectory . '/images/logo.png';
-        if (!file_exists($logoPath)) {
-            throw new \Exception('Le fichier logo n\'existe pas.');
-        }
-        $logoData = base64_encode(file_get_contents($logoPath));
-        $logoBase64 = 'data:image/png;base64,' . $logoData;
-
-        $html = $this->renderView('Pdf/facture.html.twig', [
-                'devi' => $devi,
-                'type_operation' => $type_operations,
-                'logo_base64' => $logoBase64,
-                'operation' => $operation
-            ]);
-
-        $pdf ->showPdfFile($html);
-        return new Response();
-
-       }else {
-        $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
-        return $this->redirectToRoute('app_user_profil'); 
-       }
-        return new Response();
-    }  
-
     #[Route('/assign/{id}', name: 'app_operation_assign', methods: ['GET', 'POST'])]
     public function assignOperation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, Operation $operation): Response
     {

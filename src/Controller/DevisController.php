@@ -275,12 +275,19 @@ class DevisController extends AbstractController
             'logo_base64' => $logoBase64,
         ]);
 
-        $pdf ->showPdfFile($html);
-        return new Response();
+        $pdfContent = $pdf->generateBinaryPDF($html);
+        return new Response(
+            $pdfContent,
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="devis.pdf"',
+            ]
+        );
     }
 
 
-    #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST'])]
+    #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST', 'GET'])]
     public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, SendMailService $mail, Filesystem $filesystem): Response
     {
         $user = $devi->getMail();
