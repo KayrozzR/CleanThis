@@ -58,48 +58,45 @@ class OperationController extends AbstractController
 
 
     #[Route('/{id}/facture', name: 'app_operation_facture', methods: ['GET', 'POST'])]
-    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, Devis $devi, EntityManagerInterface $entityManager, Request $request,SendMailService $mail): Response
-    {  
-       if ($operation->isStatusOperation() == true) {
-        
-        // $devi = $operation->getDevis();
-        $id_operation = $devi->getTypeOperation();
-        $email = $devi->getMail();
-        $client = $userRepository->findOneBy(['email' =>  $email]);
-        $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
-        
-        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
-        $logoPath = $publicDirectory . '/images/logo.png';
-        if (!file_exists($logoPath)) {
-            throw new \Exception('Le fichier logo n\'existe pas.');
-        }
-        $logoData = base64_encode(file_get_contents($logoPath));
-        $logoBase64 = 'data:image/png;base64,' . $logoData;
-
-        $html = $this->renderView('Pdf/facture.html.twig', [
-                'devi' => $devi,
-                'type_operation' => $type_operations,
+    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $devis = $operation->getDevis()->first(); 
+    
+        if ($operation->isStatusOperation() && $devis) { 
+    
+            $typeOperation = $devis->getTypeOperation(); // Récupérer l'entité TypeOperation à partir du devis
+    
+            $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+            $logoPath = $publicDirectory . '/images/logo.png';
+    
+            if (!file_exists($logoPath)) {
+                throw new \Exception('Le fichier logo n\'existe pas.');
+            }
+    
+            $logoData = base64_encode(file_get_contents($logoPath));
+            $logoBase64 = 'data:image/png;base64,' . $logoData;
+    
+            $html = $this->renderView('Pdf/facture.html.twig', [
+                'devi' => $devis,
+                'type_operation' => $typeOperation,
                 'logo_base64' => $logoBase64,
                 'operation' => $operation
             ]);
-
-        $pdf ->showPdfFile($html);
-
-        $mail->send('no-reply@cleanthis.fr',
-        $devi->getMail(),
-        'Votre devis CleanThis',
-        'devis_pdf',
-        compact('client')
-        $client, 
-        );
-        return new Response();
-
-       }else {
-        $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
-        return $this->redirectToRoute('app_user_profil'); 
-       }
-        return new Response();
-    }  
-
+    
+            $pdfContent = $pdf->generateBinaryPDF($html);
+    
+            return new Response(
+                $pdfContent,
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'attachment; filename="devis.pdf"',
+                ]
+            );
+        } else {
+            $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
+            return $this->redirectToRoute('app_user_profil'); 
+        }
+    }
   
 }

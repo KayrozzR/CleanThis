@@ -234,10 +234,11 @@ class DevisController extends AbstractController
     }
    
     #[Route('/pdf/{id}', name: 'devis_pdf', methods: ['GET'])]
-    public function generatePdfDevis(PdfService $pdf, Devis $devi = null,EntityManagerInterface $entityManager):response{
+    public function generatePdfDevis(PdfService $pdf, Devis $devi = null, EntityManagerInterface $entityManager): Response
+    {
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
-        
+
         $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
         $logoPath = $publicDirectory . '/images/logo.png';
         if (!file_exists($logoPath)) {
@@ -252,10 +253,19 @@ class DevisController extends AbstractController
             'logo_base64' => $logoBase64,
         ]);
 
-        $pdf ->showPdfFile($html);
-        return new Response();
-    }
+        // Générer le PDF
+        $pdfContent = $pdf->generateBinaryPDF($html);
 
+        // Renvoyer le PDF comme réponse HTTP
+        return new Response(
+            $pdfContent,
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="devis.pdf"',
+            ]
+        );
+    }
 
     #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST'])]
     public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, SendMailService $mail, Filesystem $filesystem): Response
