@@ -15,13 +15,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/operation')]
+#[Route('/admin/operation')]
 class OperationController extends AbstractController
 {
     #[Route('/', name: 'app_operation_index', methods: ['GET'])]
     public function index(OperationRepository $operationRepository): Response
     {
-        return $this->render('operation/index.html.twig', [
+        return $this->render('admin/operation/index.html.twig', [
             'operations' => $operationRepository->findAll(),
         ]);
     }
@@ -49,7 +49,7 @@ class OperationController extends AbstractController
     #[Route('/{id}', name: 'app_operation_show', methods: ['GET'])]
     public function show(Operation $operation): Response
     {
-        return $this->render('operation/show.html.twig', [
+        return $this->render('admin/operation/show.html.twig', [
             'operation' => $operation,
         ]);
     }
@@ -66,7 +66,7 @@ class OperationController extends AbstractController
             return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('operation/edit.html.twig', [
+        return $this->render('admin/operation/edit.html.twig', [
             'operation' => $operation,
             'form' => $form,
         ]);
@@ -132,7 +132,7 @@ class OperationController extends AbstractController
             return $this->redirectToRoute('app_operation_index');
         }
     
-        return $this->render('operation/assign.html.twig', [
+        return $this->render('admin/operation/assign.html.twig', [
             'form' => $form->createView(),
         ]);
     }

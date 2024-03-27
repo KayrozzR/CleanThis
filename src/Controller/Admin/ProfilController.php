@@ -149,7 +149,7 @@ class ProfilController extends AbstractController
         return $this->redirectToRoute('app_admin_operation_profil');
     }
 
-    #[Route('/{id}/profil', name: 'app_profil_show', methods: ['GET'])]
+    #[Route('admin/{id}/profil', name: 'app_profil_show', methods: ['GET'])]
     public function show(Operation $operation): Response
     {
         $user = $this->getUser();

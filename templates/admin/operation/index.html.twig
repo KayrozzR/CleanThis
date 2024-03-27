@@ -16,7 +16,8 @@
       <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
         <thead class="en-tête">
             <tr>
-                <th data-sortable="true" data-field="Id" class="light-weight">ID</th>
+                        <th class="light-weight">Voir détail</th>
+                        <th data-sortable="true" data-field="Id" class="light-weight">ID</th>
                         <th data-sortable="true" data-field="lastname" class="light-weight">Facture</th>
                         <th data-sortable="true" data-field="Url_devis" class="light-weight">Comment</th>
                         <th data-sortable="true" data-field="Creayed_at" class="light-weight">Note</th>
@@ -27,7 +28,6 @@
                         <th data-sortable="true" data-field="status" class="light-weight">Status de paiement</th>
                         <th data-sortable="true" data-field="status" class="light-weight">Status de l'opération</th>
                         {# <th data-sortable="true" data-field="status" class="light-weight">Adresse d'intervention</th> #}
-                        <th class="light-weight">Actions</th>
                         <th class="light-weight">Assigner</th>
                         <th class="light-weight">Assigné à</th>
             </tr>
@@ -35,6 +35,11 @@
         <tbody>
         {% for operation in operations %}
             <tr>
+                <td>
+				    <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
+						<img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
+					</a>
+				</td>
                 <td class="bold-weight">{{ operation.id }}</td>
                 <td class="bold-weight">{{ operation.facture }}</td>
                 <td class="bold-weight">{{ operation.comment }}</td>
@@ -46,10 +51,6 @@
                 <td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
                 <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td>
                 {# <td>{{ operation.addressIntervention }}</td> #}
-                <td>
-                    <a href="{{ path('app_operation_show', {'id': operation.id}) }}">show</a>
-                    {# <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a> #}
-                </td>
                 <td>
                 <a href="{{ path('app_operation_assign', {'id': operation.id}) }}" class="btn btn-primary">Attribuer</a>
                 <form action="{{ path('app_operation_unassign', {'id': operation.id}) }}" method="post" onsubmit="return confirm('Are you sure?');">
