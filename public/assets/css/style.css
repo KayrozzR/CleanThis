@@ -62,8 +62,6 @@ html {
   background-color: #372772; 
 }
 
-
-
 .card {
 background-color: rgba(255, 255, 255, 0.8); 
 border-radius: 10px;
@@ -75,7 +73,6 @@ padding: 20px;
 margin-bottom: 20px;
 text-align: center;
 }
-
 
 .card-body p {
 text-align: center;

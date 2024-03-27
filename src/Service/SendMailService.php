@@ -27,7 +27,7 @@ class SendMailService
         $this->mailer->send($email);
     }
 
-    public function sendPdf($from, $to, $subject, $template, $data = [], array $context): void
+    public function sendPdf($from, $to, $subject, $template, array $context ,$data = []): void
 {
     $email = (new TemplatedEmail())
         ->from($from)
