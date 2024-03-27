@@ -2,9 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Operation;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Operation;
+use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Repository\OperationRepository;
@@ -123,9 +124,11 @@ class ProfilController extends AbstractController
     }
 
     #[Route('/admin/profil/operation_termine/{userId}', name: 'app_operation_termine', methods: ['GET'])]
-    public function operationTermine($userId, UserRepository $userRepository, OperationRepository $operationRepository): Response
+    public function operationTermine($userId, UserRepository $userRepository, OperationRepository $operationRepository,SendMailService $mail): Response
     {
         $user = $userRepository->find($userId);
+        $email = $user->getEmail();
+        // $client = $userRepository->findOneBy(['email' =>  $email]);
 
         if (!$user) {
             throw $this->createNotFoundException('Utilisateur non trouvé');
@@ -145,6 +148,13 @@ class ProfilController extends AbstractController
         $operation->setDateFin(new \DateTimeImmutable());
 
         $this->entityManager->flush();
+
+        $mail->send('no-reply@cleanthis.fr',
+        $email,
+        'Votre facture CleanThis',
+        'facture',
+        compact('user')
+        );
 
         return $this->redirectToRoute('app_admin_operation_profil');
     }

@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Devis;
 use App\Entity\User;
 use App\Entity\Operation;
 use App\Form\OperationType;
+use App\Service\PdfService;
+use App\Entity\TypeOperation;
 use App\Form\ReclamationType;
+use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\OperationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,25 +31,6 @@ class OperationController extends AbstractController
         ]);
     }
 
-    // #[Route('/new', name: 'app_operation_new', methods: ['GET', 'POST'])]
-    // public function new(Request $request, EntityManagerInterface $entityManager): Response
-    // {
-    //     $operation = new Operation();
-    //     $form = $this->createForm(OperationType::class, $operation);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $entityManager->persist($operation);
-    //         $entityManager->flush();
-
-    //         return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->render('operation/new.html.twig', [
-    //         'operation' => $operation,
-    //         'form' => $form,
-    //     ]);
-    // }
 
     #[Route('/{id}', name: 'app_operation_show', methods: ['GET'])]
     public function show(Operation $operation): Response
@@ -71,18 +57,6 @@ class OperationController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    // #[Route('/{id}', name: 'app_operation_delete', methods: ['POST'])]
-    // public function delete(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete'.$operation->getId(), $request->request->get('_token'))) {
-    //         $entityManager->remove($operation);
-    //         $entityManager->flush();
-    //     }
-
-    //     return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
-    // }
-
 
     #[Route('/assign/{id}', name: 'app_operation_assign', methods: ['GET', 'POST'])]
     public function assignOperation(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, Operation $operation): Response
@@ -153,6 +127,5 @@ public function unassignOperation(Request $request, EntityManagerInterface $enti
 
     return $this->redirectToRoute('app_operation_index');
 }
-
 
 }

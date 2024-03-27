@@ -4,25 +4,18 @@ namespace App\Controller\Client;
 
 use App\Entity\User;
 use App\Entity\Devis;
-use App\Form\UserType;
-use App\Form\User1Type;
 use App\Form\ClientType;
-use App\Form\CustomerType;
-use App\Service\JWTService;
 use App\Entity\Operation;
+use App\Entity\TypeOperation;
 use App\Form\ReclamationType;
-use App\Service\SendMailService;
 use App\Repository\UserRepository;
-use App\Repository\DevisRepository;
-use App\Repository\OperationRepository;
+use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 #[Route('/user')]
 class CrudController extends AbstractController
@@ -167,5 +160,46 @@ class CrudController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/facture', name: 'app_operation_facture', methods: ['GET', 'POST'])]
+public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request): Response
+{  
+    $devis = $operation->getDevis()->first(); 
+    
+    if ($operation->isStatusOperation() && $devis) { 
+        
+        $typeOperation = $devis->getTypeOperation(); // Récupérer l'entité TypeOperation à partir du devis
+        
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+        $logoPath = $publicDirectory . '/images/logo.png';
+        
+        if (!file_exists($logoPath)) {
+            throw new \Exception('Le fichier logo n\'existe pas.');
+        }
+        
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoBase64 = 'data:image/png;base64,' . $logoData;
+
+        $html = $this->renderView('Pdf/facture.html.twig', [
+            'devi' => $devis,
+            'type_operation' => $typeOperation,
+            'logo_base64' => $logoBase64,
+            'operation' => $operation
+        ]);
+
+        $pdfContent = $pdf->generateBinaryPDF($html);
+        
+        return new Response(
+            $pdfContent,
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="devis.pdf"',
+            ]
+        );
+    } else {
+        $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
+        return $this->redirectToRoute('app_user_profil'); 
+    }
+} 
 
 }
