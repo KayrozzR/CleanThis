@@ -46,8 +46,6 @@
                 {# <td>{{ operation.addressIntervention }}</td> #}
                 <td>
                     <a href="{{ path('app_operation_show', {'id': operation.id}) }}">show</a>
-                    {# <a href="{{ path('app_operation_termine', {'id': operation.id}) }}">Terminer operation</a> #}
-                    <a href="#" class="sendFactureBtn actionsButton" data-operation-id="{{ operation.id }}">Terminer opération</a>
                 </td>
             </tr>
         {% else %}
@@ -78,40 +76,6 @@
             });
         });
 
-
-
-        $('.table').on('click', '.sendFactureBtn', function (e) {
-		e.preventDefault();
-		var operationId = $(this).data('operation-id');
-		var $button = $(this);
-
-		if (confirm('Êtes-vous sûr de valider l\'operation ?')) {
-				$.ajax({
-				url: '/operation/termine/' + operationId,
-				type: 'POST',
-				data: {
-				'id': operationId
-				},
-					success: function (response) {
-						alert("La facture a été envoyé sur l'espace client");
-
-						$button.closest('tr').find('.bold-weight').eq(6).text('Yes');
-						$button.closest('tr').find('.deleteBtn').hide();
-						// location.reload(); 
-					},
-					error: function (xhr) {
-						if (xhr.status === 403) {
-						alert(xhr.responseText); 
-						} else {
-						alert("Une erreur s'est produite");
-						}
-					}
-			});
-		}
-	});
-
 	</script>
-   
-
     
 {% endblock %}

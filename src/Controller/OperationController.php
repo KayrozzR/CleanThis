@@ -8,6 +8,7 @@ use App\Form\OperationType;
 use App\Service\PdfService;
 use App\Entity\TypeOperation;
 use App\Form\ReclamationType;
+use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\OperationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,28 +56,15 @@ class OperationController extends AbstractController
     }
 
 
-    #[Route('/termine/{id}', name: 'app_operation_termine', methods: ['GET', 'POST'])]
-    public function termine(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
-    {
-        if ($operation->isStatusOperation() == false){
-
-            $operation->setStatusOperation(true);
-            $entityManager->persist($operation);
-            $entityManager->flush($operation);
-
-            return $this->redirectToRoute('app_operation_index'); 
-        }
-    }
-
 
     #[Route('/{id}/facture', name: 'app_operation_facture', methods: ['GET', 'POST'])]
     public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, Devis $devi, EntityManagerInterface $entityManager, Request $request): Response
     {  
-
        if ($operation->isStatusOperation() == true) {
         
         // $devi = $operation->getDevis();
         $id_operation = $devi->getTypeOperation();
+        $email = $devi->getMail();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
         
         $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
