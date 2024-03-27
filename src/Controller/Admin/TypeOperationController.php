@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/type_operation')]
+#[Route('/type/operation')]
 class TypeOperationController extends AbstractController
 {
     #[Route('/', name: 'app_type_operation_index', methods: ['GET'])]
     public function index(TypeOperationRepository $typeOperationRepository): Response
     {
-        return $this->render('admin/type_operation/index.html.twig', [
+        return $this->render('type_operation/index.html.twig', [
             'type_operations' => $typeOperationRepository->findAll(),
         ]);
     }
@@ -43,7 +43,7 @@ class TypeOperationController extends AbstractController
         }
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        return $this->render('admin/type_operation/new.html.twig', [
+        return $this->render('type_operation/new.html.twig', [
             'type_operation' => $typeOperation,
             'form' => $form,
         ]);
@@ -52,7 +52,7 @@ class TypeOperationController extends AbstractController
     #[Route('/{id}', name: 'app_type_operation_show', methods: ['GET'])]
     public function show(TypeOperation $typeOperation): Response
     {
-        return $this->render('admin/type_operation/show.html.twig', [
+        return $this->render('type_operation/show.html.twig', [
             'type_operation' => $typeOperation,
         ]);
     }

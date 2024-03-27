@@ -17,13 +17,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/admin/operation')]
+#[Route('/operation')]
 class OperationController extends AbstractController
 {
     #[Route('/', name: 'app_operation_index', methods: ['GET'])]
     public function index(OperationRepository $operationRepository): Response
     {
-        return $this->render('admin/operation/index.html.twig', [
+        return $this->render('operation/index.html.twig', [
             'operations' => $operationRepository->findAll(),
         ]);
     }
@@ -32,7 +32,7 @@ class OperationController extends AbstractController
     #[Route('/{id}', name: 'app_operation_show', methods: ['GET'])]
     public function show(Operation $operation): Response
     {
-        return $this->render('admin/operation/show.html.twig', [
+        return $this->render('operation/show.html.twig', [
             'operation' => $operation,
         ]);
     }
@@ -49,7 +49,7 @@ class OperationController extends AbstractController
             return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/operation/edit.html.twig', [
+        return $this->render('operation/edit.html.twig', [
             'operation' => $operation,
             'form' => $form,
         ]);
@@ -58,13 +58,14 @@ class OperationController extends AbstractController
 
 
     #[Route('/{id}/facture', name: 'app_operation_facture', methods: ['GET', 'POST'])]
-    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, Devis $devi, EntityManagerInterface $entityManager, Request $request): Response
+    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, Devis $devi, EntityManagerInterface $entityManager, Request $request,SendMailService $mail): Response
     {  
        if ($operation->isStatusOperation() == true) {
         
         // $devi = $operation->getDevis();
         $id_operation = $devi->getTypeOperation();
         $email = $devi->getMail();
+        $client = $userRepository->findOneBy(['email' =>  $email]);
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
         
         $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
@@ -83,6 +84,14 @@ class OperationController extends AbstractController
             ]);
 
         $pdf ->showPdfFile($html);
+
+        $mail->send('no-reply@cleanthis.fr',
+        $devi->getMail(),
+        'Votre devis CleanThis',
+        'devis_pdf',
+        compact('client')
+        $client, 
+        );
         return new Response();
 
        }else {

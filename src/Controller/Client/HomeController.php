@@ -43,6 +43,7 @@ class HomeController extends AbstractController
         ]);
     }
 
+
     // #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
     // public function contact(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
     // {
@@ -67,5 +68,4 @@ class HomeController extends AbstractController
     //         'operation' => $operation,
     //         'form' => $form,
     //     ]);
-    
 }
