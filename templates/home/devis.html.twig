@@ -1,0 +1,18 @@
+{% extends 'basebis.html.twig' %}
+
+{% block title %}New Devis{% endblock %}
+{% block stylesheets %} 
+    {{ parent() }} {# Inclut les feuilles de style du fichier parent #}
+    {# <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}"> #}
+{% endblock %}
+
+{% block body %}
+
+<div class='text2'>
+  
+
+    {{ include('devis/_form.html.twig') }}
+
+</div>
+   
+{% endblock %}

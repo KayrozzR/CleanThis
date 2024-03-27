@@ -8,6 +8,7 @@ use App\Repository\DevisRepository;
 use App\Entity\Trait\CreatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: DevisRepository::class)]
 class Devis
@@ -19,9 +20,6 @@ class Devis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $url_devis = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
 
@@ -29,13 +27,13 @@ class Devis
     private ?string $image_object = null;
 
     #[ORM\Column(options: ['default' => false])]
-    private ?bool $status = null;
+    private ?bool $status = false;
 
     #[ORM\ManyToOne(inversedBy: 'devis')]
     private ?User $User = null;
 
-    #[ORM\ManyToMany(targetEntity: TypeOperation::class, inversedBy: 'devis')]
-    private Collection $Type_Operation;
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?TypeOperation $typeOperation = null;
 
     #[ORM\ManyToMany(targetEntity: Operation::class, inversedBy: 'devis')]
     private Collection $Operation;
@@ -57,7 +55,6 @@ class Devis
 
     public function __construct()
     {
-        $this->Type_Operation = new ArrayCollection();
         $this->Operation = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
     }
@@ -65,18 +62,6 @@ class Devis
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUrlDevis(): ?string
-    {
-        return $this->url_devis;
-    }
-
-    public function setUrlDevis(?string $url_devis): static
-    {
-        $this->url_devis = $url_devis;
-
-        return $this;
     }
 
     public function getComment(): ?string
@@ -127,26 +112,14 @@ class Devis
         return $this;
     }
 
-    /**
-     * @return Collection<int, TypeOperation>
-     */
-    public function getTypeOperation(): Collection
+    public function getTypeOperation(): ?TypeOperation
     {
-        return $this->Type_Operation;
+        return $this->typeOperation;
     }
 
-    public function addTypeOperation(TypeOperation $typeOperation): static
+    public function setTypeOperation(?TypeOperation $typeOperation): static
     {
-        if (!$this->Type_Operation->contains($typeOperation)) {
-            $this->Type_Operation->add($typeOperation);
-        }
-
-        return $this;
-    }
-
-    public function removeTypeOperation(TypeOperation $typeOperation): static
-    {
-        $this->Type_Operation->removeElement($typeOperation);
+        $this->typeOperation = $typeOperation;
 
         return $this;
     }

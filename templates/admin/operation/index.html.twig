@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Operation index{% endblock %}
+{% block stylesheets %} 
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+    {# <link rel="stylesheet" href="public/assets/css/style.css"> #}
+{% endblock %}
+
+{% block body %}
+ <section class="home">
+    <div class="text">
+    <h1>Operation index</h1>
+
+      <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+        <thead class="en-tête">
+            <tr>
+                        <th class="light-weight">Voir détail</th>
+                        <th data-sortable="true" data-field="Id" class="light-weight">ID</th>
+                        <th data-sortable="true" data-field="facture" class="light-weight">Facture</th>
+                        <th data-sortable="true" data-field="comment" class="light-weight">Comment</th>
+                        <th data-sortable="true" data-field="note" class="light-weight">Note</th>
+                        <th data-sortable="true" data-field="date_debut" class="light-weight">Début de l'opération</th>
+                        <th data-sortable="true" data-field="date_fin" class="light-weight">Fin de l'opération</th>
+                        <th data-sortable="true" data-field="image_resultat" class="light-weight">Résultat de l'opération</th>
+                        <th data-sortable="true" data-field="reclamation" class="light-weight">Réclamation</th>
+                        <th data-sortable="true" data-field="status_paiement" class="light-weight">Status de paiement</th>
+                        <th data-sortable="true" data-field="status_operation" class="light-weight">Status de l'opération</th>
+                        {# <th data-sortable="true" data-field="status" class="light-weight">Adresse d'intervention</th> #}
+                        <th class="light-weight">Assigner</th>
+                        <th class="light-weight">Assigné à</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operation in operations %}
+            <tr>
+                <td>
+                    <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
+                    <img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
+                  </a>
+                </td>
+                <td class="bold-weight">{{ operation.id }}</td>
+                <td class="bold-weight">{{ operation.facture }}</td>
+                <td class="bold-weight">{{ operation.comment }}</td>
+                <td class="bold-weight">{{ operation.note }}</td>
+                <td class="bold-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="bold-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="bold-weight">{{ operation.imageResultat }}</td>
+                <td class="bold-weight">{{ operation.reclamation }}</td>
+                <td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
+                <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td>
+                {# <td>{{ operation.addressIntervention }}</td> #}
+                <td>
+                <a href="{{ path('app_operation_assign', {'id': operation.id}) }}" class="btn btn-primary">Attribuer</a>
+                <form action="{{ path('app_operation_unassign', {'id': operation.id}) }}" method="post" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('unassign' ~ operation.id) }}">
+                    <button type="submit" class="btn btn-danger">Retirer</button>
+                </form>
+                </td>
+                <td>
+                    {% if operation.user is not null %}
+                        {{ operation.user.firstname }} {{ operation.user.lastname }}
+                    {% else %}
+                        Non assigné
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_operation_new') }}">Create new</a> #}
+</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.search input').attr('placeholder', 'Rechercher');
+            $('.search input').addClass('form-control pr-5');
+            $('.search').addClass('position-relative');
+            $('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
+            $('.search input').keydown(function(event) {
+                if (event.keyCode === 13) { 
+                    $('#searchIcon').hide();
+                }
+            });
+        });
+    </script>
+{% endblock %}

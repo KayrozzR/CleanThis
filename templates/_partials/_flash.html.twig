@@ -1,14 +1,15 @@
 {% for label, messages in app.flashes %}
-    {% for message in messages %}
-	<section class="home">
-    	<div class="text">
-        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				<div class="alert-message">
-					{{ message|raw }}
-				</div>
+
+	{% for message in messages %}
+		<section class="home">
+		    	<div class="text">
+		<div class="alert alert-{{ label }} alert-dismissible" role="alert">
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			<div class="alert-message">
+				{{ message|raw }}
 			</div>
 		</div>
-	</section>
-    {% endfor %}
+		</div>
+			</section>
+	{% endfor %}
 {% endfor %}

@@ -4,14 +4,19 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Operation;
+use App\Service\SendMailService;
+use App\Repository\UserRepository;
+use App\Repository\DevisRepository;
+use App\Repository\OperationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Routing\Attribute\Route;
 
 class ProfilController extends AbstractController
 {
@@ -34,90 +39,134 @@ class ProfilController extends AbstractController
     #[Route('/{id}/edit/profil', name: 'app_user_edit_profil', methods: ['POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        // Récupérer le nom du champ à mettre à jour depuis la requête AJAX
         $requestData = json_decode($request->getContent(), true);
         $fieldName = key($requestData);
-    
-        // Récupérer la nouvelle valeur du champ depuis la requête AJAX
+
         $newFieldValue = $requestData[$fieldName];
-    
-        // Vérifier si le champ à mettre à jour existe dans l'entité User
+
         if (!property_exists(User::class, $fieldName)) {
             return new JsonResponse(['error' => 'Champ invalide'], 400);
         }
-    
-        // Mettre à jour le champ approprié de l'utilisateur
+
         $setterMethod = 'set' . ucfirst($fieldName);
         $user->$setterMethod($newFieldValue);
-    
-        // Sauvegarder les modifications en base de données
+
         $entityManager->flush();
-    
-        // Renvoyer une réponse JSON pour indiquer que les modifications ont été enregistrées avec succès
+
         return new JsonResponse(['success' => true]);
     }
     #[Route('/save-password', name: 'app_save_password', methods: ['POST'])]
     public function savePassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
-        // Récupérer les données envoyées depuis la requête AJAX
+
         $requestData = json_decode($request->getContent(), true);
         $currentPassword = $requestData['currentPassword'];
         $newPassword = $requestData['newPassword'];
-    
-        // Récupérer l'utilisateur actuellement connecté
+
         $user = $this->getUser();
-    
-        // Vérifier que le mot de passe actuel est correct
+
         if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
             return new JsonResponse(['error' => 'Le mot de passe actuel est incorrect'], 400);
         }
-    
-        // Mettre à jour le mot de passe de l'utilisateur avec le nouveau mot de passe
+
         $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
         $user->setPassword($hashedPassword);
-    
-        // Sauvegarder les modifications en base de données
+
         $this->entityManager->flush();
-    
-        // Renvoyer une réponse JSON pour indiquer que les modifications ont été enregistrées avec succès
+
+
         return new JsonResponse(['success' => true]);
     }
 
-    #[Route("/upload-avatar", name:"upload_avatar", methods:['POST'])]
-    
+    #[Route("/upload-avatar", name: "upload_avatar", methods: ['POST'])]
+
     public function uploadAvatar(Request $request): Response
     {
-        // Récupérer le fichier envoyé
+
         $file = $request->files->get('avatar');
 
         if ($file) {
-            // Générer un nom unique pour le fichier
+
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
-            // Spécifier le répertoire où vous souhaitez stocker les avatars
             $directory = $this->getParameter('kernel.project_dir') . '/public/uploads/avatars';
 
-            // Déplacer le fichier vers le répertoire spécifié
             $file->move($directory, $fileName);
 
-            // Mettre à jour l'avatar de l'utilisateur
             $user = $this->getUser();
             $user->setAvatar('uploads/avatars/' . $fileName);
 
-            // Get the EntityManager
             $entityManager = $this->entityManager;
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Redirection vers la page où vous affichez l'utilisateur
             return $this->redirectToRoute('app_admin_profil');
         }
-
-        // Si aucun fichier n'a été envoyé, afficher un message d'erreur ou gérer selon vos besoins
-        // ...
-
-        // Si vous avez besoin de retourner une réponse différente
-        // return new Response('Erreur lors du téléchargement de l\'avatar', 400);
     }
+    #[Route('admin/profil/operation_profil', name: 'app_admin_operation_profil', methods: ['GET'])]
+    public function index_profil(OperationRepository $operationRepository): Response
+    {
+        $currentUser = $this->getUser();
+        $devis = $this->getUser()->getDevis();
+
+        if ($currentUser) {
+
+            $operations = $operationRepository->findBy(['user' => $currentUser]);
+        } else {
+
+            $operations = [];
+        }
+
+        return $this->render('admin/profil/operation_profil.html.twig', [
+            'operations' => $operations,
+            'devis' => $devis,
+        ]);
     }
-    
+
+    #[Route('/admin/profil/operation_termine/{userId}', name: 'app_operation_termine', methods: ['GET'])]
+    public function operationTermine($userId, UserRepository $userRepository, OperationRepository $operationRepository,SendMailService $mail): Response
+    {
+        $user = $userRepository->find($userId);
+        $email = $user->getEmail();
+        // $client = $userRepository->findOneBy(['email' =>  $email]);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé');
+        }
+
+        $user->setOperationsFinalisee($user->getOperationsFinalisee() + 1);
+
+        $user->setOperationEnCours($user->getOperationEnCours() - 1);
+
+        $operation = $operationRepository->findOneBy(['user' => $user, 'status_operation' => false]);
+
+        if (!$operation) {
+            throw $this->createNotFoundException("Aucune opération en cours pour cet utilisateur");
+        }
+
+        $operation->setStatusOperation(true);
+        $operation->setDateFin(new \DateTimeImmutable());
+
+        $this->entityManager->flush();
+
+        $mail->send('no-reply@cleanthis.fr',
+        $email,
+        'Votre facture CleanThis',
+        'facture',
+        compact('user')
+        );
+
+        return $this->redirectToRoute('app_admin_operation_profil');
+    }
+
+    #[Route('/admin/{id}/profil', name: 'app_profil_show', methods: ['GET'])]
+    public function show(Operation $operation): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('admin/profil/show.html.twig', [
+            'operation' => $operation,
+            'user' => $user,
+        ]);
+    }
+}

@@ -48,8 +48,16 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_profil'));
+        $user=$token->getUser(); 
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
+        }elseif (in_array('ROLE_SENIOR', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
+        }elseif (in_array('ROLE_APPRENTI', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
+        }else {
+            return new RedirectResponse($this->urlGenerator->generate('app_user_profil'));
+        }
     }
 
     protected function getLoginUrl(Request $request): string

@@ -3,7 +3,9 @@
 {% block title %}Devis{% endblock %}
 
 {% block body %}
-    <div class="container" style="padding-top: 100px; margin-left: 300px">
+<section class='home'>
+    <div class='text'>
+    {# <div class="container" style="padding-top: 100px; margin-left: 300px"> #}
         <div>
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
@@ -36,13 +38,13 @@
                                     <h6 class="mb-0">Url_devis</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    {{ devi.urlDevis }}
+                                    {{ devi.urldevis }}
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Commentaire</h6>
+                                    <h6 class="mb-0">Commentaires</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ devi.comment }}
@@ -54,7 +56,31 @@
                                     <h6 class="mb-0">Image_object</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    {{ devi.imageObject }}
+                                    <div id="imageContainer" style="cursor: pointer;">Cliquez pour agrandir l'image</div>
+                                    <script>
+                                        document.getElementById("imageContainer").addEventListener("click", function() {
+                                            var imageUrl = "{{ asset('uploads/services/' ~ devi.imageObject) }}";
+                                            var enlargedImage = document.createElement("img");
+                                            enlargedImage.src = imageUrl;
+                                            enlargedImage.alt = "Image agrandie";
+                                            enlargedImage.style.maxWidth = "100%";
+                                            var overlay = document.createElement("div");
+                                            overlay.style.position = "fixed";
+                                            overlay.style.top = "0";
+                                            overlay.style.left = "0";
+                                            overlay.style.width = "100%";
+                                            overlay.style.height = "100%";
+                                            overlay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+                                            overlay.style.display = "flex";
+                                            overlay.style.justifyContent = "center";
+                                            overlay.style.alignItems = "center";
+                                            overlay.appendChild(enlargedImage);
+                                            document.body.appendChild(overlay);
+                                            overlay.addEventListener("click", function() {
+                                                document.body.removeChild(overlay);
+                                            });
+                                        });
+                                    </script>
                                 </div>
                             </div>
                             <hr>
@@ -78,5 +104,7 @@
             </div>
             <a href="{{ path('app_devis_index') }}" class= "retour">← Retour à la liste</a>
         </div>
+    {# </div> #}
     </div>
+</section>
 {% endblock %}

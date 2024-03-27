@@ -23,7 +23,6 @@ class CustomerController extends AbstractController
     #[Route('/', name: 'app_customer_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        // Récupérer uniquement les utilisateurs ayant le rôle 'ROLE_CLIENT'
         $roles = ['ROLE_CLIENT'];
         $customers = $userRepository->findByRoles($roles);
 
@@ -46,17 +45,15 @@ class CustomerController extends AbstractController
             try {$entityManager->persist($user);
                 $entityManager->flush();
     
-                  //We generate the jwt of the user
-                //We cretae the header
                 $header =[
                     'typ'=>'JWT',
                     'alg'=>'HS256'
                 ];
-                //We create the payload
+
                 $payload =[
                     'user_id'=>$user->getId()
                 ];
-                //We generate the token
+
                 $token = $jwt->generate($header,$payload,
                 $this->getParameter('app.jwtsecret'));
     
@@ -70,13 +67,10 @@ class CustomerController extends AbstractController
                 return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
                 
             } catch (UniqueConstraintViolationException $e) {
-                // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
                 if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
-                    // Définir le message d'erreur approprié
                     $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
                 }
-                // Autres exceptions de violation de contrainte d'unicité peuvent être gérées ici si nécessaire
-                // Vous pouvez ajouter d'autres blocs if-else pour d'autres contraintes d'unicité si nécessaire
+
             }
         }
     
@@ -114,9 +108,9 @@ class CustomerController extends AbstractController
 
                 return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
             } catch (UniqueConstraintViolationException $e) {
-                // Vérifier si le message d'erreur indique une violation de la contrainte d'unicité pour l'adresse e-mail
+
                 if (str_contains($e->getMessage(), 'Duplicate entry') && str_contains($e->getMessage(), 'for key \'UNIQ_8D93D649E7927C74\'')) {
-                    // Définir le message d'erreur approprié
+
                     $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
                 }
 

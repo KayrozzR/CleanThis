@@ -1,0 +1,317 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Banner Hero Section Styles */
+.hero {
+  background-color: white;
+  color: black;
+  /* padding: 100px 0; */
+  text-align: center;
+}
+
+.hero img {
+  display: block;
+  margin: 0 auto; /* Centre l'image horizontalement */
+  max-width: 100%; /* Assure que l'image ne dépasse pas la largeur du container */
+  height: auto; /* Garde le ratio hauteur-largeur */
+}
+
+.banner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-text {
+  position: absolute;
+}
+
+.hero h2 {
+  margin-bottom: 20px;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Pour Qui et Pour Quoi Section*/
+
+.section-title {
+  text-align: center;
+  font-size: 40px;
+  margin: 40px 0 50px; /* Adjust top margin as needed */
+}
+
+.categories-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category {
+  flex: 1; /* Give each category equal space */
+  text-align: center;
+  margin: 0 150px; /* Space between categories */
+}
+
+.category img {
+  border-radius: 50%;
+  width: 250px; /* Set as needed */
+  height: 250px; /* Set as needed */
+  margin-bottom: 20px; /* Space below the image */
+  object-fit: cover;
+}
+
+.category h3 {
+  margin: 10px 0; /* Space above and below the title */
+  font-size: 18px;
+}
+
+.category p {
+  font-size: 14px;
+  color: #666;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.cta-button {
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+.cta-button:hover {
+  background-color: #555;
+}
+
+/* Employee Section */
+.employees-section {
+  background-color: #ffff; /* La couleur beige de l'arrière-plan spécifique à la section */
+  padding: 50px 0; /* Espacement autour de la section */
+  text-align: center;
+}
+
+.employee-card {
+  background-color: #f2c57c; /* Fond blanc pour la carte de l'employé */
+  border-radius: 16px; /* Coins arrondis de la carte */
+  display: inline-block;
+  margin: 15px;
+  max-width: 300px; /* Largeur maximale de la carte */
+  padding: 40px 20px; /* Espacement à l'intérieur de la carte */
+  position: relative; /* Pour positionner absolument la photo de l'employé */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre portée pour donner de la profondeur */
+}
+
+.employee-image {
+  width: 80px; /* Taille de l'image de l'employé */
+  height: 80px; /* Taille de l'image de l'employé */
+  border-radius: 50%; /* Pour rendre l'image circulaire */
+  position: absolute; /* Position absolue pour dépasser de la carte */
+  top: -40px; /* Décalage vers le haut pour chevaucher le haut de la carte */
+  left: 50%; /* Départ à gauche à 50% de la largeur de la carte */
+  transform: translateX(
+    -50%
+  ); /* Centrer l'image par rapport à sa propre largeur */
+  border: 3px solid #ffffff;
+  object-fit: cover; /* Bordure blanche autour de l'image */
+}
+
+.employee-name {
+  margin-top: 50px; /* Espace pour la photo de l'employé */
+  font-weight: bold;
+}
+
+.employee-quote {
+  font-style: italic;
+  color: #333333;
+  margin-top: 15px;
+}
+
+/* Pourquoi choisir CleanThis Service */
+.container2 {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+.heading {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+.benefits {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.benefit {
+  flex-basis: calc(33.333% - 40px);
+  margin: 20px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.benefit h3 {
+  margin-top: 0;
+}
+.icon {
+  font-size: 50px;
+  margin: 20px 0;
+}
+.button-container {
+  text-align: center; /* Centre le bouton dans le conteneur */
+  margin-top: 20px; /* Espace au-dessus du bouton */
+}
+.button {
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+/* Contact Section Styles */
+.contact {
+  background-color: #f7f7f7;
+  padding: 100px 0;
+}
+
+.contact form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group textarea {
+  height: 150px;
+}
+
+.btn {
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+.testimonials {
+  background: #f0f0f0; /* Couleur de fond de la section */
+  padding: 50px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.testimonials h2 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.testimonial-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 300px; /* Ou toute autre largeur selon votre mise en page */
+}
+
+.rating {
+  /* Style pour le système d'évaluation par étoiles */
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: #666;
+  margin: 15px 0;
+}
+
+.testimonial-author {
+  color: #333;
+  font-weight: bold;
+}
+
+.btn-request-quote {
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .testimonial-cards {
+    flex-direction: column;
+  }
+}
+
