@@ -8,6 +8,7 @@ use App\Repository\DevisRepository;
 use App\Entity\Trait\CreatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: DevisRepository::class)]
 class Devis

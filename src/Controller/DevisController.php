@@ -15,6 +15,7 @@ use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
 use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,16 +67,29 @@ class DevisController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $serv = $form->getData();
+            $existingDevis = $entityManager->getRepository(Devis::class)->findOneBy([
+                'mail' => $devi->getMail(),
+                'typeOperation' => $devi->getTypeOperation(),
+                'adresse_intervention' => $devi->getAdresseIntervention()
+            ]);
+
+            if ($existingDevis !== null) {
+                $this->addFlash('error', 'Ce devis existe déjà.');
+                return $this->redirectToRoute('app_devis_new');
+            }
+
+            // $serv = $form->getData();
             $mail = $form->get('mail')->getData();
             $mailConfirmation = $form->get('mailConfirmation')->getData();
 
             if ($mail === $mailConfirmation) {
 
-                if($photo = $form['image_object']->getData()){
+                if ($form->get('image_object')->getData() !== null) {
+                    $photo = $form['image_object']->getData();
                     $fileName = uniqid().'.'.$photo->guessExtension();
                     $photo->move($this->getParameter('photo_dir'), $fileName);
-                    $serv->setImageObject($fileName);
+                    $file = new File($this->getParameter('photo_dir').'/'.$fileName);                    
+                    $devi->setImageObject($file);
                 }
 
                     $entityManager->persist($devi);
@@ -90,7 +104,7 @@ class DevisController extends AbstractController
 
         return $this->render('devis/new.html.twig', [
             'devi' => $devi,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -125,9 +139,15 @@ class DevisController extends AbstractController
             $status = $request->request->get('status');
             
             if ($status === 'true') {
-
+                
                 $currentUser->setOperationEnCours(($currentUser->getOperationEnCours() ?? 0) + 1);
                 $entityManager->persist($currentUser);
+                $existingUser = $entityManager->getRepository(User::class)->findOneByEmail($devi->getMail());
+
+                if ($existingUser) {
+                    
+                    $devi->setUser($existingUser);
+                } else {
 
                 $user = new User();
 
@@ -140,6 +160,8 @@ class DevisController extends AbstractController
               
                 $entityManager->persist($user);
                 $entityManager->flush();
+
+                $devi->setUser($user);
 
                 $header =[
                     'typ'=>'JWT',
@@ -161,20 +183,19 @@ class DevisController extends AbstractController
                 );
 
 
-                $operation = new Operation();
-
-                $operation->setUser($currentUser);
-                
-                $devi->addOperation($operation);
-
-                $devi->setUser($user);
-
-                $devi->setStatus(true);
-                
-                $entityManager->persist($operation);
-                $entityManager->persist($devi);
-                $entityManager->flush();
             }
+            $operation = new Operation();
+
+            $operation->setUser($currentUser);
+            
+            $devi->addOperation($operation);
+
+            $devi->setStatus(true);
+            
+            $entityManager->persist($operation);
+            $entityManager->persist($devi);
+            $entityManager->flush();
+        }
             
         }
 
@@ -194,23 +215,25 @@ class DevisController extends AbstractController
     {
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
-        $serv = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            if($photo = $form['image_object']->getData()){
+            
+            if ($form->get('image_object')->getData() !== null) {
+                $photo = $form['image_object']->getData();
                 $fileName = uniqid().'.'.$photo->guessExtension();
                 $photo->move($this->getParameter('photo_dir'), $fileName);
-                $serv->setImageObject($fileName);
+                $file = new File($this->getParameter('photo_dir').'/'.$fileName);
+                $devi->setImageObject($file);
             }
+            
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('devis/edit.html.twig', [
             'devi' => $devi,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
