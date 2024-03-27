@@ -35,7 +35,7 @@ class CrudController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/profil', name: 'app_user_profil')]
+    #[Route('/profile', name: 'app_user_profil')]
     public function index(): Response
     {  
         $user = $this->getUser();
