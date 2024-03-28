@@ -4,18 +4,20 @@ namespace App\Controller\Client;
 
 use App\Entity\User;
 use App\Entity\Devis;
+use App\Form\DevisType;
 use App\Form\ClientType;
 use App\Entity\Operation;
+use App\Service\PdfService;
 use App\Entity\TypeOperation;
 use App\Form\ReclamationType;
 use App\Repository\UserRepository;
-use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 #[Route('/user')]
 class CrudController extends AbstractController
@@ -31,7 +33,7 @@ class CrudController extends AbstractController
     #[Route('/profile', name: 'app_user_profil')]
     public function index(): Response
     {
-        
+
         $user = $this->getUser();
 
         // Vérifie if the user is connected
@@ -56,7 +58,7 @@ class CrudController extends AbstractController
             // we send the operations to the view
             return $this->render('client/profil.html.twig', [
                 'controller_name' => 'ClientController',
-                'operations' => $operations, 
+                'operations' => $operations,
                 'devi' => $devis,
             ]);
         } else {
@@ -71,7 +73,7 @@ class CrudController extends AbstractController
         $form->handleRequest($request);
         $user = $this->getUser();
         $error = null;
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $entityManager->flush();
@@ -83,9 +85,7 @@ class CrudController extends AbstractController
                     // Définir le message d'erreur approprié
                     $error = 'L\'adresse e-mail existe déjà. Veuillez en choisir une autre.';
                 }
-
             }
-            
         }
         return $this->render('client/edit_profil.html.twig', [
             'form' => $form,
@@ -161,45 +161,113 @@ class CrudController extends AbstractController
     }
 
     #[Route('/{id}/facture', name: 'app_operation_facture', methods: ['GET', 'POST'])]
-public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request): Response
-{  
-    $devis = $operation->getDevis()->first(); 
+    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $devis = $operation->getDevis()->first();
+
+        if ($operation->isStatusOperation() && $devis) {
+
+            $typeOperation = $devis->getTypeOperation(); // Récupérer l'entité TypeOperation à partir du devis
+
+            $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+            $logoPath = $publicDirectory . '/images/logo.png';
+
+            if (!file_exists($logoPath)) {
+                throw new \Exception('Le fichier logo n\'existe pas.');
+            }
+
+            $logoData = base64_encode(file_get_contents($logoPath));
+            $logoBase64 = 'data:image/png;base64,' . $logoData;
+
+            $html = $this->renderView('Pdf/facture.html.twig', [
+                'devi' => $devis,
+                'type_operation' => $typeOperation,
+                'logo_base64' => $logoBase64,
+                'operation' => $operation
+            ]);
+
+            $pdfContent = $pdf->generateBinaryPDF($html);
+
+            return new Response(
+                $pdfContent,
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'attachment; filename="facture.pdf"',
+                ]
+            );
+        } else {
+            $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
+            return $this->redirectToRoute('app_user_profil');
+        }
+    }
+
+    #[Route('/devis', name: 'app_devis_client', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $devi = new Devis();
+        $form = $this->createForm(DevisType::class, $devi);
+        $form->handleRequest($request);
+        $user = $this->getUser();
     
-    if ($operation->isStatusOperation() && $devis) { 
-        
-        $typeOperation = $devis->getTypeOperation(); // Récupérer l'entité TypeOperation à partir du devis
-        
-        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
-        $logoPath = $publicDirectory . '/images/logo.png';
-        
-        if (!file_exists($logoPath)) {
-            throw new \Exception('Le fichier logo n\'existe pas.');
+   
+        if ($user) {
+    
+            $devi->setLastname($user->getLastname());
+            $devi->setFirstname($user->getFirstname());
+            $devi->setMail($user->getEmail());
+            $devi->setTel($user->getTel());
+            
+            // Rendre les champs non modifiables
+            $form = $this->createForm(DevisType::class, $devi, ['disabled_fields' => true]);
+        } else {
+            // Si l'utilisateur n'est pas connecté, créer un formulaire vide
+            $form = $this->createForm(DevisType::class, $devi);
         }
         
-        $logoData = base64_encode(file_get_contents($logoPath));
-        $logoBase64 = 'data:image/png;base64,' . $logoData;
+        $form->handleRequest($request);
 
-        $html = $this->renderView('Pdf/facture.html.twig', [
-            'devi' => $devis,
-            'type_operation' => $typeOperation,
-            'logo_base64' => $logoBase64,
-            'operation' => $operation
+        // $type_operations = $entityManager->getRepository(TypeOperation::class)->findAll();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $existingDevis = $entityManager->getRepository(Devis::class)->findOneBy([
+                'mail' => $devi->getMail(),
+                'typeOperation' => $devi->getTypeOperation(),
+                'adresse_intervention' => $devi->getAdresseIntervention()
+            ]);
+
+            if ($existingDevis !== null) {
+                $this->addFlash('error', 'Ce devis existe déjà.');
+                return $this->redirectToRoute('app_devis_client');
+            }
+
+
+            $serv = $form->getData();
+            $mail = $form->get('mail')->getData();
+            $mailConfirmation = $form->get('mailConfirmation')->getData();
+
+            if ($mail === $mailConfirmation) {
+
+                if($photo = $form['image_object']->getData()){
+                    $fileName = uniqid().'.'.$photo->guessExtension();
+                    $photo->move($this->getParameter('photo_dir'), $fileName);
+                    $serv->setImageObject($fileName);
+                }
+
+                    $entityManager->persist($devi);
+                    $entityManager->flush();
+            }else { 
+                $this->addFlash('error', 'Les mails ne correspondent pas');
+                return $this->redirectToRoute('app_devis_client', [], Response::HTTP_SEE_OTHER);
+            };
+
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('client/devis.html.twig', [
+            'devi' => $devi,
+            'form' => $form,
         ]);
-
-        $pdfContent = $pdf->generateBinaryPDF($html);
-        
-        return new Response(
-            $pdfContent,
-            Response::HTTP_OK,
-            [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="devis.pdf"',
-            ]
-        );
-    } else {
-        $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
-        return $this->redirectToRoute('app_user_profil'); 
     }
-} 
-
 }

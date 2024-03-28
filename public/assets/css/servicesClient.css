@@ -36,17 +36,19 @@ body {
 }
 
 .btn {
-  display: inline-block;
-  background-color: #333;
-  color: #fff;
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;
   padding: 10px 20px;
-  text-decoration: none;
+  border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-transform: uppercase;
 }
 
 .btn:hover {
-  background-color: #555;
+  background-color: #005aa7;
 }
 
 .cleaning-section {
@@ -146,7 +148,8 @@ body {
 
 .btn-info {
   padding: 10px 20px;
-  background-color: #0055a4;
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  color: white;;
   border: none;
   cursor: pointer;
   border-radius: 5px; 

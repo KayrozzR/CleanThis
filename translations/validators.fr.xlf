@@ -593,6 +593,10 @@
         <source>Please enter a email</source>
         <target>__Please enter a email</target>
       </trans-unit>
+      <trans-unit id="JGSIBpN" resname="Le formualire n'est pas complété ">
+        <source>Le formualire n'est pas complété </source>
+        <target>__Le formualire n'est pas complété </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

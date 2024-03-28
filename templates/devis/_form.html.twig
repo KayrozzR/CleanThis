@@ -2,7 +2,7 @@
 	<section class="home1">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-6">
+				<div class="col-md-6 mt-5">
 					<div class="card">
 						<div class="card-header">
 							<h2 class="text-center">Demande de devis</h2>
@@ -37,12 +37,12 @@
 							</div>
 							<div style="margin-left: 25%" class="col-md-6">
 								<div class="d-flex align-items-center">
-								{{ form_row(form.Type_Operation) }}
-								<a href="/type/operation">
-									<span class="type-description" style="cursor: pointer;">
-										<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
-									</span>
-								</a>
+									{{ form_row(form.Type_Operation) }}
+									<a href="/type/operation">
+										<span class="type-description" style="cursor: pointer;">
+											<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
+										</span>
+									</a>
 								</div>
 							</div>
 							<div id="image-object-field" style="display: none;">
@@ -51,9 +51,9 @@
 
 							{{ form_row(form.comment) }}
 
-							<button class="btn">Envoi devis</button>
+							<button class="btn btn-primary">Envoi devis</button>
 							{{ form_end(form) }}
-							<a href="{{ path('app_devis_index') }}">Retour à la liste</a>
+
 						</div>
 					</div>
 				</div>
@@ -63,21 +63,21 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-$(document).ready(function () { 
-    $('#image-object-field').hide();
+		$(document).ready(function () {
+$('#image-object-field').hide();
 
-    $('.type-operation-select').change(function () {
-        console.log('Nouvelle valeur sélectionnée :', $(this).val());
-        var selectedOptionLabel = $(this).find('option:selected').text().toLowerCase();
-        var keyword = 'custom';
-        if (selectedOptionLabel.indexOf(keyword.toLowerCase()) !== -1) {
-            console.log('Option contenant "Custom" sélectionnée');
-            $('#image-object-field').show();
-        } else {
-            console.log('Autre option sélectionnée');
-            $('#image-object-field').hide();
-        }
-    });
+$('.type-operation-select').change(function () {
+console.log('Nouvelle valeur sélectionnée :', $(this).val());
+var selectedOptionLabel = $(this).find('option:selected').text().toLowerCase();
+var keyword = 'custom';
+if (selectedOptionLabel.indexOf(keyword.toLowerCase()) !== -1) {
+console.log('Option contenant "Custom" sélectionnée');
+$('#image-object-field').show();
+} else {
+console.log('Autre option sélectionnée');
+$('#image-object-field').hide();
+}
 });
-</script>
+});
+	</script>
 {% endblock %}

@@ -70,13 +70,23 @@ class DevisType extends AbstractType
                         'style' => 'justify-content: center; margin-top: 5px; margin-bottom: 5px;' // Ajoutez la marge supérieure ici
                     ],
                 ]);
-        }
+
+                if ($options['disabled_fields']) {
+                    $builder->get('lastname')->setDisabled(true);
+                    $builder->get('firstname')->setDisabled(true);
+                    $builder->get('mail')->setDisabled(true);
+                    // $builder->get('mailConfirmation')->setDisabled(true);
+                    $builder->get('tel')->setDisabled(true);
+                }
+            }
+        
         
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Devis::class,
+            'disabled_fields' => false,
         ]);
     }
 }

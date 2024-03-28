@@ -7,13 +7,19 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="">A Propos</a>
+					<a class="nav-link active" aria-current="page" href="">{% trans %}
+						About us
+						{% endtrans %}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/contact_form">Nous contacter</a>
+					<a class="nav-link active" aria-current="page" href="/contact_form">{% trans %}
+						Contact us
+						{% endtrans %}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{ path('app_services') }}">Nos services</a>
+					<a class="nav-link active" aria-current="page" href="{{ path('app_services') }}">{% trans %}
+						Our services
+						{% endtrans %}</a>
 				</li>
 			</ul>
 
@@ -21,20 +27,28 @@
 				{% if app.user %}
 					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SENIOR') %}
 						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_employe_index') }}">Administration</a>
+							<a class="nav-link active" href="{{ path('app_employe_index') }}">{% trans %}
+								Management
+								{% endtrans %}</a>
 						</li>
 					{% endif %}
 					<li class="nav-item">
 
-						<a class="nav-link active" href="{{ path('app_user_profil' ) }}">Mon Compte</a>
+						<a class="nav-link active" href="{{ path('app_user_profil' ) }}">{% trans %}
+							My account
+							{% endtrans %}</a>
 
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('auth_oauth_logout' ) }} ">Me déconnecter</a>
+						<a class="nav-link active" href="{{ path('auth_oauth_logout' ) }} ">{% trans %}
+							Logout
+							{% endtrans %}</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('auth_oauth_login' ) }} ">Me connecter</a>
+						<a class="nav-link active" href="{{ path('auth_oauth_login' ) }} ">{% trans %}
+							Log in
+							{% endtrans %}</a>
 					</li>
 				{% endif %}
 
