@@ -281,7 +281,6 @@ class CrudController extends AbstractController
             'form' => $form,
         ]);
     }
-}
 
 #[Route('/{id}/note', name: 'note', methods: ['GET', 'POST'])]
     public function note(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response

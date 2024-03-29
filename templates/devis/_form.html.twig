@@ -1,12 +1,8 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Demande de devis{% endblock %}
-
 {% block body %}
 <section class="home1">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 mt-5">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="text-center">Demande de devis</h2>
@@ -85,46 +81,46 @@ $('#image-object-field').hide();
 	</script>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var adresseInput = document.querySelector('.adresse-autocomplete');
+    {# <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var adresseInput = document.querySelector('.adresse-autocomplete');
 
-            if (!adresseInput) return;
+        if (!adresseInput) return;
 
-            function performSearchAndUpdateAdresse(query) {
-                fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`)
-                    .then(response => response.json())
-                    .then(data => {
-                        
-                        suggestionsContainer.innerHTML = '';
-
-                       
-                        data.features.forEach((feature) => {
-                            var suggestion = document.createElement('div');
-                            suggestion.className = 'suggestion';
-                            suggestion.innerText = feature.properties.label;
-
-                           
-                            suggestion.addEventListener('click', function() {
-                                adresseInput.value = feature.properties.label;
-                                suggestionsContainer.innerHTML = '';
-                            });
-
-                            suggestionsContainer.appendChild(suggestion);
-                        });
-                    })
-                    .catch(error => console.error('Erreur API:', error));
-
+        function performSearchAndUpdateAdresse(query) {
             var suggestionsContainer = document.createElement('div');
             suggestionsContainer.className = 'suggestions-container';
-            adresseInput.parentNode.appendChild(suggestionsContainer);
 
-            // Écouter les événements de saisie sur le champ adresse_intervention
-            adresseInput.addEventListener('input', function() {
-                var query = adresseInput.value;
-                if (query.length < 3) return; // Éviter les requêtes trop fréquentes
-                performSearchAndUpdateAdresse(query);
-            });
+            fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsContainer.innerHTML = '';
+
+                    data.features.forEach((feature) => {
+                        var suggestion = document.createElement('div');
+                        suggestion.className = 'suggestion';
+                        suggestion.innerText = feature.properties.label;
+
+                        suggestion.addEventListener('click', function() {
+                            adresseInput.value = feature.properties.label;
+                            suggestionsContainer.innerHTML = '';
+                        });
+
+                        suggestionsContainer.appendChild(suggestion);
+                    });
+                })
+                .catch(error => console.error('Erreur API:', error));
+        }
+
+        // Écouter les événements de saisie sur le champ adresse_intervention
+        adresseInput.addEventListener('input', function() {
+            var query = adresseInput.value;
+            if (query.length < 3) return; // Éviter les requêtes trop fréquentes
+            performSearchAndUpdateAdresse(query);
         });
-    </script>
+
+        adresseInput.parentNode.appendChild(suggestionsContainer);
+    });
+</script> #}
+
 {% endblock %}
