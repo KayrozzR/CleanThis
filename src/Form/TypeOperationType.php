@@ -4,12 +4,13 @@ namespace App\Form;
 
 use App\Entity\Devis;
 use App\Entity\TypeOperation;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 class TypeOperationType extends AbstractType
 {
@@ -44,7 +45,8 @@ class TypeOperationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ]
-            ]);
+            ])
+            ->add('color', ColorType::class);
             // ->add('devis', EntityType::class, [
             //     'class' => Devis::class,
             //     'choice_label' => 'id',

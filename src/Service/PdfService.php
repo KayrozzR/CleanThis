@@ -25,7 +25,7 @@ class PdfService
 
 
     public function showPdfFile($html) {
-        $filename = "details.pdf";
+        $filename = "CleanThis.pdf";
         $this->domPdf->loadHtml($html);
         $this->domPdf->render();
         $this->domPdf->stream($filename , [

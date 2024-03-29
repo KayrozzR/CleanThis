@@ -8,12 +8,14 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Repository\OperationRepository;
+use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -123,7 +125,7 @@ class ProfilController extends AbstractController
     }
 
     #[Route('/admin/profil/operation_termine/{userId}', name: 'app_operation_termine', methods: ['GET'])]
-    public function operationTermine($userId, UserRepository $userRepository, OperationRepository $operationRepository): Response
+    public function operationTermine($userId, UserRepository $userRepository, OperationRepository $operationRepository, SendMailService $mail): Response
     {
         $user = $userRepository->find($userId);
 
@@ -136,6 +138,8 @@ class ProfilController extends AbstractController
         $user->setOperationEnCours($user->getOperationEnCours() - 1);
 
         $operation = $operationRepository->findOneBy(['user' => $user, 'status_operation' => false]);
+        $devis = $operation->getDevis()->first(); 
+        $client = $devis->getUser();
 
         if (!$operation) {
             throw $this->createNotFoundException("Aucune opération en cours pour cet utilisateur");
@@ -145,6 +149,13 @@ class ProfilController extends AbstractController
         $operation->setDateFin(new \DateTimeImmutable());
 
         $this->entityManager->flush();
+
+        $mail->send('no-reply@cleanthis.fr',
+        $client->getEmail(),
+        'Votre facture CleanThis',
+        'facture',
+        compact('client')
+        );
 
         return $this->redirectToRoute('app_admin_operation_profil');
     }

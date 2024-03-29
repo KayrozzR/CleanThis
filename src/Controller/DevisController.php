@@ -290,7 +290,6 @@ class DevisController extends AbstractController
         );
     }
 
-
     #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST', 'GET'])]
     public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, SendMailService $mail, Filesystem $filesystem): Response
     {

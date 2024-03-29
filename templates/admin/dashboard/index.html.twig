@@ -1,0 +1,88 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
+        <title>Dashboard</title>
+    </head>
+
+{% include "_partials/_sidebar.html.twig" %}
+
+{% block body %}
+<section class='home'>
+	<div class='text'>
+
+        <div>
+           <canvas id="CA/service" width="50" height="50"></canvas>
+        </div>
+        <div>
+           <canvas id="CA" width="50" height="50"></canvas>
+        </div>
+        {# {{dump()}} #}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{{ asset('js/dashboard.js') }}" defer></script>
+
+<script>
+    const ctx = document.getElementById('CA/service');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ chiffreAffairesParType|keys|json_encode|raw }},
+            datasets: [{
+                label: 'Chiffre d\'affaires par catégorie',
+                data: [
+                    {% for value in chiffreAffairesParType %}
+                        {{ value }},
+                    {% endfor %}
+                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    const ctx1 = document.getElementById('CA');
+
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: {{ chiffreAffaire|keys|json_encode|raw }},
+            datasets: [{
+                label: 'Chiffre d\'affaire de l\'entrprise',
+                data: [
+                    'chiffreAffaire'
+                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+<script src="{{ asset('js/script.js') }}" defer></script>
+{% endblock %}

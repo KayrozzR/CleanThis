@@ -128,5 +128,4 @@ public function unassignOperation(Request $request, EntityManagerInterface $enti
     return $this->redirectToRoute('app_operation_index');
 }
 
->>>>>>> b20fc5b55bfff3d6f9947d096a7820aa3fb0239c
 }
