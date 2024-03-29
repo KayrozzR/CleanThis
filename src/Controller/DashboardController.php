@@ -9,10 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/dashboard')]
+#[Route('/admin')]
 class DashboardController extends AbstractController
 {
-    #[Route('/', name: 'app_dashboard_index', methods: ['GET'])]
+    #[Route('/dashboard', name: 'app_admin_dashboard', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
