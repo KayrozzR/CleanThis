@@ -9,6 +9,7 @@ use App\Form\ClientType;
 use App\Entity\Operation;
 use App\Service\PdfService;
 use App\Entity\TypeOperation;
+use App\Form\OperationNoteType;
 use App\Form\ReclamationType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,12 +47,16 @@ class CrudController extends AbstractController
 
             // we get into each devis
             foreach ($devis as $devi) {
-                // take all tghe operations associate to the devis
+                // take all the operations associated with the devis
                 $deviOperations = $devi->getOperation();
-
-                // stock the operations in ana array
+            
+                // stock the operations in an array
                 foreach ($deviOperations as $operation) {
-                    $operations[] = $operation;
+                    $lastType = $devi->getTypeOperation();
+                    $operations[] = [
+                        'operation' => $operation,
+                        'lastType' => $lastType,
+                    ];
                 }
             }
 
@@ -110,10 +115,10 @@ class CrudController extends AbstractController
             $entityManager->persist($operation);
             $entityManager->flush();
 
-            return $this->render('operation/success_reclamation.html.twig');
+            return $this->render('client/success_reclamation.html.twig');
         }
 
-        return $this->render('operation/reclamation.html.twig', [
+        return $this->render('client/reclamation.html.twig', [
             'operation' => $operation,
             'form' => $form,
         ]);
@@ -276,4 +281,55 @@ class CrudController extends AbstractController
             'form' => $form,
         ]);
     }
+}
+
+#[Route('/{id}/note', name: 'note', methods: ['GET', 'POST'])]
+    public function note(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
+    {
+        // Vérifier si une note et un commentaire ont déjà été soumis pour cette opération
+        if ($operation->getNote() !== null && $operation->getComment() !== null) {
+            // Si oui, rediriger l'utilisateur ou afficher un message
+            // Par exemple, rediriger vers la page de profil de l'utilisateur
+            return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
+        }
+
+        $form = $this->createForm(OperationNoteType::class, $operation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer l'objet Operation avec les données mises à jour du formulaire
+        
+            $comment = $form->get('comment')->getData();
+            $note = $form->get('note')->getData();
+
+            
+            $operation->setReclamation($comment);
+            $operation->setnote($note);
+            $entityManager->persist($operation);
+            $entityManager->flush();
+
+
+            // Enregistrer les modifications dans la base de données
+
+            // Rediriger vers une autre page, par exemple, la page du profil de l'utilisateur
+            return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
+        }
+
+        return $this->render('home/operationNote.html.twig', [
+            'operation' => $operation,
+            'form' => $form->createView(),
+        ]);
+    }
+    
+    #[Route('/payer/{id}', name: 'payer', methods: ['GET'])]
+    public function payer(Operation $operation, EntityManagerInterface $entityManager): Response
+    {
+       
+        $operation->setStatusPaiement('Payée');
+        $entityManager->flush();
+
+        // Redirection vers la page des détails de l'opération après le paiement
+        return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
+    }
+
 }

@@ -1,55 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande de devis{% endblock %}
+
 {% block body %}
-	<section class="home1">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 mt-5">
-					<div class="card">
-						<div class="card-header">
-							<h2 class="text-center">Demande de devis</h2>
-							<p>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</p>
-						</div>
-						<div class="card-body">
-							{{ form_start(form) }}
-							<div class="row">
-								<div class="col-md-6">
-									{{ form_row(form.lastname) }}
-								</div>
-								<div class="col-md-6">
-									{{ form_row(form.firstname) }}
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									{{ form_row(form.mail) }}
-								</div>
-								<div class="col-md-6">
-									{{ form_row(form.mailConfirmation) }}
-								</div>
-							</div>
+<section class="home1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Demande de devis</h2>
+                        <p>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</p>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.lastname) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.firstname) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.mail) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.mailConfirmation) }}
+                            </div>
+                        </div>
 
-							<div class="row">
-								<div class="col-md-6">
-									{{ form_row(form.tel) }}
-								</div>
-								<div class="col-md-6">
-									{{ form_row(form.adresse_intervention) }}
-								</div>
-							</div>
-							<div style="margin-left: 25%" class="col-md-6">
-								<div class="d-flex align-items-center">
-									{{ form_row(form.Type_Operation) }}
-									<a href="/type/operation">
-										<span class="type-description" style="cursor: pointer;">
-											<i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
-										</span>
-									</a>
-								</div>
-							</div>
-							<div id="image-object-field" style="display: none;">
-								{{ form_row(form.image_object) }}
-							</div>
-
-							{{ form_row(form.comment) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.tel) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.adresse_intervention, {'attr': {'class': 'form-control adresse-autocomplete', 'style': 'margin-top: 5px; margin-bottom: 5px;'}}) }}
+                            </div>
+                        </div>
+                        <div style="margin-left: 25%" class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                {{ form_row(form.Type_Operation) }}
+                                <a href="/type/operation">
+                                    <span class="type-description" style="cursor: pointer;">
+                                        <i style="font-size: 30px; margin-top: 25px;" class='bx bx-info-circle'></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="image-object-field" style="display: none;">
+                            {{ form_row(form.image_object) }}
+                        </div>
+                        {{ form_row(form.comment) }}
 
 							<button class="btn btn-primary">Envoi devis</button>
 							{{ form_end(form) }}
@@ -80,4 +83,48 @@ $('#image-object-field').hide();
 });
 });
 	</script>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var adresseInput = document.querySelector('.adresse-autocomplete');
+
+            if (!adresseInput) return;
+
+            function performSearchAndUpdateAdresse(query) {
+                fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`)
+                    .then(response => response.json())
+                    .then(data => {
+                        
+                        suggestionsContainer.innerHTML = '';
+
+                       
+                        data.features.forEach((feature) => {
+                            var suggestion = document.createElement('div');
+                            suggestion.className = 'suggestion';
+                            suggestion.innerText = feature.properties.label;
+
+                           
+                            suggestion.addEventListener('click', function() {
+                                adresseInput.value = feature.properties.label;
+                                suggestionsContainer.innerHTML = '';
+                            });
+
+                            suggestionsContainer.appendChild(suggestion);
+                        });
+                    })
+                    .catch(error => console.error('Erreur API:', error));
+
+            var suggestionsContainer = document.createElement('div');
+            suggestionsContainer.className = 'suggestions-container';
+            adresseInput.parentNode.appendChild(suggestionsContainer);
+
+            // Écouter les événements de saisie sur le champ adresse_intervention
+            adresseInput.addEventListener('input', function() {
+                var query = adresseInput.value;
+                if (query.length < 3) return; // Éviter les requêtes trop fréquentes
+                performSearchAndUpdateAdresse(query);
+            });
+        });
+    </script>
 {% endblock %}
