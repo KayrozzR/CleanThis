@@ -126,7 +126,12 @@
                 <tr>
                     <td>{{ type_operation.libelle}}</td> 
                     <td>{{ type_operation.descriptif }}</td>
-                    <td>{{ type_operation.tarif }} €</td>
+                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
+                        <td>{{ devi.TarifCustom}} €</td>
+                     {% else %}
+                        <td>{{ type_operation.tarif }} €</td>
+                    {% endif %}
+                    
                 </tr>
             </tbody>
         </table>
@@ -136,17 +141,29 @@
             <tbody>
                 <tr >
                     <td scope="col" class= "TTC">Prix TTC</td>
-                    <td class= "TTC">{{ type_operation.tarif * 1.2 }} €</td>
+                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
+                        <td>{{ devi.TarifCustom * 1.2 }} €</td>
+                     {% else %}
+                        <td>{{ type_operation.tarif * 1.2 }} €</td>
+                    {% endif %}
                 </tr>
 
                 <tr>
                     <td scope="col">Total H.T</td>
-                    <td>{{ type_operation.tarif }} €</td> 
+                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
+                        <td>{{ devi.TarifCustom}} €</td>
+                     {% else %}
+                        <td>{{ type_operation.tarif }} €</td>
+                    {% endif %}
                 </tr>
 
                 <tr>
                     <td scope="col">TVA (20%)</td>
-                    <td>{{ type_operation.tarif * 0.2 }} €</td> 
+                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
+                        <td>{{ devi.TarifCustom * 0.2 }} €</td>
+                     {% else %}
+                        <td>{{ type_operation.tarif * 0.2 }} €</td>
+                    {% endif %}
                 </tr>
             </tbody>
         </table>
