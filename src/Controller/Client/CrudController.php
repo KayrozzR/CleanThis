@@ -193,7 +193,7 @@ public function VoirFacture(PdfService $pdf, Operation $operation, UserRepositor
             Response::HTTP_OK,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="devis.pdf"',
+                'Content-Disposition' => 'attachment; filename="facture.pdf"',
             ]
         );
     } else {

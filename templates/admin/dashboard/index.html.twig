@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
+		<title>Dashboard</title>
+	</head>
+
+	<body>
+
+{% block body %}
+
+		<div class="chart-container">
+		<canvas id="usersChart" aria-label="Chart" role="img"></canvas>
+		</div> 
+		<div id="userData" data-user-names="{{ userData }}"></div>
+</body>
+</html>
+{% endblock %}
+{% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="{{ asset('js/dashboard.js') }}" defer></script>
+<script>
+let userData = document.getElementById('userData').dataset.userNames;
+let typeOpPrice = document.getElementById('userData').dataset.typeOpPrice;
+
+let usersChart = new Chart(document.getElementById('usersChart'), {
+    type: 'bar', 
+    data: {
+        labels: Object.keys(userData).map(key => userData[key].userName), 
+        datasets: [{
+            label: "Chiffre d'affaires par Utilisateur",
+            data: Object.keys(userData).map(key => userData[key].userOpEnd),
+            backgroundColor: "#372772" 
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                suggestedMax: 100000,
+                title: {
+                    display: true,
+                    text: "Chiffre d'affaires" // Ajouter un titre à l'axe des y
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: "Utilisateurs" // Ajouter un titre à l'axe des x
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false // Masquer la légende car elle n'est pas nécessaire pour ce graphique
+            }
+        }
+    }
+});
+
+</script>
+{% endblock %}
