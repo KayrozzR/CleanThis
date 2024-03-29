@@ -1,0 +1,33 @@
+{# templates/operation/paiement.html.twig #}
+
+{% extends 'basebis.html.twig' %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block body %}
+    <h1>Paiement</h1>
+
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_label(form.cardNumber, 'Numéro de carte', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.cardNumber, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.expiryDate, 'MM/AA', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.expiryDate, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.securityCode, 'Code de sécurité', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.securityCode, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.amount, 'Montant à payer', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.amount, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.paymentType, 'Type de paiement', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.paymentType, {'attr': {'class': 'form-select'}}) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Payer</button>
+    {{ form_end(form) }}
+{% endblock %}

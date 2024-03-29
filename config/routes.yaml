@@ -10,4 +10,4 @@ devis_pdf:
   methods: ['GET']
 
 auth_oauth_check:
-  path: oauth/check/{service}
+  path: oauth/check/{service}z

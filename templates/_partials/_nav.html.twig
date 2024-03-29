@@ -1,61 +1,71 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" style="height: 60px">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path('app_home') }}">CleanThis</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="">A Propos</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/contact_form">Nous contacter</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{ path('app_services') }}">Nos services</a>
-				</li>
-			</ul>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Page</title>
+   
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				{% if app.user %}
-					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SENIOR') %}
-						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_employe_index') }}">Administration</a>
-						</li>
-					{% endif %}
-					<li class="nav-item">
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">CleanThis</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">A Propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/contact_form">Nous contacter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ path('app_services') }}">Nos services</a>
+                </li>
+            </ul>
 
-						<a class="nav-link active" href="{{ path('app_user_profil' ) }}">Mon Compte</a>
-
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('auth_oauth_logout' ) }} ">Me déconnecter</a>
-					</li>
-				{% else %}
-					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('auth_oauth_login' ) }} ">Me connecter</a>
-					</li>
-				{% endif %}
-
-			</ul>
-			<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="{{ asset('images/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}" width="30">
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						{% for locale in locales %}
-							{% if locale != app.request.locale %}
-								<li class="nav-item">
-									<a class="nav-link flag-link" href="{{ path('change_locale', {'locale': locale}) }}"><img class="flag-img" src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" width="30"></a>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-				</li>
-			</ul>
-
-		</div>
-	</div>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if app.user %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SENIOR') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_employe_index') }}">Administration</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_profil' ) }}">Mon Compte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('auth_oauth_logout' ) }} ">Me déconnecter</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('auth_oauth_login' ) }} ">Me connecter</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('images/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}" width="30">
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for locale in locales %}
+                            {% if locale != app.request.locale %}
+                                <li class="nav-item">
+                                    <a class="nav-link flag-link" href="{{ path('change_locale', {'locale': locale}) }}"><img class="flag-img" src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" width="30"></a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
+</body>
+</html>
