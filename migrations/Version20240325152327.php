@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240320121847 extends AbstractMigration
+final class Version20240325152327 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,6 +26,11 @@ final class Version20240320121847 extends AbstractMigration
         $this->addSql('ALTER TABLE devis ADD type_operation_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE devis ADD CONSTRAINT FK_8B27C52BC3EF8F86 FOREIGN KEY (type_operation_id) REFERENCES type_operation (id)');
         $this->addSql('CREATE INDEX IDX_8B27C52BC3EF8F86 ON devis (type_operation_id)');
+        $this->addSql('ALTER TABLE operation ADD user_id INT DEFAULT NULL, CHANGE date_debut date_debut DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', CHANGE status_paiement status_paiement TINYINT(1) DEFAULT 0 NOT NULL, CHANGE status_operation status_operation TINYINT(1) DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE operation ADD CONSTRAINT FK_1981A66DA76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id)');
+        $this->addSql('CREATE INDEX IDX_1981A66DA76ED395 ON operation (user_id)');
+        $this->addSql('ALTER TABLE type_operation ADD image LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD operation_en_cours INT DEFAULT NULL, DROP mail_token');
     }
 
     public function down(Schema $schema): void
@@ -37,5 +42,10 @@ final class Version20240320121847 extends AbstractMigration
         $this->addSql('ALTER TABLE devis DROP FOREIGN KEY FK_8B27C52BC3EF8F86');
         $this->addSql('DROP INDEX IDX_8B27C52BC3EF8F86 ON devis');
         $this->addSql('ALTER TABLE devis DROP type_operation_id');
+        $this->addSql('ALTER TABLE operation DROP FOREIGN KEY FK_1981A66DA76ED395');
+        $this->addSql('DROP INDEX IDX_1981A66DA76ED395 ON operation');
+        $this->addSql('ALTER TABLE operation DROP user_id, CHANGE status_paiement status_paiement TINYINT(1) NOT NULL, CHANGE status_operation status_operation TINYINT(1) NOT NULL, CHANGE date_debut date_debut DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('ALTER TABLE type_operation DROP image');
+        $this->addSql('ALTER TABLE `user` ADD mail_token VARCHAR(255) DEFAULT NULL, DROP operation_en_cours');
     }
 }

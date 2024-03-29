@@ -2,113 +2,126 @@
 
 {% block title %}Mon profil Client
 {% endblock %}
-{% block stylesheets %} 
-   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
-    <link rel="stylesheet" href="{{asset('assets/css/client.css')}}">
-     <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+	<link rel="stylesheet" href="{{asset('assets/css/client.css')}}">
+	<style>
+		.hidden {
+			display: none;
+		}
+	</style>
 {% endblock %}
 {% block body  %}
-<section class="topBackground">
- <div class = "personalInformations">
-            <div class= "personal">
-                <strong>{{ app.user.lastname }} {{ app.user.firstname }}</strong>
-                <p>{{ app.user.tel }}</p>
-                <p>{{ app.user.email }}</p>
-                <p>{{ app.user.address }}</p>
-            </div>
-                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos"> Modifier mes informations </a>
-                <a href="{{ path('app_devis_new') }}"  class="demanderDevis"> Demander un nouveau devis</a>
-</div>
-</section>
+	<section class="topBackground">
+		<div class="personalInformations">
+			<div class="personal">
+				<strong>{{ app.user.lastname }}
+					{{ app.user.firstname }}</strong>
+				<p>{{ app.user.tel }}</p>
+				<p>{{ app.user.email }}</p>
+				<p>{{ app.user.address }}</p>
+			</div>
+			<a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos">
+				Modifier mes informations
+			</a>
+			<a href="{{ path('app_devis_new') }}" class="demanderDevis">
+				Demander un nouveau devis</a>
+		</div>
+	</section>
 
-<a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
-  <img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
- <section class="homeProfil hidden">
-    <div class="text">
-    <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
-        <thead class="en-tête">
-            <tr>
-                <th data-sortable="true" data-field="date_debut" class="light-weight">Débuté le</th>
-                <th data-sortable="true" data-field="date_fin" class="light-weight">Terminé le</th>
-                <th data-sortable="true" data-field="status_paiement" class="light-weight">Status du paiement</th>
-                <th  class="light-weight">Voir le détail</th>
-                <th  class="light-weight">Voir ma facture</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for operation in operations %}
-            <tr>
-                <td  class="light-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="light-weight">{{ operation.statusPaiement ? 'réglé' : 'Non réglé' }}</td>
-                   <td>
-                    <a href="{{ path('app_profile_show', {'id': operation.id}) }}" class="actionsButtons" ><i class='bx bx-show' ></i>
-                        <img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
-                    </a>
-                </td>
-                 <td>
-                    <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons" ><i class='bx bx-show' ></i>
-                        <img src="{{ asset('images/facture.png') }}" alt="">
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
+	<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+	<section class="homeProfil hidden">
+		<div class="text">
+			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
+				<thead class="en-tête">
+					<tr>
+						<th class="light-weight">Voir le détail</th>
+						<th class="light-weight">descriptive</th>
+						<th data-sortable="true" data-field="date_debut" class="light-weight">Débuté le</th>
+						<th data-sortable="true" data-field="date_fin" class="light-weight">Terminé le</th>
+						<th data-sortable="true" data-field="status_paiement" class="light-weight">Status du paiement</th>
 
-      </div>
-   </section> 
+						<th class="light-weight">Voir ma facture</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in operations %}
+						{% set operation = item.operation %}
+						{% set lastType = item.lastType.libelle  %}
+						<tr>
+							<td>
+								<a href="{{ path('app_profile_show', {'id': operation.id}) }}" class="actionsButtons">
+									<i class='bx bx-show'></i>
+									<img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
+								</a>
+
+							</td>
+							<td class="light-weight">{{ lastType }}</td>
+							<td class="light-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+							<td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+							<td class="light-weight{% if operation.statusPaiement %} text-success{% endif %}">
+								{{ operation.statusPaiement ? 'Réglé ✓' : 'Non réglé' }}
+							</td>
+
+							<td>
+								<a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
+									<i class='bx bx-show'></i>
+									<img src="{{ asset('images/facture.png') }}" alt="">
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="13">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</section>
 {% endblock %}
-
-
 
 
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
-   <script>
-        $(document).ready(function() {
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table-fr-FR.min.js"></script>
+	<script>
+		$(document).ready(function () {
 
-    $('.search input').attr('placeholder', 'Rechercher ');
-    $('.search input').addClass('form-control pr-5');
-    $('.search').addClass('position-relative');
-    $('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
-    $('.search input').keydown(function(event) {
-        if (event.keyCode === 13) { 
-            $('#searchIcon').hide();
-        }
-    });
+$('.search input').attr('placeholder', 'Rechercher ');
+$('.search input').addClass('form-control pr-5');
+$('.search').addClass('position-relative');
+$('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
+$('.search input').keydown(function (event) {
+if (event.keyCode === 13) {
+$('#searchIcon').hide();
+}
 });
+});
+	</script>
 
-    </script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$("#scrollDownButton").click(function () {
+if ($(".homeProfil").hasClass("hidden")) {
+$('html, body').animate({
+scrollTop: $(".homeProfil").offset().top
+}, 1000);
+$(".homeProfil").removeClass("hidden");
+} else {
+$('html, body').animate({
+scrollTop: $(".personalInformations").offset().top
+}, 1000);
+}
+});
+});
+	</script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script>
-    $(document).ready(function() {
-        $("#scrollDownButton").click(function() {
-            if ($(".homeProfil").hasClass("hidden")) {
-                $('html, body').animate({
-                    scrollTop: $(".homeProfil").offset().top
-                }, 1000);
-                $(".homeProfil").removeClass("hidden");
-            } else {
-                $('html, body').animate({
-                    scrollTop: $(".personalInformations").offset().top
-                }, 1000);
-            }
-        });
-    });
-</script>
-    
 {% endblock %}

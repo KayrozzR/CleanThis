@@ -51,12 +51,16 @@ class CrudController extends AbstractController
 
             // we get into each devis
             foreach ($devis as $devi) {
-                // take all tghe operations associate to the devis
+                // take all the operations associated with the devis
                 $deviOperations = $devi->getOperation();
-
-                // stock the operations in ana array
+            
+                // stock the operations in an array
                 foreach ($deviOperations as $operation) {
-                    $operations[] = $operation;
+                    $lastType = $devi->getTypeOperation();
+                    $operations[] = [
+                        'operation' => $operation,
+                        'lastType' => $lastType,
+                    ];
                 }
             }
 
@@ -64,7 +68,7 @@ class CrudController extends AbstractController
             return $this->render('client/profil.html.twig', [
                 'controller_name' => 'ClientController',
                 'operations' => $operations, 
-                'devi' => $devis,
+                // 'devi' => $devis,
             ]);
         } else {
             // We are going to redirect to an error page

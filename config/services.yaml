@@ -31,3 +31,5 @@ services:
     App\Service\SendMailService:
         arguments:
             $mailer: '@Symfony\Component\Mailer\MailerInterface'
+
+            

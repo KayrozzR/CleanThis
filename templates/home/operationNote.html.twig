@@ -1,0 +1,45 @@
+{% extends 'basebis.html.twig' %}
+
+{% block title %}Noter l'opération
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="{{ asset('assets/css/styles.note.css') }}">
+{% endblock %}
+
+{% block body %}
+	
+	<section class="home">
+		<div class="rating-container">
+		
+			<div class="formulairenote">
+				<p>Montant restant dû: 458,91€</p>
+				<a href="{{ path('payer', {'id': operation.id}) }}" class="btn btn-primary payer-facture">Payer ma facture</a>
+
+				{{ form_start(form) }}
+				<p>Donnez-nous votre avis sur la prestation:</p>
+				<div class="rating">
+					{% for i in 5..1 %}
+						<input type="radio" id="star{{ i }}" name="star" data-value="{{ i }}"/>
+						<label for="star{{ i }}">
+							<i class="fas fa-star"></i>
+						</label>
+					{% endfor %}
+				</div>
+				{{ form_row(form.comment, {'attr': {'class': 'large-textarea'}}) }}
+				<button type="submit" class="btn btn-primary1 envoyer-note">Envoyer ma note</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</section>
+
+	<script>
+		const stars = document.querySelectorAll('.rating input');
+stars.forEach(star => {
+star.addEventListener('click', function () {
+document.querySelector('input[name="operation_note[note]"]').value = this.getAttribute('data-value');
+});
+});
+	</script>
+{% endblock %}
