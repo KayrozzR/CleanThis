@@ -8,6 +8,7 @@ use App\Repository\DevisRepository;
 use App\Entity\Trait\CreatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: DevisRepository::class)]
 class Devis
@@ -18,9 +19,6 @@ class Devis
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $url_devis = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
@@ -64,18 +62,6 @@ class Devis
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUrlDevis(): ?string
-    {
-        return $this->url_devis;
-    }
-
-    public function setUrlDevis(?string $url_devis): static
-    {
-        $this->url_devis = $url_devis;
-
-        return $this;
     }
 
     public function getComment(): ?string

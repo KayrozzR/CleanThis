@@ -15,6 +15,7 @@ use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
 use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,16 +67,29 @@ class DevisController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $serv = $form->getData();
+            $existingDevis = $entityManager->getRepository(Devis::class)->findOneBy([
+                'mail' => $devi->getMail(),
+                'typeOperation' => $devi->getTypeOperation(),
+                'adresse_intervention' => $devi->getAdresseIntervention()
+            ]);
+
+            if ($existingDevis !== null) {
+                $this->addFlash('error', 'Ce devis existe déjà.');
+                return $this->redirectToRoute('app_devis_new');
+            }
+
+            // $serv = $form->getData();
             $mail = $form->get('mail')->getData();
             $mailConfirmation = $form->get('mailConfirmation')->getData();
 
             if ($mail === $mailConfirmation) {
 
-                if($photo = $form['image_object']->getData()){
+                if ($form->get('image_object')->getData() !== null) {
+                    $photo = $form['image_object']->getData();
                     $fileName = uniqid().'.'.$photo->guessExtension();
                     $photo->move($this->getParameter('photo_dir'), $fileName);
-                    $serv->setImageObject($fileName);
+                    $file = new File($this->getParameter('photo_dir').'/'.$fileName);                    
+                    $devi->setImageObject($file);
                 }
 
                     $entityManager->persist($devi);
@@ -90,7 +104,7 @@ class DevisController extends AbstractController
 
         return $this->render('devis/new.html.twig', [
             'devi' => $devi,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -125,9 +139,15 @@ class DevisController extends AbstractController
             $status = $request->request->get('status');
             
             if ($status === 'true') {
-
+                
                 $currentUser->setOperationEnCours(($currentUser->getOperationEnCours() ?? 0) + 1);
                 $entityManager->persist($currentUser);
+                $existingUser = $entityManager->getRepository(User::class)->findOneByEmail($devi->getMail());
+
+                if ($existingUser) {
+                    
+                    $devi->setUser($existingUser);
+                } else {
 
                 $user = new User();
 
@@ -140,6 +160,8 @@ class DevisController extends AbstractController
               
                 $entityManager->persist($user);
                 $entityManager->flush();
+
+                $devi->setUser($user);
 
                 $header =[
                     'typ'=>'JWT',
@@ -161,20 +183,19 @@ class DevisController extends AbstractController
                 );
 
 
-                $operation = new Operation();
-
-                $operation->setUser($currentUser);
-                
-                $devi->addOperation($operation);
-
-                $devi->setUser($user);
-
-                $devi->setStatus(true);
-                
-                $entityManager->persist($operation);
-                $entityManager->persist($devi);
-                $entityManager->flush();
             }
+            $operation = new Operation();
+
+            $operation->setUser($currentUser);
+            
+            $devi->addOperation($operation);
+
+            $devi->setStatus(true);
+            
+            $entityManager->persist($operation);
+            $entityManager->persist($devi);
+            $entityManager->flush();
+        }
             
         }
 
@@ -194,23 +215,25 @@ class DevisController extends AbstractController
     {
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
-        $serv = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            if($photo = $form['image_object']->getData()){
+            
+            if ($form->get('image_object')->getData() !== null) {
+                $photo = $form['image_object']->getData();
                 $fileName = uniqid().'.'.$photo->guessExtension();
                 $photo->move($this->getParameter('photo_dir'), $fileName);
-                $serv->setImageObject($fileName);
+                $file = new File($this->getParameter('photo_dir').'/'.$fileName);
+                $devi->setImageObject($file);
             }
+            
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('devis/edit.html.twig', [
             'devi' => $devi,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -238,59 +261,65 @@ class DevisController extends AbstractController
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
         
-        // $logoPath = '/public/images/logo.png';
-        // if (!file_exists($logoPath)) {
-        //     throw new \Exception('Le fichier logo n\'existe pas.');
-        // }
-        // $logoData = base64_encode(file_get_contents($logoPath));
-        // $logoBase64 = 'data:image/png;base64,' . $logoData;
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+        $logoPath = $publicDirectory . '/images/logo.png';
+        if (!file_exists($logoPath)) {
+            throw new \Exception('Le fichier logo n\'existe pas.');
+        }
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoBase64 = 'data:image/png;base64,' . $logoData;
 
         $html = $this->renderView('Pdf/devis.html.twig', [
             'devi' => $devi,
             'type_operation' => $type_operations,
-            // 'logo_base64' => $logoBase64,
+            'logo_base64' => $logoBase64,
         ]);
 
-        $pdf ->showPdfFile($html);
-        return new Response();
+        $pdfContent = $pdf->generateBinaryPDF($html);
+        return new Response(
+            $pdfContent,
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="devis.pdf"',
+            ]
+        );
     }
 
-
-    #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST'])]
+    #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST', 'GET'])]
     public function SendPdf(PdfService $pdf, Devis $devi, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, SendMailService $mail, Filesystem $filesystem): Response
     {
         $user = $devi->getMail();
         $client = $userRepository->findOneBy(['email' =>  $user]);
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
+
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+        $logoPath = $publicDirectory . '/images/logo.png';
+        if (!file_exists($logoPath)) {
+            throw new \Exception('Le fichier logo n\'existe pas.');
+        }
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoBase64 = 'data:image/png;base64,' . $logoData;
+
+
         $html = $this->renderView('Pdf/devis.html.twig', [
             'devi' => $devi,
             'type_operation' => $type_operations,
-            // 'logo_base64' => $logoBase64,
+            'logo_base64' => $logoBase64,
         ]);
 
         $pdfContent = $pdf->generateBinaryPDF($html);
-        $fileName = md5(uniqid()) . '.pdf';
-        $filePath = $this->getParameter('kernel.project_dir') . '/public/pdf/' . $fileName;
-        $file = new SplFileObject($filePath, 'w');
-        $file->fwrite($pdfContent);
 
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-        $url = $baseUrl . '/pdf/' . $fileName;
-
-        $devi->setUrlDevis($url);
-        $entityManager->persist($devi);
-        $entityManager->flush();
-
-
-        $mail->send('no-reply@cleanthis.fr',
+        $mail->sendDevis('no-reply@cleanthis.fr',
             $devi->getMail(),
             'Votre devis CleanThis',
             'devis_pdf',
-            compact('client',  'url')
+            $client, 
+            $pdfContent, 
         );
-
+        
         return new Response();
-    }   
+    } 
 
 }

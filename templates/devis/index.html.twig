@@ -51,7 +51,9 @@
 							<td class="bold-weight">{{ devi.status ? 'Yes' : 'No' }}</td>
 							<td>
 								{% if devi.typeOperation and devi.typeOperation.getLibelle() == 'Service Custom' %}
-									<a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+									{% if not devi.status %}
+										<a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+									{% endif %}
 								{% endif %}
 								{# <a href="{{ path('devis_pdf', {'id': devi.id})}}" class="actionsButtons3">Voir le pdf
 								</a> #}
@@ -118,7 +120,7 @@ data: {
 'status': true
 },
 success: function (response) {
-alert("Statut mis à vrai avec succès");
+alert("La validation du devis à été pris en compte.");
 $button.closest('tr').find('.bold-weight').eq(6).text('Yes');
 $button.closest('tr').find('.deleteBtn').hide();
 location.reload();
@@ -140,7 +142,7 @@ e.preventDefault();
 var deviId = this.id.replace('delete', '');
 var csrfToken = $(this).data('csrf-token');
 
-if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+if (confirm('Êtes-vous sûr de vouloir supprimer ce devis ?')) {
 $.ajax({
 url: '/admin/devis/' + deviId,
 type: 'POST',
@@ -162,34 +164,34 @@ alert("Une erreur s'est produite");
 }
 });
 
-$('.table').on('click', '.sendDevisBtn', function (e) {
-e.preventDefault();
-var deviId = $(this).data('devi-id');
-var $button = $(this);
+	$('.table').on('click', '.sendDevisBtn', function (e) {
+		e.preventDefault();
+		var deviId = $(this).data('devi-id');
+		var $button = $(this);
 
-if (confirm('Êtes-vous sûr de vouloir envoyer le devis ?')) {
-$.ajax({
-url: '/admin/devis/SendPdf/' + deviId,
-type: 'POST',
-data: {
-'id': deviId
-},
-success: function (response) {
-alert("Devis envoyé avec succès");
-// Mise à jour du statut dans le tableau sans recharger la page
-$button.closest('tr').find('.bold-weight').eq(6).text('Yes');
-$button.closest('tr').find('.deleteBtn').hide();
-location.reload(); // Rafraîchissement de la page
-},
-error: function (xhr) {
-if (xhr.status === 403) {
-alert(xhr.responseText); // Afficher le message d'erreur personnalisé
-} else {
-alert("Une erreur s'est produite");
-}
-}
-});
-}
-});
+		if (confirm('Êtes-vous sûr de vouloir envoyer le devis ?')) {
+				$.ajax({
+				url: '/admin/devis/SendPdf/' + deviId,
+				type: 'POST',
+				data: {
+				'id': deviId
+				},
+					success: function (response) {
+						alert("Devis envoyé avec succès");
+
+						$button.closest('tr').find('.bold-weight').eq(6).text('Yes');
+						$button.closest('tr').find('.deleteBtn').hide();
+						location.reload(); // Rafraîchissement de la page
+					},
+					error: function (xhr) {
+						if (xhr.status === 403) {
+						alert(xhr.responseText); 
+						} else {
+						alert("Une erreur s'est produite");
+						}
+					}
+			});
+		}
+	});
 	</script>
 {% endblock %}

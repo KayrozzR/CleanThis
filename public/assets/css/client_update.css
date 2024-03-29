@@ -24,12 +24,12 @@
 }
 
 /* Style pour les boutons d'édition */
-/* .edit-button1 {
-    font-size: 20px; /
+ .edit-button1 {
+    font-size: 20px; 
     float: right; 
     margin-left: 10px; 
     color: #372772; 
-} */
+} 
 
 /* Style pour les boutons de sauvegarde */
 .save-button {

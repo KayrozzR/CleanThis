@@ -19,29 +19,9 @@ class PdfService
         $pdfOptions = new Options();
         $pdfOptions ->set('defaultFont', 'Inter');
         // $pdfOptions ->set("chroot", realpath(''));
-        $this->domPdf->setPaper("a4", "landscape");
+        $this->domPdf->setPaper("a4", "portrait");
         $this->domPdf->setOptions($pdfOptions);
     }
-
-    public function generateInvoice(Devis $operation): string
-    {
-        $logoPath = $this->projectDir . '/public/images/logo.png';
-
-        if (!file_exists($logoPath)) {
-            throw new \Exception('Le fichier logo n\'existe pas.');
-        }
-
-        $logoData = base64_encode(file_get_contents($logoPath));
-        $logoBase64 = 'data:image/png;base64,' . $logoData;
-
-        $html = $this->twig->render('invoice/invoice_template.html.twig', [
-            'operation' => $operation,
-            'logo_base64' => $logoBase64,
-        ]);
-
-        return $html;
-    }
-
 
 
     public function showPdfFile($html) {
@@ -59,8 +39,4 @@ class PdfService
         $dompdf->render();
         return $dompdf->output();
     }
-
-
-
-
 }

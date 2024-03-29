@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Facture</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+        img {
+            width: 20%;
+            height: 15%;
+            margin-left:5%
+        }
+
+        .infosEntreprise {
+            margin-left: 5%;
+        }
+
+        .numDevisEtDate {
+            margin-left: 60%;
+            margin-top: -12%
+        }
+
+        .infosClients {
+            margin-left: 60%;
+            padding-left: 1%;
+            border: 1px solid;
+            width: 40%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 95%;
+            margin-top: 10%;
+            margin-left: 5%
+        }
+         .prix {
+            border-collapse: collapse;
+            width: 40%;
+            margin-top: 10%;
+            margin-left: 60%
+        }
+
+        th {
+            background-color: #372772;
+            padding: 8px;
+        }
+
+        td, th {
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            border: 1px solid black; 
+        }
+
+        .TTC{
+            border-color: #372772; 
+            background-color: #372772;
+            color: white;
+        }
+        .no-border{
+            border-color: #372772; 
+            background-color: #372772;
+            color: white;
+        }
+       .nom{
+        font-size: 150%;
+        color: #372772
+       }
+       .titre{
+        font-size:150%;
+        color:#372772
+       }
+
+    </style>
+    </head>
+    <body>
+
+        {% block body %}
+
+       <img src="{{ logo_base64 }}" alt="logo">
+
+        <div class="container">
+                <div class="row">
+                    <div class="col-6 col-spacing">
+                        <div class="infosEntreprise">
+                            <strong class= "nom">Entreprise Clean This</strong>
+                            <p>20 rue du Luxembourg</p>
+                            <p>03 50 41 25 30</p>
+                            <p>cleanthiscontact@entreprise.fr</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="numDevisEtDate">
+                        <strong class= "titre"> Facture</strong>
+                         <p>Facture numéro: {{ devi.id }}</p>
+                        <p> Emis le: {{ operation.dateFin  ? operation.dateFin |date('d-m-Y') : '' }}</li>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="infosClients">
+                <p> <strong>Nom: </strong>{{ devi.lastname }}</p>
+                <p><strong>Prénom: </strong>{{ devi.firstname }}</p>
+                <p><strong>Adresse email: </strong>{{ devi.mail }}</p>
+                <p><strong>Numéro de téléphone: </strong>{{ devi.tel }}</p>
+                <p><strong>Adresse d'intervention:</strong> {{ devi.AdresseIntervention }}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" class= "no-border" >Designation du service</th>
+                     <th scope="col" class= "no-border" >Descriptif</th>
+                    <th scope="col" class= "no-border" >Tarif</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ type_operation.libelle}}</td> 
+                    <td>{{ type_operation.descriptif }}</td>
+                    <td>{{ type_operation.tarif }} €</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <table class = "prix">
+            <tbody>
+                <tr >
+                    <td scope="col" class= "TTC">Prix TTC</td>
+                    <td class= "TTC">{{ type_operation.tarif * 1.2 }} €</td>
+                </tr>
+
+                <tr>
+                    <td scope="col">Total H.T</td>
+                    <td>{{ type_operation.tarif }} €</td> 
+                </tr>
+
+                <tr>
+                    <td scope="col">TVA (20%)</td>
+                    <td>{{ type_operation.tarif * 0.2 }} €</td> 
+                </tr>
+            </tbody>
+        </table>
+
+        {% endblock %}
+
+    </body>
+</html>

@@ -56,7 +56,12 @@ class UserType extends AbstractType
             // ])
         
             // ->add('google_id')
-            // ->add('avatar')
+            // ->add('avatar', FileType::class, [
+            //     'label' => 'Image Object',
+            //     'attr' => ['class' => 'form-control', 'id' => 'avatar', 'style' => 'margin-top: 5px; margin-bottom: 5px;'], 
+            //     'required' => false,
+            //     'data_class' => null,
+            // ])
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'

@@ -55,6 +55,7 @@ class DevisType extends AbstractType
                     'label' => 'Image Object',
                     'attr' => ['class' => 'form-control', 'id' => 'imageObject', 'style' => 'margin-top: 5px; margin-bottom: 5px;'], 
                     'required' => false,
+                    'data_class' => null,
                 ])
                 ->add('adresse_intervention', TextType::class, [
                     'label' => 'Adresse Intervention',
