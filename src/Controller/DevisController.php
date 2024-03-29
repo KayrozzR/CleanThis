@@ -268,7 +268,7 @@ class DevisController extends AbstractController
     {
         $id_operation = $devi->getTypeOperation();
         $type_operations = $entityManager->getRepository(TypeOperation::class)->find($id_operation);
-        
+
         $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
         $logoPath = $publicDirectory . '/images/logo.png';
         if (!file_exists($logoPath)) {
@@ -283,7 +283,10 @@ class DevisController extends AbstractController
             'logo_base64' => $logoBase64,
         ]);
 
+        // Générer le PDF
         $pdfContent = $pdf->generateBinaryPDF($html);
+
+        // Renvoyer le PDF comme réponse HTTP
         return new Response(
             $pdfContent,
             Response::HTTP_OK,

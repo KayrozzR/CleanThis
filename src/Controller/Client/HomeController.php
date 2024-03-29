@@ -3,6 +3,8 @@
 namespace App\Controller\Client;
 
 use App\Form\ContactFormType;
+use App\Service\SendMailService;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TypeOperationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,45 +29,36 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // #[Route('/contact_form', name: 'contact_form')]
-    // public function contactForm(Request $request): Response
-    // {
-    //     $form = $this->createForm(ContactFormType::class);
 
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
+    #[Route('/contact_form', name: 'contact_form', methods: ['GET', 'POST'])]
+    public function contact(Request $request,EntityManagerInterface $entityManager,SendMailService $mail): Response
+    {
+        $form = $this->createForm(ContactFormType::class);
+        $form->handleRequest($request);
 
-    //         return $this->redirectToRoute('app_home');
-    //     }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $nom = $form->get('lastName')->getData();
+            $prenom = $form->get('firstName')->getData();
+            $emailClient =$form->get('email')->getData();
+            $telephone = $form->get('phone')->getData();
+            $adresse = $form->get('address')->getData();
+            $codePostale = $form->get('postalCode')->getData();
+            $ville = $form->get('city')->getData();
+            $preferenceContact = $form->get('contactMethod')->getData();
+            $message = $form->get('message')->getData();
 
-    //     return $this->render('home/contact_form.html.twig', [
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
-
-    // #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
-    // public function contact(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
-    // {
-    //     $form = $this->createForm(ContactFormType::class, $operation);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $nom = $form->get('reclamation')->getData();
-    //         $prenom = $form->get('reclamation')->getData();
-    //         $email =$form->get('reclamation')->getData();
-    //         $telephone = $form->get('reclamation')->getData();
-    //         $adresse = $form->get('reclamation')->getData();
-    //         $codePostale = $form->get('reclamation')->getData();
-    //         $ville = $form->get('reclamation')->getData();
-    //         $preferenceContact = $form->get('reclamation')->getData();
-    //         $message = $form->get('reclamation')->getData();
+            $mail->send ('no-reply@cleanthis.fr',
+            'no-reply@cleanthis.fr',
+            'Contact Client',
+            'contact',
+            compact('nom','prenom','emailClient' ,'telephone', 'adresse', 'codePostale', 'ville', 'preferenceContact', 'message')
+        );
          
-    //         return $this->render('operation/success_reclamation.html.twig');
-    //     }
+            return $this->render('operation/success_reclamation.html.twig');
+        }
 
-    //     return $this->render('operation/reclamation.html.twig', [
-    //         'operation' => $operation,
-    //         'form' => $form,
-    //     ]);
-    
+        return $this->render('home/contact_form.html.twig', [
+                    'form' => $form->createView(),
+        ]);
+    }
 }
