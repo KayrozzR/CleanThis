@@ -45,8 +45,8 @@ class TypeOperationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ]
-            ])
-            ->add('color', ColorType::class);
+                ]);
+            // ->add('color', ColorType::class);
             // ->add('devis', EntityType::class, [
             //     'class' => Devis::class,
             //     'choice_label' => 'id',
