@@ -14,7 +14,16 @@
 		<div class="chart-container">
 		<canvas id="usersChart" aria-label="Chart" role="img"></canvas>
 		</div> 
-		<div id="userData" data-user-names="{{ userData }}"></div>
+		<div id="users" data-user-names="{{ usersEmployee }}"></div>
+        <div>
+        <label for="user-select">Sélectionnez un utilisateur :</label>
+        <select id="user-select">
+            <option value="">Tous les utilisateurs</option>
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.lastname }}</option>
+            {% endfor %}
+        </select>
+    </div>
 </body>
 </html>
 {% endblock %}
@@ -22,43 +31,37 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="{{ asset('js/dashboard.js') }}" defer></script>
 <script>
-let userData = document.getElementById('userData').dataset.userNames;
-let typeOpPrice = document.getElementById('userData').dataset.typeOpPrice;
+        document.addEventListener('DOMContentLoaded', function() {
+            let usersEmployee = JSON.parse(document.querySelector("#users").getAttribute('data-user-names'));
+            let totalTarifs = JSON.parse('{{ totalTarifs|raw }}');
 
-let usersChart = new Chart(document.getElementById('usersChart'), {
-    type: 'bar', 
-    data: {
-        labels: Object.keys(userData).map(key => userData[key].userName), 
-        datasets: [{
-            label: "Chiffre d'affaires par Utilisateur",
-            data: Object.keys(userData).map(key => userData[key].userOpEnd),
-            backgroundColor: "#372772" 
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-                suggestedMax: 100000,
-                title: {
-                    display: true,
-                    text: "Chiffre d'affaires" // Ajouter un titre à l'axe des y
+            let users = document.querySelector("#usersChart");
+            let userGraph = new Chart(users, {
+                type: 'bar',
+                data: {
+                    labels: usersEmployee,
+                    datasets: [{
+                        label: "Chiffre d'affaire pour chaque utilisateur",
+                        data: Object.values(totalTarifs),
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: "Utilisateurs" // Ajouter un titre à l'axe des x
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                display: false // Masquer la légende car elle n'est pas nécessaire pour ce graphique
-            }
-        }
-    }
-});
+            });
+        let userSelect = document.getElementById("user-select");
+        userSelect.addEventListener("change", function() {
+            let selectedUserId = userSelect.value;
+            // Mettez ici la logique pour mettre à jour le graphique en fonction de l'utilisateur sélectionné
+        });
+        });
 
-</script>
+    </script>
 {% endblock %}

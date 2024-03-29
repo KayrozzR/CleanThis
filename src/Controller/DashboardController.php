@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\TypeOperation;
-use App\Repository\OperationRepository;
-use App\Repository\TypeOperationRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,38 +16,51 @@ class DashboardController extends AbstractController
     public function index(EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
-        $typeOperations = $entityManager->getRepository(TypeOperation::class)->findAll();
+        // $typeOperations = $entityManager->getRepository(TypeOperation::class)->findAll();
 
-        $typeOpPrice = [];
-        foreach ($typeOperations as $typeOperation) {
-            $typeOpPrice[] = $typeOperation->getTarif();
-        }
+        // $typeOpPrice = [];
 
-        $userData = [];
+        // foreach ($typeOperations as $typeOperation) {
+        //     $typeOpPrice[] = $typeOperation->getTarif();
+        // }
+
+        
+        $desiredRoles = ['ROLE_ADMIN', 'ROLE_SENIOR', 'ROLE_APPRENTI'];
+        $usersEmployee = [];
+        $totalTarifs = [];
+
         foreach ($users as $user) {
-            $operations = $user->getOperations(); // Récupérer les opérations associées à cet utilisateur
-
-            $userOpEnd = 0;
-            $userOpInProg = 0;
-
-            foreach ($operations as $operation) {
-                if ($operation->isStatusOperation()) {
-                    $userOpEnd++;
-                } else {
-                    $userOpInProg++;
+            foreach ($user->getRoles() as $role) {
+                if (in_array($role, $desiredRoles)) {
+                    $operations = $user->getOperations();
+                    foreach ($operations as $operation) {
+                        $devis = $operation->getDevis();
+                        foreach ($devis as $devi) {
+                            $tarif = $devi->getTypeOperation()->getTarif();
+                            if (!isset($totalTarifs[$user->getLastname()])) {
+                                $totalTarifs[$user->getLastname()] = 0;
+                            }
+                            $totalTarifs[$user->getLastname()] += $tarif;
+                        }
+                    }
+                    break;
                 }
             }
+        }
 
-            $userData[$user->getId()] = [
-                'userName' => $user->getLastname(),
-                'userOpEnd' => $userOpEnd,
-                'userOpInProg' => $userOpInProg
-            ];
+        foreach ($users as $user) {
+            foreach ($user->getRoles() as $role) {
+                if (in_array($role, $desiredRoles)) {
+                    $usersEmployee[] = $user->getLastname();
+                    break;
+                }
+            }
         }
 
         return $this->render('admin/dashboard/index.html.twig', [
-            'userData' => json_encode($userData),
-            'typeOpPrice' => json_encode($typeOpPrice)
+            'usersEmployee' => json_encode($usersEmployee),
+            'users' => $users,
+            'totalTarifs' => json_encode($totalTarifs)
         ]);
     }
 }
