@@ -130,11 +130,11 @@
         <target>"Ce que j'adore avec CleanThis ? C'est que j'ai la chance d'avoir des clients très gentils et bienveillants. J'ai l'impression de faire partie de leur famille, ils me font confiance et sont si reconnaissants de mon travail. Tout le monde est content et ça me fait si plaisir de faire plaisir !"</target>
       </trans-unit>
       <trans-unit id="ehSkih8" resname="Théo, a CleanThis employee for 3 years.">
-        <source>Max, a CleanThis employee for 3 years.</source>
+        <source>Théo, a CleanThis employee for 3 years.</source>
         <target>Max, employé chez CleanThis depuis 3 ans.</target>
       </trans-unit>
       <trans-unit id="o8i.p7." resname="Why choose CleanThis?">
-        <source>Why choose CleanThis ?</source>
+        <source>Why choose CleanThis?</source>
         <target>Pourquoi choisir CleanThis ?</target>
       </trans-unit>
       <trans-unit id="wdB41Rb" resname="Economy">
@@ -196,6 +196,38 @@
       <trans-unit id="Uyyd.Gb" resname="- Rachid Badouri, October 2023">
         <source>- Rachid Badouri, October 2023</source>
         <target>- Rachid Badouri, Octobre 2023</target>
+      </trans-unit>
+      <trans-unit id=".D0tDqr" resname="Max, a CleanThis employee for 3 years.">
+        <source>Max, a CleanThis employee for 3 years.</source>
+        <target>__Max, a CleanThis employee for 3 years.</target>
+      </trans-unit>
+      <trans-unit id="t599.1w" resname="Why choose CleanThis ?">
+        <source>Why choose CleanThis ?</source>
+        <target>Pourquoi choisir CleanThis ?</target>
+      </trans-unit>
+      <trans-unit id="tLWAqa2" resname="About us">
+        <source>About us</source>
+        <target>A propos</target>
+      </trans-unit>
+      <trans-unit id="R6rzG4P" resname="Contact us">
+        <source>Contact us</source>
+        <target>Nous contacter</target>
+      </trans-unit>
+      <trans-unit id="CQruTLW" resname="Our services">
+        <source>Our services</source>
+        <target>Nos services</target>
+      </trans-unit>
+      <trans-unit id="5RJIdzu" resname="Management">
+        <source>Management</source>
+        <target>Administration</target>
+      </trans-unit>
+      <trans-unit id="tTGBpNh" resname="My account">
+        <source>My account</source>
+        <target>Mon compte</target>
+      </trans-unit>
+      <trans-unit id="wYmEDPf" resname="Log in">
+        <source>Log in</source>
+        <target>Se connecter</target>
       </trans-unit>
     </body>
   </file>

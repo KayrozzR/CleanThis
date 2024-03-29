@@ -13,27 +13,22 @@
 		<!-- Feuilles de styles -->
 		<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-		<link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
-		
+		<link
+		rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
+
 
 		<!-- Fichiers JS -->
 		<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
-		{% block javascripts %}
-		{% endblock %}		
+		{% block javascripts %}{% endblock %}
 		<script src="{{ asset('js/script.js') }}" defer></script>
-		
-
+		{% include "_partials/_flash.html.twig" %}
 	</head>
-	<body >
-	
-		{% if app.user and app.user.isVerified == false %}
-	
-		{% endif %}
+
+	<body>
+
+		{% if app.user and app.user.isVerified == false %}{% endif %}
 		{% include "_partials/_sidebar.html.twig" %}
 
-		{% include "_partials/_flash.html.twig" %}
-		
-		
 		{% block body %}{% endblock %}
 
 		{# {% include "_partials/_footer.html.twig" %} #}

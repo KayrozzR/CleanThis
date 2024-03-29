@@ -14,24 +14,24 @@
 	</style>
 {% endblock %}
 {% block body  %}
-	<section class="topBackground">
-		<div class="personalInformations">
-			<div class="personal">
-				<strong>{{ app.user.lastname }}
-					{{ app.user.firstname }}</strong>
-				<p>{{ app.user.tel }}</p>
-				<p>{{ app.user.email }}</p>
-				<p>{{ app.user.address }}</p>
-			</div>
-			<a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos">
-				Modifier mes informations
-			</a>
-			<a href="{{ path('app_devis_new') }}" class="demanderDevis">
-				Demander un nouveau devis</a>
-		</div>
-	</section>
-
-	<a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
+<section class="topBackground">
+ <div class = "personalInformations">
+            <div class= "personal">
+                <strong>{{ app.user.lastname }} {{ app.user.firstname }}</strong>
+                <p>{{ app.user.tel }}</p>
+                <p>{{ app.user.email }}</p>
+                <p>{{ app.user.address }}</p>
+            </div>
+                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos"> Modifier mes informations </a>
+                <a href="{{ path('app_devis_client') }}"  class="demanderDevis"> Demander un nouveau devis</a>
+</div>
+</section>
+{% if app.user.avatar == null %}
+    <img src="{{ asset('images/avatar-placeholder.png') }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+    {% else %}
+    <img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+{% endif %}
+<a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
 	<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
 	<section class="homeProfil hidden">
 		<div class="text">
@@ -43,7 +43,6 @@
 						<th data-sortable="true" data-field="date_debut" class="light-weight">Débuté le</th>
 						<th data-sortable="true" data-field="date_fin" class="light-weight">Terminé le</th>
 						<th data-sortable="true" data-field="status_paiement" class="light-weight">Status du paiement</th>
-
 						<th class="light-weight">Voir ma facture</th>
 
 					</tr>

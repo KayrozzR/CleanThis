@@ -26,7 +26,11 @@
 								<div class="d-flex flex-column align-items-center text-center">
 									<h4 id="user-fullname">{{app.user.lastname}}
 										{{app.user.firstname}}</h4>
+									{% if app.user.avatar == null %}
+    								<img src="{{ asset('images/avatar-placeholder.png') }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+    								{% else %}	
 									<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+									{% endif %}
 									<form id="upload-form" action="{{ path('uploads_avatar') }}" method="post" enctype="multipart/form-data">
 										<label for="avatar-upload" class="upload-icon">
 											<i class="bx bx-cloud-upload" style='font-size: 40px;'></i><br>

@@ -50,7 +50,7 @@
 							<td class="bold-weight" data-image="{{ asset('uploads/services/' ~ devi.imageObject) }}"></td>
 							<td class="bold-weight">{{ devi.status ? 'Yes' : 'No' }}</td>
 							<td>
-								{% if devi.typeOperation and devi.typeOperation.getLibelle() == 'Service Custom' %}
+								{% if devi.typeOperation and devi.typeOperation.getLibelle() == 'Service de Nettoyage Custom' %}
 									{% if not devi.status %}
 										<a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
 									{% endif %}
@@ -74,9 +74,16 @@
 								</a>
 							</td>
 							<td>
-								<a href="#" class="sendDevisBtn actionsButton" data-devi-id="{{ devi.id }}">
+								{% if devi.status %}
+                                    <a href="#" class="sendDevisBtn actionsButton" data-devi-id="{{ devi.id }}">
+                                        <img src="{{ asset('images/sendMail.png') }}" alt="Envoyer le pdf">
+                                    </a>
+									{% else %}
+									
+                                {% endif %}
+								{# <a href="#" class="sendDevisBtn actionsButton" data-devi-id="{{ devi.id }}">
 									<img src="{{ asset('images/sendMail.png') }}" alt="Envoyer le pdf">
-								</a>
+								</a> #}
 							</td>
 						</tr>
 					{% else %}
