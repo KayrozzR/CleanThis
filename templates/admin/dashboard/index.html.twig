@@ -4,32 +4,39 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
 		<title>Dashboard</title>
 	</head>
 
 	<body>
-
+{% include "_partials/_sidebar.html.twig" %}
 {% block body %}
-
+ <section class="home">
+    <div class="text">
 		<div class="chart-container">
-		<canvas id="usersChart" aria-label="Chart" role="img"></canvas>
-		</div> 
-		<div id="users" data-user-names="{{ usersEmployee }}"></div>
-        <div>
-        <label for="user-select">Sélectionnez un utilisateur :</label>
-        <select id="user-select">
-            <option value="">Tous les utilisateurs</option>
-            {% for user in users %}
-                <option value="{{ user.id }}">{{ user.lastname }}</option>
-            {% endfor %}
-        </select>
+            <canvas id="usersChart" aria-label="Chart" role="img"></canvas>
+            </div> 
+            <div id="users" data-user-names="{{ usersEmployee }}"></div>
+            <div>
+            <label for="user-select">Sélectionnez un utilisateur :</label>
+            <select id="user-select">
+                <option value="">Tous les utilisateurs</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
+</section>
+
 </body>
 </html>
 {% endblock %}
 {% block javascripts %}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-		<script src="{{ asset('js/dashboard.js') }}" defer></script>
+<script src="{{ asset('js/script.js') }}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('js/dashboard.js') }}" defer></script>
+
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             let usersEmployee = JSON.parse(document.querySelector("#users").getAttribute('data-user-names'));
@@ -63,5 +70,5 @@
         });
         });
 
-    </script>
+</script>
 {% endblock %}
