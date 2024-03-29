@@ -2,14 +2,22 @@
 
 {% block title %}Hello HomeController!
 {% endblock %}
-{% block stylesheets %} <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>{% endblock %}
+{% block stylesheets %}
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	
+
+{% endblock %}
 
 {% block body %}
 	<section>
+
 		<div class="container" style="padding-top: 200px; padding-left: 50px">
+			<a href="{{ path('app_user_profil') }}" class="demanderDevis" style="background-color: #372772;  border-radius: 15px; padding: 10px; color: #fff; font-weight: bold; text-decoration: none;">Retour aux opérations</a>
+
 			<div>
-			<a href="{{ path('app_user_profil') }}"  class="demanderDevis"> Retour aux opérations</a>
-				<!-- /Breadcrumb -->
+
+
+				
 
 				<div class="row gutters-sm">
 					<div class="col-md-4 mb-3">
@@ -18,7 +26,11 @@
 								<div class="d-flex flex-column align-items-center text-center">
 									<h4 id="user-fullname">{{app.user.lastname}}
 										{{app.user.firstname}}</h4>
+									{% if app.user.avatar == null %}
+    								<img src="{{ asset('images/avatar-placeholder.png') }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+    								{% else %}	
 									<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+									{% endif %}
 									<form id="upload-form" action="{{ path('uploads_avatar') }}" method="post" enctype="multipart/form-data">
 										<label for="avatar-upload" class="upload-icon">
 											<i class="bx bx-cloud-upload" style='font-size: 40px;'></i><br>
@@ -45,7 +57,7 @@
 											<button class="save-button" style="float: right; font-size: 20px;" onclick="saveField('lastname')">
 												<i class='bx bx-save'></i>
 											</button>
-										</div>									
+										</div>
 										<button style="float: right; font-size: 20px;" class="edit-button" onclick="editField('lastname')">
 											<i class='bx bx-edit'></i>
 										</button>
@@ -118,9 +130,9 @@
 												<i class='bx bx-save'></i>
 											</button>
 										</div>
-											<button style="float: right; font-size: 20px;" class="edit-button" onclick="editField('address')">
-												<i class='bx bx-edit'></i>
-											</button>
+										<button style="float: right; font-size: 20px;" class="edit-button" onclick="editField('address')">
+											<i class='bx bx-edit'></i>
+										</button>
 									</div>
 								</div>
 								<hr>
@@ -131,7 +143,7 @@
 									<div class="col-sm-9 text-secondary">
 										<input type="text" id="edit-password" style="display: none;">
 										<button style="font-size: 20px;background-color: #F2C57C;
-    										border-radius: 3px;" onclick="editPasswordField()">
+																																												    										border-radius: 3px;" onclick="editPasswordField()">
 											<i class='bx bx-edit'></i>
 										</button>
 									</div>
@@ -158,7 +170,7 @@
 								</div>
 								<div id="save-button" style="display: none;">
 									<button style="background-color: #372772;
-    								border-radius: 3px; padding-left: 3px; padding-right: 3px; color: white;" onclick="savePassword()">Enregistrer le mot de passe</button>
+																																								    								border-radius: 3px; padding-left: 3px; padding-right: 3px; color: white;" onclick="savePassword()">Enregistrer le mot de passe</button>
 								</div>
 							</div>
 						</div>
@@ -179,24 +191,21 @@ var saveButton = originalField.closest('.row').querySelector('.save-button');
 var editButton = originalField.closest('.row').querySelector('.edit-button');
 
 
-// Afficher le champ d'édition et cacher le texte statique
+
 editField.value = fieldValue;
 editField.style.display = 'inline';
 originalField.style.display = 'none';
 
-// Cacher le bouton "Éditer"
+
 editButton.style.display = 'none';
 
-// Focus sur le champ d'édition
+
 editField.focus();
 
-// Afficher le bouton "Enregistrer"
+
 saveButton.style.display = 'inline';
 
-// Écouter l'événement de perte de focus pour sauvegarder les modifications
-// editField.addEventListener('blur', function () {
-// saveField(fieldName);
-// });
+
 }
 
 function saveField(fieldName) {
@@ -206,12 +215,11 @@ var newValue = editField.value;
 var saveButton = originalField.closest('.row').querySelector('.save-button');
 var editButton = originalField.closest('.row').querySelector('.edit-button');
 
-// Préparer les données à envoyer au serveur
+
 var data = {};
 data[fieldName] = newValue;
-// Utilisez le nom de champ dynamique correspondant
 
-// Envoyer la nouvelle valeur au serveur pour sauvegarde en base de données
+
 fetch("{{ path('app_user_edit_profil', {'id': app.user.id}) }}", {
 method: "POST",
 headers: {
@@ -262,25 +270,24 @@ editPasswordRow.style.display = 'none';
 saveButton.style.display = 'block';
 }
 
-function validatePassword(password) {
-    // Vérifier si le mot de passe a une longueur d'au moins 6 caractères
-    if (password.length < 6) {
-        return false;
-    }
-    
-    // Vérifier s'il y a au moins une majuscule
-    var uppercaseRegex = /[A-Z]/;
-    if (!uppercaseRegex.test(password)) {
-        return false;
-    }
-    
-    // Vérifier s'il y a au moins un chiffre
-    var digitRegex = /[0-9]/;
-    if (!digitRegex.test(password)) {
-        return false;
-    }
-    
-    return true;
+function validatePassword(password) { // Vérifier si le mot de passe a une longueur d'au moins 6 caractères
+if (password.length < 6) {
+return false;
+}
+
+// Vérifier s'il y a au moins une majuscule
+var uppercaseRegex = /[A-Z]/;
+if (! uppercaseRegex.test(password)) {
+return false;
+}
+
+// Vérifier s'il y a au moins un chiffre
+var digitRegex = /[0-9]/;
+if (! digitRegex.test(password)) {
+return false;
+}
+
+return true;
 }
 
 function savePassword() {
@@ -300,14 +307,14 @@ return;
 }
 
 if (currentPassword === newPassword) {
-        alert('Le nouveau mot de passe ne peut pas être identique à l\'ancien.');
-        return;
-    }
+alert('Le nouveau mot de passe ne peut pas être identique à l\'ancien.');
+return;
+}
 
-if (!validatePassword(newPassword)) {
-        alert('Le nouveau mot de passe doit contenir au moins 6 caractères, une majuscule et un chiffre.');
-        return;
-    }
+if (! validatePassword(newPassword)) {
+alert('Le nouveau mot de passe doit contenir au moins 6 caractères, une majuscule et un chiffre.');
+return;
+}
 
 // Préparer les données à envoyer au serveur
 var data = {

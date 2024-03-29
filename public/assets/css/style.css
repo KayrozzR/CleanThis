@@ -53,6 +53,24 @@ html {
 
 }
 
+.custom-navbar {
+  background-color: transparent;
+  color: #372772;
+}
+
+.custom-navbar .nav-link {
+  color: #000000;
+  transition: background-color 0.3s; 
+  padding: 10px 15px; 
+  border-radius: 10px; 
+}
+
+
+.custom-navbar .nav-link:hover {
+  background-color: rgba(55, 39, 114, 0.5); 
+  color: #fff; 
+}
+
 
 /* .home1 {
   background-image: url('/images/image.png'); 

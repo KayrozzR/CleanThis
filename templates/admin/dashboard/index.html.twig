@@ -12,7 +12,6 @@
 {% block body %}
 <section class='home'>
 	<div class='text'>
-
         <div>
            <canvas id="CA/service" width="50" height="50"></canvas>
         </div>
@@ -20,6 +19,19 @@
            <canvas id="CA" width="50" height="50"></canvas>
         </div>
         {# {{dump()}} #}
+		<div class="chart-container">
+            <canvas id="usersChart" aria-label="Chart" role="img"></canvas>
+            </div> 
+            <div id="users" data-user-names="{{ usersEmployee }}"></div>
+            <div>
+            <label for="user-select">Sélectionnez un utilisateur :</label>
+            <select id="user-select">
+                <option value="">Tous les utilisateurs</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
 </section>
 
@@ -83,6 +95,41 @@
             }
         }
     });
+</script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let usersEmployee = JSON.parse(document.querySelector("#users").getAttribute('data-user-names'));
+            let totalTarifs = JSON.parse('{{ totalTarifs|raw }}');
+
+            let users = document.querySelector("#usersChart");
+            let userGraph = new Chart(users, {
+                type: 'bar',
+                data: {
+                    labels: usersEmployee,
+                    datasets: [{
+                        label: "Chiffre d'affaire pour chaque utilisateur",
+                        data: Object.values(totalTarifs),
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        let userSelect = document.getElementById("user-select");
+        userSelect.addEventListener("change", function() {
+            let selectedUserId = userSelect.value;
+            // Mettez ici la logique pour mettre à jour le graphique en fonction de l'utilisateur sélectionné
+        });
+        });
+
 </script>
 <script src="{{ asset('js/script.js') }}" defer></script>
 {% endblock %}

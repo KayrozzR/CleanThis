@@ -24,4 +24,32 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var addressInput = document.querySelector('#form_adresseIntervention');
+    var cityInput = document.querySelector('#form_city');
+    var zipcodeInput = document.querySelector('#form_zipcode');
+
+    addressInput.addEventListener('input', function() {
+        var query = addressInput.value.trim();
+        if (query.length < 3) return;
+
+        fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=1`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.features.length > 0) {
+                    var address = data.features[0].properties.label;
+                    var city = data.features[0].properties.city;
+                    var zipcode = data.features[0].properties.postcode;
+
+                    addressInput.value = address;
+                    cityInput.value = city;
+                    zipcodeInput.value = zipcode;
+                }
+            })
+            .catch(error => console.error('Error fetching address:', error));
+    });
+});
+</script>
 {% endblock %}

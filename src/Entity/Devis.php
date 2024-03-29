@@ -53,6 +53,9 @@ class Devis
     #[ORM\Column(length: 12)]
     private ?string $tel = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $tarif_custom = null;
+
     public function __construct()
     {
         $this->Operation = new ArrayCollection();
@@ -204,6 +207,18 @@ class Devis
     public function setTel(string $tel): static
     {
         $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getTarifCustom(): ?float
+    {
+        return $this->tarif_custom;
+    }
+
+    public function setTarifCustom(?float $tarif_custom): static
+    {
+        $this->tarif_custom = $tarif_custom;
 
         return $this;
     }

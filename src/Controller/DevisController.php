@@ -8,19 +8,20 @@ use App\Entity\Devis;
 use Twig\Environment;
 use App\Form\DevisType;
 use App\Entity\Operation;
+use App\Form\EditDevisType;
 use App\Service\JWTService;
 use App\Service\PdfService;
 use App\Entity\TypeOperation;
+use PhpParser\Node\Stmt\Catch_;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
-use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -90,6 +91,12 @@ class DevisController extends AbstractController
                     $photo->move($this->getParameter('photo_dir'), $fileName);
                     $file = new File($this->getParameter('photo_dir').'/'.$fileName);                    
                     $devi->setImageObject($file);
+                }
+            
+                $typeOperation = $devi->getTypeOperation();
+            if ($typeOperation !== null) {
+                    $tarifTypeOperation = $typeOperation->getTarif();
+                    $devi->setTarifCustom($tarifTypeOperation);
                 }
 
                     $entityManager->persist($devi);
@@ -213,18 +220,18 @@ class DevisController extends AbstractController
     #[Route('/{id}/edit', name: 'app_devis_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Devis $devi, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(DevisType::class, $devi);
+        $form = $this->createForm(EditDevisType::class, $devi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            if ($form->get('image_object')->getData() !== null) {
-                $photo = $form['image_object']->getData();
-                $fileName = uniqid().'.'.$photo->guessExtension();
-                $photo->move($this->getParameter('photo_dir'), $fileName);
-                $file = new File($this->getParameter('photo_dir').'/'.$fileName);
-                $devi->setImageObject($file);
-            }
+            // if ($form->get('image_object')->getData() !== null) {
+            //     $photo = $form['image_object']->getData();
+            //     $fileName = uniqid().'.'.$photo->guessExtension();
+            //     $photo->move($this->getParameter('photo_dir'), $fileName);
+            //     $file = new File($this->getParameter('photo_dir').'/'.$fileName);
+            //     $devi->setImageObject($file);
+            // }
             
             $entityManager->flush();
 

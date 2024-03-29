@@ -4,8 +4,6 @@ namespace App\Service;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use App\Entity\Operation;
-use App\Entity\Devis;
 use Twig\Environment;
 
 class PdfService

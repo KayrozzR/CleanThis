@@ -1,0 +1,83 @@
+.rating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formulairenote {
+    background-color: #c0c0c0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center; /* Ajout pour centrer le contenu */
+}
+
+.formulairenote p {
+    margin-bottom: 15px;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 15px; /* Ajout d'un espacement en bas */
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    color: #ddd;
+    margin: 0 5px;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+    color: #f39c12;
+}
+
+.btn-primary.payer-facture {
+    background-color: #6AA370; /* Vert */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    border: 2px solid #6AA370;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-bottom: 15px;
+}
+
+.btn-primary.payer-facture:hover {
+    background-color: #5a8f5e;
+    border-color: #5a8f5e;
+}
+
+.btn-primary1.envoyer-note {
+    background-color: #372772; /* Mauve */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 15px;
+    display: inline-block;
+    border: 2px solid #372772;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-bottom: 20px; 
+    margin-left: 50%;
+    margin-top: 2%;
+}
+
+.btn-primary1.envoyer-note:hover {
+    background-color: #372772;
+    border-color: #372772;
+}
+.formulairenote p {
+    margin-bottom: 15px; /* Ajoute un espace en bas de chaque paragraphe */
+}

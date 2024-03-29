@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Devis</title>
+        <title>Facture</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
         img {
@@ -126,7 +126,7 @@
                 <tr>
                     <td>{{ type_operation.libelle}}</td> 
                     <td>{{ type_operation.descriptif }}</td>
-                    <td>{{ type_operation.tarif }} €</td>
+                    <td>{{ devi.TarifCustom }} €</td>
                 </tr>
             </tbody>
         </table>
@@ -136,17 +136,17 @@
             <tbody>
                 <tr >
                     <td scope="col" class= "TTC">Prix TTC</td>
-                    <td class= "TTC">{{ type_operation.tarif * 1.2 }} €</td>
+                    <td class= "TTC">{{ devi.TarifCustom * 1.2 }} €</td>
                 </tr>
 
                 <tr>
                     <td scope="col">Total H.T</td>
-                    <td>{{ type_operation.tarif }} €</td> 
+                    <td>{{ devi.TarifCustom }} €</td> 
                 </tr>
 
                 <tr>
                     <td scope="col">TVA (20%)</td>
-                    <td>{{ type_operation.tarif * 0.2 }} €</td> 
+                    <td>{{ devi.TarifCustom * 0.2 }} €</td> 
                 </tr>
             </tbody>
         </table>

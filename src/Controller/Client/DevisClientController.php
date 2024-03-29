@@ -46,6 +46,17 @@ class DevisClientController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $existingDevis = $entityManager->getRepository(Devis::class)->findOneBy([
+                'mail' => $devi->getMail(),
+                'typeOperation' => $devi->getTypeOperation(),
+                'adresse_intervention' => $devi->getAdresseIntervention()
+            ]);
+
+            if ($existingDevis !== null) {
+                $this->addFlash('error', 'Ce devis existe déjà.');
+                return $this->redirectToRoute('app_devis_client_new');
+            }
+
             $serv = $form->getData();
             $mail = $form->get('mail')->getData();
             $mailConfirmation = $form->get('mailConfirmation')->getData();
@@ -58,11 +69,17 @@ class DevisClientController extends AbstractController
                     $serv->setImageObject($fileName);
                 }
 
+                $typeOperation = $devi->getTypeOperation();
+            if ($typeOperation !== null) {
+                    $tarifTypeOperation = $typeOperation->getTarif();
+                    $devi->setTarifCustom($tarifTypeOperation);
+                }
+
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 
                 $this->addFlash('error', 'Les mails ne correspondent pas');
-                return $this->redirectToRoute('app_devis_new', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_devis_client_new', [], Response::HTTP_SEE_OTHER);
             };
 
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);

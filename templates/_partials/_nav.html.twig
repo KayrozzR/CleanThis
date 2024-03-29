@@ -1,4 +1,14 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" style="height: 60px">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Page</title>
+   
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<nav class="navbar navbar-expand-lg custom-navbar">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="{{ path('app_home') }}">CleanThis</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,13 +17,19 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="">A Propos</a>
+					<a class="nav-link active" aria-current="page" href="">{% trans %}
+						About us
+						{% endtrans %}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/contact_form">Nous contacter</a>
+					<a class="nav-link active" aria-current="page" href="/contact_form">{% trans %}
+						Contact us
+						{% endtrans %}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{ path('app_services') }}">Nos services</a>
+					<a class="nav-link active" aria-current="page" href="{{ path('app_services') }}">{% trans %}
+						Our services
+						{% endtrans %}</a>
 				</li>
 			</ul>
 
@@ -21,20 +37,28 @@
 				{% if app.user %}
 					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SENIOR') %}
 						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_employe_index') }}">Administration</a>
+							<a class="nav-link active" href="{{ path('app_employe_index') }}">{% trans %}
+								Management
+								{% endtrans %}</a>
 						</li>
 					{% endif %}
 					<li class="nav-item">
 
-						<a class="nav-link active" href="{{ path('app_user_profil' ) }}">Mon Compte</a>
+						<a class="nav-link active" href="{{ path('app_user_profil' ) }}">{% trans %}
+							My account
+							{% endtrans %}</a>
 
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('auth_oauth_logout' ) }} ">Me déconnecter</a>
+						<a class="nav-link active" href="{{ path('auth_oauth_logout' ) }} ">{% trans %}
+							Logout
+							{% endtrans %}</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('auth_oauth_login' ) }} ">Me connecter</a>
+						<a class="nav-link active" href="{{ path('auth_oauth_login' ) }} ">{% trans %}
+							Log in
+							{% endtrans %}</a>
 					</li>
 				{% endif %}
 
