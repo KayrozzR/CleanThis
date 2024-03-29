@@ -124,14 +124,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ type_operation.libelle}}</td> 
+                      <td>{{ type_operation.libelle}}</td> 
                     <td>{{ type_operation.descriptif }}</td>
-                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
-                        <td>{{ devi.TarifCustom}} €</td>
-                     {% else %}
-                        <td>{{ type_operation.tarif }} €</td>
-                    {% endif %}
-                    
+                    <td>{{ devi.TarifCustom }} €</td>
                 </tr>
             </tbody>
         </table>
@@ -141,29 +136,17 @@
             <tbody>
                 <tr >
                     <td scope="col" class= "TTC">Prix TTC</td>
-                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
-                        <td>{{ devi.TarifCustom * 1.2 }} €</td>
-                     {% else %}
-                        <td>{{ type_operation.tarif * 1.2 }} €</td>
-                    {% endif %}
+                    <td class= "TTC">{{ devi.TarifCustom * 1.2 }} €</td>
                 </tr>
 
                 <tr>
                     <td scope="col">Total H.T</td>
-                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
-                        <td>{{ devi.TarifCustom}} €</td>
-                     {% else %}
-                        <td>{{ type_operation.tarif }} €</td>
-                    {% endif %}
+                    <td>{{ devi.TarifCustom }} €</td> 
                 </tr>
 
                 <tr>
                     <td scope="col">TVA (20%)</td>
-                    {% if type_operation.libelle == "Service de Nettoyage Custom" %}
-                        <td>{{ devi.TarifCustom * 0.2 }} €</td>
-                     {% else %}
-                        <td>{{ type_operation.tarif * 0.2 }} €</td>
-                    {% endif %}
+                    <td>{{ devi.TarifCustom * 0.2 }} €</td> 
                 </tr>
             </tbody>
         </table>

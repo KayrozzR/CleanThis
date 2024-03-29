@@ -74,9 +74,16 @@
 								</a>
 							</td>
 							<td>
-								<a href="#" class="sendDevisBtn actionsButton" data-devi-id="{{ devi.id }}">
+								{% if devi.status %}
+                                    <a href="#" class="sendDevisBtn actionsButton" data-devi-id="{{ devi.id }}">
+                                        <img src="{{ asset('images/sendMail.png') }}" alt="Envoyer le pdf">
+                                    </a>
+									{% else %}
+									
+                                {% endif %}
+								{# <a href="#" class="sendDevisBtn actionsButton" data-devi-id="{{ devi.id }}">
 									<img src="{{ asset('images/sendMail.png') }}" alt="Envoyer le pdf">
-								</a>
+								</a> #}
 							</td>
 						</tr>
 					{% else %}

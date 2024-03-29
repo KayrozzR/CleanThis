@@ -255,6 +255,12 @@ class CrudController extends AbstractController
                     $serv->setImageObject($fileName);
                 }
 
+                $typeOperation = $devi->getTypeOperation();
+            if ($typeOperation !== null) {
+                    $tarifTypeOperation = $typeOperation->getTarif();
+                    $devi->setTarifCustom($tarifTypeOperation);
+                }
+
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 

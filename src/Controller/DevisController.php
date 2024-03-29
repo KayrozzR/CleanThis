@@ -92,6 +92,12 @@ class DevisController extends AbstractController
                     $file = new File($this->getParameter('photo_dir').'/'.$fileName);                    
                     $devi->setImageObject($file);
                 }
+            
+                $typeOperation = $devi->getTypeOperation();
+            if ($typeOperation !== null) {
+                    $tarifTypeOperation = $typeOperation->getTarif();
+                    $devi->setTarifCustom($tarifTypeOperation);
+                }
 
                     $entityManager->persist($devi);
                     $entityManager->flush();
