@@ -1,6 +1,6 @@
 .rating-container {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     height: 100vh;
 }
@@ -11,7 +11,7 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
-    width: 100%;
+    width: 45%;
     text-align: center; /* Ajout pour centrer le contenu */
 }
 
@@ -79,5 +79,18 @@
     border-color: #372772;
 }
 .formulairenote p {
-    margin-bottom: 15px; /* Ajoute un espace en bas de chaque paragraphe */
+    margin-bottom: 15px; 
+}
+.btn.laisser-reclamation.custom-color {
+    background-color: #F2C57C !important;
+    border-color: #F2C57C !important;
+    margin-right: 10px;
+}
+
+.custom-color {
+    background-color: #F2C57C !important;
+    border-color: #F2C57C !important;
+    margin-left: 10px; 
+    
+    
 }

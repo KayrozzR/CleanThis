@@ -9,10 +9,11 @@
 {% endblock %}
 
 {% block body %}
-	
+
 	<section class="home">
+
 		<div class="rating-container">
-		
+
 			<div class="formulairenote">
 				<p>Montant restant dû: 458,91€</p>
 				<a href="{{ path('payer', {'id': operation.id}) }}" class="btn btn-primary payer-facture">Payer ma facture</a>
@@ -32,7 +33,12 @@
 				{{ form_end(form) }}
 			</div>
 		</div>
+		<div>
+		
+			<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="btn btn-primary laisser-reclamation custom-color">Laisser une réclamation</a>
+		</div>
 	</section>
+
 
 	<script>
 		const stars = document.querySelectorAll('.rating input');
