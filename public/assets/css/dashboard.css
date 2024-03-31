@@ -4,6 +4,81 @@ body {
 }
 
 .chart-container {
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.438);
     width: 50%;
-    margin: 20px;
+    padding: 3%;
+    margin-left: 10%;
+    margin-right: 5%;
+    border-radius: 10%;
+}
+.chart-container1{
+    background-color: rgba(255, 255, 255, 0.438);
+    width: 30%;
+    padding: 3%;
+    margin-left: 5%;
+    border-radius: 10%;
+}
+.cards{
+    display: flex;
+    margin: -2%;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+.chart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+
+.CA{
+    background-color: #FFE2E5;
+    padding: 2%;
+    margin-bottom: 8%;
+    margin-top: 5%;
+    border-radius: 10%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.Op{
+    background-color: #FFF4DE;
+    margin-bottom: 8%;
+    padding: 2%;
+    margin-top: 5%;
+    border-radius: 10%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.OpTermine{
+    background-color: #C9FCE4;
+    margin-bottom: 8%;
+    padding: 2%;
+    margin-top: 5%;
+    border-radius: 10%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.clients{
+    background-color: #F4DDFE;
+    margin-bottom: 8%;
+    padding: 2%;
+    margin-top: 5%;
+    border-radius: 10%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+img{
+    margin-bottom: 3%;
+}
+.title{
+    margin-left: 15%;
+    margin-bottom: 10%;
+}
+.title1{
+    margin-left: 25%;
+    margin-bottom: 10%;
+}
+select{
+    margin-top: 5%;
+    border-color: rgb(208, 208, 208);
+    color: grey;
+}
+label{
+    margin-left: 25%;
 }
