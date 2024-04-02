@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class ResetPasswordFormType extends AbstractType
@@ -23,6 +24,7 @@ class ResetPasswordFormType extends AbstractType
                     'class' => 'form-control'
 
                 ],
+                'label_attr' => ['style' => 'margin-bottom: 15px;margin-top: 5px;'],
                 'constraints' =>[
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -41,10 +43,11 @@ class ResetPasswordFormType extends AbstractType
             ])
             ->add('password2', PasswordType::class, [
                 'label' => 'confirmer votre mot de passe',
+                'mapped' => false,
                 'attr' => [
-
                     'class' => 'form-control'
                 ],
+                'label_attr' => ['style' => 'margin-bottom: 15px;margin-top: 5px;'],
                 'constraints' =>[
                     new NotBlank([
                         'message' => 'Please enter a password',

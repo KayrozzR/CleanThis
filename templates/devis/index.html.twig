@@ -29,7 +29,8 @@
 						<th data-sortable="true" data-field="Comment" class="light-weight">Comment</th>
 						<th data-sortable="true" data-field="Image_object" class="light-weight">Image_object</th>
 						<th data-sortable="true" data-field="status" class="light-weight">Status</th>
-						<th class="light-weight">Actions</th>
+						<th class="light-weight">Modifier</th>
+						<th class="light-weight">Valider/supprimer</th>
 						<th class="light-weight">Télécharger</th>
 						<th class="light-weight">Envoyer</th>
 					</tr>
@@ -48,23 +49,32 @@
 							<td class="bold-weight">{{ devi.createdAt ? devi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 							<td class="bold-weight">{{ devi.comment }}</td>
 							<td class="bold-weight" data-image="{{ asset('uploads/services/' ~ devi.imageObject) }}"></td>
-							<td class="bold-weight">{{ devi.status ? 'Yes' : 'No' }}</td>
+							<td class="bold-weight {{ devi.status ? 'validé' : '' }}">
+    							{{ devi.status ? 'devis validé ' : 'En attente de validation' }}
+								{% if devi.status %}
+									<i style = "color: green;"  class='bx bx-check'></i>
+								{% endif %}
+							</td>
 							<td>
-								{% if devi.typeOperation and devi.typeOperation.getLibelle() == 'Service Custom' %}
+								{% if devi.typeOperation and devi.typeOperation.getLibelle() == 'Service de Nettoyage Custom' %}
 									{% if not devi.status %}
-										<a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButtons2">Modifier</a>
+										<a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="actionsButton">
+										<img style="height: 25px;" src="{{ asset('images/Edit.png') }}" alt="Modifier le devis">
+										</a>
 									{% endif %}
 								{% endif %}
 								{# <a href="{{ path('devis_pdf', {'id': devi.id})}}" class="actionsButtons3">Voir le pdf
 								</a> #}
+							</td>
+							<td>
 								{% if not devi.status %}
-									<button class="btn toggleStatusBtn actionsButtons3" data-devi-id="{{ devi.id }}">
-										Valider le devis
+									<button class="btn toggleStatusBtn actionsButton" data-devi-id="{{ devi.id }}">
+										<i style="font-size: 25px" class='bx bx-check-double'></i>
 									</button>
 								{% endif %}
 								{% if devi.id not in devisWithTrueStatus %}
-									<button class="btn deleteBtn actionsButtons3" id="delete{{ devi.id }}" data-csrf-token="{{ csrf_token('delete' ~ devi.id) }}">
-										Supprimer
+									<button class="btn deleteBtn actionsButton" id="delete{{ devi.id }}" data-csrf-token="{{ csrf_token('delete' ~ devi.id) }}">
+										<i style="font-size: 25px" class='bx bx-trash'></i>
 									</button>
 								{% endif %}
 							</td>

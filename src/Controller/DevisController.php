@@ -89,8 +89,8 @@ class DevisController extends AbstractController
                     $photo = $form['image_object']->getData();
                     $fileName = uniqid().'.'.$photo->guessExtension();
                     $photo->move($this->getParameter('photo_dir'), $fileName);
-                    $file = new File($this->getParameter('photo_dir').'/'.$fileName);                    
-                    $devi->setImageObject($file);
+                    $filePath = 'uploads/services/' . $fileName;
+                    $devi->setImageObject($filePath);
                 }
             
                 $typeOperation = $devi->getTypeOperation();
