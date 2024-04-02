@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Client{% endblock %}
+{% block title %}{% trans %}New Customer{% endtrans %}{% endblock %}
 
 {% block body %}
   <section class="home">
     <div class="text">
      
-    <h1>Créer un client</h1>
+    <h1>{% trans %}Create a Customer{% endtrans %}</h1>
 
     {{ include('admin/customer/_form.html.twig') }}
 
-    <a href="{{ path('app_customer_index') }}" class= "retour">Retour aux clients</a>
+    <a href="{{ path('app_customer_index') }}" class= "retour">{% trans %}Back to Customers{% endtrans %}</a>
     
     </div>
    </section>

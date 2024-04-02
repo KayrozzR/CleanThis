@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Employee{% endblock %}
+{% block title %}{% trans %}Edit Employee{% endtrans %}{% endblock %}
 
 {% block body %}
   <section class="home">
     <div class="text">
     
-    <h1>Edit Employee</h1>
+    <h1>{% trans %}Edit Employee{% endtrans %}</h1>
 
     {{ include('admin/employe/_form.html.twig', {'button_label': 'Update'}) }}
 

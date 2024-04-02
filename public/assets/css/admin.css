@@ -287,6 +287,16 @@ body.dark .switch::before {
   left: 24px;
 }
 
+.flag-link {
+  padding: 0; 
+}
+
+
+.navbar-nav .dropdown-menu {
+  min-width: 30px; 
+  width: auto; 
+}
+
 .home {
   position: relative;
   left: 250px;

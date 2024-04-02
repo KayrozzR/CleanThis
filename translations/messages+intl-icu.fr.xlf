@@ -229,6 +229,374 @@
         <source>Log in</source>
         <target>Se connecter</target>
       </trans-unit>
+      <trans-unit id="Jxxi_i3" resname="My profile">
+        <source>My profile</source>
+        <target>Mon Profil</target>
+      </trans-unit>
+      <trans-unit id="NYzCAfh" resname="Operations">
+        <source>Operations</source>
+        <target>Opérations</target>
+      </trans-unit>
+      <trans-unit id="zDbE1u0" resname="Our Customers">
+        <source>Our Customers</source>
+        <target>Nos Clients</target>
+      </trans-unit>
+      <trans-unit id="O3OIym9" resname="Our Services">
+        <source>Our Services</source>
+        <target>Nos Services</target>
+      </trans-unit>
+      <trans-unit id="zuAh8bY" resname="My Team">
+        <source>My Team</source>
+        <target>Mon Equipe</target>
+      </trans-unit>
+      <trans-unit id="60zevYK" resname="Quote">
+        <source>Quote</source>
+        <target>Devis</target>
+      </trans-unit>
+      <trans-unit id="34x8ibP" resname="Dark Mode">
+        <source>Dark Mode</source>
+        <target>Mode Sombre</target>
+      </trans-unit>
+      <trans-unit id="ezuwN7u" resname="User index">
+        <source>User index</source>
+        <target>Index des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="L6m7t6r" resname="List of Customers">
+        <source>List of Customers</source>
+        <target>Liste des Clients</target>
+      </trans-unit>
+      <trans-unit id="wJSqxHb" resname="Add a Customer">
+        <source>Add a Customer</source>
+        <target>Ajouter un client</target>
+      </trans-unit>
+      <trans-unit id="9VVjs4a" resname="Last Name">
+        <source>Last Name</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="ls5uYZO" resname="First Name">
+        <source>First Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="FHNqLrn" resname="Role">
+        <source>Role</source>
+        <target>Role</target>
+      </trans-unit>
+      <trans-unit id="yo6CbZw" resname="Avatar">
+        <source>Avatar</source>
+        <target>Avatar</target>
+      </trans-unit>
+      <trans-unit id="4E5Sul6" resname="Completed Operations">
+        <source>Completed Operations</source>
+        <target>Opérations finalisées</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="D5lam8." resname="no records found">
+        <source>no records found</source>
+        <target>Aucun enregistrement n'a été trouvé</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit id="10m5Ia3" resname="Are you sure you want to delete this user?">
+        <source>Are you sure you want to delete this user?</source>
+        <target>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</target>
+      </trans-unit>
+      <trans-unit id="CIageFh" resname="User deleted successfully">
+        <source>User deleted successfully</source>
+        <target>Utilisateur supprimé avec succès</target>
+      </trans-unit>
+      <trans-unit id="TmCQzcY" resname="Deletion failed">
+        <source>Deletion failed</source>
+        <target>La suppression a échoué</target>
+      </trans-unit>
+      <trans-unit id="3feFt5x" resname="An error occurred">
+        <source>An error occurred</source>
+        <target>Une erreur s'est produite</target>
+      </trans-unit>
+      <trans-unit id="R4.NJTO" resname="Edit Customer">
+        <source>Edit Customer</source>
+        <target>__Edit Customer</target>
+      </trans-unit>
+      <trans-unit id="NOSLYkT" resname="New Customer">
+        <source>New Customer</source>
+        <target>__New Customer</target>
+      </trans-unit>
+      <trans-unit id="2xeO1Dm" resname="Create a Customer">
+        <source>Create a Customer</source>
+        <target>__Create a Customer</target>
+      </trans-unit>
+      <trans-unit id="lXEQWN3" resname="Back to Customers">
+        <source>Back to Customers</source>
+        <target>__Back to Customers</target>
+      </trans-unit>
+      <trans-unit id="CWZaeWK" resname="Hello HomeController!">
+        <source>Hello HomeController!</source>
+        <target>__Hello HomeController!</target>
+      </trans-unit>
+      <trans-unit id="CzfP85K" resname="Customer since:">
+        <source>Customer since:</source>
+        <target>__Customer since:</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+        <source>ID</source>
+        <target>__ID</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>__Phone</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>__Email</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>__Address</target>
+      </trans-unit>
+      <trans-unit id="9.6bOyK" resname="← Back To List">
+        <source>← Back To List</source>
+        <target>__← Back To List</target>
+      </trans-unit>
+      <trans-unit id="Lg6WCrM" resname="Form">
+        <source>Form</source>
+        <target>__Form</target>
+      </trans-unit>
+      <trans-unit id="KWyVe.F" resname="Back to List">
+        <source>Back to List</source>
+        <target>__Back to List</target>
+      </trans-unit>
+      <trans-unit id="Pfm3TFm" resname="Edit Employee">
+        <source>Edit Employee</source>
+        <target>__Edit Employee</target>
+      </trans-unit>
+      <trans-unit id="_GpV9n1" resname="Employee List">
+        <source>Employee List</source>
+        <target>__Employee List</target>
+      </trans-unit>
+      <trans-unit id="JlMNME4" resname="+ Add an employee">
+        <source>+ Add an employee</source>
+        <target>__+ Add an employee</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>__Roles</target>
+      </trans-unit>
+      <trans-unit id="MVJ_u5A" resname="New User">
+        <source>New User</source>
+        <target>__New User</target>
+      </trans-unit>
+      <trans-unit id="g36VwXo" resname="Create new User">
+        <source>Create new User</source>
+        <target>__Create new User</target>
+      </trans-unit>
+      <trans-unit id="_JAJlyQ" resname="Employee since:">
+        <source>Employee since:</source>
+        <target>__Employee since:</target>
+      </trans-unit>
+      <trans-unit id="H0bLt9z" resname="Assign an operation to a user">
+        <source>Assign an operation to a user</source>
+        <target>__Assign an operation to a user</target>
+      </trans-unit>
+      <trans-unit id="kF7jM.W" resname="Assign User">
+        <source>Assign User</source>
+        <target>__Assign User</target>
+      </trans-unit>
+      <trans-unit id="y1UL.1_" resname="We apologize for the inconvenience.">
+        <source>We apologize for the inconvenience.</source>
+        <target>__We apologize for the inconvenience.</target>
+      </trans-unit>
+      <trans-unit id="OGuRRO4" resname="Please try again later.">
+        <source>Please try again later.</source>
+        <target>__Please try again later.</target>
+      </trans-unit>
+      <trans-unit id="mRv6AVU" resname="My Profile">
+        <source>My Profile</source>
+        <target>__My Profile</target>
+      </trans-unit>
+      <trans-unit id="p63OcF3" resname="Edit Operation">
+        <source>Edit Operation</source>
+        <target>__Edit Operation</target>
+      </trans-unit>
+      <trans-unit id="LJuvrd0" resname="Operation index">
+        <source>Operation index</source>
+        <target>__Operation index</target>
+      </trans-unit>
+      <trans-unit id="8w1UNDs" resname="View detail">
+        <source>View detail</source>
+        <target>__View detail</target>
+      </trans-unit>
+      <trans-unit id="uDIALaK" resname="Invoice">
+        <source>Invoice</source>
+        <target>__Invoice</target>
+      </trans-unit>
+      <trans-unit id="RPXj__x" resname="Comment">
+        <source>Comment</source>
+        <target>__Comment</target>
+      </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+        <source>Note</source>
+        <target>__Note</target>
+      </trans-unit>
+      <trans-unit id="UJQadGB" resname="Start Date of Operation">
+        <source>Start Date of Operation</source>
+        <target>__Start Date of Operation</target>
+      </trans-unit>
+      <trans-unit id="hlEoeak" resname="End Date of Operation">
+        <source>End Date of Operation</source>
+        <target>__End Date of Operation</target>
+      </trans-unit>
+      <trans-unit id="2ktc2L." resname="Operation Result">
+        <source>Operation Result</source>
+        <target>__Operation Result</target>
+      </trans-unit>
+      <trans-unit id="9ahKPDn" resname="Complaint">
+        <source>Complaint</source>
+        <target>__Complaint</target>
+      </trans-unit>
+      <trans-unit id="H2W8yxc" resname="Payment Status">
+        <source>Payment Status</source>
+        <target>__Payment Status</target>
+      </trans-unit>
+      <trans-unit id="pY0B9vX" resname="Operation Status">
+        <source>Operation Status</source>
+        <target>__Operation Status</target>
+      </trans-unit>
+      <trans-unit id="js6JXJs" resname="Assign">
+        <source>Assign</source>
+        <target>__Assign</target>
+      </trans-unit>
+      <trans-unit id="CO5FZaJ" resname="Assigned to">
+        <source>Assigned to</source>
+        <target>__Assigned to</target>
+      </trans-unit>
+      <trans-unit id="FNM70BT" resname="Unassigned">
+        <source>Unassigned</source>
+        <target>__Unassigned</target>
+      </trans-unit>
+      <trans-unit id="bi6mN7M" resname="No records found">
+        <source>No records found</source>
+        <target>__No records found</target>
+      </trans-unit>
+      <trans-unit id="caxSp58" resname="New Operation">
+        <source>New Operation</source>
+        <target>__New Operation</target>
+      </trans-unit>
+      <trans-unit id="S_w8AUP" resname="Create new Operation">
+        <source>Create new Operation</source>
+        <target>__Create new Operation</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>__Back to list</target>
+      </trans-unit>
+      <trans-unit id="jZbEg8w" resname="Please specify the subject of your complaint and how you would like to be contacted to follow up on your complaint. To allow us to provide you with the clearest possible feedback, please provide as much detail as possible regarding the subject of your complaint.">
+        <source>Please specify the subject of your complaint and how you would like to be contacted to follow up on your complaint. To allow us to provide you with the clearest possible feedback, please provide as much detail as possible regarding the subject of your complaint.</source>
+        <target>__Please specify the subject of your complaint and how you would like to be contacted to follow up on your complaint. To allow us to provide you with the clearest possible feedback, please provide as much detail as possible regarding the subject of your complaint.</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>__Submit</target>
+      </trans-unit>
+      <trans-unit id="DwRP62y" resname="Operation">
+        <source>Operation</source>
+        <target>__Operation</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target>__Id</target>
+      </trans-unit>
+      <trans-unit id="TFL6rV3" resname="Start Date">
+        <source>Start Date</source>
+        <target>__Start Date</target>
+      </trans-unit>
+      <trans-unit id="6XCVHPt" resname="End Date">
+        <source>End Date</source>
+        <target>__End Date</target>
+      </trans-unit>
+      <trans-unit id="17vcaD8" resname="Result Image">
+        <source>Result Image</source>
+        <target>__Result Image</target>
+      </trans-unit>
+      <trans-unit id="1HEJMMM" resname="Your complaint has been successfully submitted!">
+        <source>Your complaint has been successfully submitted!</source>
+        <target>__Your complaint has been successfully submitted!</target>
+      </trans-unit>
+      <trans-unit id="tu5cGjJ" resname="It will be processed within 7 days.">
+        <source>It will be processed within 7 days.</source>
+        <target>__It will be processed within 7 days.</target>
+      </trans-unit>
+      <trans-unit id="YZnPnML" resname="Best regards,">
+        <source>Best regards,</source>
+        <target>__Best regards,</target>
+      </trans-unit>
+      <trans-unit id="wK9l7ka" resname="Your CleanThis team">
+        <source>Your CleanThis team</source>
+        <target>__Your CleanThis team</target>
+      </trans-unit>
+      <trans-unit id="xl4mYPh" resname="Back to my profile">
+        <source>Back to my profile</source>
+        <target>__Back to my profile</target>
+      </trans-unit>
+      <trans-unit id="6KiDUxl" resname="Edit User">
+        <source>Edit User</source>
+        <target>__Edit User</target>
+      </trans-unit>
+      <trans-unit id="NR8Ux3F" resname="Back to Profile">
+        <source>Back to Profile</source>
+        <target>__Back to Profile</target>
+      </trans-unit>
+      <trans-unit id="cyOS7tR" resname="Change avatar">
+        <source>Change avatar</source>
+        <target>__Change avatar</target>
+      </trans-unit>
+      <trans-unit id="hl6J3nj" resname="Upload">
+        <source>Upload</source>
+        <target>__Upload</target>
+      </trans-unit>
+      <trans-unit id="oURlGcq" resname="Employee since">
+        <source>Employee since</source>
+        <target>__Employee since</target>
+      </trans-unit>
+      <trans-unit id="y6rTz0p" resname="Mobile">
+        <source>Mobile</source>
+        <target>__Mobile</target>
+      </trans-unit>
+      <trans-unit id="nWqfZgB" resname="Old Password">
+        <source>Old Password</source>
+        <target>__Old Password</target>
+      </trans-unit>
+      <trans-unit id="fEUeD0N" resname="New Password">
+        <source>New Password</source>
+        <target>__New Password</target>
+      </trans-unit>
+      <trans-unit id="yvQSjVv" resname="Save Password">
+        <source>Save Password</source>
+        <target>__Save Password</target>
+      </trans-unit>
+      <trans-unit id="SzwSlSX" resname="My Operations">
+        <source>My Operations</source>
+        <target>__My Operations</target>
+      </trans-unit>
+      <trans-unit id="vzdjODq" resname="Customer">
+        <source>Customer</source>
+        <target>__Customer</target>
+      </trans-unit>
+      <trans-unit id="1ncZDgq" resname="Service">
+        <source>Service</source>
+        <target>__Service</target>
+      </trans-unit>
+      <trans-unit id="Xwj21Uv" resname="Operation completed &lt;i style = &quot;color: green;&quot;  class='bx bx-check'&gt;&lt;/i&gt;">
+        <source>Operation completed &lt;i style = "color: green;"  class='bx bx-check'&gt;&lt;/i&gt;</source>
+        <target><![CDATA[__Operation completed <i style = "color: green;"  class='bx bx-check'></i>]]></target>
+      </trans-unit>
+      <trans-unit id="CsVmfpZ" resname="Finish Operation">
+        <source>Finish Operation</source>
+        <target>__Finish Operation</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
