@@ -71,7 +71,6 @@ body{
   }
   
   &:focus {
-    outline: 1px dotted #959595;
     outline-offset: -4px;
   }
 }
@@ -98,7 +97,6 @@ body{
       }
       
       &:focus {
-        outline: 1px dotted #959595;
         outline-offset: -4px;
       }
 }
@@ -202,4 +200,8 @@ body{
     30% {width:180px;}
     80% {opacity:1;}
     100% {opacity:0;width:180px;}
+}
+
+.backToProfil{
+    /* margin-bottom: 10%; */
 }
