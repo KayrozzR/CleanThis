@@ -229,6 +229,126 @@
         <source>Log in</source>
         <target>Se connecter</target>
       </trans-unit>
+      <trans-unit id="QjvzOA." resname="Update my informations">
+        <source>Update my informations</source>
+        <target>Modifier mes informations</target>
+      </trans-unit>
+      <trans-unit id="k6gjPz." resname="Request a new quote">
+        <source>Request a new quote</source>
+        <target>Demander un nouveau devis</target>
+      </trans-unit>
+      <trans-unit id="XzK8Yd1" resname="See details">
+        <source>See details</source>
+        <target>Voir les détails</target>
+      </trans-unit>
+      <trans-unit id="FnRB2mo" resname="descriptive">
+        <source>descriptive</source>
+        <target>description</target>
+      </trans-unit>
+      <trans-unit id=".2n8K5t" resname="Started on">
+        <source>Started on</source>
+        <target>débuté le</target>
+      </trans-unit>
+      <trans-unit id="ynoYFwN" resname="Finished on">
+        <source>Finished on</source>
+        <target>terminé le</target>
+      </trans-unit>
+      <trans-unit id="JytXBPp" resname="Payment status">
+        <source>Payment status</source>
+        <target>Status du paiement</target>
+      </trans-unit>
+      <trans-unit id="wqEiNfD" resname="View my invoice">
+        <source>View my invoice</source>
+        <target>Voir ma facture</target>
+      </trans-unit>
+      <trans-unit id="D5lam8." resname="no records found">
+        <source>no records found</source>
+        <target>Aucun résultat trouvé</target>
+      </trans-unit>
+      <trans-unit id=".eHm6wl" resname="Your profil">
+        <source>Your profil</source>
+        <target>Votre profile</target>
+      </trans-unit>
+      <trans-unit id="C_79wF1" resname="CleanThis">
+        <source>CleanThis</source>
+        <target>CleanThis</target>
+      </trans-unit>
+      <trans-unit id="oh1uG3D" resname="See my operations">
+        <source>See my operations</source>
+        <target>Voir mes opérations </target>
+      </trans-unit>
+      <trans-unit id="kQH2Jfm" resname="Update my profil">
+        <source>Update my profil</source>
+        <target>Modifier mon profil</target>
+      </trans-unit>
+      <trans-unit id="i3jswXV" resname="Update my avatar">
+        <source>Update my avatar</source>
+        <target>Changer mon avatar</target>
+      </trans-unit>
+      <trans-unit id="hl6J3nj" resname="Upload">
+        <source>Upload</source>
+        <target>Télécharger</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="ZHz6kbI" resname="Firstname">
+        <source>Firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="8RhOomP" resname="Old password">
+        <source>Old password</source>
+        <target>Ancien mot de passe</target>
+      </trans-unit>
+      <trans-unit id="PdnfREH" resname="New password">
+        <source>New password</source>
+        <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="2gqST6H" resname="Save my password">
+        <source>Save my password</source>
+        <target>Enregistrer mon mot de passe</target>
+      </trans-unit>
+      <trans-unit id="yFzOCGk" resname="save changes">
+        <source>save changes</source>
+        <target>Sauvegarder</target>
+      </trans-unit>
+      <trans-unit id="oucYCrk" resname="Leave a reclamation">
+        <source>Leave a reclamation</source>
+        <target>Laisser une réclamation</target>
+      </trans-unit>
+      <trans-unit id="b2mgglk" resname="Please tell us the subject of your complaint as well as how you wish to be contacted in order to follow up on it. To enable us to provide you with the clearest feedback possible, do not hesitate to leave as much detail as possible regarding the subject of your complaint.">
+        <source>Please tell us the subject of your complaint as well as how you wish to be contacted in order to follow up on it. To enable us to provide you with the clearest feedback possible, do not hesitate to leave as much detail as possible regarding the subject of your complaint.</source>
+        <target>Veuillez nous préciser l'objet de votre réclamation ainsi que la manière dont vous souhaitez être contacté afin de donner suite à celle-ci. Pour nous permettre de vous apporterle retour le plus clair pssible, n'hesitez pas à laisser un maximum de détail quand à l'objet de votre réclamation.</target>
+      </trans-unit>
+      <trans-unit id="9ahKPDn" resname="Complaint">
+        <source>Complaint</source>
+        <target>Réclamation</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="LSHhXGb" resname="Back to profil">
+        <source>Back to profil</source>
+        <target>Retour au profil</target>
+      </trans-unit>
+      <trans-unit id="qzJP2wx" resname="Ask for a quote">
+        <source>Ask for a quote</source>
+        <target>Demander un devis</target>
+      </trans-unit>
+      <trans-unit id="1KBpwEk" resname="Submit your quote request which will be analyzed by our team so that they can get back to you and arrange an appointment">
+        <source>Submit your quote request which will be analyzed by our team so that they can get back to you and arrange an appointment</source>
+        <target>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</target>
+      </trans-unit>
+      <trans-unit id="qz8Yr4k" resname="Send quote">
+        <source>Send quote</source>
+        <target>Envoyer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

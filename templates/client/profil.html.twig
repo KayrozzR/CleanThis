@@ -10,9 +10,9 @@
 {% endblock %}
 {% block body  %}
 <section class="topBackground">
-<div class= "animation">Votre profil</div> 
+<div class= "animation">{% trans %}Your profil{% endtrans %}</div> 
 	<div class= "animation"> 
-	<span>CleanThis</span>
+	<span>{% trans %}CleanThis{% endtrans %}</span>
 	</div>
 	
 </section>
@@ -29,21 +29,22 @@
 				<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="140" height="140" style=" border-radius: 50%; object-fit: cover;">
 				{% endif %}
             </div>
-                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos"> Modifier mes informations </a>
-                <a href="{{ path('app_devis_client') }}"  class="demanderDevis"> Demander un nouveau devis</a>
+                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos">{% trans %}Update my informations{% endtrans %}</a>
+                <a href="{{ path('app_devis_client') }}"  class="demanderDevis">{% trans %}Request a new quote{% endtrans %}</a>
 </div>
-<a href="#" id="scrollDownButton" class="scrollDownButton">Voir mes opérations &#8595;</a>
+<a href="#" id="scrollDownButton" class="scrollDownButton">{% trans %}See my operations{% endtrans %} &#8595;</a>
 	<section class="homeProfil">
 		<div class="text">
 			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
 				<thead class="en-tête">
 					<tr>
-						<th class="light-weight">Voir le détail</th>
-						<th class="light-weight">descriptive</th>
-						<th data-sortable="true" data-field="date_debut" class="light-weight">Débuté le</th>
-						<th data-sortable="true" data-field="date_fin" class="light-weight">Terminé le</th>
-						<th data-sortable="true" data-field="status_paiement" class="light-weight">Status du paiement</th>
-						<th class="light-weight">Voir ma facture</th>
+						<th class="light-weight">{% trans %}See details{% endtrans %}</th>
+						<th class="light-weight">{% trans %}descriptive{% endtrans %}</th>
+						<th data-sortable="true" data-field="date_debut" class="light-weight">{% trans %}Started on{% endtrans %}</th>
+						<th data-sortable="true" data-field="date_fin" class="light-weight">{% trans %}Finished on{% endtrans %}</th>
+						<th data-sortable="true" data-field="status_paiement" class="light-weight">{% trans %}Payment status{% endtrans %}</th>
+						<th class="light-weight">{% trans %}View my invoice{% endtrans %}</th>
+						<th class="light-weight">{% trans %}Leave a reclamation{% endtrans %}</th>
 
 					</tr>
 				</thead>
@@ -67,15 +68,20 @@
 							</td>
 
 							<td>
-								<a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
+								<a href="{{ path('app_operation_facture', {'id': operation.id}) }}" class="actionsButtons">
 									<i class='bx bx-show'></i>
-									<img src="{{ asset('images/facture.png') }}" alt="">
+									<img src="{{ asset('images/pdf.png') }}" alt="">
 								</a>
+							</td>
+							<td> 
+							<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="actionsButtons" style="text-decoration:none;">
+    							<i class='bx bx-show'></i> Reclamation
+							</a>
 							</td>
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="13">no records found</td>
+							<td colspan="13">{% trans %}no records found{% endtrans %}</td>
 						</tr>
 					{% endfor %}
 				</tbody>

@@ -52,7 +52,7 @@ body{
 
 .ModifierInfos{
   position: relative;
-  margin-left: 15%;
+  margin-left: 20%;
   font-size: 12px;
   padding: 10px;
   text-decoration: none;
@@ -200,8 +200,4 @@ body{
     30% {width:180px;}
     80% {opacity:1;}
     100% {opacity:0;width:180px;}
-}
-
-.backToProfil{
-    /* margin-bottom: 10%; */
 }
