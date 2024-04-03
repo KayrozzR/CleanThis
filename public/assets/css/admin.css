@@ -197,7 +197,7 @@ body.dark .sidebar header .toggle {
   transition: var(--tran-04);
 }
 
-.sidebar li a:hover {
+.nav-link a:hover {
   background: var(--primary-color);
 }
 
@@ -288,13 +288,13 @@ body.dark .switch::before {
 }
 
 .flag-link {
-  padding: 0; 
+  padding: 0;
 }
 
 
 .navbar-nav .dropdown-menu {
-  min-width: 30px; 
-  width: auto; 
+  min-width: 30px;
+  width: auto;
 }
 
 .home {
@@ -338,12 +338,12 @@ body.dark .switch::before {
   padding: 8px 40px;
 }
 
-.sidebar.close ~ .home {
+.sidebar.close~.home {
   left: 100px;
   width: calc(100% - 100px);
 }
 
-.sidebar.close ~ .home1 {
+.sidebar.close~.home1 {
   left: 100px;
   width: calc(100% - 100px);
 }
@@ -456,43 +456,43 @@ h1 {
   text-decoration: none;
 }
 
+.card-service {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.card-service img {
+  width: 50%;
+  object-fit: cover;
+  min-height: 100%;
+}
+
+.card-body {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
   .card-service {
-    border: none;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch; 
-    border-radius: 6px;
-    overflow: hidden; 
+    flex-direction: column;
   }
 
   .card-service img {
-    width: 50%;
-    object-fit: cover; 
-    min-height: 100%;
+    width: 100%;
+    height: auto;
   }
 
   .card-body {
-    flex-grow: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
   }
-  
-  @media (max-width: 768px) {
-    .card-service {
-      flex-direction: column;
-    }
-
-    .card-service img {
-      width: 100%;
-      height: auto;
-    }
-
-    .card-body {
-      width: 100%;
-    }
-  }
+}
 
 
 .titre {
@@ -541,7 +541,7 @@ h1 {
   border-radius: 3px;
 }
 
-.edit-button:hover{
+.edit-button:hover {
   background-color: #f2c57c8b;
 }
 
@@ -585,6 +585,7 @@ h1 {
   border-radius: 12px;
   text-decoration: none;
 }
+
 .actionsButton {
   text-decoration: none;
 }

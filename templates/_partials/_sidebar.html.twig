@@ -79,25 +79,24 @@
 						</li>
                 </ul>
             </div>
-
 				<div class="bottom-content">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0" style="margin-left: 15px; width:50px;">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="{{ asset('images/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}" style="width:30px; height: auto; ">
+				<li class="nav-item dropdown dropend">
+					<a class=" dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="{{ asset('images/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}" style="width:30px; height: auto;">
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="height:45px; ">
 						{% for locale in locales %}
 							{% if locale != app.request.locale %}
 								<li class="nav-item" style="position: relative; bottom: 22px;">
-									<a class="nav-link flag-link" href="{{ path('change_locale', {'locale': locale}) }}"><img class="flag-img" src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" style="width:30px; height: auto; "></a>
+									<a class=" flag-link" href="{{ path('change_locale', {'locale': locale}) }}"><img class="flag-img" src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" style="width:30px;"></a>
 								</li>
 							{% endif %}
 						{% endfor %}
 					</ul>
 				</li>
 			</ul>
-					<li class="">
+					<li class="nav-link">
 						<a href="{{ path('auth_oauth_logout') }} ">
 							<i class='bx bx-log-out icon'></i>
 							<span class="text nav-text">{% trans %}Logout{% endtrans %}</span>
