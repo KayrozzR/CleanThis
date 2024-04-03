@@ -11,25 +11,27 @@
 {% block body %}
  <section class="home">
     <div class="text">
-    <h1>Operation index</h1>
+    <h1>{% trans %}Operation index{% endtrans %}</h1>
 
       <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
         <thead class="en-tête">
             <tr>
-                        <th class="light-weight">Voir détail</th>
-                        <th data-sortable="true" data-field="Id" class="light-weight">ID</th>
-                        <th data-sortable="true" data-field="facture" class="light-weight">Facture</th>
-                        <th data-sortable="true" data-field="comment" class="light-weight">Comment</th>
-                        <th data-sortable="true" data-field="note" class="light-weight">Note</th>
-                        <th data-sortable="true" data-field="date_debut" class="light-weight">Début de l'opération</th>
-                        <th data-sortable="true" data-field="date_fin" class="light-weight">Fin de l'opération</th>
-                        <th data-sortable="true" data-field="image_resultat" class="light-weight">Résultat de l'opération</th>
-                        <th data-sortable="true" data-field="reclamation" class="light-weight">Réclamation</th>
-                        <th data-sortable="true" data-field="status_paiement" class="light-weight">Status de paiement</th>
-                        <th data-sortable="true" data-field="status_operation" class="light-weight">Status de l'opération</th>
-                        {# <th data-sortable="true" data-field="status" class="light-weight">Adresse d'intervention</th> #}
-                        <th class="light-weight">Assigner</th>
-                        <th class="light-weight">Assigné à</th>
+                        <th class="bold-weight">{% trans %}View detail{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="Id" class="light-weight">{% trans %}ID{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="facture" class="light-weight">{% trans %}Invoice{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="comment" class="light-weight">{% trans %}Comment{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="note" class="light-weight">{% trans %}Note{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="date_debut" class="light-weight">{% trans %}Start Date of Operation{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="date_fin" class="light-weight">{% trans %}End Date of Operation{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="image_resultat" class="light-weight">{% trans %}Operation Result{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="reclamation" class="light-weight">{% trans %}Complaint{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="status_paiement" class="light-weight">{% trans %}Payment Status{% endtrans %}</th>
+                        <th class="bold-weight" data-sortable="true" data-field="status_operation" class="light-weight">{% trans %}Operation Status{% endtrans %}</th>
+                        {# <th data-sortable="true" data-field="status" class="light-weight">Address of Intervention</th> #}
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <th class="bold-weight">{% trans %}Assign{% endtrans %}</th>
+                        {% endif %}
+                        <th class="bold-weight">{% trans %}Assigned to{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -37,38 +39,40 @@
             <tr>
                 <td>
                     <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
-                    <img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
+                    <img src="{{ asset('images/oeuil.png') }}" alt="{% trans %}View detail{% endtrans %}">
                   </a>
                 </td>
-                <td class="bold-weight">{{ operation.id }}</td>
-                <td class="bold-weight">{{ operation.facture }}</td>
-                <td class="bold-weight">{{ operation.comment }}</td>
-                <td class="bold-weight">{{ operation.note }}</td>
-                <td class="bold-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="bold-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="bold-weight">{{ operation.imageResultat }}</td>
-                <td class="bold-weight">{{ operation.reclamation }}</td>
-                <td class="bold-weight">{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
-                <td class="bold-weight">{{ operation.statusOperation ? 'Yes' : 'No' }}</td>
+                <td class="light-weight">{{ operation.id }}</td>
+                <td class="light-weight">{{ operation.facture }}</td>
+                <td class="light-weight">{{ operation.comment }}</td>
+                <td class="light-weight">{{ operation.note }}</td>
+                <td class="light-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="light-weight">{{ operation.imageResultat }}</td>
+                <td class="light-weight">{{ operation.reclamation }}</td>
+                <td class="light-weight">{{ operation.statusPaiement ? 'Paid' : 'Unpaid' }}</td>
+                <td class="light-weight">{{ operation.statusOperation ? 'Completed' : 'In Progress' }}</td>
                 {# <td>{{ operation.addressIntervention }}</td> #}
-                <td>
-                <a href="{{ path('app_operation_assign', {'id': operation.id}) }}" class="btn btn-primary">Attribuer</a>
+                 {% if app.user and is_granted('ROLE_ADMIN') %}
+                <td style="display: flex; gap: 5px;">
+                <a href="{{ path('app_operation_assign', {'id': operation.id}) }}" class="btn btn-primary"><i class='bx bxs-user-plus'></i></a>
                 <form action="{{ path('app_operation_unassign', {'id': operation.id}) }}" method="post" onsubmit="return confirm('Are you sure?');">
                     <input type="hidden" name="_token" value="{{ csrf_token('unassign' ~ operation.id) }}">
-                    <button type="submit" class="btn btn-danger">Retirer</button>
+                    <button type="submit" class="btn btn-danger"><i class='bx bx-trash'></i></button>
                 </form>
                 </td>
-                <td>
+                {% endif %}
+                <td class="light-weight">
                     {% if operation.user is not null %}
                         {{ operation.user.firstname }} {{ operation.user.lastname }}
                     {% else %}
-                        Non assigné
+                        {% trans %}Unassigned{% endtrans %}
                     {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">{% trans %}No records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
