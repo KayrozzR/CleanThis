@@ -8,44 +8,70 @@
     </head>
 
 {% include "_partials/_sidebar.html.twig" %}
-
+                   
 {% block body %}
 <section class='home'>
 	<div class='text'>
-        <div class="chart-container">
-           <canvas id="CA/service"></canvas>
-        </div>
-        <div class="chart-container">
-           <canvas id="CA"></canvas>
-        </div>
+        <section class = "cards">
+
+            <div class="CA">
+            <img src="{{ asset('images/CA.png') }}" alt="" width= "30" height = "30">
+               <p style="color: #151D48; font-weight: 550">{{ chiffreAffaire }} €</p> 
+                <p>Chiffre d'affaires </p>
+            </div>
+
+            <div class="Op">
+            <img src="{{ asset('images/operation.png') }}" alt="" width= "30" height = "30">
+                <p style="color: #151D48; font-weight: 550">{{ nombreOperations }}</p>
+                <p>Total d'opérations</p>
+            </div>
+
+            <div class="OpTermine">
+            <img src="{{ asset('images/optermine.png') }}" alt="" width= "30" height = "30">
+                <p style="color: #151D48; font-weight: 550">{{ nombreOperationsTermine }}</p>
+                <p>Opérations terminées</p>
+            </div>
+
+            <div class="clients">
+            <img src="{{ asset('images/clients.png') }}" alt="" width= "30" height = "30">
+            <p style="color: #151D48; font-weight: 550">{{ clients }}</p>
+            <p>Nombre de clients</p>
+            </div>
+
+        </section>
         {# {{dump()}} #}
-		<div class="chart-container">
-            <canvas id="usersChart" aria-label="Chart" role="img"></canvas>
-            </div> 
-            <div id="users" data-user-names="{{ usersEmployee }}"></div>
-            <div>
-            <label for="user-select">Sélectionnez un utilisateur :</label>
-            <select id="user-select">
-                <option value="">Tous les utilisateurs</option>
-                {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.lastname }}</option>
-                {% endfor %}
-            </select>
-        </div>
+        <section class ="chart">
+            <div class="chart-container1">
+                <p class="title">Chiffre d'affaires par service</p>
+                <canvas id="CA/service"></canvas>
+            </div>
+
+            <div class="chart-container">
+            <p class="title1">Chiffre d'affaires par utilisateur</p>
+                <canvas id="usersChart" aria-label="Chart" role="img"></canvas>
+                <div id="users" data-user-names="{{ usersEmployee }}"></div>
+                <label for="user-select">Sélectionnez un utilisateur :</label>
+                <select id="user-select">
+                    <option value="">Tous les utilisateurs</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.lastname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </section>
     </div>
 </section>
-
 {% endblock %}
+
 
 {% block javascripts %}
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="{{ asset('js/dashboard.js') }}" defer></script>
-
 <script>
     const ctx = document.getElementById('CA/service');
 
     new Chart(ctx, {
-        type: 'bar',
+        type: 'doughnut',
         data: {
             labels: {{ chiffreAffairesParType|keys|json_encode|raw }},
             datasets: [{
@@ -55,45 +81,14 @@
                         {{ value }},
                     {% endfor %}
                 ],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
-
-<script>
-    const ctx1 = document.getElementById('CA');
-
-    new Chart(ctx1, {
-        type: 'pie',
-        data: {
-            labels: {{ chiffreAffaire|keys|json_encode|raw }},
-            datasets: [{
-                label: 'Chiffre d\'affaire de l\'entrprise',
-                data: [
-                    'chiffreAffaire'
+                backgroundColor: [
+                    '#70C974',
+                    '#8C5EC1',
+                    '#3B3CBA',
+                    '#FFB777'
                 ],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
     });
 </script>
 
@@ -108,11 +103,11 @@
                 data: {
                     labels: usersEmployee,
                     datasets: [{
-                        label: "Chiffre d'affaire pour chaque utilisateur",
+                        label: "CA",
                         data: Object.values(totalTarifs),
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
+                        backgroundColor: '#FA9C53',
+                        // borderColor: 'rgba(255, 99, 132, 1)',
+                        // borderWidth: 1
                     }]
                 },
                 options: {
@@ -126,7 +121,6 @@
         let userSelect = document.getElementById("user-select");
         userSelect.addEventListener("change", function() {
             let selectedUserId = userSelect.value;
-            // Mettez ici la logique pour mettre à jour le graphique en fonction de l'utilisateur sélectionné
         });
         });
 

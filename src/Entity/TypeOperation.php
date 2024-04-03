@@ -31,9 +31,6 @@ class TypeOperation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $color = null;
-
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -121,16 +118,5 @@ class TypeOperation
 
         return $this;
     }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(?string $color): static
-    {
-        $this->color = $color;
-
-        return $this;
-    }
+    
 }
