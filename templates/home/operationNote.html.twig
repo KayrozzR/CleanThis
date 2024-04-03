@@ -6,33 +6,84 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="stylesheet" href="{{ asset('assets/css/styles.note.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 {% endblock %}
 
 {% block body %}
-	
 	<section class="home">
+		<div class="cleaning-images">
+			<div class="image-container">
+				<a href="{{ asset('images/clean2.jpg') }}" data-lightbox="cleaning-images" data-title="Nettoyage appartement">
+					<img src="{{ asset('images/clean2.jpg') }}" alt="Nettoyage appartement" class="cleaning-image">
+				</a>
+				<a href="{{ asset('images/clean4.jpg') }}" data-lightbox="cleaning-images" data-title="Nettoyage appartement">
+					<img src="{{ asset('images/clean4.jpg') }}" alt="Nettoyage appartement" class="cleaning-image">
+				</a>
+				<a href="{{ asset('images/clean.jpg') }}" data-lightbox="cleaning-images" data-title="Nettoyage appartement">
+					<img src="{{ asset('images/clean.jpg') }}" alt="Nettoyage appartement" class="cleaning-image">
+				</a>
+			</div>
+			<div class="image-container">
+				<a href="{{ asset('images/cleanmaison.jpg') }}" data-lightbox="cleaning-images" data-title="Nettoyage appartement">
+					<img src="{{ asset('images/cleanmaison.jpg') }}" alt="Nettoyage appartement" class="cleaning-image-bottom">
+				</a>
+			</div>
+			<div class="text">
+				<h3>Nettoyage locaux pro</h3>
+				<p>Taille des locaux: 100 m2
+					<br>
+					Service demandé:
+					<br>
+					{% for devis in operation.devis %}
+						{{ devis.typeOperation.libelle }}
+					{% endfor %}
+					<br>
+
+					<tr>
+						<th>Status du paiement:
+						</th>
+						<td>{{ operation.statusPaiement ? 'payer' : 'Non payer' }}</td>
+					</tr>
+				</p>
+
+			</div>
+
+
+		</div>
+		<div class="reclamation-buttons-container">
+			<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="btn btn-primary laisser-reclamation custom-color">Laisser une réclamation</a>
+			<a href="{{ path('app_user_profil') }}" class="btn btn-primary back-to-list">Back to List</a>
+		</div>
+
+
 		<div class="rating-container">
-		
+
 			<div class="formulairenote">
-				<p>Montant restant dû: 458,91€</p>
+				<p>Montant restant dû:
+					{{ devi.tarifCustom }}€
+				</p>
 				<a href="{{ path('payer', {'id': operation.id}) }}" class="btn btn-primary payer-facture">Payer ma facture</a>
 
-				{{ form_start(form) }}
-				<p>Donnez-nous votre avis sur la prestation:</p>
-				<div class="rating">
-					{% for i in 5..1 %}
-						<input type="radio" id="star{{ i }}" name="star" data-value="{{ i }}"/>
-						<label for="star{{ i }}">
-							<i class="fas fa-star"></i>
-						</label>
-					{% endfor %}
-				</div>
-				{{ form_row(form.comment, {'attr': {'class': 'large-textarea'}}) }}
-				<button type="submit" class="btn btn-primary1 envoyer-note">Envoyer ma note</button>
-				{{ form_end(form) }}
+
+				{% if operation.note is null %}
+					{{ form_start(form) }}
+					<p>Donnez-nous votre avis sur la prestation:</p>
+					<div class="rating">
+						{% for i in 5..1 %}
+							<input type="radio" id="star{{ i }}" name="star" data-value="{{ i }}"/>
+							<label for="star{{ i }}">
+								<i class="fas fa-star"></i>
+							</label>
+						{% endfor %}
+					</div>
+					{{ form_row(form.comment, {'attr': {'class': 'large-textarea'}}) }}
+					<button type="submit" class="btn btn-primary1 envoyer-note">Envoyer ma note</button>
+					{{ form_end(form) }}
+				{% endif %}
 			</div>
 		</div>
 	</section>
+
 
 	<script>
 		const stars = document.querySelectorAll('.rating input');
@@ -40,6 +91,8 @@ stars.forEach(star => {
 star.addEventListener('click', function () {
 document.querySelector('input[name="operation_note[note]"]').value = this.getAttribute('data-value');
 });
+
 });
 	</script>
+
 {% endblock %}
