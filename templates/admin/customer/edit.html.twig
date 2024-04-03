@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Client{% endblock %}
+{% block title %}{% trans %}Edit Customer{% endtrans %}{% endblock %}
 
 {% block body %}
   <section class="home">
     <div class="text">
      
-    <h1>Edit Client</h1>
+    <h1>{% trans %}Edit Customer{% endtrans %}</h1>
 
     {{ include('admin/customer/_form.html.twig', {'button_label': 'Update'}) }}
 
@@ -21,3 +21,4 @@
 <script src="{{ asset('assets/js/autocomplete.js') }}" defer></script>
 
 {% endblock %}
+

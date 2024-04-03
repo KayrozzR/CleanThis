@@ -3,7 +3,8 @@
 {% endblock %} #}
 
 {% block stylesheets %} 
-   <link rel="stylesheet" href="{{asset('assets/css/client.css')}}">
+   <link rel="stylesheet" href="{{asset('assets/css/errorReset.css')}}">
+   {# <link rel="stylesheet" href="{{asset('assets/css/servicesClient.css')}}"> #}
 {% endblock %}
 
 {% block body %}
@@ -14,14 +15,14 @@
             <form action="{{ path('resend_verif') }}" method="post">
             <div class="alert alert-warning alert-dismissible" role="alert">
                     <div class="alert-message">
-					 <strong>Oops, le lien est invalide ou a expiré</strong>
+					 <h1>Oops, le lien est invalide ou a expiré</h1>
                     </div>
                 </div>
                 <div class="mb-3">
                     {# <label for="email" class="form-label">Entrez votre adresse mail</label> #}
                     <input type="email" class="form-control " id="email" name="email" placeholder= "Entrez votre e-mail"required>
                 </div>
-                <button type="submit" class="btn btn-primary">Renvoyer le lien d'activation</button>
+                <button type="submit">Renvoyer le lien d'activation</button>
             </form>
         </div>
     </section>  

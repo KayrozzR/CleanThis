@@ -43,48 +43,64 @@
                     <li class="nav-link">
                         <a href="/admin/profil/operation_profil">
                             <i class='bx bx-user-circle icon'></i>
-                            <span class="text nav-text">Mon profil</span>
+                            <span class="text nav-text">{% trans %}My profile{% endtrans %}</span>
                         </a>
                     </li>
                     <li class="nav-link">
                         <a href="{{ path('app_operation_index') }}">
                             <i class='bx bx-folder-open icon'></i>
-                            <span class="text nav-text">Opérations</span>
+                            <span class="text nav-text">{% trans %}Operations{% endtrans %}</span>
                         </a>
                     </li>
                     <li class="nav-link">
                         <a href="{{ path('app_customer_index') }}">
                             <i class='bx bxs-user-detail icon'></i>
-                            <span class="text nav-text">Nos clients</span>
+                            <span class="text nav-text">{% trans %}Our Customers{% endtrans %}</span>
                         </a>
                     </li>
                     <li class="nav-link">
                         <a href="/admin/type_operation">
                             <i class='bx bx-briefcase-alt icon'></i>
-                            <span class="text nav-text">Nos services</span>
+                            <span class="text nav-text">{% trans %}Our Services{% endtrans %}</span>
                         </a>
                     </li>
                 {# {% if is_granted('ROLE_ADMIN') %} #}
                     <li class="nav-link">
                         <a href="{{ path('app_employe_index') }}">
                             <i class='bx bxl-microsoft-teams icon'></i>
-                            <span class="text nav-text">Mon équipe</span>
+                            <span class="text nav-text">{% trans %}My Team{% endtrans %}</span>
                         </a>
                     </li>
 					<li class="nav-link">
 							<a href="{{ path('app_devis_index') }}">
 								<i class='bx bx-file icon'></i>
-								<span class="text nav-text">Devis</span>
+								<span class="text nav-text">{% trans %}Quote{% endtrans %}</span>
 							</a>
 						</li>
                 </ul>
             </div>
 
 				<div class="bottom-content">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0" style="margin-left: 15px; width:50px;">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="{{ asset('images/' ~ app.request.locale ~ '.png') }}" alt="{{ app.request.locale }}" style="width:30px; height: auto; ">
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="height:45px; ">
+						{% for locale in locales %}
+							{% if locale != app.request.locale %}
+								<li class="nav-item" style="position: relative; bottom: 22px;">
+									<a class="nav-link flag-link" href="{{ path('change_locale', {'locale': locale}) }}"><img class="flag-img" src="{{ asset('images/' ~ locale ~ '.png') }}" alt="{{ locale }}" style="width:30px; height: auto; "></a>
+								</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+			</ul>
 					<li class="">
 						<a href="{{ path('auth_oauth_logout') }} ">
 							<i class='bx bx-log-out icon'></i>
-							<span class="text nav-text">Déconnexion</span>
+							<span class="text nav-text">{% trans %}Logout{% endtrans %}</span>
 						</a>
 					</li>
 
@@ -93,7 +109,7 @@
 							<i class='bx bx-moon icon moon'></i>
 							<i class='bx bx-sun icon sun'></i>
 						</div>
-						<span class="mode-text text">Dark Mode</span>
+						<span class="mode-text text">{% trans %}Dark Mode{% endtrans %}</span>
 
                     <div class="toggle-switch">
                         <span class="switch"></span>

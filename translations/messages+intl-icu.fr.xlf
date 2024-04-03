@@ -229,6 +229,526 @@
         <source>Log in</source>
         <target>Se connecter</target>
       </trans-unit>
+      <trans-unit id="Jxxi_i3" resname="My profile">
+        <source>My profile</source>
+        <target>Mon Profil</target>
+      </trans-unit>
+      <trans-unit id="NYzCAfh" resname="Operations">
+        <source>Operations</source>
+        <target>Opérations</target>
+      </trans-unit>
+      <trans-unit id="zDbE1u0" resname="Our Customers">
+        <source>Our Customers</source>
+        <target>Nos Clients</target>
+      </trans-unit>
+      <trans-unit id="O3OIym9" resname="Our Services">
+        <source>Our Services</source>
+        <target>Nos Services</target>
+      </trans-unit>
+      <trans-unit id="zuAh8bY" resname="My Team">
+        <source>My Team</source>
+        <target>Mon Equipe</target>
+      </trans-unit>
+      <trans-unit id="60zevYK" resname="Quote">
+        <source>Quote</source>
+        <target>Devis</target>
+      </trans-unit>
+      <trans-unit id="34x8ibP" resname="Dark Mode">
+        <source>Dark Mode</source>
+        <target>Mode Sombre</target>
+      </trans-unit>
+      <trans-unit id="ezuwN7u" resname="User index">
+        <source>User index</source>
+        <target>Index des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="L6m7t6r" resname="List of Customers">
+        <source>List of Customers</source>
+        <target>Liste des Clients</target>
+      </trans-unit>
+      <trans-unit id="wJSqxHb" resname="Add a Customer">
+        <source>Add a Customer</source>
+        <target>Ajouter un client</target>
+      </trans-unit>
+      <trans-unit id="9VVjs4a" resname="Last Name">
+        <source>Last Name</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="ls5uYZO" resname="First Name">
+        <source>First Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="FHNqLrn" resname="Role">
+        <source>Role</source>
+        <target>Role</target>
+      </trans-unit>
+      <trans-unit id="yo6CbZw" resname="Avatar">
+        <source>Avatar</source>
+        <target>Avatar</target>
+      </trans-unit>
+      <trans-unit id="4E5Sul6" resname="Completed Operations">
+        <source>Completed Operations</source>
+        <target>Opérations finalisées</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="D5lam8." resname="no records found">
+        <source>no records found</source>
+        <target>Aucun enregistrement n'a été trouvé</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit id="10m5Ia3" resname="Are you sure you want to delete this user?">
+        <source>Are you sure you want to delete this user?</source>
+        <target>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</target>
+      </trans-unit>
+      <trans-unit id="CIageFh" resname="User deleted successfully">
+        <source>User deleted successfully</source>
+        <target>Utilisateur supprimé avec succès</target>
+      </trans-unit>
+      <trans-unit id="TmCQzcY" resname="Deletion failed">
+        <source>Deletion failed</source>
+        <target>La suppression a échoué</target>
+      </trans-unit>
+      <trans-unit id="3feFt5x" resname="An error occurred">
+        <source>An error occurred</source>
+        <target>Une erreur s'est produite</target>
+      </trans-unit>
+      <trans-unit id="R4.NJTO" resname="Edit Customer">
+          <source>Edit Customer</source>
+          <target>Modifier le client</target>
+      </trans-unit>
+      <trans-unit id="NOSLYkT" resname="New Customer">
+          <source>New Customer</source>
+          <target>Nouveau client</target>
+      </trans-unit>
+      <trans-unit id="2xeO1Dm" resname="Create a Customer">
+          <source>Create a Customer</source>
+          <target>Créer un client</target>
+      </trans-unit>
+      <trans-unit id="lXEQWN3" resname="Back to Customers">
+          <source>Back to Customers</source>
+          <target>Retour aux clients</target>
+      </trans-unit>
+      <trans-unit id="CWZaeWK" resname="Hello HomeController!">
+          <source>Hello HomeController!</source>
+          <target>Bonjour HomeController !</target>
+      </trans-unit>
+      <trans-unit id="CzfP85K" resname="Customer since:">
+          <source>Customer since:</source>
+          <target>Client depuis :</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+          <source>ID</source>
+          <target>ID</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+          <source>Phone</source>
+          <target>Téléphone</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+          <source>Email</source>
+          <target>Email</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+          <source>Address</source>
+          <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="9.6bOyK" resname="← Back To List">
+          <source>← Back To List</source>
+          <target>← Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="Lg6WCrM" resname="Form">
+          <source>Form</source>
+          <target>Formulaire</target>
+      </trans-unit>
+      <trans-unit id="KWyVe.F" resname="Back to List">
+          <source>Back to List</source>
+          <target>Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="Pfm3TFm" resname="Edit Employee">
+          <source>Edit Employee</source>
+          <target>Modifier l'employé</target>
+      </trans-unit>
+      <trans-unit id="_GpV9n1" resname="Employee List">
+          <source>Employee List</source>
+          <target>Liste des employés</target>
+      </trans-unit>
+      <trans-unit id="JlMNME4" resname="+ Add an employee">
+          <source>+ Add an employee</source>
+          <target>+ Ajouter un employé</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+          <source>Roles</source>
+          <target>Rôles</target>
+      </trans-unit>
+      <trans-unit id="MVJ_u5A" resname="New User">
+          <source>New User</source>
+          <target>Nouvel utilisateur</target>
+      </trans-unit>
+      <trans-unit id="g36VwXo" resname="Create new User">
+          <source>Create new User</source>
+          <target>Créer un nouvel utilisateur</target>
+      </trans-unit>
+      <trans-unit id="_JAJlyQ" resname="Employee since:">
+          <source>Employee since:</source>
+          <target>Employé depuis :</target>
+      </trans-unit>
+      <trans-unit id="H0bLt9z" resname="Assign an operation to a user">
+          <source>Assign an operation to a user</source>
+          <target>Assigner une opération à un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="kF7jM.W" resname="Assign User">
+          <source>Assign User</source>
+          <target>Assigner un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="y1UL.1_" resname="We apologize for the inconvenience.">
+          <source>We apologize for the inconvenience.</source>
+          <target>Nous nous excusons pour le désagrément.</target>
+      </trans-unit>
+      <trans-unit id="OGuRRO4" resname="Please try again later.">
+          <source>Please try again later.</source>
+          <target>Veuillez réessayer ultérieurement.</target>
+      </trans-unit>
+      <trans-unit id="mRv6AVU" resname="My Profile">
+          <source>My Profile</source>
+          <target>Mon profil</target>
+      </trans-unit>
+      <trans-unit id="p63OcF3" resname="Edit Operation">
+          <source>Edit Operation</source>
+          <target>Modifier l'opération</target>
+      </trans-unit>
+      <trans-unit id="LJuvrd0" resname="Operation index">
+          <source>Operation index</source>
+          <target>Index de l'opération</target>
+      </trans-unit>
+      <trans-unit id="8w1UNDs" resname="View detail">
+          <source>View detail</source>
+          <target>Voir les détails</target>
+      </trans-unit>
+      <trans-unit id="uDIALaK" resname="Invoice">
+          <source>Invoice</source>
+          <target>Facture</target>
+      </trans-unit>
+      <trans-unit id="RPXj__x" resname="Comment">
+          <source>Comment</source>
+          <target>Commentaire</target>
+      </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+          <source>Note</source>
+          <target>Note</target>
+      </trans-unit>
+      <trans-unit id="UJQadGB" resname="Start Date of Operation">
+          <source>Start Date of Operation</source>
+          <target>Date de début de l'opération</target>
+      </trans-unit>
+      <trans-unit id="hlEoeak" resname="End Date of Operation">
+          <source>End Date of Operation</source>
+          <target>Date de fin de l'opération</target>
+      </trans-unit>
+      <trans-unit id="2ktc2L." resname="Operation Result">
+          <source>Operation Result</source>
+          <target>Résultat de l'opération</target>
+      </trans-unit>
+      <trans-unit id="9ahKPDn" resname="Complaint">
+          <source>Complaint</source>
+          <target>Plainte</target>
+      </trans-unit>
+      <trans-unit id="H2W8yxc" resname="Payment Status">
+          <source>Payment Status</source>
+          <target>Statut de paiement</target>
+      </trans-unit>
+      <trans-unit id="pY0B9vX" resname="Operation Status">
+          <source>Operation Status</source>
+          <target>Statut de l'opération</target>
+      </trans-unit>
+      <trans-unit id="js6JXJs" resname="Assign">
+          <source>Assign</source>
+          <target>Assigner</target>
+      </trans-unit>
+      <trans-unit id="CO5FZaJ" resname="Assigned to">
+          <source>Assigned to</source>
+          <target>Assigné à</target>
+      </trans-unit>
+      <trans-unit id="FNM70BT" resname="Unassigned">
+          <source>Unassigned</source>
+          <target>Non assigné</target>
+      </trans-unit>
+      <trans-unit id="bi6mN7M" resname="No records found">
+          <source>No records found</source>
+          <target>Aucun enregistrement trouvé</target>
+      </trans-unit>
+      <trans-unit id="caxSp58" resname="New Operation">
+          <source>New Operation</source>
+          <target>Nouvelle opération</target>
+      </trans-unit>
+      <trans-unit id="S_w8AUP" resname="Create new Operation">
+          <source>Create new Operation</source>
+          <target>Créer une nouvelle opération</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+          <source>Back to list</source>
+          <target>Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="jZbEg8w" resname="Please specify the subject of your complaint and how you would like to be contacted to follow up on your complaint. To allow us to provide you with the clearest possible feedback, please provide as much detail as possible regarding the subject of your complaint.">
+          <source>Please specify the subject of your complaint and how you would like to be contacted to follow up on your complaint. To allow us to provide you with the clearest possible feedback, please provide as much detail as possible regarding the subject of your complaint.</source>
+          <target>Veuillez préciser l'objet de votre plainte et comment vous souhaitez être contacté pour suivre votre plainte. Pour nous permettre de vous fournir les commentaires les plus clairs possibles, veuillez fournir autant de détails que possible concernant l'objet de votre plainte.</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+          <source>Submit</source>
+          <target>Soumettre</target>
+      </trans-unit>
+      <trans-unit id="DwRP62y" resname="Operation">
+          <source>Operation</source>
+          <target>Opération</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+          <source>Id</source>
+          <target>ID</target>
+      </trans-unit>
+      <trans-unit id="TFL6rV3" resname="Start Date">
+          <source>Start Date</source>
+          <target>Date de début</target>
+      </trans-unit>
+      <trans-unit id="6XCVHPt" resname="End Date">
+          <source>End Date</source>
+          <target>Date de fin</target>
+      </trans-unit>
+      <trans-unit id="17vcaD8" resname="Result Image">
+          <source>Result Image</source>
+          <target>Image du résultat</target>
+      </trans-unit>
+      <trans-unit id="1HEJMMM" resname="Your complaint has been successfully submitted!">
+          <source>Your complaint has been successfully submitted!</source>
+          <target>Votre plainte a été soumise avec succès !</target>
+      </trans-unit>
+      <trans-unit id="tu5cGjJ" resname="It will be processed within 7 days.">
+          <source>It will be processed within 7 days.</source>
+          <target>Elle sera traitée dans les 7 jours.</target>
+      </trans-unit>
+      <trans-unit id="YZnPnML" resname="Best regards,">
+          <source>Best regards,</source>
+          <target>Cordialement,</target>
+      </trans-unit>
+      <trans-unit id="wK9l7ka" resname="Your CleanThis team">
+          <source>Your CleanThis team</source>
+          <target>Votre équipe CleanThis</target>
+      </trans-unit>
+      <trans-unit id="xl4mYPh" resname="Back to my profile">
+          <source>Back to my profile</source>
+          <target>Retour à mon profil</target>
+      </trans-unit>
+      <trans-unit id="6KiDUxl" resname="Edit User">
+          <source>Edit User</source>
+          <target>Modifier l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="NR8Ux3F" resname="Back to Profile">
+          <source>Back to Profile</source>
+          <target>Retour au profil</target>
+      </trans-unit>
+      <trans-unit id="cyOS7tR" resname="Change avatar">
+          <source>Change avatar</source>
+          <target>Changer l'avatar</target>
+      </trans-unit>
+      <trans-unit id="hl6J3nj" resname="Upload">
+          <source>Upload</source>
+          <target>Télécharger</target>
+      </trans-unit>
+      <trans-unit id="oURlGcq" resname="Employee since">
+          <source>Employee since</source>
+          <target>Employé depuis</target>
+      </trans-unit>
+      <trans-unit id="y6rTz0p" resname="Mobile">
+          <source>Mobile</source>
+          <target>Mobile</target>
+      </trans-unit>
+      <trans-unit id="nWqfZgB" resname="Old Password">
+          <source>Old Password</source>
+          <target>Ancien mot de passe</target>
+      </trans-unit>
+      <trans-unit id="fEUeD0N" resname="New Password">
+          <source>New Password</source>
+          <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="yvQSjVv" resname="Save Password">
+          <source>Save Password</source>
+          <target>Enregistrer le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="SzwSlSX" resname="My Operations">
+          <source>My Operations</source>
+          <target>Mes opérations</target>
+      </trans-unit>
+      <trans-unit id="vzdjODq" resname="Customer">
+          <source>Customer</source>
+          <target>Client</target>
+      </trans-unit>
+      <trans-unit id="1ncZDgq" resname="Service">
+          <source>Service</source>
+          <target>Service</target>
+      </trans-unit>
+      <trans-unit id="Xwj21Uv" resname="Operation completed &lt;i style = &quot;color: green;&quot;  class='bx bx-check'&gt;&lt;/i&gt;">
+        <source>Operation completed &lt;i style = "color: green;"  class='bx bx-check'&gt;&lt;/i&gt;</source>
+        <target><![CDATA[Opération completé <i style = "color: green;"  class='bx bx-check'></i>]]></target>
+      </trans-unit>
+      <trans-unit id="CsVmfpZ" resname="Finish Operation">
+        <source>Finish Operation</source>
+        <target>Terminé l'Operation</target>
+      </trans-unit>
+      <trans-unit id="QjvzOA." resname="Update my informations">
+        <source>Update my informations</source>
+        <target>Modifier mes informations</target>
+      </trans-unit>
+      <trans-unit id="k6gjPz." resname="Request a new quote">
+        <source>Request a new quote</source>
+        <target>Demander un nouveau devis</target>
+      </trans-unit>
+      <trans-unit id="XzK8Yd1" resname="See details">
+        <source>See details</source>
+        <target>Voir les détails</target>
+      </trans-unit>
+      <trans-unit id="FnRB2mo" resname="descriptive">
+        <source>descriptive</source>
+        <target>description</target>
+      </trans-unit>
+      <trans-unit id=".2n8K5t" resname="Started on">
+        <source>Started on</source>
+        <target>débuté le</target>
+      </trans-unit>
+      <trans-unit id="ynoYFwN" resname="Finished on">
+        <source>Finished on</source>
+        <target>terminé le</target>
+      </trans-unit>
+      <trans-unit id="JytXBPp" resname="Payment status">
+        <source>Payment status</source>
+        <target>Status du paiement</target>
+      </trans-unit>
+      <trans-unit id="wqEiNfD" resname="View my invoice">
+        <source>View my invoice</source>
+        <target>Voir ma facture</target>
+      </trans-unit>
+      <trans-unit id=".eHm6wl" resname="Your profil">
+        <source>Your profil</source>
+        <target>Votre profile</target>
+      </trans-unit>
+      <trans-unit id="C_79wF1" resname="CleanThis">
+        <source>CleanThis</source>
+        <target>CleanThis</target>
+      </trans-unit>
+      <trans-unit id="oh1uG3D" resname="See my operations">
+        <source>See my operations</source>
+        <target>Voir mes opérations </target>
+      </trans-unit>
+      <trans-unit id="kQH2Jfm" resname="Update my profil">
+        <source>Update my profil</source>
+        <target>Modifier mon profil</target>
+      </trans-unit>
+      <trans-unit id="i3jswXV" resname="Update my avatar">
+        <source>Update my avatar</source>
+        <target>Changer mon avatar</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="ZHz6kbI" resname="Firstname">
+        <source>Firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="8RhOomP" resname="Old password">
+        <source>Old password</source>
+        <target>Ancien mot de passe</target>
+      </trans-unit>
+      <trans-unit id="PdnfREH" resname="New password">
+        <source>New password</source>
+        <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="2gqST6H" resname="Save my password">
+        <source>Save my password</source>
+        <target>Enregistrer mon mot de passe</target>
+      </trans-unit>
+      <trans-unit id="yFzOCGk" resname="save changes">
+        <source>save changes</source>
+        <target>Sauvegarder</target>
+      </trans-unit>
+      <trans-unit id="oucYCrk" resname="Leave a reclamation">
+        <source>Leave a reclamation</source>
+        <target>Laisser une réclamation</target>
+      </trans-unit>
+      <trans-unit id="b2mgglk" resname="Please tell us the subject of your complaint as well as how you wish to be contacted in order to follow up on it. To enable us to provide you with the clearest feedback possible, do not hesitate to leave as much detail as possible regarding the subject of your complaint.">
+        <source>Please tell us the subject of your complaint as well as how you wish to be contacted in order to follow up on it. To enable us to provide you with the clearest feedback possible, do not hesitate to leave as much detail as possible regarding the subject of your complaint.</source>
+        <target>Veuillez nous préciser l'objet de votre réclamation ainsi que la manière dont vous souhaitez être contacté afin de donner suite à celle-ci. Pour nous permettre de vous apporterle retour le plus clair pssible, n'hesitez pas à laisser un maximum de détail quand à l'objet de votre réclamation.</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="LSHhXGb" resname="Back to profil">
+        <source>Back to profil</source>
+        <target>Retour au profil</target>
+      </trans-unit>
+      <trans-unit id="qzJP2wx" resname="Ask for a quote">
+        <source>Ask for a quote</source>
+        <target>Demander un devis</target>
+      </trans-unit>
+      <trans-unit id="1KBpwEk" resname="Submit your quote request which will be analyzed by our team so that they can get back to you and arrange an appointment">
+        <source>Submit your quote request which will be analyzed by our team so that they can get back to you and arrange an appointment</source>
+        <target>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</target>
+      </trans-unit>
+      <trans-unit id="qz8Yr4k" resname="Send quote">
+        <source>Send quote</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="Te.Ough" resname="Create a password">
+        <source>Create a password</source>
+        <target>Créer un mot de passe</target>
+      </trans-unit>
+      <trans-unit id="6IX71n6" resname="The form was not created correctly">
+        <source>The form was not created correctly</source>
+        <target>Le formulaire n'a pas été correctement créé</target>
+      </trans-unit>
+      <trans-unit id="_TJnqhH" resname="Remember me">
+        <source>Remember me</source>
+        <target>Se souvenir de moi</target>
+      </trans-unit>
+      <trans-unit id="OoVh6R2" resname="Sign In with Google">
+        <source>Sign In with Google</source>
+        <target>Me connecter avec Google</target>
+      </trans-unit>
+      <trans-unit id="u0L4zVJ" resname="Forgot password">
+        <source>Forgot password</source>
+        <target>Mot de passe oublié</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target>Réinitialiser le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="vXjsOHD" resname="Your contact request has been taken into account!">
+        <source>Your contact request has been taken into account!</source>
+        <target>Votre demande a bien été prise en compte!</target>
+      </trans-unit>
+      <trans-unit id="UIS5VWd" resname="Sincerely">
+        <source>Sincerely</source>
+        <target>Cordialement</target>
+      </trans-unit>
+      <trans-unit id="wTofV5V" resname="Your complaint has been taken into account!">
+        <source>Your complaint has been taken into account!</source>
+        <target>Votre réclamation a bien été prise en compte!</target>
+      </trans-unit>
+      <trans-unit id="Uzx3GfJ" resname="It will be processed within 7 days">
+        <source>It will be processed within 7 days</source>
+        <target>Elle sera traitée sous un délais de 7 jours</target>
+      </trans-unit>
+      <trans-unit id="aUVm8rg" resname="Sincerely,">
+        <source>Sincerely,</source>
+        <target>Cordialement,</target>
+      </trans-unit>
+      <trans-unit id="O5wLLQO" resname="Your CleanThis Team">
+        <source>Your CleanThis Team</source>
+        <target>Votre équipe CleanThis</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

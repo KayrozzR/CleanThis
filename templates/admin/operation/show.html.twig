@@ -1,62 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Operation{% endblock %}
+{% block title %}{% trans %}Operation{% endtrans %}{% endblock %}
 
 {% block body %}
 <section class="home">
     <div class="text">
-    <h1>Operation</h1>
+    <h1>{% trans %}Operation{% endtrans %}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{% trans %}Id{% endtrans %}</th>
                 <td>{{ operation.id }}</td>
             </tr>
             <tr>
-                <th>Facture</th>
+                <th>{% trans %}Invoice{% endtrans %}</th>
                 <td>{{ operation.facture }}</td>
             </tr>
             <tr>
-                <th>Comment</th>
+                <th>{% trans %}Comment{% endtrans %}</th>
                 <td>{{ operation.comment }}</td>
             </tr>
             <tr>
-                <th>Note</th>
+                <th>{% trans %}Note{% endtrans %}</th>
                 <td>{{ operation.note }}</td>
             </tr>
             <tr>
-                <th>Date_debut</th>
+                <th>{% trans %}Start Date{% endtrans %}</th>
                 <td>{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Date_fin</th>
+                <th>{% trans %}End Date{% endtrans %}</th>
                 <td>{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Image_resultat</th>
+                <th>{% trans %}Result Image{% endtrans %}</th>
                 <td>{{ operation.imageResultat }}</td>
             </tr>
             <tr>
-                <th>Reclamation</th>
+                <th>{% trans %}Complaint{% endtrans %}</th>
                 <td>{{ operation.reclamation }}</td>
             </tr>
             <tr>
-                <th>Status_paiement</th>
+                <th>{% trans %}Payment Status{% endtrans %}</th>
                 <td>{{ operation.statusPaiement ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>Status_operation</th>
+                <th>{% trans %}Operation Status{% endtrans %}</th>
                 <td>{{ operation.statusOperation ? 'Yes' : 'No' }}</td>
             </tr>
-            <tr>
-                {# <th>Address_intervention</th> #}
+            {# <tr> #}
+                {# <th>Address Intervention</th> #}
                 {# <td>{{ operation.addressIntervention }}</td> #}
-            </tr>
+            {# </tr> #}
         </tbody>
     </table>
 
-    <a href="{{ path('app_operation_index') }}">back to list</a>
+    <a href="{{ path('app_operation_index') }}">{% trans %}Back to List{% endtrans %}</a>
 
     {# <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a> #}
 
@@ -64,3 +64,4 @@
     </section>
     </div>
 {% endblock %}
+

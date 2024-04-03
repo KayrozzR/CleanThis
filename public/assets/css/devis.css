@@ -1,5 +1,40 @@
 .backtolist {
   position: absolute;
+  top: 15%;
+  left: 2%;
+  color: white;
+  text-decoration: none;
+}
+
+.btn {
+  margin: 2%;
+  margin-left: 80%;
+  width:20%;
+  color: white;
+  font-size: 12px;
+  background-color: #372772;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 22px;
+  border: none;
+  border-radius:10px;
+}
+.card-bodyDevis{
+  padding: 5%;
+  /* border-radius: 10px; */
+  
+}
+.headerDevis{
+  border:none;
+  background-color:#372772;
+  color: white;
+}
+.operation{
+  margin-top: 12%;
+  margin-left: 10%;
+}
+.backtolist1 {
+  position: absolute;
   top: 80%;
   left: 45%;
   background: linear-gradient(to right, #4f94d4, #005aa7);
@@ -14,8 +49,16 @@
   text-decoration: none;
 }
 
-.btn {
-  position: relative;
-  margin-top: 5px;
-  float: right;
+.btn1 {
+  margin: 2%;
+  margin-left: 80%;
+  width:20%;
+  color: white;
+  font-size: 12px;
+  background: linear-gradient(to right, #4f94d4, #005aa7);
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 22px;
+  border: none;
+  border-radius:10px;
 }

@@ -4,9 +4,9 @@
 
 <div id="main">
     	<div class="fof">
-        		<h1>Une erreur est survenue</h1>
-                <p>Nous nous excusons pour le désagrément.</p>
-                <p>Veuillez réessayer ultérieurement</p>
-                <a class="custom-btn btn-3" href="{{ path('app_user_profil') }}"  class="profil"> <span>Mon profil</span> </a>
+        		<h1>{% trans %}An error occurred{% endtrans %}</h1>
+                <p>{% trans %}We apologize for the inconvenience.{% endtrans %}</p>
+                <p>{% trans %}Please try again later.{% endtrans %}</p>
+                <a class="custom-btn btn-3" href="{{ path('app_user_profil') }}" class="profil"> <span>{% trans %}My Profile{% endtrans %}</span> </a>
     	</div>
 </div>

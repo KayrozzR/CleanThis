@@ -160,8 +160,7 @@ class SecurityController extends AbstractController
                     $this->addFlash('success', 'Mot de passe changé avec succès');
                     return $this->redirectToRoute('auth_oauth_login');
                 } else {
-                    // Les mots de passe ne correspondent pas
-                    $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
+                    $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
                 }
             }
 
@@ -211,8 +210,7 @@ class SecurityController extends AbstractController
                     $this->addFlash('success', 'Mot de passe changé avec succès');
                     return $this->redirectToRoute('auth_oauth_login');
                 } else {
-                    // Les mots de passe ne correspondent pas
-                    $this->addFlash('error', 'Les mots de passe ne correspondent pas ou l\'utilisateur n\'existe pas.');
+                    $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
                 }
             }
 

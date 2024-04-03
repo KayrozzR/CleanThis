@@ -82,15 +82,15 @@ class TypeOperationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_type_operation_delete', methods: ['POST'])]
-    public function delete(Request $request, TypeOperation $typeOperation, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$typeOperation->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($typeOperation);
-            $entityManager->flush();
-        }
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    // #[Route('/{id}', name: 'app_type_operation_delete', methods: ['POST'])]
+    // public function delete(Request $request, TypeOperation $typeOperation, EntityManagerInterface $entityManager): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$typeOperation->getId(), $request->request->get('_token'))) {
+    //         $entityManager->remove($typeOperation);
+    //         $entityManager->flush();
+    //     }
+    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        return $this->redirectToRoute('app_type_operation_index', [], Response::HTTP_SEE_OTHER);
-    }
+    //     return $this->redirectToRoute('app_type_operation_index', [], Response::HTTP_SEE_OTHER);
+    // }
 }

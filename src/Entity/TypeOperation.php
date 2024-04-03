@@ -118,5 +118,4 @@ class TypeOperation
 
         return $this;
     }
-    
 }

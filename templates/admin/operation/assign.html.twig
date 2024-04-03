@@ -1,19 +1,23 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-<link rel="stylesheet" href="{{asset('assets/css/assignOpe.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/css/assignOpe.css') }}">
 <section class="home">
     <div class="text">
-        {{ form_start(form, {'attr': {'class': 'operation-form'}}) }}
-            <div class="form-group">
-                {{ form_label(form.user, 'Select User', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.user, {'attr': {'class': 'form-select'}}) }}
-            </div>
-            <button type="submit" class="btn btn-primary">Assign User</button>
-        {{ form_end(form) }}
+        <div class="form-container">
+            <h2 class="form-title">{% trans %}Assign an operation to a user{% endtrans %}</h2>
+            {{ form_start(form, {'attr': {'class': 'operation-form'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.user, 'Select a user', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.user, {'attr': {'class': 'form-select'}}) }}
+                </div>
+                <button type="submit" class="btn btn-primary">{% trans %}Assign User{% endtrans %}</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 </section>    
 
 {% endblock %}
+
+
 

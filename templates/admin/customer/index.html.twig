@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}{% trans %}User index{% endtrans %}{% endblock %}
 {% block stylesheets %} 
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -14,8 +14,8 @@
     
 
   
-    <h1>Liste des clients</h1>
-    <a href="{{ path('app_customer_new') }}" class="create"> + Ajouter un client</a>
+    <h1>{% trans %}List of Customers{% endtrans %}</h1>
+    <a href="{{ path('app_customer_new') }}" class="create"> + {% trans %}Add a Customer{% endtrans %}</a>
 {# {{% app.user.avatar %} #}
 
     <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
@@ -23,36 +23,36 @@
             <tr>
                 {# <th data-sortable="true" data-field="id">Id</th> #}
                 {# <th data-sortable="true" data-field="email">Email</th> #}
-                <th data-sortable="true" data-field="lastname" class="light-weight">Nom</th>
-                <th data-sortable="true" data-field="firstname" class="light-weight">Prénom</th>
-                <th data-sortable="true" data-field="roles" class="light-weight">Role</th>
-                <th class="light-weight" >Avatar</th>
+                <th class="bold-weight" data-sortable="true" data-field="lastname" class="light-weight">{% trans %}Last Name{% endtrans %}</th>
+                <th class="bold-weight" data-sortable="true" data-field="firstname" class="light-weight">{% trans %}First Name{% endtrans %}</th>
+                <th class="bold-weight" data-sortable="true" data-field="roles" class="light-weight">{% trans %}Role{% endtrans %}</th>
+                <th class="bold-weight" >{% trans %}Avatar{% endtrans %}</th>
                 {# <th data-sortable="true" data-field="address">Address</th> #}
-                <th data-sortable="true" data-field="operation_finalisee" class="light-weight">Opérations finalisées</th>
-                <th  class="light-weight">Actions</th>
+                <th class="bold-weight" data-sortable="true" data-field="operation_finalisee" class="light-weight">{% trans %}Completed Operations{% endtrans %}</th>
+                <th class="bold-weight">{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td  class="bold-weight">{{ user.lastname }}</td>
-                <td class="bold-weight">{{ user.firstname }}</td>
+                <td  class="light-weight">{{ user.lastname }}</td>
+                <td class="light-weight">{{ user.firstname }}</td>
                  <td>
                 {% for role in user.roles %}
 							{% if role == "ROLE_ADMIN" %}
-								{% set name = "Administrateur" %}
+								{% set name = "Administrator" %}
 								{% set color = "danger" %}
                             {% elseif  role == "ROLE_SENIOR"%}
                                 {% set name = "Senior" %}
                                 {% set color = "warning" %}
                             {% elseif  role == "ROLE_APPRENTI"%}
-                                {% set name = "Apprenti" %}
+                                {% set name = "Apprentice" %}
                                 {% set color = "primary" %}    
                                 {% elseif  role == "ROLE_CLIENT"%}
                                 {% set name = "Client" %}
                                 {% set color = "secondary" %}       
 							{% else %}
-								{% set name = "Membre" %}
+								{% set name = "Member" %}
 								{% set color = "success" %}
 							{% endif %}
 							<span class="badge bg-{{ color }}">{{ name }}</span>
@@ -68,7 +68,7 @@
                 <td>
                     <a href="{{ path('app_customer_show', {'id': user.id}) }}" class ="actionsButtons1"><i class='bx bx-show' ></i></a>
                     <a href="{{ path('app_customer_edit', {'id': user.id}) }}" class ="actionsButtons2"><i class='bx bx-edit'></i></a>
-                    {# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Supprimer</a> #}
+                    {# <a href="{{ path('app_user_delete', {'id': user.id})}}" class ="actionsButtons3">Delete</a> #}
                     {% if app.user %}
 			            {% if is_granted('ROLE_ADMIN') %}
                     <a class="deleteBtn actionsButtons3" id="delete{{ user.id }}" data-csrf-token="{{ csrf_token('delete' ~ user.id) }}">
@@ -80,7 +80,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="13">no records found</td>
+                <td colspan="13">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -97,7 +97,7 @@
    <script>
         $(document).ready(function() {
 
-    $('.search input').attr('placeholder', 'Rechercher');
+    $('.search input').attr('placeholder', '{% trans %}Search{% endtrans %}');
     $('.search input').addClass('form-control pr-5');
     $('.search').addClass('position-relative');
     $('.search input').after('<span id="searchIcon" class="input-group-text bi bi-search position-absolute" style="right: 10px; top: 28%; transform: translateY(-50%); cursor: pointer; border: none; padding: 0;"></span>');
@@ -117,7 +117,7 @@
             var userId = this.id.replace('delete', '');
             var csrfToken = $(this).data('csrf-token');
             
-            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+            if (confirm('{% trans %}Are you sure you want to delete this user?{% endtrans %}')) {
                 $.ajax({
                     url: '/admin/customer/' + userId,
                     type: 'POST',
@@ -126,17 +126,17 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            alert("Utilisateur supprimé avec succès");
+                            alert("{% trans %}User deleted successfully{% endtrans %}");
                             $('#delete' + userId).closest('tr').remove();
                             
                         location.reload();
                         
                         } else {
-                            alert("La suppression a échoué");
+                            alert("{% trans %}Deletion failed{% endtrans %}");
                         }
                     },
                     error: function() {
-                        alert("Une erreur s'est produite");
+                        alert("{% trans %}An error occurred{% endtrans %}");
                     }
                 });
             }

@@ -287,6 +287,16 @@ body.dark .switch::before {
   left: 24px;
 }
 
+.flag-link {
+  padding: 0; 
+}
+
+
+.navbar-nav .dropdown-menu {
+  min-width: 30px; 
+  width: auto; 
+}
+
 .home {
   position: relative;
   left: 250px;
@@ -526,8 +536,13 @@ h1 {
 }
 
 .edit-button {
-  background-color: #f2c57c;
+  background-color: white;
+  border: none;
   border-radius: 3px;
+}
+
+.edit-button:hover{
+  background-color: #f2c57c8b;
 }
 
 .save-button {
@@ -572,4 +587,8 @@ h1 {
 }
 .actionsButton {
   text-decoration: none;
+}
+
+.bold-weight.validé {
+  color: green;
 }
