@@ -10,8 +10,9 @@
 {% endblock %}
 
 {% block body %}
-	<section class="home">
-		<div class="cleaning-images">
+	<a href="{{ path('app_user_profil') }}" class="btn btn-primary back-to-list" style="margin:50px;">Back to profil</a>
+	{# <section class="home"> #}
+		{# <div class="cleaning-images">
 			<div class="image-container">
 				<a href="{{ asset('images/clean2.jpg') }}" data-lightbox="cleaning-images" data-title="Nettoyage appartement">
 					<img src="{{ asset('images/clean2.jpg') }}" alt="Nettoyage appartement" class="cleaning-image">
@@ -46,23 +47,24 @@
 					</tr>
 				</p>
 
-			</div>
+			</div> #}
 
 
-		</div>
+		{# </div> #}
 		<div class="reclamation-buttons-container">
-			<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="btn btn-primary laisser-reclamation custom-color">Laisser une réclamation</a>
-			<a href="{{ path('app_user_profil') }}" class="btn btn-primary back-to-list">Back to List</a>
+			{# <a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="btn btn-primary laisser-reclamation custom-color">Laisser une réclamation</a> #}
+			
 		</div>
 
 
 		<div class="rating-container">
+			<h1>Laisser une note</h1>
 
 			<div class="formulairenote">
-				<p>Montant restant dû:
+				{# <p>Montant restant dû:
 					{{ devi.tarifCustom }}€
-				</p>
-				<a href="{{ path('payer', {'id': operation.id}) }}" class="btn btn-primary payer-facture">Payer ma facture</a>
+				</p> #}
+				{# <a href="{{ path('payer', {'id': operation.id}) }}" class="btn btn-primary payer-facture">Payer ma facture</a> #}
 
 
 				{% if operation.note is null %}
@@ -82,7 +84,7 @@
 				{% endif %}
 			</div>
 		</div>
-	</section>
+	{# </section> #}
 
 
 	<script>

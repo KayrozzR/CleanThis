@@ -51,7 +51,7 @@ class DashboardController extends AbstractController
                         // Vérifie si le type d'opération du devis correspond au type en cours de traitement
                         if ($devis->getTypeOperation()->getId() === $typeId) {
                             // Ajoute le tarif du devis au chiffre d'affaires du type d'opération
-                            $chiffreAffaires += $devis->getTypeOperation()->getTarif();
+                            $chiffreAffaires += $devis->getTarifCustom();
                         }
                     }
                 }
@@ -74,7 +74,7 @@ class DashboardController extends AbstractController
                      $devisCollection = $operation->getDevis();
                      foreach ($devisCollection as $devis) {
                              // Ajouter le tarif du devis au chiffre d'affaires du type d'opération
-                             $chiffreAffaire += $devis->getTypeOperation()->getTarif();
+                             $chiffreAffaire += $devis->getTarifCustom();
                                                     
                      }
                  }
@@ -117,11 +117,12 @@ class DashboardController extends AbstractController
         foreach ($users as $user) {
             foreach ($user->getRoles() as $role) {
                 if (in_array($role, $desiredRoles)) {
+                    if ($operation->isStatusOperation()) {
                     $operations = $user->getOperations();
                     foreach ($operations as $operation) {
                         $devis = $operation->getDevis();
                         foreach ($devis as $devi) {
-                            $tarif = $devi->getTypeOperation()->getTarif();
+                            $tarif = $devi->getTarifCustom();
                             if (!isset($totalTarifs[$user->getLastname()])) {
                                 $totalTarifs[$user->getLastname()] = 0;
                             }
@@ -129,6 +130,7 @@ class DashboardController extends AbstractController
                         }
                     }
                     break;
+                }
                 }
             }
         }

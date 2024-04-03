@@ -9,42 +9,44 @@
 	<link rel="stylesheet" href="{{asset('assets/css/client.css')}}">
 {% endblock %}
 {% block body  %}
-<section class="topBackground">
-<div class= "animation">{% trans %}Your profil{% endtrans %}</div> 
-	<div class= "animation"> 
-	<span>{% trans %}CleanThis{% endtrans %}</span>
-	</div>
-	
-</section>
-<div class = "personalInformations">
-	
-            <div class= "personal">
-                <strong>{{ app.user.lastname }} {{ app.user.firstname }}</strong>
-                <p>{{ app.user.tel }}</p>
-                <p>{{ app.user.email }}</p>
-                <p>{{ app.user.address }}</p>
-				{% if app.user.avatar == null %}
+	<section class="topBackground">
+		<div class="animation">{% trans %}Your profil{% endtrans %}</div>
+		<div class="animation">
+			<span>{% trans %}CleanThis{% endtrans %}</span>
+		</div>
+
+	</section>
+	<div class="personalInformations">
+
+		<div class="personal">
+			<strong>{{ app.user.lastname }}
+				{{ app.user.firstname }}</strong>
+			<p>{{ app.user.tel }}</p>
+			<p>{{ app.user.email }}</p>
+			<p>{{ app.user.address }}</p>
+			{% if app.user.avatar == null %}
 				<img src="{{ asset('images/avatar-placeholder.png') }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
-				{% else %}
+			{% else %}
 				<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="140" height="140" style=" border-radius: 50%; object-fit: cover;">
-				{% endif %}
-            </div>
-                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos">{% trans %}Update my informations{% endtrans %}</a>
-                <a href="{{ path('app_devis_client') }}"  class="demanderDevis">{% trans %}Request a new quote{% endtrans %}</a>
-</div>
-<a href="#" id="scrollDownButton" class="scrollDownButton">{% trans %}See my operations{% endtrans %} &#8595;</a>
+			{% endif %}
+		</div>
+		<a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="ModifierInfos">{% trans %}Update my informations{% endtrans %}</a>
+		<a href="{{ path('app_devis_client') }}" class="demanderDevis">{% trans %}Request a new quote{% endtrans %}</a>
+	</div>
+	<a href="#" id="scrollDownButton" class="scrollDownButton">{% trans %}See my operations{% endtrans %}
+		&#8595;</a>
 	<section class="homeProfil">
 		<div class="text">
 			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
 				<thead class="en-tête">
 					<tr>
-						<th class="light-weight">{% trans %}See details{% endtrans %}</th>
-						<th class="light-weight">{% trans %}descriptive{% endtrans %}</th>
+						<th class="light-weight">{% trans %}Descriptive{% endtrans %}</th>
 						<th data-sortable="true" data-field="date_debut" class="light-weight">{% trans %}Started on{% endtrans %}</th>
 						<th data-sortable="true" data-field="date_fin" class="light-weight">{% trans %}Finished on{% endtrans %}</th>
 						<th data-sortable="true" data-field="status_paiement" class="light-weight">{% trans %}Payment status{% endtrans %}</th>
 						<th class="light-weight">{% trans %}View my invoice{% endtrans %}</th>
 						<th class="light-weight">{% trans %}Leave a reclamation{% endtrans %}</th>
+						<th class="light-weight">{% trans %}Rating us{% endtrans %}</th>
 
 					</tr>
 				</thead>
@@ -53,30 +55,33 @@
 						{% set operation = item.operation %}
 						{% set lastType = item.lastType.libelle  %}
 						<tr>
-							<td>
-								<a href="{{ path('app_profile_show', {'id': operation.id}) }}" class="actionsButtons">
-									
-									<img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
-								</a>
-
-							</td>
 							<td class="light-weight">{{ lastType }}</td>
 							<td class="light-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
 							<td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-							<td class="light-weight{% if operation.statusPaiement %} text-success{% endif %}">
-								{{ operation.statusPaiement ? 'Réglé ✓' : 'Non réglé' }}
+							<td>
+								{% if operation.statusPaiement %}
+									<span style="color: green;" class="badge-success">{% trans %}Réglé <i style = "color: green;"  class='bx bx-check'></i>{% endtrans %}</span>
+								{% else %}
+									<a href="{{ path('payer', {'id': operation.id}) }}" style="background-color: #F2C57C; border:none; " class="btn btn-primary payer-facture">Payer ma facture</a>						
+								{% endif %}
 							</td>
 
 							<td>
-								<a href="{{ path('app_operation_facture', {'id': operation.id}) }}" class="actionsButtons">
-									
+								<a
+									href="{{ path('app_operation_facture', {'id': operation.id}) }}" class="actionsButtons">
+									{# <i class='bx bx-show'></i> #}
 									<img src="{{ asset('images/pdf.png') }}" alt="">
 								</a>
 							</td>
-							<td> 
-							<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="actionsButtons" style="text-decoration:none;">
-    							 Reclamation
-							</a>
+							<td>
+								<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="actionsButtons" style="text-decoration:none;">
+									Reclamation
+								</a>
+							</td>
+							<td>
+								{% if operation.note is null %}
+									<a href="{{ path('note', {'id': operation.id}) }}" style="text-decoration:none;">Laisser une note</a>
+								{% endif %}
 							</td>
 						</tr>
 					{% else %}
@@ -111,15 +116,15 @@ $('#searchIcon').hide();
 });
 	</script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	$(document).ready(function () {
-    $("#scrollDownButton").click(function () {
-        $('html, body').animate({
-            scrollTop: $(".homeProfil").offset().top
-        }, 1000);
-    });
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$("#scrollDownButton").click(function () {
+$('html, body').animate({
+scrollTop: $(".homeProfil").offset().top
+}, 1000);
 });
-</script>
+});
+	</script>
 
 {% endblock %}
