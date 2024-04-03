@@ -1,119 +1,128 @@
 {% extends 'basebis.html.twig' %}
-
-{% block title %}Formulaire de Contact{% endblock %}
-
+{% block title %}Formulaire de Contact
+{% endblock %}
+{% block stylesheets %}
+	
+	<link rel="stylesheet" href="{{ asset('assets/css/stylesContact.css') }}">
+	
+{% endblock %}
 {% block body %}
-	<div class="container-fluid">
+	<div class="container-fluid contact-container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
-				<p>
-					<u>Contacter Clean this / Pour accéder rapidement à nos services</u>
+				<p class="contact-link">
+					<a href="{{ path('app_services') }}" class="contact-link-text">Clean this</a>
+					<span class="contact-link-text">/ Pour accéder rapidement à nos services</span>
 				</p>
-				<div class="card mb-4">
-					<h1 class="card-header">Contactez-nous</h1>
+				<div class="card contact-card">
+					<h1 class="card-header contact-header">Contactez-nous</h1>
 					<div class="card-body">
 						{{ form_start(form) }}
 						<div class="row">
 							<div class="col-md-6">
 								<div class="mb-3">
-									{{ form_row(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+									{{ form_row(form.firstName, {'attr': {'class': 'form-control contact-input', 'placeholder': 'Prénom'}}) }}
 								</div>
 								<div class="mb-3">
-									{{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'E-mail'}}) }}
+									{{ form_row(form.email, {'attr': {'class': 'form-control contact-input', 'placeholder': 'E-mail'}}) }}
 								</div>
 								<div class="mb-3">
-									{{ form_row(form.address, {'attr': {'class': 'form-control adresse-autocomplete', 'placeholder': 'Adresse', 'id': 'user_address'}}) }}
+									{{ form_row(form.address, {'attr': {'class': 'form-control contact-input adresse-autocomplete', 'placeholder': 'Adresse', 'id': 'user_address'}}) }}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="mb-3">
-									{{ form_row(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+									{{ form_row(form.lastName, {'attr': {'class': 'form-control contact-input', 'placeholder': 'Nom'}}) }}
 								</div>
 								<div class="mb-3">
-									{{ form_row(form.phone, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
+									{{ form_row(form.phone, {'attr': {'class': 'form-control contact-input', 'placeholder': 'Téléphone'}}) }}
 								</div>
 								<div class="mb-3">
-									{{ form_row(form.postalCode, {'attr': {'class': 'form-control zipcode_ope', 'placeholder': 'Code Postal'}}) }}
+									{{ form_row(form.postalCode, {'attr': {'class': 'form-control contact-input zipcode_ope', 'placeholder': 'Code Postal'}}) }}
 								</div>
 							</div>
 						</div>
 						<div class="mb-3">
-							{{ form_row(form.city, {'attr': {'class': 'form-control city_ope', 'placeholder': 'Ville'}}) }}
+							{{ form_row(form.city, {'attr': {'class': 'form-control contact-input city_ope', 'placeholder': 'Ville'}}) }}
 						</div>
 						<div class="mb-3">
-							<label for="{{ form.contactMethod.vars.id }}" class="form-label">Comment pouvons-nous vous contacter ?</label>
-							{{ form_widget(form.contactMethod, {'attr': {'class': 'form-select'}}) }}
+							<label for="{{ form.contactMethod.vars.id }}" class="form-label contact-label">Comment pouvons-nous vous contacter ?</label>
+							{{ form_widget(form.contactMethod, {'attr': {'class': 'form-select contact-input'}}) }}
 						</div>
 						<div class="mb-3">
-							{{ form_row(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Message'}}) }}
+							{{ form_row(form.message, {'attr': {'class': 'form-control contact-input', 'placeholder': 'Message'}}) }}
 						</div>
 						<div class="mb-3">
-                            <div class="d-flex justify-content-end"> 
-                               {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary', 'style': 'background-color: #372772; border-color: #372772; border-radius: 20px;'}}) }} 
-                            </div>
-                        </div>
+							<div class="d-flex justify-content-end">
+								{{ form_row(form.submit, {'attr': {'class': 'btn btn-primary contact-submit'}}) }}
+							</div>
+						</div>
 						{{ form_end(form) }}
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 offset-md-3">
-				<div class="card">
+			<div class="col-md-12">
+				<div class="card contact-map">
 					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27435.858582873625!2d3.1430509493233343!3d50.6887670171371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32891f6ff8a69%3A0x40af13e816459b0!2s59100%20Roubaix!5e1!3m2!1sfr!2sfr!4v1710755639266!5m2!1sfr!2sfr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 				</div>
 			</div>
 		</div>
 	</div>
-    
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var streetInput = document.querySelector('.adresse-autocomplete');
-            var zipcodeInput = document.querySelector('.zipcode_ope');
-            var cityInput = document.querySelector('.city_ope');
-            var suggestionsContainer = document.createElement('div');
-            suggestionsContainer.className = 'suggestions-container';
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+var streetInput = document.querySelector('.adresse-autocomplete');
+var zipcodeInput = document.querySelector('.zipcode_ope');
+var cityInput = document.querySelector('.city_ope');
+var suggestionsContainer = document.createElement('div');
+suggestionsContainer.className = 'suggestions-container';
 
-            if (!streetInput || !zipcodeInput || !cityInput) return;
+if (! streetInput || ! zipcodeInput || ! cityInput) 
+return;
 
-            function performSearchAndUpdateInputs(query) {
-                fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`)
-                    .then(response => response.json())
-                    .then(data => {
-                        suggestionsContainer.innerHTML = '';
-                        data.features.forEach((feature) => {
-                            var suggestion = document.createElement('div');
-                            suggestion.className = 'suggestion';
-                            suggestion.innerText = feature.properties.label;
-                            suggestion.addEventListener('click', function() {
-                                var zipcode = feature.properties.postcode || '';
-                                var city = feature.properties.city || '';
-                                var street = feature.properties.name || '';
-                                streetInput.value = street;
-                                zipcodeInput.value = zipcode;
-                                cityInput.value = city;
-                                suggestionsContainer.innerHTML = '';
-                                streetInput.classList.add('animated', 'bounceIn');
-                                setTimeout(function() {
-                                    streetInput.classList.remove('animated', 'bounceIn');
-                                }, 1000);
-                            });
-                            suggestionsContainer.appendChild(suggestion);
-                        });
-                    })
-                    .catch(error => console.error('Erreur API:', error));
 
-                if (!document.querySelector('.suggestions-container')) {
-                    streetInput.parentNode.appendChild(suggestionsContainer);
-                }
-            }
 
-            streetInput.addEventListener('input', function() {
-                var query = streetInput.value;
-                if (query.length < 3) return;
-                performSearchAndUpdateInputs(query);
-            });
-        });
-    </script>
+function performSearchAndUpdateInputs(query) {
+fetch (`https://api-adresse.data.gouv.fr/search/?q=${
+encodeURIComponent(query)
+}&limit=5`).then(response => response.json()).then(data => {
+suggestionsContainer.innerHTML = '';
+data.features.forEach((feature) => {
+var suggestion = document.createElement('div');
+suggestion.className = 'suggestion';
+suggestion.innerText = feature.properties.label;
+suggestion.addEventListener('click', function () {
+var zipcode = feature.properties.postcode || '';
+var city = feature.properties.city || '';
+var street = feature.properties.name || '';
+streetInput.value = street;
+zipcodeInput.value = zipcode;
+cityInput.value = city;
+suggestionsContainer.innerHTML = '';
+streetInput.classList.add('animated', 'bounceIn');
+setTimeout(function () {
+streetInput.classList.remove('animated', 'bounceIn');
+}, 1000);
+});
+suggestionsContainer.appendChild(suggestion);
+});
+}).catch(error => console.error('Erreur API:', error));
+
+if (!document.querySelector('.suggestions-container')) {
+streetInput.parentNode.appendChild(suggestionsContainer);
+}
+}
+
+streetInput.addEventListener('input', function () {
+var query = streetInput.value;
+if (query.length < 3) 
+return;
+
+
+performSearchAndUpdateInputs(query);
+});
+});
+	</script>
 {% endblock %}

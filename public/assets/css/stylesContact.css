@@ -1,0 +1,47 @@
+.contact-container {
+    background-color: #372772;
+    }
+    .contact-link {
+    text-align: center;
+    margin-top: 5%;
+    color: white;
+    }
+    .contact-link-text {
+    color: white;
+    text-decoration: none;
+    }
+    .contact-card {
+    border-radius: 20px;
+    margin-bottom: 4rem;
+    }
+    .contact-header {
+    text-align: center;
+    }
+    .contact-input {
+    border-radius: 20px;
+    }
+    .adresse-autocomplete,
+    .zipcode_ope,
+    .city_ope {
+    border-radius: 20px;
+    }
+    .contact-label {
+    color: white;
+    }
+    .contact-submit {
+    background-color: #372772;
+    border-color: #372772;
+    border-radius: 20px;
+    }
+    .contact-map {
+    border-radius: 20px;
+    }
+    .contact-link {
+        text-align: center;
+        margin-top: 5%;
+        color: white;
+        }
+    .contact-link-text {
+        color: white;
+        text-decoration: none;
+        }

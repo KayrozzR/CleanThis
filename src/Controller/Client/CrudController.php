@@ -286,14 +286,15 @@ class CrudController extends AbstractController
     public function note(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
     {
         // Vérifier si une note et un commentaire ont déjà été soumis pour cette opération
-        if ($operation->getNote() !== null && $operation->getComment() !== null) {
-            // Si oui, rediriger l'utilisateur ou afficher un message
-            // Par exemple, rediriger vers la page de profil de l'utilisateur
-            return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
-        }
+        // if ($operation->getNote() !== null && $operation->getComment() !== null) {
+        //     // Si oui, rediriger l'utilisateur ou afficher un message
+        //     // Par exemple, rediriger vers la page de profil de l'utilisateur
+        //     return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
+        // }
 
         $form = $this->createForm(OperationNoteType::class, $operation);
         $form->handleRequest($request);
+        $devis = $operation->getDevis()->first();
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer l'objet Operation avec les données mises à jour du formulaire
@@ -317,6 +318,7 @@ class CrudController extends AbstractController
         return $this->render('home/operationNote.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
+            'devi' => $devis,
         ]);
     }
     
@@ -327,7 +329,7 @@ class CrudController extends AbstractController
         $operation->setStatusPaiement('Payée');
         $entityManager->flush();
 
-        // Redirection vers la page des détails de l'opération après le paiement
+        
         return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
     }
 
