@@ -629,10 +629,6 @@
         <source>View my invoice</source>
         <target>Voir ma facture</target>
       </trans-unit>
-      <trans-unit id="D5lam8." resname="no records found">
-        <source>no records found</source>
-        <target>Aucun résultat trouvé</target>
-      </trans-unit>
       <trans-unit id=".eHm6wl" resname="Your profil">
         <source>Your profil</source>
         <target>Votre profile</target>
@@ -653,10 +649,6 @@
         <source>Update my avatar</source>
         <target>Changer mon avatar</target>
       </trans-unit>
-      <trans-unit id="hl6J3nj" resname="Upload">
-        <source>Upload</source>
-        <target>Télécharger</target>
-      </trans-unit>
       <trans-unit id="3NHVIj9" resname="Name">
         <source>Name</source>
         <target>Nom</target>
@@ -664,10 +656,6 @@
       <trans-unit id="ZHz6kbI" resname="Firstname">
         <source>Firstname</source>
         <target>Prénom</target>
-      </trans-unit>
-      <trans-unit id="Vu_PIJV" resname="Address">
-        <source>Address</source>
-        <target>Adresse</target>
       </trans-unit>
       <trans-unit id="8RhOomP" resname="Old password">
         <source>Old password</source>
@@ -693,10 +681,6 @@
         <source>Please tell us the subject of your complaint as well as how you wish to be contacted in order to follow up on it. To enable us to provide you with the clearest feedback possible, do not hesitate to leave as much detail as possible regarding the subject of your complaint.</source>
         <target>Veuillez nous préciser l'objet de votre réclamation ainsi que la manière dont vous souhaitez être contacté afin de donner suite à celle-ci. Pour nous permettre de vous apporterle retour le plus clair pssible, n'hesitez pas à laisser un maximum de détail quand à l'objet de votre réclamation.</target>
       </trans-unit>
-      <trans-unit id="9ahKPDn" resname="Complaint">
-        <source>Complaint</source>
-        <target>Réclamation</target>
-      </trans-unit>
       <trans-unit id="9vRoj.I" resname="Send">
         <source>Send</source>
         <target>Envoyer</target>
@@ -720,10 +704,6 @@
       <trans-unit id="Te.Ough" resname="Create a password">
         <source>Create a password</source>
         <target>Créer un mot de passe</target>
-      </trans-unit>
-      <trans-unit id="FV_BbAQ" resname="Submit">
-        <source>Submit</source>
-        <target>Envoyer</target>
       </trans-unit>
       <trans-unit id="6IX71n6" resname="The form was not created correctly">
         <source>The form was not created correctly</source>
@@ -749,17 +729,9 @@
         <source>Your contact request has been taken into account!</source>
         <target>Votre demande a bien été prise en compte!</target>
       </trans-unit>
-      <trans-unit id="tu5cGjJ" resname="It will be processed within 7 days.">
-        <source>It will be processed within 7 days.</source>
-        <target>Elle sera traitée sous un délais de 7 jours.</target>
-      </trans-unit>
       <trans-unit id="UIS5VWd" resname="Sincerely">
         <source>Sincerely</source>
         <target>Cordialement</target>
-      </trans-unit>
-      <trans-unit id="wK9l7ka" resname="Your CleanThis team">
-        <source>Your CleanThis team</source>
-        <target>Votre équipe CleanThis</target>
       </trans-unit>
       <trans-unit id="wTofV5V" resname="Your complaint has been taken into account!">
         <source>Your complaint has been taken into account!</source>
