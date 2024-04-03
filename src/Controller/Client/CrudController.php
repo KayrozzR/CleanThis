@@ -34,7 +34,6 @@ class CrudController extends AbstractController
     #[Route('/profile', name: 'app_user_profil')]
     public function index(): Response
     {
-
         $user = $this->getUser();
 
         // Vérifie if the user is connected
@@ -49,7 +48,7 @@ class CrudController extends AbstractController
             foreach ($devis as $devi) {
                 // take all the operations associated with the devis
                 $deviOperations = $devi->getOperation();
-            
+                
                 // stock the operations in an array
                 foreach ($deviOperations as $operation) {
                     $lastType = $devi->getTypeOperation();
