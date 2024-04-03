@@ -349,6 +349,66 @@
         <source>Send quote</source>
         <target>Envoyer</target>
       </trans-unit>
+      <trans-unit id="Te.Ough" resname="Create a password">
+        <source>Create a password</source>
+        <target>Créer un mot de passe</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="6IX71n6" resname="The form was not created correctly">
+        <source>The form was not created correctly</source>
+        <target>Le formulaire n'a pas été correctement créé</target>
+      </trans-unit>
+      <trans-unit id="_TJnqhH" resname="Remember me">
+        <source>Remember me</source>
+        <target>Se souvenir de moi</target>
+      </trans-unit>
+      <trans-unit id="OoVh6R2" resname="Sign In with Google">
+        <source>Sign In with Google</source>
+        <target>Me connecter avec Google</target>
+      </trans-unit>
+      <trans-unit id="u0L4zVJ" resname="Forgot password">
+        <source>Forgot password</source>
+        <target>Mot de passe oublié</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target>Réinitialiser le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="vXjsOHD" resname="Your contact request has been taken into account!">
+        <source>Your contact request has been taken into account!</source>
+        <target>Votre demande a bien été prise en compte!</target>
+      </trans-unit>
+      <trans-unit id="tu5cGjJ" resname="It will be processed within 7 days.">
+        <source>It will be processed within 7 days.</source>
+        <target>Elle sera traitée sous un délais de 7 jours.</target>
+      </trans-unit>
+      <trans-unit id="UIS5VWd" resname="Sincerely">
+        <source>Sincerely</source>
+        <target>Cordialement</target>
+      </trans-unit>
+      <trans-unit id="wK9l7ka" resname="Your CleanThis team">
+        <source>Your CleanThis team</source>
+        <target>Votre équipe CleanThis</target>
+      </trans-unit>
+      <trans-unit id="wTofV5V" resname="Your complaint has been taken into account!">
+        <source>Your complaint has been taken into account!</source>
+        <target>Votre réclamation a bien été prise en compte!</target>
+      </trans-unit>
+      <trans-unit id="Uzx3GfJ" resname="It will be processed within 7 days">
+        <source>It will be processed within 7 days</source>
+        <target>Elle sera traitée sous un délais de 7 jours</target>
+      </trans-unit>
+      <trans-unit id="aUVm8rg" resname="Sincerely,">
+        <source>Sincerely,</source>
+        <target>Cordialement,</target>
+      </trans-unit>
+      <trans-unit id="O5wLLQO" resname="Your CleanThis Team">
+        <source>Your CleanThis Team</source>
+        <target>Votre équipe CleanThis</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
