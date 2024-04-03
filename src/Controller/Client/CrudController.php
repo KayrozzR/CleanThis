@@ -114,7 +114,6 @@ class CrudController extends AbstractController
             $operation->setReclamation($reclamation);
             $entityManager->persist($operation);
             $entityManager->flush();
-
             return $this->render('client/success_reclamation.html.twig');
         }
 

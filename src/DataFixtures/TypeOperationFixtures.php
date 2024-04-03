@@ -44,7 +44,7 @@ class TypeOperationFixtures extends Fixture
         $service->setLibelle('Service de Nettoyage Custom');
         $service->setTarif('0');
         $service->setDescriptif('Notre service de nettoyage personnalisé est conçu pour répondre à vos besoins spécifiques. Avec une attention particulière aux détails et une flexibilité totale, nous adaptons notre travail à vos exigences uniques. Que vous ayez des surfaces délicates, des préférences en matière de produits ou des demandes spéciales de désinfection, notre équipe est là pour vous offrir une solution sur mesure, garantissant un environnement impeccablement propre, quelles que soient vos attentes.');
-        $service->setImage('66052e6586501.jpg.png');
+        $service->setImage('66056450d6125.jpg');
 
         $manager->persist($service);
 

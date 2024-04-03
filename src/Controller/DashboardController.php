@@ -80,6 +80,40 @@ class DashboardController extends AbstractController
                  }
                 }
 
+
+
+                 //calcul du nombre d'opérations terminées:
+             $nombreOperationsTermine= 0;
+             // Parcourir les opérations
+          foreach ($operations as $operation) {
+              //Si l'opération a un status términé:
+              if ($operation->isStatusOperation()) {
+                      //On incrémente le nombre d'opération
+                      $nombreOperationsTermine++;
+              }
+          }
+
+            //calcul du nombre d'opérations total:
+            $nombreOperations= 0;
+            // Parcourir les opérations
+          foreach ($operations as $operation) {
+                      //On incrémente le nombre d'opération
+                      $nombreOperations++;   
+          }
+
+
+            // Calcul du nombre de clients
+            $clients = 0;
+
+            // Parcourir les utilisateurs
+            foreach ($users as $user) {
+                // Vérifier si le rôle "ROLE_CLIENT" est présent dans les rôles de l'utilisateur
+                if (in_array("ROLE_CLIENT", $user->getRoles(), true)) {
+                    // Incrémenter le nombre de clients
+                    $clients++;
+                }
+            }
+
         foreach ($users as $user) {
             foreach ($user->getRoles() as $role) {
                 if (in_array($role, $desiredRoles)) {
@@ -113,6 +147,9 @@ class DashboardController extends AbstractController
             'users' => $users,
             'chiffreAffairesParType' => $chiffreAffairesParType,
             'chiffreAffaire' => $chiffreAffaire,
+            'nombreOperationsTermine'=> $nombreOperationsTermine,
+            'nombreOperations' => $nombreOperations,
+            'clients' => $clients,
             'totalTarifs' => json_encode($totalTarifs)
         ]);
     }

@@ -1,28 +1,25 @@
-{% extends 'basebis.html.twig' %}
+{# {% extends 'basebis.html.twig' %} #}
 
-{% block title %}Hello HomeController!
+{% block title %}
 {% endblock %}
 {% block stylesheets %}
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"> 
+	<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
 	
-
 {% endblock %}
 
 {% block body %}
+	{% include "_partials/_nav.html.twig" %}
+	<p style= "font-size: 30px;margin-top:2%; margin-left: 11%; color:#f2c57c">{% trans %} Update my profil {% endtrans %} </p>
 	<section>
-
-		<div class="container" style="padding-top: 200px; padding-left: 50px">
-			<a href="{{ path('app_user_profil') }}" class="demanderDevis" style="background-color: #372772;  border-radius: 15px; padding: 10px; color: #fff; font-weight: bold; text-decoration: none;">Retour aux opérations</a>
-
+		<div class="container" style="padding-top: 60px; padding-left: 50px;padding-bottom: 60px; ">
 			<div>
-
-
-				
-
 				<div class="row gutters-sm">
 					<div class="col-md-4 mb-3">
 						<div class="card">
-							<div class="card-body">
+							<div class="card-body" style= "margin-top:10%">
 								<div class="d-flex flex-column align-items-center text-center">
 									<h4 id="user-fullname">{{app.user.lastname}}
 										{{app.user.firstname}}</h4>
@@ -33,11 +30,11 @@
 									{% endif %}
 									<form id="upload-form" action="{{ path('uploads_avatar') }}" method="post" enctype="multipart/form-data">
 										<label for="avatar-upload" class="upload-icon">
-											<i class="bx bx-cloud-upload" style='font-size: 40px;'></i><br>
-											Changer d'avatar
+											<i class="bx bx-cloud-upload" style='font-size:40px'></i><br>
+											{% trans %}Update my avatar{% endtrans %}
 										</label>
 										<input type="file" name="avatar" id="avatar-upload" accept="image/*" style="display: none;">
-										<button id="avatar-submit" class="btn btn-primary" style="display: none;">Télécharger</button>
+										<button id="avatar-submit" class="btn btn-primary" style="display: none;">{% trans %}Upload{% endtrans %}</button>
 									</form>
 								</div>
 							</div>
@@ -48,7 +45,7 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Nom</h6>
+										<h6 class="mb-0">{% trans %}Name{% endtrans %}</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
 										<span id="lastname">{{ app.user.lastname }}</span>
@@ -66,7 +63,7 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Prenom</h6>
+										<h6 class="mb-0">{% trans %}Firstname{% endtrans %}</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
 										<span id="firstname">{{ app.user.firstname }}</span>
@@ -120,7 +117,7 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Address</h6>
+										<h6 class="mb-0">{% trans %}Address{% endtrans %}</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
 										<span id="address">{{ app.user.address }}</span>
@@ -138,12 +135,12 @@
 								<hr>
 								<div class="row" id="edit-password-row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Mot de passe</h6>
+										<h6 class="mb-0">{% trans %}Password{% endtrans %}</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
-										<input type="text" id="edit-password" style="display: none;">
-										<button style="font-size: 20px;background-color: #F2C57C;
-																																												    										border-radius: 3px;" onclick="editPasswordField()">
+										<input type="text" id="edit-password" style="display: none;" style ="margin-left:100%;">
+										<button style="font-size: 21px;background-color: white; margin-left:96%;
+										border:none;																																	    										border-radius: 3px;" onclick="editPasswordField()">
 											<i class='bx bx-edit'></i>
 										</button>
 									</div>
@@ -151,7 +148,7 @@
 								<div id="password-fields" style="display: none;">
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">Ancien mot de passe</h6>
+											<h6 class="mb-0">{% trans %}Old password{% endtrans %}</h6>
 										</div>
 										<div class="col-sm-9 text-secondary">
 											<input type="password" id="current-password">
@@ -160,7 +157,7 @@
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">Nouveau mot de passe</h6>
+											<h6 class="mb-0">{% trans %}New password{% endtrans %}</h6>
 										</div>
 										<div class="col-sm-9 text-secondary">
 											<input type="password" id="new-password">
@@ -169,8 +166,7 @@
 									<hr>
 								</div>
 								<div id="save-button" style="display: none;">
-									<button style="background-color: #372772;
-																																								    								border-radius: 3px; padding-left: 3px; padding-right: 3px; color: white;" onclick="savePassword()">Enregistrer le mot de passe</button>
+									<button style="background-color:#372772;border-radius: 3px; padding-left: 3px; padding-right: 3px; color: white;" onclick="savePassword()">{% trans %}Save my password{% endtrans %}</button>
 								</div>
 							</div>
 						</div>
@@ -178,7 +174,9 @@
 				</div>
 			</div>
 		</div>
+		<a href="{{ path('app_user_profil') }}" class="backToProfil" style="color: white; text-decoration: none; margin-left:85%; background-color: #078805; padding: 10px; border-radius:10px; font-size:14px"> {% trans %}save changes{% endtrans %} </a>
 	</section>
+	
 
 	<script>
 
@@ -227,7 +225,7 @@ headers: {
 },
 body: JSON.stringify(data)
 }).then(response => response.json()).then(data => { // Traiter les données renvoyées si nécessaire
-alert("Données bien envoyées");
+alert("Modifications enregistrées");
 }).catch(error => {
 console.error('Erreur lors de l\'envoi des données:', error);
 });

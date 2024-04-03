@@ -34,7 +34,7 @@ class DevisType extends AbstractType
                     'attr' => ['class' => 'form-control', 'style' => 'margin-top: 5px; margin-bottom: 5px;'],
                 ])
                 ->add('mailConfirmation', EmailType::class, [
-                    'label' => 'Confirmez votre adresse e-mail',
+                    'label' => 'Confirm your e-mail',
                     'mapped' => false,
                     'constraints' =>[
                         new NotBlank([
@@ -58,12 +58,12 @@ class DevisType extends AbstractType
                     'data_class' => null,
                 ])
                 ->add('adresse_intervention', TextType::class, [
-                    'label' => 'Adresse Intervention',
+                    'label' => 'Adresse',
                     'attr' => ['class' => 'form-control', 'style' => 'margin-top: 5px; margin-bottom: 5px;'],
                 ])
                 ->add('Type_Operation', EntityType::class, [
                     'class' => TypeOperation::class,
-                    'label' => 'Type Operation',
+                    'label' => 'Operation Type',
                     'choice_label' => 'libelle',
                     'attr' => [
                         'class' => 'form-control type-operation-select',

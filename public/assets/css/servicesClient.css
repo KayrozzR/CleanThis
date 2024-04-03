@@ -75,8 +75,9 @@ body {
   position: relative;
   top: 150px;
   right: 70px;
+  padding:1%;
   width: 50%;
-  background-color: #F2C57C;
+  background-color: rgba(255, 255, 255, 0.599);
   border-radius: 10px;
   z-index: -1;
 }
@@ -85,8 +86,9 @@ body {
   position: relative;
   top: 150px;
   right: -70px;
+  padding:1%;
   width: 50%;
-  background-color: #6AA370;
+  background-color: rgba(255, 255, 255, 0.599);
   border-radius: 10px;
   z-index: -1;
 }
@@ -95,8 +97,9 @@ body {
   position: relative;
   top: 150px;
   right: 70px;
+  padding:1%;
   width: 50%;
-  background-color: #a289be;
+  background-color:rgba(255, 255, 255, 0.599);
   border-radius: 10px;
   z-index: -1;
 }
