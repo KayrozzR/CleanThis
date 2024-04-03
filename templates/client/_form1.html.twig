@@ -1,0 +1,123 @@
+{% block body %}
+<body style="background: #372772;">
+<section class="home1" style="background: #372772;">
+    <div class="container">
+        <div class="row justify-content-center" style="background: #372772;">
+            <div class="col-md-6 mt-5">
+            <div class="headerDevis">
+                        <h2 >{% trans %}Ask for a quote{% endtrans %}</h2>
+                        <p>{% trans %}Submit your quote request which will be analyzed by our team so that they can get back to you and arrange an appointment{% endtrans %}!</p>
+                    </div>
+                <div class="card">
+                    <div class="card-bodyDevis">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.lastname) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.firstname) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.mail) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.mailConfirmation) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.tel) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.adresse_intervention, {'attr': {'class': 'form-control adresse-autocomplete', 'style': 'margin-top: 5px; margin-bottom: 5px;'}}) }}
+                            </div>
+                        </div>
+                        <div style="margin-left: 25%" class="col-md-6">
+                            <div class="operation">
+                                {{ form_row(form.Type_Operation) }}
+                            </div>
+                        </div>
+                        <div id="image-object-field" style="display: none;">
+                            {{ form_row(form.image_object) }}
+                        </div>
+                        {{ form_row(form.comment) }}
+
+							<button class="btn btn-primary">{% trans %}Send quote{% endtrans %}</button>
+							{{ form_end(form) }}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$('#image-object-field').hide();
+
+$('.type-operation-select').change(function () {
+console.log('Nouvelle valeur sélectionnée :', $(this).val());
+var selectedOptionLabel = $(this).find('option:selected').text().toLowerCase();
+var keyword = 'custom';
+if (selectedOptionLabel.indexOf(keyword.toLowerCase()) !== -1) {
+console.log('Option contenant "Custom" sélectionnée');
+$('#image-object-field').show();
+} else {
+console.log('Autre option sélectionnée');
+$('#image-object-field').hide();
+}
+});
+});
+	</script>
+{% endblock %}
+{% block javascripts %}
+    {# <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var adresseInput = document.querySelector('.adresse-autocomplete');
+
+        if (!adresseInput) return;
+
+        function performSearchAndUpdateAdresse(query) {
+            var suggestionsContainer = document.createElement('div');
+            suggestionsContainer.className = 'suggestions-container';
+
+            fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsContainer.innerHTML = '';
+
+                    data.features.forEach((feature) => {
+                        var suggestion = document.createElement('div');
+                        suggestion.className = 'suggestion';
+                        suggestion.innerText = feature.properties.label;
+
+                        suggestion.addEventListener('click', function() {
+                            adresseInput.value = feature.properties.label;
+                            suggestionsContainer.innerHTML = '';
+                        });
+
+                        suggestionsContainer.appendChild(suggestion);
+                    });
+                })
+                .catch(error => console.error('Erreur API:', error));
+        }
+
+        // Écouter les événements de saisie sur le champ adresse_intervention
+        adresseInput.addEventListener('input', function() {
+            var query = adresseInput.value;
+            if (query.length < 3) return; // Éviter les requêtes trop fréquentes
+            performSearchAndUpdateAdresse(query);
+        });
+
+        adresseInput.parentNode.appendChild(suggestionsContainer);
+    });
+</script> #}
+
+{% endblock %}
