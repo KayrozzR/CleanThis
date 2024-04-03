@@ -578,3 +578,7 @@ h1 {
 .actionsButton {
   text-decoration: none;
 }
+
+.bold-weight.validé {
+  color: green;
+}

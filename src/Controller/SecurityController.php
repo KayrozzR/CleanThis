@@ -227,5 +227,3 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('auth_oauth_login');
     }
 }
-
-
