@@ -5,8 +5,7 @@
 				<div class="col-md-6 mt-5">
 					<div class="card">
 						<div class="card-header">
-							<h2 class="text-center">Demande de devis</h2>
-							<p>Faites votre demande de devis qui sera analysée par notre équipe pour qu’elle puisse revenir vers vous et convenir d’un rendez-vous !</p>
+							<h2 class="text-center">Modification de devis</h2>
 						</div>
 						<div class="card-body">
 							{{ form_start(form) }}
@@ -14,22 +13,24 @@
 								<div class="col-md-6">
 									{{ form_row(form.tarif_custom) }}
 								</div>
-								
-							{{ form_row(form.comment) }}
 
-							<button class="btn btn-primary">Envoi devis</button>
-							{{ form_end(form) }}
+								{{ form_row(form.comment) }}
+								<div style="margin-top:15px;">
+								<button style="float:right;" class="btn btn-primary">Modifier le devis</button>
+								<a style="float:left;" href="{{ path('app_devis_index') }}" class="retour">← Retour à la liste</a>
+								</div>
+								{{ form_end(form) }}
 
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function () {
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+			$(document).ready(function () {
 $('#image-object-field').hide();
 
 $('.type-operation-select').change(function () {
@@ -45,5 +46,5 @@ $('#image-object-field').hide();
 }
 });
 });
-	</script>
-{% endblock %}
+		</script>
+	{% endblock %}

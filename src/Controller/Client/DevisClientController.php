@@ -90,7 +90,4 @@ class DevisClientController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-   
 }
