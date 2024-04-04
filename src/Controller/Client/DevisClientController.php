@@ -78,7 +78,7 @@ class DevisClientController extends AbstractController
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 
-                $this->addFlash('error', 'Les mails ne correspondent pas');
+                $this->addFlash('danger', 'Les mails ne correspondent pas');
                 return $this->redirectToRoute('app_devis_client_new', [], Response::HTTP_SEE_OTHER);
             };
 
