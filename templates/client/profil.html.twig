@@ -60,9 +60,11 @@
 							<td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
 							<td>
 								{% if operation.statusPaiement %}
-									<span style="color: green;" class="badge-success">{% trans %}Réglé <i style = "color: green;"  class='bx bx-check'></i>{% endtrans %}</span>
+									<span style="color: green;" class="badge-success">{% trans %}Réglé
+										<i style="color: green;" class='bx bx-check'></i>
+										{% endtrans %}</span>
 								{% else %}
-									<a href="{{ path('payer', {'id': operation.id}) }}" style="background-color: #F2C57C; border:none; " class="btn btn-primary payer-facture">Payer ma facture</a>						
+									<a href="{{ path('payer', {'id': operation.id}) }}" style="background-color: #F2C57C; border:none; " class="btn btn-primary payer-facture">Payer ma facture</a>
 								{% endif %}
 							</td>
 
@@ -74,12 +76,18 @@
 								</a>
 							</td>
 							<td>
-								<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="actionsButtons" style="text-decoration:none;">
-									Reclamation
-								</a>
+								{% if operation.reclamation %}
+									<span style="color: green;">Envoyé <i style="color: green;" class='bx bx-check'></i></span>								
+								{% else %}
+									<a href="{{ path('app_operation_reclamation', {'id': operation.id}) }}" class="actionsButtons" style="text-decoration:none;">
+										Reclamation
+									</a>
+								{% endif %}
 							</td>
 							<td>
-								{% if operation.note is null %}
+								{% if operation.note %}
+									<span style="color: green;">Envoyé <i style="color: green;" class='bx bx-check'></i></span>
+								{% else %}
 									<a href="{{ path('note', {'id': operation.id}) }}" style="text-decoration:none;">Laisser une note</a>
 								{% endif %}
 							</td>
