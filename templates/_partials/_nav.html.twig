@@ -41,12 +41,13 @@
 								{% endtrans %}</a>
 						</li>
 					{% endif %}
-					<li class="nav-item">
 
+					{% if is_granted('ROLE_CLIENT') %}
+					<li class="nav-item">
 						<a class="nav-link active" href="{{ path('app_user_profil' ) }}">{% trans %}
 							My account
 							{% endtrans %}</a>
-
+					{% endif %}
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="{{ path('auth_oauth_logout' ) }} ">{% trans %}

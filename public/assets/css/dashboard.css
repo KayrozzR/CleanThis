@@ -77,10 +77,10 @@ img{
     margin-bottom: 10%;
 }
 select{
-    margin-top: 5%;
+    /* margin-top: 5%; */
     border-color: rgb(208, 208, 208);
     color: grey;
 }
-label{
+/* label{
     margin-left: 25%;
-}
+} */

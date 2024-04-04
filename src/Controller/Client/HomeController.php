@@ -54,7 +54,7 @@ class HomeController extends AbstractController
             compact('nom','prenom','emailClient' ,'telephone', 'adresse', 'codePostale', 'ville', 'preferenceContact', 'message')
         );
          
-            return $this->render('operation/success_reclamation.html.twig');
+            return $this->render('home/success_contact.html.twig');
         }
 
         return $this->render('home/contact_form.html.twig', [

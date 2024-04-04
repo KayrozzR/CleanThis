@@ -1,32 +1,34 @@
 {# {% extends 'basebis.html.twig' %} #}
 
-{% block title %}
-{% endblock %}
+{% block title %}{% endblock %}
 {% block stylesheets %}
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"> 
+	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
-	
+
 {% endblock %}
 
 {% block body %}
 	{% include "_partials/_nav.html.twig" %}
-	<p style= "font-size: 30px;margin-top:2%; margin-left: 11%; color:#f2c57c">{% trans %} Update my profil {% endtrans %} </p>
+	<p style="font-size: 30px;margin-top:2%; margin-left: 11%; color:#f2c57c">{% trans %}
+		Update my profil
+		{% endtrans %}
+	</p>
 	<section>
 		<div class="container" style="padding-top: 60px; padding-left: 50px;padding-bottom: 60px; ">
 			<div>
 				<div class="row gutters-sm">
 					<div class="col-md-4 mb-3">
 						<div class="card">
-							<div class="card-body" style= "margin-top:10%">
+							<div class="card-body" style="margin-top:10%">
 								<div class="d-flex flex-column align-items-center text-center">
 									<h4 id="user-fullname">{{app.user.lastname}}
 										{{app.user.firstname}}</h4>
 									{% if app.user.avatar == null %}
-    								<img src="{{ asset('images/avatar-placeholder.png') }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
-    								{% else %}	
-									<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+										<img src="{{ asset('images/avatar-placeholder.png') }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
+									{% else %}
+										<img src="{{ app.user.avatar ? asset(app.user.avatar) : 'placeholder.jpg' }}" alt="" class="avatar" width="150" height="150" style=" border-radius: 50%; object-fit: cover;">
 									{% endif %}
 									<form id="upload-form" action="{{ path('uploads_avatar') }}" method="post" enctype="multipart/form-data">
 										<label for="avatar-upload" class="upload-icon">
@@ -138,9 +140,9 @@
 										<h6 class="mb-0">{% trans %}Password{% endtrans %}</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
-										<input type="text" id="edit-password" style="display: none;" style ="margin-left:100%;">
+										<input type="text" id="edit-password" style="display: none;" style="margin-left:100%;">
 										<button style="font-size: 21px;background-color: white; margin-left:96%;
-										border:none;																																	    										border-radius: 3px;" onclick="editPasswordField()">
+																					border:none;																																	    										border-radius: 3px;" onclick="editPasswordField()">
 											<i class='bx bx-edit'></i>
 										</button>
 									</div>
@@ -173,21 +175,22 @@
 					</div>
 				</div>
 			</div>
-		<a href="{{ path('app_user_profil') }}" class="backToProfil" style="color: white; text-decoration: none; float:right; background-color: #078805; padding: 10px; border-radius:10px; font-size:14px"> {% trans %}back to profil{% endtrans %} </a>
+			<a href="{{ path('app_user_profil') }}" class="backToProfil" style="color: white; text-decoration: none; float:right; background-color: #078805; padding: 10px; border-radius:10px; font-size:14px">
+				{% trans %}back to profil{% endtrans %}
+			</a>
 		</div>
 	</section>
-	
 
+
+	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
 	<script>
-
-
+	
 		function editField(fieldName) {
 var fieldValue = document.getElementById(fieldName).innerText;
 var editField = document.getElementById('edit-' + fieldName);
 var originalField = document.getElementById(fieldName);
 var saveButton = originalField.closest('.row').querySelector('.save-button');
 var editButton = originalField.closest('.row').querySelector('.edit-button');
-
 
 
 editField.value = fieldValue;

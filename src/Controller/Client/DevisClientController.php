@@ -82,7 +82,7 @@ class DevisClientController extends AbstractController
                 return $this->redirectToRoute('app_devis_client_new', [], Response::HTTP_SEE_OTHER);
             };
 
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->render('home/success_devis.html.twig');
         }
 
         return $this->render('home/devis.html.twig', [
@@ -90,7 +90,4 @@ class DevisClientController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-   
 }
