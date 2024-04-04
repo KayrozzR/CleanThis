@@ -53,7 +53,7 @@ class DevisClientController extends AbstractController
             ]);
 
             if ($existingDevis !== null) {
-                $this->addFlash('error', 'Ce devis existe déjà.');
+                $this->addFlash('danger', 'Ce devis existe déjà.');
                 return $this->redirectToRoute('app_devis_client_new');
             }
 

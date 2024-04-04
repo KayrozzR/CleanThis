@@ -241,7 +241,7 @@ class CrudController extends AbstractController
             ]);
 
             if ($existingDevis !== null) {
-                $this->addFlash('error', 'Ce devis existe déjà.');
+                $this->addFlash('warning', 'Ce devis existe déjà.');
                 return $this->redirectToRoute('app_devis_client');
             }
 
@@ -267,10 +267,10 @@ class CrudController extends AbstractController
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 
-                $this->addFlash('error', 'Les mails ne correspondent pas');
+                $this->addFlash('warning', 'Les mails ne correspondent pas');
                 return $this->redirectToRoute('app_devis_client', [], Response::HTTP_SEE_OTHER);
             };
-
+            $this->addFlash('success', 'Devis envoyé avec succès.');
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -281,44 +281,39 @@ class CrudController extends AbstractController
     }
 
 #[Route('/{id}/note', name: 'note', methods: ['GET', 'POST'])]
-    public function note(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
-    {
-        // Vérifier si une note et un commentaire ont déjà été soumis pour cette opération
-        // if ($operation->getNote() !== null && $operation->getComment() !== null) {
-        //     // Si oui, rediriger l'utilisateur ou afficher un message
-        //     // Par exemple, rediriger vers la page de profil de l'utilisateur
-        //     return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
-        // }
+public function note(Request $request, Operation $operation, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(OperationNoteType::class, $operation);
+    $form->handleRequest($request);
+    $devis = $operation->getDevis()->first();
 
-        $form = $this->createForm(OperationNoteType::class, $operation);
-        $form->handleRequest($request);
-        $devis = $operation->getDevis()->first();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer l'objet Operation avec les données mises à jour du formulaire
-        
-            $comment = $form->get('comment')->getData();
-            $note = $form->get('note')->getData();
-
-            
-            $operation->setReclamation($comment);
-            $operation->setnote($note);
-            $entityManager->persist($operation);
-            $entityManager->flush();
-
-
-            // Enregistrer les modifications dans la base de données
-
-            // Rediriger vers une autre page, par exemple, la page du profil de l'utilisateur
-            return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
-        }
-
-        return $this->render('home/operationNote.html.twig', [
-            'operation' => $operation,
-            'form' => $form->createView(),
-            'devi' => $devis,
-        ]);
+    if ($form->isSubmitted() && !$form->isValid()) {
+        // Ajouter le message d'erreur
+        $this->addFlash('warning', 'Veuillez ajouter une note.');
     }
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $comment = $form->get('comment')->getData();
+        $note = $form->get('note')->getData();
+
+        $operation->setReclamation($comment);
+        $operation->setNote($note);
+        $entityManager->persist($operation);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Note envoyée avec succès.');
+        return $this->redirectToRoute('app_user_profil', ['id' => $operation->getId()]);
+    }
+
+    // Si le formulaire n'est pas soumis ou n'est pas valide,
+    // ou si la redirection n'est pas effectuée pour une autre raison,
+    // affichez le formulaire à nouveau
+    return $this->render('home/operationNote.html.twig', [
+        'operation' => $operation,
+        'form' => $form->createView(),
+        'devis' => $devis,
+    ]);
+}
     
     #[Route('/payer/{id}', name: 'payer', methods: ['GET'])]
     public function payer(Operation $operation, EntityManagerInterface $entityManager): Response

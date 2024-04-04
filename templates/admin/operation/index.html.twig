@@ -16,14 +16,14 @@
       <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
         <thead class="en-tête">
             <tr>
-                        <th class="bold-weight">{% trans %}View detail{% endtrans %}</th>
+                        {# <th class="bold-weight">{% trans %}View detail{% endtrans %}</th> #}
                         <th class="bold-weight" data-sortable="true" data-field="Id" class="light-weight">{% trans %}ID{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="facture" class="light-weight">{% trans %}Invoice{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="comment" class="light-weight">{% trans %}Comment{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="note" class="light-weight">{% trans %}Note{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="date_debut" class="light-weight">{% trans %}Start Date of Operation{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="date_fin" class="light-weight">{% trans %}End Date of Operation{% endtrans %}</th>
-                        <th class="bold-weight" data-sortable="true" data-field="image_resultat" class="light-weight">{% trans %}Operation Result{% endtrans %}</th>
+                        {# <th class="bold-weight" data-sortable="true" data-field="image_resultat" class="light-weight">{% trans %}Operation Result{% endtrans %}</th> #}
                         <th class="bold-weight" data-sortable="true" data-field="reclamation" class="light-weight">{% trans %}Complaint{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="status_paiement" class="light-weight">{% trans %}Payment Status{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="status_operation" class="light-weight">{% trans %}Operation Status{% endtrans %}</th>
@@ -37,18 +37,29 @@
         <tbody>
         {% for operation in operations %}
             <tr>
-                <td>
+                {# <td>
                     <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
                     <img src="{{ asset('images/oeuil.png') }}" alt="{% trans %}View detail{% endtrans %}">
                   </a>
-                </td>
+                </td> #}
                 <td class="light-weight">{{ operation.id }}</td>
-                <td class="light-weight">{{ operation.facture }}</td>
+                <td>
+                {% if operation.statusOperation %}
+                    <a
+						href="{{ path('app_operation_factures', {'id': operation.id}) }}" class="actionsButtons">
+						{# <i class='bx bx-show'></i> #}
+						<img src="{{ asset('images/pdf.png') }}" alt="">
+					</a>
+                {% else %}
+
+                {% endif %}
+					
+				</td>
                 <td class="light-weight">{{ operation.comment }}</td>
                 <td class="light-weight">{{ operation.note }}</td>
                 <td class="light-weight">{{ operation.dateDebut ? operation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="light-weight">{{ operation.dateFin ? operation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="light-weight">{{ operation.imageResultat }}</td>
+                {# <td class="light-weight">{{ operation.imageResultat }}</td> #}
                 <td class="light-weight">{{ operation.reclamation }}</td>
                 <td class="light-weight">{{ operation.statusPaiement ? 'Paid' : 'Unpaid' }}</td>
                 <td class="light-weight">{{ operation.statusOperation ? 'Completed' : 'In Progress' }}</td>

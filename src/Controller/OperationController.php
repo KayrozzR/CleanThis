@@ -82,13 +82,13 @@ class OperationController extends AbstractController
             $selectedUser = $form->getData()['user'];
 
             if (in_array('ROLE_ADMIN', $selectedUser->getRoles(), true) && $selectedUser->getOperationEnCours() >= 5) {
-                $this->addFlash('error', 'L\'administrateur a déjà atteint le nombre maximum d\'opérations en cours.');
+                $this->addFlash('warning', 'L\'administrateur a déjà atteint le nombre maximum d\'opérations en cours.');
                 return $this->redirectToRoute('app_operation_index');
             } elseif (in_array('ROLE_SENIOR', $selectedUser->getRoles(), true) && $selectedUser->getOperationEnCours() >= 3) {
-                $this->addFlash('error', 'Le sénior a déjà atteint le nombre maximum d\'opérations en cours.');
+                $this->addFlash('warning', 'Le sénior a déjà atteint le nombre maximum d\'opérations en cours.');
                 return $this->redirectToRoute('app_operation_index');
             } elseif (in_array('ROLE_APPRENTI', $selectedUser->getRoles(), true) && $selectedUser->getOperationEnCours() >= 1) {
-                $this->addFlash('error', 'L\'apprenti a déjà atteint le nombre maximum d\'opérations en cours.');
+                $this->addFlash('warning', 'L\'apprenti a déjà atteint le nombre maximum d\'opérations en cours.');
                 return $this->redirectToRoute('app_operation_index');
             }
     
@@ -131,4 +131,45 @@ public function unassignOperation(Request $request, EntityManagerInterface $enti
     return $this->redirectToRoute('app_operation_index');
 }
 
+#[Route('/{id}/factures', name: 'app_operation_factures', methods: ['GET', 'POST'])]
+    public function VoirFacture(PdfService $pdf, Operation $operation, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $devis = $operation->getDevis()->first();
+
+        if ($operation->isStatusOperation() && $devis) {
+
+            $typeOperation = $devis->getTypeOperation(); // Récupérer l'entité TypeOperation à partir du devis
+
+            $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+            $logoPath = $publicDirectory . '/images/logo.png';
+
+            if (!file_exists($logoPath)) {
+                throw new \Exception('Le fichier logo n\'existe pas.');
+            }
+
+            $logoData = base64_encode(file_get_contents($logoPath));
+            $logoBase64 = 'data:image/png;base64,' . $logoData;
+
+            $html = $this->renderView('Pdf/facture.html.twig', [
+                'devi' => $devis,
+                'type_operation' => $typeOperation,
+                'logo_base64' => $logoBase64,
+                'operation' => $operation
+            ]);
+
+            $pdfContent = $pdf->generateBinaryPDF($html);
+
+            return new Response(
+                $pdfContent,
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'attachment; filename="facture.pdf"',
+                ]
+            );
+        } else {
+            $this->addFlash('warning', 'La facture n\'a pas pu être téléchargée');
+            return $this->redirectToRoute('app_operation_index');
+        }
+    }
 }
