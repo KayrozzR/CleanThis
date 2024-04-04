@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/admin/operation')]
+#[Route('/operation')]
 class OperationController extends AbstractController
 {
     #[Route('/', name: 'app_operation_index', methods: ['GET'])]

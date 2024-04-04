@@ -117,20 +117,20 @@ class DashboardController extends AbstractController
         foreach ($users as $user) {
             foreach ($user->getRoles() as $role) {
                 if (in_array($role, $desiredRoles)) {
-                    if ($operation->isStatusOperation()) {
                     $operations = $user->getOperations();
                     foreach ($operations as $operation) {
-                        $devis = $operation->getDevis();
-                        foreach ($devis as $devi) {
-                            $tarif = $devi->getTarifCustom();
-                            if (!isset($totalTarifs[$user->getLastname()])) {
-                                $totalTarifs[$user->getLastname()] = 0;
+                        if ($operation->isStatusOperation()) {
+                            $devis = $operation->getDevis();
+                            foreach ($devis as $devi) {
+                                $tarif = $devi->getTarifCustom();
+                                if (!isset($totalTarifs[$user->getLastname()])) {
+                                    $totalTarifs[$user->getLastname()] = 0;
+                                }
+                                $totalTarifs[$user->getLastname()] += $tarif;
                             }
-                            $totalTarifs[$user->getLastname()] += $tarif;
                         }
                     }
                     break;
-                }
                 }
             }
         }
