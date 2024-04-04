@@ -46,8 +46,8 @@ security:
     role_hierarchy:
         ROLE_ADMIN: ROLE_SENIOR
         ROLE_SENIOR: ROLE_APPRENTI
-        ROLE_APPRENTI: ROLE_CLIENT   
-        ROLE_CLIENT: ROLE_USER 
+        ROLE_CLIENT: ROLE_CLIENT
+        ROLE_APPRENTI: ROLE_USER    
 
 when@test:
     security:
