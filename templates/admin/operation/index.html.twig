@@ -16,7 +16,7 @@
       <table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
         <thead class="en-tête">
             <tr>
-                        <th class="bold-weight">{% trans %}View detail{% endtrans %}</th>
+                        {# <th class="bold-weight">{% trans %}View detail{% endtrans %}</th> #}
                         <th class="bold-weight" data-sortable="true" data-field="Id" class="light-weight">{% trans %}ID{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="facture" class="light-weight">{% trans %}Invoice{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="comment" class="light-weight">{% trans %}Comment{% endtrans %}</th>
@@ -37,11 +37,11 @@
         <tbody>
         {% for operation in operations %}
             <tr>
-                <td>
+                {# <td>
                     <a href="{{ path('app_operation_show', {'id': operation.id}) }}" class="actionsButtons">
                     <img src="{{ asset('images/oeuil.png') }}" alt="{% trans %}View detail{% endtrans %}">
                   </a>
-                </td>
+                </td> #}
                 <td class="light-weight">{{ operation.id }}</td>
                 <td>
                 {% if operation.statusOperation %}
@@ -51,7 +51,7 @@
 						<img src="{{ asset('images/pdf.png') }}" alt="">
 					</a>
                 {% else %}
-                
+
                 {% endif %}
 					
 				</td>

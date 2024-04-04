@@ -27,7 +27,7 @@
 			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
 				<thead class="en-tête">
 					<tr>
-						<th class="bold-weight">{% trans %}View detail{% endtrans %}</th>
+						{# <th class="bold-weight">{% trans %}View detail{% endtrans %}</th> #}
 						<th class="bold-weight" data-sortable="true" data-field="Id" class="light-weight">{% trans %}ID{% endtrans %}</th>
 						<th class="bold-weight" data-sortable="true" data-field="firstname" class="light-weight">{% trans %}Customer{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="libelle" class="light-weight">{% trans %}Service{% endtrans %}</th>
@@ -47,11 +47,11 @@
 				<tbody>
 					{% for operation in operations %}
 						<tr>
-							<td>
+							{# <td>
 				    			<a href="{{ path('app_profil_show', {'id': operation.id}) }}" class="actionsButtons">
 									<img src="{{ asset('images/oeuil.png') }}" alt="{% trans %}View detail{% endtrans %}">
 								</a>
-							</td>
+							</td> #}
 							<td class="light-weight">{{ operation.id }}</td>
 							{% for devis in operation.devis %}
 								<td class="light-weight">{{ devis.user.lastname }} {{ devis.user.firstname }}</td>
