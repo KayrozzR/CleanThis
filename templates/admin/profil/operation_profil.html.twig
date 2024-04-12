@@ -27,7 +27,7 @@
 			<table class="table" data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true">
 				<thead class="en-tête">
 					<tr>
-						<th class="bold-weight">{% trans %}View detail{% endtrans %}</th>
+						{# <th class="bold-weight">{% trans %}View detail{% endtrans %}</th> #}
 						<th class="bold-weight" data-sortable="true" data-field="Id" class="light-weight">{% trans %}ID{% endtrans %}</th>
 						<th class="bold-weight" data-sortable="true" data-field="firstname" class="light-weight">{% trans %}Customer{% endtrans %}</th>
                         <th class="bold-weight" data-sortable="true" data-field="libelle" class="light-weight">{% trans %}Service{% endtrans %}</th>
@@ -47,11 +47,11 @@
 				<tbody>
 					{% for operation in operations %}
 						<tr>
-							<td>
+							{# <td>
 				    			<a href="{{ path('app_profil_show', {'id': operation.id}) }}" class="actionsButtons">
 									<img src="{{ asset('images/oeuil.png') }}" alt="{% trans %}View detail{% endtrans %}">
 								</a>
-							</td>
+							</td> #}
 							<td class="light-weight">{{ operation.id }}</td>
 							{% for devis in operation.devis %}
 								<td class="light-weight">{{ devis.user.lastname }} {{ devis.user.firstname }}</td>
@@ -74,7 +74,7 @@
 								{% if operation.statusOperation %}
 									<span style="color: green;" class="badge-success">{% trans %}Operation completed <i style = "color: green;"  class='bx bx-check'></i>{% endtrans %}</span>
 								{% else %}
-									<a href="{{ path('app_operation_termine', {'userId': app.user.id}) }}" class="btn btn-success" onclick="confirmTerminerOperation()">{% trans %}Finish Operation{% endtrans %}</a>
+									<a href="{{ path('app_operation_termine', {'userId': app.user.id}) }}" class="btn btn-success" onclick="return confirmTerminerOperation()">{% trans %}Finish Operation{% endtrans %}</a>
 								{% endif %}
 							</td>
 						</tr>
@@ -106,10 +106,15 @@ $('#searchIcon').hide();
 	</script>
 
 	<script>
-function confirmTerminerOperation() {
-    if (confirm("Êtes-vous sûr de vouloir terminer l'opération?")) {
-        document.getElementById('terminer-operation-btn').disabled = true;
-    }
-}
-</script>
+        function confirmTerminerOperation() {
+            if (confirm("Êtes-vous sûr de vouloir terminer l'opération?")) {
+                // L'utilisateur a confirmé, désactivez le bouton pour éviter les soumissions multiples
+                $('#terminer-operation-btn').prop('disabled', true);
+                return true; // Continuer avec la soumission du formulaire
+            } else {
+                // L'utilisateur a annulé, ne soumet pas le formulaire
+                return false;
+            }
+        }
+    </script>
 {% endblock %}

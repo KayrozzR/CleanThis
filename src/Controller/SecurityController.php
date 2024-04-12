@@ -26,7 +26,7 @@ class SecurityController extends AbstractController
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
+         $this->entityManager = $entityManager;  
     }
 
     #[Route(path: '/login', name: 'auth_oauth_login', methods: ['GET', 'POST'])]
@@ -160,7 +160,7 @@ class SecurityController extends AbstractController
                     $this->addFlash('success', 'Mot de passe changé avec succès');
                     return $this->redirectToRoute('auth_oauth_login');
                 } else {
-                    $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
+                    $this->addFlash('warning', 'Les mots de passe ne correspondent pas.');
                 }
             }
 
@@ -168,7 +168,7 @@ class SecurityController extends AbstractController
                 'passForm' => $form->createView()
             ]);
         }
-        $this->addFlash('error', 'Lien de réinitialisation invalide.');
+        $this->addFlash('danger', 'Lien de réinitialisation invalide.');
         return $this->redirectToRoute('auth_oauth_login');
     }
 
@@ -210,7 +210,7 @@ class SecurityController extends AbstractController
                     $this->addFlash('success', 'Mot de passe changé avec succès');
                     return $this->redirectToRoute('auth_oauth_login');
                 } else {
-                    $this->addFlash('error', 'Les mots de passe ne correspondent pas.');
+                    $this->addFlash('warning', 'Les mots de passe ne correspondent pas.');
                 }
             }
 
@@ -221,7 +221,7 @@ class SecurityController extends AbstractController
 
         }
         // $this->addFlash('danger', 'mo');
-        $this->addFlash('error', 'Lien de réinitialisation invalide.');
+        $this->addFlash('danger', 'Lien de réinitialisation invalide.');
         return $this->redirectToRoute('auth_oauth_login');
     }
 }

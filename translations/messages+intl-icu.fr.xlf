@@ -455,7 +455,7 @@
       </trans-unit>
       <trans-unit id="9ahKPDn" resname="Complaint">
           <source>Complaint</source>
-          <target>Plainte</target>
+          <target>Réclamation</target>
       </trans-unit>
       <trans-unit id="H2W8yxc" resname="Payment Status">
           <source>Payment Status</source>
@@ -523,7 +523,7 @@
       </trans-unit>
       <trans-unit id="1HEJMMM" resname="Your complaint has been successfully submitted!">
           <source>Your complaint has been successfully submitted!</source>
-          <target>Votre plainte a été soumise avec succès !</target>
+          <target>Votre réclamation a été soumise avec succès !</target>
       </trans-unit>
       <trans-unit id="tu5cGjJ" resname="It will be processed within 7 days.">
           <source>It will be processed within 7 days.</source>

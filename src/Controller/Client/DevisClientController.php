@@ -53,7 +53,7 @@ class DevisClientController extends AbstractController
             ]);
 
             if ($existingDevis !== null) {
-                $this->addFlash('error', 'Ce devis existe déjà.');
+                $this->addFlash('danger', 'Ce devis existe déjà.');
                 return $this->redirectToRoute('app_devis_client_new');
             }
 
@@ -78,11 +78,11 @@ class DevisClientController extends AbstractController
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 
-                $this->addFlash('error', 'Les mails ne correspondent pas');
+                $this->addFlash('danger', 'Les mails ne correspondent pas');
                 return $this->redirectToRoute('app_devis_client_new', [], Response::HTTP_SEE_OTHER);
             };
 
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->render('home/success_devis.html.twig');
         }
 
         return $this->render('home/devis.html.twig', [
@@ -90,7 +90,4 @@ class DevisClientController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-   
 }

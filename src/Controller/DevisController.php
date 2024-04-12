@@ -75,7 +75,7 @@ class DevisController extends AbstractController
             ]);
 
             if ($existingDevis !== null) {
-                $this->addFlash('error', 'Ce devis existe déjà.');
+                $this->addFlash('warning', 'Ce devis existe déjà.');
                 return $this->redirectToRoute('app_devis_new');
             }
 
@@ -102,7 +102,7 @@ class DevisController extends AbstractController
                     $entityManager->persist($devi);
                     $entityManager->flush();
             }else { 
-                $this->addFlash('error', 'Les mails ne correspondent pas');
+                $this->addFlash('warning', 'Les mails ne correspondent pas');
                 return $this->redirectToRoute('app_devis_new', [], Response::HTTP_SEE_OTHER);
             };
 
