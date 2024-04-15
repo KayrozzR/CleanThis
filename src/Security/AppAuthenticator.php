@@ -51,6 +51,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     }
 
 
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -105,8 +106,13 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         }
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
+        // Stocker l'exception d'authentification dans la session
+        if ($request->hasSession()) {
+            $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
+        }
+
         // Récupérer le compteur de tentatives de connexion infructueuses
         $failedLoginAttempts = $request->getSession()->get('failed_login_attempts', 0);
 
@@ -114,19 +120,23 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set('failed_login_attempts', ++$failedLoginAttempts);
 
         // Si le compteur atteint 3, enregistrer un log et bloquer la connexion
-        if ($failedLoginAttempts >= 2) {
+        if ($failedLoginAttempts > 3) {
             $this->postLogsService->postConnexionInfos(
                 'alertApp',
-                'L\'utilisateur s\'est trompé de mot de passe à 3 reprises',
+                'L\'utilisateur s\'est trompé de mot de passe à plus de 3 reprises',
                 'Warning',
                 [],
-                $request->request->get('email', '')
+                $request->request->get('email')
             );
 
             throw new CustomUserMessageAuthenticationException('Trop de tentatives de connexion infructueuses.');
         }
 
-        return parent::onAuthenticationFailure($request, $exception);
+        // Récupérer l'URL de connexion
+        $url = $this->getLoginUrl($request);
+
+        // Rediriger vers l'URL de connexion
+        return new RedirectResponse($url);
     }
 
     protected function getLoginUrl(Request $request): string

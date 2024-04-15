@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManager;
+use App\Service\PostLogsService;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Form\ResetPasswordFormType;
@@ -133,7 +134,8 @@ class SecurityController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $userPasswordHasherInterface
+        UserPasswordHasherInterface $userPasswordHasherInterface,
+        PostLogsService $postLogsService
      ): Response
     {
         $user = $userRepository->findOneByResetToken($token);
@@ -155,6 +157,39 @@ class SecurityController extends AbstractController
                             $password
                         )
                     );
+
+                    $changePasswordKey = 'change_password_' . $user->getId();
+                    $lastChangeDateKey = 'last_change_date_' . $user->getId();
+    
+                    // On récupére la date du dernier changement de mot de passe
+                    $lastChangeDate = $request->getSession()->get($lastChangeDateKey, null);
+                    $now = new \DateTime();
+    
+                    if ($lastChangeDate && $lastChangeDate->diff($now)->days >= 7) {
+                        $request->getSession()->set($changePasswordKey, 0);
+                    }
+    
+                    // On vérifie le nombre de changements de mot de passe cette semaine
+                    $changeCount = $request->getSession()->get($changePasswordKey, 0);
+                    $changeCount++;
+    
+                    if ($changeCount > 3) {
+                        $postLogsService->postConnexionInfos(
+                            'alertApp',
+                            'L\'utilisateur a changé de mot de passe plus de 3 fois au cours de cette semaine',
+                            'Warning',
+                            [],
+                            $user->getEmail()
+                        );
+                    }
+    
+                    // Mettre à jour la date du dernier changement de mot de passe
+                    $request->getSession()->set($lastChangeDateKey, $now);
+    
+                    // Mettre à jour le compteur dans la session
+                    $request->getSession()->set($changePasswordKey, $changeCount);
+
+
                     $entityManager->persist($user);
                     $entityManager->flush();
 

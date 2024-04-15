@@ -13,6 +13,7 @@ use App\Service\JWTService;
 use App\Service\PdfService;
 use App\Entity\TypeOperation;
 use PhpParser\Node\Stmt\Catch_;
+use App\Service\PostLogsService;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
@@ -116,7 +117,7 @@ class DevisController extends AbstractController
     }
 
     #[Route('/{id}/toggle-status', name: 'app_devis_toggle_status', methods: ['POST'])]
-    public function toggleStatus(Request $request, Devis $devi, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
+    public function toggleStatus(Request $request, Devis $devi, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt, PostLogsService $postLogsService): Response
     {
 
         $currentUser = $this->getUser();
@@ -189,6 +190,15 @@ class DevisController extends AbstractController
                     compact('user','token')
                 );
 
+                $postLogsService->postConnexionInfos(
+                    'devisApp',
+                    'Un devis a été validé',
+                    'Info',
+                    [],
+                    $user->getEmail()
+    
+                );
+
 
             }
             $operation = new Operation();
@@ -198,10 +208,10 @@ class DevisController extends AbstractController
             $devi->addOperation($operation);
 
             $devi->setStatus(true);
-            
             $entityManager->persist($operation);
             $entityManager->persist($devi);
             $entityManager->flush();
+
         }
             
         }

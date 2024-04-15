@@ -4,17 +4,18 @@ namespace App\Form;
 
 use App\Entity\Devis;
 use App\Entity\TypeOperation;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DevisType extends AbstractType
 {
@@ -45,6 +46,14 @@ class DevisType extends AbstractType
                 ])
                 ->add('tel', TextType::class, [
                     'label' => 'Telephone',
+                    'label' => 'Téléphone',
+                    'constraints' => [
+                        new Length([
+                            'min' => 10,
+                            'max' => 10,
+                            'exactMessage' => 'Veuillez entrer un numéro de téléphone valide.'
+                        ])
+                    ],
                     'attr' => ['class' => 'form-control', 'style' => 'margin-top: 5px; margin-bottom: 5px;'],
                 ])
                 ->add('comment', TextareaType::class, [
