@@ -2,19 +2,28 @@
 
 namespace App\Controller;
 
+use DateTimeImmutable;
 use App\Entity\Operation;
 use App\Entity\TypeOperation;
+use App\Service\PostLogsService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 #[Route('/admin')]
 class DashboardController extends AbstractController
 {
+    private PostLogsService $postLogsService;
+
+    public function __construct(PostLogsService $postLogsService)
+    {
+        $this->postLogsService = $postLogsService;
+    }
     #[Route('/dashboard', name: 'app_admin_dashboard', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function index(EntityManagerInterface $entityManager, UserRepository $userRepository, TokenInterface $token, PostLogsService $postLogsService): Response
     {
 
         // Récupérer toutes les opérations et types d'opération
@@ -61,6 +70,8 @@ class DashboardController extends AbstractController
             // Stocke le chiffre d'affaires calculé pour ce type d'opération
             $chiffreAffairesParType[$type->getLibelle()] = $chiffreAffaires;
         }
+
+        
 
         //Calcul du CA
          // Initialiser une variable pour stocker le chiffre d'affaire totale
@@ -143,6 +154,26 @@ class DashboardController extends AbstractController
                 }
             }
         }
+
+        $now= new DateTimeImmutable();
+        $tt = $now->format('Y-m-d H:i:s');
+        $user=$token->getUser(); 
+        $logData = [
+            'EventTime' => $tt,
+            'LoggerName' => 'cnxApp',
+            'User' => $chiffreAffairesParType, // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
+            'Message' => 'User logout in',
+            'Level' => 'INFO',
+            'Data' => 'User has been disconnected',
+        ];
+
+
+        try {
+            $postLogsService->postLogs($logData);
+        } catch (\Exception $e) {
+            // Gérer les erreurs si la requête échoue
+            echo ("Erreur");
+        };
 
         return $this->render('admin/dashboard/index.html.twig', [
             'usersEmployee' => json_encode($usersEmployee),
