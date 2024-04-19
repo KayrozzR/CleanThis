@@ -2,50 +2,50 @@
 
 namespace App\Service;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Exception;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class PostLogsService
 {
-
-    public function __construct(
-        private HttpClientInterface $httpClient,
-    ) {
-    }
-    
-    public function postConnexionInfos(string $loggerName, string $message, string $level, array $data, String $userEmail): array
+    public function __construct(private HttpClientInterface $httpClient)
     {
-        $infos = [
-            'loggerName' => $loggerName,
-            'user' => $userEmail,
-            'message' => $message,
-            'level' => $level,
-            'data' => $data,
+        
+    }
+
+    public function postLogs(array $logData): array
+    {
+        $requestData = [
+            'LoggerName' => $logData['LoggerName'],
+            'User' => $logData['User'],
+            'Message' => $logData['Message'],
+            'Level' => $logData['Level'],
+            'Data' => $logData['Data'],
         ];
 
-        $tableau = json_encode($infos, JSON_THROW_ON_ERROR);
 
-        // dd($tableau);
+        $requestJson = json_encode($requestData, JSON_THROW_ON_ERROR);
 
-       $response = $this->httpClient->request('POST', "http://localhost:3000/products", [
+        //  dd($requestJson);
 
+        $response = $this->httpClient->request('POST', 'http://localhost:3000/products', [
             'headers' => [
-                'Content-Type'=> 'application/json',
-                'Accept' => 'application/json'
-                
+                'Content-Type: application/json',
+                'Accept: application/json',
             ],
-
-            'body' => $tableau,
-        
+            'body' => $requestJson,
         ]);
 
+        
         if (201 !== $response->getStatusCode()) {
             throw new Exception('Response status code is different than expected.');
         }
+
+        // ... other checks
 
         $responseJson = $response->getContent();
         $responseData = json_decode($responseJson, true, 512, JSON_THROW_ON_ERROR);
 
         return $responseData;
     }
+
 }
