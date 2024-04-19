@@ -58,23 +58,23 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $now= new DateTimeImmutable();
         $tt = $now->format('Y-m-d H:i:s');
         $user=$token->getUser(); 
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
-            $logData = [
-                'EventTime' => $tt,
-                'LoggerName' => 'cnxApp',
-                'User' => $user->getEmail(), // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
-                'Message' => 'User logged in',
-                'Level' => 'INFO',
-                'Data' => 'User logged in successfully',
-            ];
 
-            // Enregistrement des informations dans le journal
-            try {
-                $this->postLogsService->postLogs($logData);
-            } catch (\Exception $e) {
-                // Gérer les erreurs si la requête échoue
-                $this->logger->error('Failed to log user login: ' . $e->getMessage());
-            };
+        $logData = [
+            'EventTime' => $tt,
+            'LoggerName' => 'cnxApp',
+            'User' => $user->getEmail(), // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
+            'Message' => 'User logged in successfully',
+            'Level' => 'INFO',
+            'Data' => 'User logged in successfully',
+        ];
+
+        try {
+            $this->postLogsService->postLogs($logData);
+        } catch (\Exception $e) {
+            // Gérer les erreurs si la requête échoue
+            $this->logger->error('Failed to log user login: ' . $e->getMessage());
+        };
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));           
         }elseif (in_array('ROLE_SENIOR', $user->getRoles(), true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));

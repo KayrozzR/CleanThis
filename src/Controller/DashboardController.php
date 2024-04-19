@@ -155,25 +155,46 @@ class DashboardController extends AbstractController
             }
         }
 
-        $now= new DateTimeImmutable();
-        $tt = $now->format('Y-m-d H:i:s');
-        $user=$token->getUser(); 
-        $logData = [
-            'EventTime' => $tt,
-            'LoggerName' => 'cnxApp',
-            'User' => $chiffreAffairesParType, // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
-            'Message' => 'User logout in',
-            'Level' => 'INFO',
-            'Data' => 'User has been disconnected',
-        ];
+        // $now= new DateTimeImmutable();
+        // $tt = $now->format('Y-m-d H:i:s');
+        // $user=$token->getUser(); 
+        // $logData = [
+        //     'EventTime' => $tt,
+        //     'LoggerName' => 'CAType',
+        //     'User' => $chiffreAffairesParType, // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
+        //     'Message' => 'Montant',
+        //     'Level' => 'INFO',
+        //     'Data' => 'Chiffre d\'affaire par Type',
+        // ];
 
 
-        try {
-            $postLogsService->postLogs($logData);
-        } catch (\Exception $e) {
-            // Gérer les erreurs si la requête échoue
-            echo ("Erreur");
-        };
+        // try {
+        //     $postLogsService->postLogs($logData);
+        // } catch (\Exception $e) {
+        //     // Gérer les erreurs si la requête échoue
+        //     echo ("Erreur");
+        // };
+
+        // $now= new DateTimeImmutable();
+        // $tt = $now->format('Y-m-d H:i:s');
+        // $user=$token->getUser(); 
+        // $logData = [
+        //     'EventTime' => $tt,
+        //     'LoggerName' => 'CA',
+        //     'User' => $chiffreAffaires, // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
+        //     'Message' => 'Statistique',
+        //     'Level' => 'INFO',
+        //     'Data' => 'Chiffre d\'affaire',
+        // ];
+
+
+        // try {
+        //     $postLogsService->postLogs($logData);
+        // } catch (\Exception $e) {
+        //     // Gérer les erreurs si la requête échoue
+        //     echo ("Erreur");
+        // };
+
 
         return $this->render('admin/dashboard/index.html.twig', [
             'usersEmployee' => json_encode($usersEmployee),
