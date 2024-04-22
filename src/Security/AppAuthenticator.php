@@ -61,11 +61,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         $logData = [
             'EventTime' => $tt,
-            'LoggerName' => 'cnxApp',
+            'LoggerName' => 'Login',
             'User' => $user->getEmail(), // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
             'Message' => 'User logged in successfully',
             'Level' => 'INFO',
-            'Data' => 'User logged in successfully',
+            'Data' => [],
         ];
 
         try {

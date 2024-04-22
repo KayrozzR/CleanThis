@@ -32,7 +32,7 @@ class LogoutSubscriber implements EventSubscriberInterface
                 'User' => $userEmail,
                 'Message' => 'User logout in',
                 'Level' => 'INFO',
-                'Data' => 'User has been disconnected',
+                'Data' => [],
             ];
 
             try {
