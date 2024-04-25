@@ -51,39 +51,36 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
-        $now= new DateTimeImmutable();
-        $tt = $now->format('Y-m-d H:i:s');
-        $user=$token->getUser(); 
+{
+    $now = new DateTimeImmutable();
+    $loginTime = $now->format('Y-m-d H:i:s');
+    $user = $token->getUser(); 
+  
+    $logData = [
+        'EventTime' => $loginTime,
+        'LoggerName' => 'Login',
+        'User' => $user->getEmail(),
+        'Message' => 'User logged in successfully',
+        'Level' => 'INFO',
+        'Data' => "",
+    ];
 
-        $logData = [
-            'EventTime' => $tt,
-            'LoggerName' => 'Login',
-            'User' => $user->getEmail(), // Vous pouvez utiliser le nom d'utilisateur ou toute autre information pertinente
-            'Message' => 'User logged in successfully',
-            'Level' => 'INFO',
-            'Data' => [],
-        ];
+    try {
+        $this->postLogsService->postLogs($logData);
+    } catch (\Exception $e) {
+        $this->logger->error('Failed to log user login: ' . $e->getMessage());
+    };
 
-        try {
-            $this->postLogsService->postLogs($logData);
-        } catch (\Exception $e) {
-            // Gérer les erreurs si la requête échoue
-            $this->logger->error('Failed to log user login: ' . $e->getMessage());
-        };
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));           
-        }elseif (in_array('ROLE_SENIOR', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
-        }elseif (in_array('ROLE_APPRENTI', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
-        }else {
-            return new RedirectResponse($this->urlGenerator->generate('app_user_profil'));
-        }
+    if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+        return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));           
+    }elseif (in_array('ROLE_SENIOR', $user->getRoles(), true)) {
+        return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
+    }elseif (in_array('ROLE_APPRENTI', $user->getRoles(), true)) {
+        return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
+    }else {
+        return new RedirectResponse($this->urlGenerator->generate('app_user_profil'));
     }
+}
 
     protected function getLoginUrl(Request $request): string
     {

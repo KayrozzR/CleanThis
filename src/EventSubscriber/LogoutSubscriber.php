@@ -17,32 +17,30 @@ class LogoutSubscriber implements EventSubscriberInterface
     }
 
     public function onLogoutEvent(LogoutEvent $event)
-    {
-        // Récupérer l'email de l'utilisateur connecté avant la déconnexion
-        $user = $event->getToken()->getUser();
-        $userEmail = $user ? $user->getEmail() : null;
+{
+    $user = $event->getToken()->getUser();
+    $userEmail = $user ? $user->getEmail() : null;
 
-        if ($userEmail) {
-            $now = new DateTimeImmutable();
-            $tt = $now->format('Y-m-d H:i:s');
+    
+        $logoutTime = new DateTimeImmutable();
 
-            $logData = [
-                'EventTime' => $tt,
-                'LoggerName' => 'Logout',
-                'User' => $userEmail,
-                'Message' => 'User logout in',
-                'Level' => 'INFO',
-                'Data' => [],
-            ];
 
-            try {
-                $this->postLogsService->postLogs($logData);
-            } catch (\Exception $e) {
-                // Gérer les erreurs si la requête échoue
-                echo ("Erreur");
-            };
+        $logData = [
+            'EventTime' => $logoutTime->format('Y-m-d H:i:s'),
+            'LoggerName' => 'Logout',
+            'User' => $userEmail,
+            'Message' => 'User logged out',
+            'Level' => 'INFO',
+            'Data' => '',
+        ];
+
+        try {
+            $this->postLogsService->postLogs($logData);
+        } catch (\Exception $e) {
+            echo "Erreur lors de l'enregistrement du log : " . $e->getMessage();
         }
-    }
+  
+}
 
     public static function getSubscribedEvents()
     {

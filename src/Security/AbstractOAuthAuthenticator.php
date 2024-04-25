@@ -3,31 +3,36 @@
 namespace App\Security;
 
 use App\Entity\User;
+use DateTimeImmutable;
+use Psr\Log\LoggerInterface;
+use App\Service\PostLogsService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
-use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
-use Symfony\Component\DependencyInjection\Loader\Configurator\Traits\TagTrait;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-use Symfony\Component\Security\Http\SecurityRequestAttributes;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Http\SecurityRequestAttributes;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\DependencyInjection\Loader\Configurator\Traits\TagTrait;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
 {
     use TargetPathTrait;
+    private PostLogsService $postLogsService;
+    private LoggerInterface $logger;
 
     protected string $serviceName = '';
 
@@ -36,8 +41,12 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         private readonly RouterInterface $router,
         private readonly UserRepository $repository,
         private readonly OAuthRegistrationService $registrationService,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        LoggerInterface $logger, 
+        PostLogsService $postLogsService
     ) {
+        $this->logger = $logger;
+        $this->postLogsService = $postLogsService;
     }
 
     public function supports(Request $request): ?bool
@@ -52,6 +61,25 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         if ($targetPath) {
             return new RedirectResponse($targetPath); 
         }
+
+        $now = new DateTimeImmutable();
+        $loginTime = $now->format('Y-m-d H:i:s');
+        $user = $token->getUser(); 
+    
+        $logData = [
+            'EventTime' => $loginTime,
+            'LoggerName' => 'Login',
+            'User' => $user->getEmail(),
+            'Message' => 'User logged in successfully',
+            'Level' => 'INFO',
+            'Data' => "",
+        ];
+
+    try {
+        $this->postLogsService->postLogs($logData);
+    } catch (\Exception $e) {
+        $this->logger->error('Failed to log user login: ' . $e->getMessage());
+    };
 
         $roles = $token->getRoleNames();
 
