@@ -27,7 +27,7 @@
 						{# <th data-sortable="true" data-field="Url_devis" class="light-weight">Url_devis</th> #}
 						<th data-sortable="true" data-field="Creayed_at" class="light-weight">Created_at</th>
 						<th data-sortable="true" data-field="Comment" class="light-weight">Comment</th>
-						<th data-sortable="true" data-field="Image_object" class="light-weight">Image_object</th>
+						{# <th data-sortable="true" data-field="Image_object" class="light-weight">Image_object</th> #}
 						<th data-sortable="true" data-field="status" class="light-weight">Status</th>
 						<th class="light-weight">Modifier</th>
 						<th class="light-weight">Valider/supprimer</th>
@@ -43,12 +43,10 @@
 									<img src="{{ asset('images/oeuil.png') }}" alt="Voir détail">
 								</a>
 							</td>
-							<td class="bold-light">{{ devi.id }}</td>
-							<td class="bold-light">{{ devi.lastname }}</td>
-							{# <td class="bold-weight">{{ devi.urlDevis }}</td> #}
+							<td class="bold-weight">{{ devi.id }}</td>
+							<td class="bold-weight">{{ devi.lastname }}</td>
 							<td class="bold-weight">{{ devi.createdAt ? devi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 							<td class="bold-weight">{{ devi.comment }}</td>
-							<td class="bold-weight" data-image="{{ asset('uploads/services/' ~ devi.imageObject) }}"></td>
 							<td class="bold-weight {{ devi.status ? 'validé' : '' }}">
     							{{ devi.status ? 'devis validé ' : 'En attente de validation' }}
 								{% if devi.status %}

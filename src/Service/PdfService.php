@@ -17,7 +17,7 @@ class PdfService
         $pdfOptions = new Options();
         $pdfOptions ->set('defaultFont', 'Inter');
         // $pdfOptions ->set("chroot", realpath(''));
-        $this->domPdf->setPaper("a4", "portrait");
+        $this->domPdf->setPaper("A4", "landscape");
         $this->domPdf->setOptions($pdfOptions);
     }
 

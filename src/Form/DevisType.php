@@ -7,6 +7,7 @@ use App\Entity\TypeOperation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -62,9 +63,19 @@ class DevisType extends AbstractType
                 ])
                 ->add('image_object', FileType::class, [
                     'label' => 'Image Object',
-                    'attr' => ['class' => 'form-control', 'id' => 'imageObject', 'style' => 'margin-top: 5px; margin-bottom: 5px;'], 
+                    'attr' => ['class' => 'form-control', 'id' => 'imageObject', 'style' => 'margin-top: 5px; margin-bottom: 5px;','accept' => '.jpg, .jpeg, .png'], 
                     'required' => false,
                     'data_class' => null,
+                    'constraints' => [new File([
+                        // 'maxSize' => '1024k',
+                        // 'maxSizeMessage' => 'La taille maximum autorisée pour une image est de 1 MO',
+                        'uploadErrorMessage' => 'Une erreur est survenue lors du chargement',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg'
+                        ],
+                    ])],
                 ])
                 ->add('adresse_intervention', TextType::class, [
                     'label' => 'Adresse',

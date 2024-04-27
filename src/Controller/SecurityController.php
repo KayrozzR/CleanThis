@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManager;
 use App\Service\PostLogsService;
 use App\Service\SendMailService;
@@ -82,7 +83,8 @@ class SecurityController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         TokenGeneratorInterface $tokenGenerator,
-        SendMailService $mail
+        SendMailService $mail,
+        LoggerInterface $logger
     ): Response {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
@@ -105,13 +107,19 @@ class SecurityController extends AbstractController
                 $context = compact('url', 'user');
 
                 // Envoyer le mail
-                $mail->send(
-                    'user@example.com', // Mettez votre email ici
-                    $user->getEmail(),
-                    'Réinitialisation de mot de passe',
-                    'password_reset', // Chemin vers votre template de mail
-                    $context
-                );
+                try {
+                    $mail->send(
+                        'user@example.com', // Mettez votre email ici
+                        $user->getEmail(),
+                        'Réinitialisation de mot de passe',
+                        'password_reset', // Chemin vers votre template de mail
+                        $context
+                    );
+
+                } catch (\Exception $e) {
+                    $this->addFlash('danger', 'nous rencontrons un soucis quand à l\'envoie de l\'email. Veuillez réessayer plus tard');
+                }
+               
                 
 
                 $this->addFlash('success', 'Email envoyé avec succès');
@@ -135,7 +143,8 @@ class SecurityController extends AbstractController
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $userPasswordHasherInterface,
-        PostLogsService $postLogsService
+        PostLogsService $postLogsService,
+        LoggerInterface $logger
      ): Response
     {
         $user = $userRepository->findOneByResetToken($token);
@@ -174,13 +183,21 @@ class SecurityController extends AbstractController
                     $changeCount++;
     
                     if ($changeCount > 3) {
-                        $postLogsService->postConnexionInfos(
-                            'alertApp',
-                            'L\'utilisateur a changé de mot de passe plus de 3 fois au cours de cette semaine',
-                            'Warning',
-                            [],
-                            $user->getEmail()
-                        );
+
+                        try {
+                            $postLogsService->postConnexionInfos(
+                                'alertApp',
+                                'L\'utilisateur a changé de mot de passe plus de 3 fois au cours de cette semaine',
+                                'Warning',
+                                [],
+                                $user->getEmail()
+                            );
+            
+                        } catch (\Exception $e) {
+                              $logger->error('Failed to log user login: ' . $e->getMessage());
+                        }
+                        
+                      
                     }
     
                     // Mettre à jour la date du dernier changement de mot de passe

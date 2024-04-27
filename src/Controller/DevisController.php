@@ -199,7 +199,6 @@ class DevisController extends AbstractController
     
                 );
 
-
             }
             $operation = new Operation();
 
@@ -304,7 +303,7 @@ class DevisController extends AbstractController
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="devis.pdf"',
             ]
-        );
+        );    
     }
 
     #[Route('/SendPdf/{id}', name: 'devis_pdf_send', methods: ['POST', 'GET'])]
@@ -342,5 +341,4 @@ class DevisController extends AbstractController
         
         return new Response();
     } 
-
 }

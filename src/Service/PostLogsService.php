@@ -2,8 +2,11 @@
 
 namespace App\Service;
 
+use DateTime;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Exception;
+
+use function Symfony\Component\Clock\now;
 
 class PostLogsService
 {
@@ -15,12 +18,16 @@ class PostLogsService
     
     public function postConnexionInfos(string $loggerName, string $message, string $level, array $data, String $userEmail): array
     {
+
+        $eventTime = (new DateTime('now'))->format('Y-m-d\TH:i:s.uP');
+
         $infos = [
             'loggerName' => $loggerName,
             'user' => $userEmail,
             'message' => $message,
             'level' => $level,
             'data' => $data,
+            'eventTime' => $eventTime
         ];
 
         $tableau = json_encode($infos, JSON_THROW_ON_ERROR);

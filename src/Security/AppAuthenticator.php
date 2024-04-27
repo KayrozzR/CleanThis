@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Service\PostLogsService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,14 +23,16 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 class AppAuthenticator extends AbstractLoginFormAuthenticator
 {
     private $postLogsService;
+    private $logger;
 
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'auth_oauth_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator,PostLogsService $postLogsService)
+    public function __construct(private UrlGeneratorInterface $urlGenerator,PostLogsService $postLogsService, LoggerInterface $logger)
     {
         $this->postLogsService =  $postLogsService;
+        $this->logger = $logger;
     }
 
     public function authenticate(Request $request): Passport
@@ -59,49 +62,27 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         $user=$token->getUser(); 
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
-
-            // try {
+        try {
                 
-                $this->postLogsService->postConnexionInfos(
-                    'cnxApp',
-                    'L\'utilisateur s\'est connecté',
-                    'INFO',
-                    [],
-                    $user->getEmail()
-                );
+            $this->postLogsService->postConnexionInfos(
+                'cnxApp',
+                'L\'utilisateur s\'est connecté',
+                'INFO',
+                [],
+                $user->getEmail()
+            );
 
-            // } catch (\Throwable $th) {
-            //     return $this->redirectToRoute('auth_oauth_login');
-            // }
+        } catch (\Throwable $th) {
+            return new RedirectResponse($this->urlGenerator->generate('auth_oauth_login'));
+        }
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
 
             return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
         }elseif (in_array('ROLE_SENIOR', $user->getRoles(), true)) {
-            $this->postLogsService->postConnexionInfos(
-                'cnxApp',
-                'Un senior s\'est connecté',
-                'INFO',
-                [],
-                $user->getEmail()
-            );
             return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
         }elseif (in_array('ROLE_APPRENTI', $user->getRoles(), true)) {
-            $this->postLogsService->postConnexionInfos(
-                'cnxApp',
-                'Un apprenti s\'est connecté',
-                'INFO',
-                [],
-                $user->getEmail()
-            );
             return new RedirectResponse($this->urlGenerator->generate('app_admin_operation_profil'));
         }else {
-            $this->postLogsService->postConnexionInfos(
-                'cnxApp',
-                'Un client s\'est connecté',
-                'INFO',
-                [],
-                $user->getEmail()
-            );
             return new RedirectResponse($this->urlGenerator->generate('app_user_profil'));
         }
     }
@@ -121,13 +102,19 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         // Si le compteur atteint 3, enregistrer un log et bloquer la connexion
         if ($failedLoginAttempts > 3) {
-            $this->postLogsService->postConnexionInfos(
-                'alertApp',
-                'L\'utilisateur s\'est trompé de mot de passe à plus de 3 reprises',
-                'Warning',
-                [],
-                $request->request->get('email')
-            );
+            try {
+                $this->postLogsService->postConnexionInfos(
+                    'alertApp',
+                    'L\'utilisateur s\'est trompé de mot de passe à plus de 3 reprises',
+                    'Warning',
+                    [],
+                    $request->request->get('email')
+                );
+
+            } catch (\Exception $e) {
+                  $this->logger->error('Failed to log user login: ' . $e->getMessage());
+            }
+          
 
             throw new CustomUserMessageAuthenticationException('Trop de tentatives de connexion infructueuses.');
         }

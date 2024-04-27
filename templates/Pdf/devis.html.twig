@@ -14,17 +14,20 @@
 
         .infosEntreprise {
             margin-left: 5%;
+            margin-top: 5%
         }
 
         .numDevisEtDate {
             margin-left: 60%;
-            margin-top: -12%
+            margin-top: -40%
         }
 
         .infosClients {
             margin-left: 60%;
             padding-left: 1%;
-            border: 1px solid;
+             margin-top: -15%;
+             margin-bottom: 10%;
+            /* border: 1px solid; */
             width: 40%;
         }
 
@@ -32,7 +35,8 @@
             border-collapse: collapse;
             width: 95%;
             margin-top: 10%;
-            margin-left: 5%
+            margin-left: 5%;
+            border-bottom: 1px solid rgb(176, 176, 176);
         }
          .prix {
             border-collapse: collapse;
@@ -42,7 +46,7 @@
         }
 
         th {
-            background-color: #372772;
+            background-color: grey;
             padding: 8px;
         }
 
@@ -55,26 +59,31 @@
         }
 
         td {
-            border: 1px solid black; 
+            border:none; 
         }
 
         .TTC{
-            border-color: #372772; 
-            background-color: #372772;
-            color: white;
+            color: black;
         }
         .no-border{
-            border-color: #372772; 
-            background-color: #372772;
-            color: white;
+            border-color: rgb(237, 237, 237); 
+            background-color: rgb(237, 237, 237);
+            color: black;
         }
        .nom{
-        font-size: 150%;
+        font-size: 100%;
         color: #372772
        }
        .titre{
-        font-size:150%;
+        font-size:100%;
         color:#372772
+       }
+       .titreDevis{
+        font-size: 250%;
+        color: #372772
+       }
+       p{
+        margin-bottom: -2%
        }
 
     </style>
@@ -98,20 +107,21 @@
 
                     <div class="col-6">
                         <div class="numDevisEtDate">
-                        <strong class= "titre"> Devis</strong>
-                        <p>Devis numéro: {{ devi.id }}</p>
-                        <p> Emis le: {{ devi.createdAt ? devi.createdAt|date('d-m-Y') : '' }}</li>
+                        <strong class= "titreDevis"> Devis</strong>
+                        <p>Numéro: {{ devi.id }}</p>
+                        <p>Emis le: {{ devi.createdAt ? devi.createdAt|date('d-m-Y') : '' }}</li>
                         </div>
                     </div>
                 </div>
         </div>
 
         <div class="infosClients">
-                <p> <strong>Nom: </strong>{{ devi.lastname }}</p>
-                <p><strong>Prénom: </strong>{{ devi.firstname }}</p>
-                <p><strong>Adresse email: </strong>{{ devi.mail }}</p>
-                <p><strong>Numéro de téléphone: </strong>{{ devi.tel }}</p>
-                <p><strong>Adresse d'intervention:</strong> {{ devi.AdresseIntervention }}</p>
+                <strong class="titre">Informations client</strong>
+                <p>{{ devi.lastname }}</p>
+                <p>{{ devi.firstname }}</p>
+                <p>{{ devi.mail }}</p>
+                <p>{{ devi.tel }}</p>
+                <p>{{ devi.AdresseIntervention }}</p>
         </div>
 
         <table>
@@ -126,32 +136,29 @@
                 <tr>
                       <td>{{ type_operation.libelle}}</td> 
                     <td>{{ type_operation.descriptif }}</td>
-                    <td>{{ devi.TarifCustom }} €</td>
+                    <td>{{ devi.TarifCustom }}€</td>
                 </tr>
             </tbody>
         </table>
 
-
-        <table class = "prix">
+        <table class ="prix">
             <tbody>
                 <tr >
-                    <td scope="col" class= "TTC">Prix TTC</td>
-                    <td class= "TTC">{{ devi.TarifCustom * 1.2 }} €</td>
+                    <td scope="col" class= "TTC"><strong>Prix TTC</strong></td>
+                    <td class= "TTC"><strong>{{ devi.TarifCustom * 1.2 }}€</strong></td>
                 </tr>
 
                 <tr>
                     <td scope="col">Total H.T</td>
-                    <td>{{ devi.TarifCustom }} €</td> 
+                    <td>{{ devi.TarifCustom }}€</td> 
                 </tr>
 
                 <tr>
                     <td scope="col">TVA (20%)</td>
-                    <td>{{ devi.TarifCustom * 0.2 }} €</td> 
+                    <td>{{ devi.TarifCustom * 0.2 }}€</td> 
                 </tr>
             </tbody>
         </table>
-
         {% endblock %}
-
     </body>
 </html>
